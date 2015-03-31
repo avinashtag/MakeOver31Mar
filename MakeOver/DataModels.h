@@ -1,0 +1,1 @@
+////  DataModels.h////  Created by chandan chouksey on 22/03/2015//  Copyright (c) 2015 __MyCompanyName__. All rights reserved.//#import "SallonResponse.h"#import "FabStylist.h"#import "Groups.h"#import "Profile.h"#import "Services.h"#import "Stylistresp.h"

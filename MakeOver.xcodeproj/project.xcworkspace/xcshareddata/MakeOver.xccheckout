@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BFA99077-0324-4B9F-85FD-A1C431BAFDF4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MakeOver</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8C58EF94F8AD7FC44B47F95C6047C4774E3456CA</key>
+		<string>https://github.com/avinashtag/MakeOver-master.git</string>
+		<key>AB335255A0BF79165FD75E4ADD21CF86CFEBAB6B</key>
+		<string>https://github.com/avinashtag/MakeOver.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MakeOver.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8C58EF94F8AD7FC44B47F95C6047C4774E3456CA</key>
+		<string>../..</string>
+		<key>AB335255A0BF79165FD75E4ADD21CF86CFEBAB6B</key>
+		<string>../../../MakeOver</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/avinashtag/MakeOver-master.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8C58EF94F8AD7FC44B47F95C6047C4774E3456CA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AB335255A0BF79165FD75E4ADD21CF86CFEBAB6B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MakeOver</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8C58EF94F8AD7FC44B47F95C6047C4774E3456CA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MakeOver-master</string>
+		</dict>
+	</array>
+</dict>
+</plist>
