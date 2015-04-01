@@ -18,7 +18,7 @@
 @property (assign,nonatomic) NSInteger serviceId;
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
 @property (strong, nonatomic) __block NSMutableArray *services;
-@property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;
+//@property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;
 @property (weak, nonatomic) IBOutlet UIButton *cityName;
 
 @end

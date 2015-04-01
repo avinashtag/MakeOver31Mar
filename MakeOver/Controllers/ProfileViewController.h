@@ -8,15 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
+#import "HTHorizontalSelectionList.h"
+
 @interface ProfileCollection : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@interface ProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+typedef enum {
+    Reviews= 0,
+    FavSaloons,
+    FavStylists
+    
+} selectedMenu;
 
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+
+@interface ProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate, HTHorizontalSelectionListDelegate, HTHorizontalSelectionListDataSource> {
+    
+    HTHorizontalSelectionList *menuListView;
+    NSArray *menuItems;
+}
+
+//@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UILabel *userEmail;

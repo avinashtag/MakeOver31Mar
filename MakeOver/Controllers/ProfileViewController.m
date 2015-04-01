@@ -33,6 +33,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    
+    menuItems = @[@"My Reviews",@"Fav Saloons",@"Fav Stylists"];
+    menuListView.delegate = self;
+    menuListView.dataSource = self;
+    [menuListView setBackgroundColor:[UIColor clearColor]];
+    
     // Get fav saloons from saved records.
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
@@ -59,13 +66,14 @@
     [self serviceRequest];
     [self.navigationController setNavigationBarHidden:YES];
     [self.tabBarController.tabBar setHidden:YES];
-    [_pageControl setHidden:YES];
+//    [_pageControl setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
@@ -76,10 +84,54 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark- Scroll Menu Methods
+
+- (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList{
+    return menuItems.count;
+}
+
+- (NSString *)selectionList:(HTHorizontalSelectionList *)selectionList titleForItemWithIndex:(NSInteger)index{
+    return menuItems[index];
+}
+
+
+- (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:index];
+    [self collectionView:self.collection cellForItemAtIndexPath:indexPath];
+}
+
+-(NSString*)reuseIdentifier{
+    
+    switch (menuListView.selectedButtonIndex) {
+        case Reviews:
+            return  @"MyReviewsCollection";
+            
+            break;
+            
+        case FavSaloons:
+            return  @"FavSaloonCollection";
+            
+            break;
+            
+        case FavStylists:
+            return  @"favStylistCollection";
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+    
+}
+
+#pragma mark- Collection View methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
   
-    return 3;
+    return menuItems.count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -89,20 +141,23 @@
     
     ProfileCollection* cell = nil;
     switch (indexPath.row) {
-        case 0:
+        case Reviews:
+            [menuListView setSelectedButtonIndex:Reviews];
            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MyReviewsCollection" forIndexPath:indexPath];
             cell.tableView.delegate = self;
             cell.tableView.dataSource  = self;
             cell.tableView.tag = indexPath.row;
             break;
-        case 1:
+        case FavSaloons:
+            [menuListView setSelectedButtonIndex:FavSaloons];
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FavSaloonCollection" forIndexPath:indexPath];
             cell.tableView.delegate = self;
             cell.tableView.dataSource  = self;
             cell.tableView.tag = indexPath.row;
 
             break;
-        case 2:
+        case FavStylists:
+            [menuListView setSelectedButtonIndex:FavStylists];
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"favStylistCollection" forIndexPath:indexPath];
             cell.tableView.delegate = self;
             cell.tableView.dataSource  = self;
@@ -167,6 +222,7 @@
 
     return 65.0f;
 }
+
 - (IBAction)back:(UIButton *)sender {
     [(MOTabBar*)self.tabBarController addCenterButtonWithImage:[UIImage imageNamed:@"ic_profilepage_pic"] highlightImage:[UIImage imageNamed:@"ic_profilepage_pic"]];
     [self.tabBarController.tabBar setHidden:NO];

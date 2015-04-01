@@ -51,7 +51,7 @@ static NSArray *menuItems;
     menuItems = @[@"MAKEUP",@"FACE & BODY",@"OFFERS",@"TUTORIAL",@"HAIR"];
     self.menuListView.delegate = self;
     self.menuListView.dataSource = self;[self.menuListView setBackgroundColor:[UIColor clearColor]];
-    [self.HTHorizontalView addSubview:self.menuListView];
+//    [self.HTHorizontalView addSubview:self.menuListView];
     [self serviceLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
