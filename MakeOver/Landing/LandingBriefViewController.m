@@ -25,6 +25,8 @@
 }
 @property (nonatomic, strong) NSArray *colorArray;
 @property (nonatomic, strong) NSMutableDictionary *contentOffsetDictionary;
+
+
 @end
 
 @implementation LandingBriefViewController
@@ -132,18 +134,20 @@
 }
 */
 
+
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     switch (_segmentControl.selectedSegmentIndex) {
         case 0:
         {
-            return [_service.services[section] groups].count;
+            return 30;
             
         }
             break;
         case 1:
         {
-            return [_service.services[section] groups].count;
+            return 14;
             
         }
             break;
@@ -164,53 +168,62 @@
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    //
-    
-    //
+
     UICollectionViewCell *cell;
     
     NSString *identifier = nil;
 
-    switch (_segmentControl.selectedSegmentIndex) {
-        case 0:
-        {
-            identifier = @"MenuCollectionCell";
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-        }
-            break;
-        case 1:
-        {
-            identifier = @"MenuCollectionCell";
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-        }
-            break;
-        case 2:
-        {
-            identifier = @"CollectionViewCellIdentifier";
+    if (collectionView == _servicesTable) {
+        identifier = @"MenuCollectionCell";
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    }else{
+        identifier = @"CollectionViewCellIdentifier";
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
+        
+        UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(9, 0, 90, 30)];
+        lbl.backgroundColor = [UIColor blueColor];
+        lbl.text = [NSString stringWithFormat:@"label %d",indexPath.row];
+        [cell.contentView addSubview:lbl];
 
-//            [cell doFavStylistCompletion:^(id sender) {
-//                //TODO:: Pankaj Favourite Code
-//                
-//            }];
-//            CollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-//            (_segmentControl.selectedSegmentIndex) == 2? [cell.imageView.layer setCornerRadius:5.0]:NSLog(@"asd");
-//            [cell.favourite setSelected:YES];
-            
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
-            
-            NSArray *collectionViewArray = self.colorArray[collectionView.tag];
-            cell.backgroundColor = collectionViewArray[indexPath.item];
-        }
-            break;
-        default:
-        {
-            identifier = @"MenuCollectionCell";
-        }
-            break;
+        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
+        imageVw.backgroundColor = [UIColor redColor];
+        imageVw.center = CGPointMake(cell.contentView.center.x - cell.contentView.center.x/4, cell.contentView.center.y);
+        [cell.contentView addSubview:imageVw];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(9, 90, 20, 20);
+        btn.backgroundColor = [UIColor greenColor];
+        [cell.contentView addSubview:btn];
+        
+        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(32, 90, 50, 20)];
+        lbl_review.backgroundColor = [UIColor grayColor];
+        lbl_review.text = [NSString stringWithFormat:@"review %d",indexPath.row];
+        [cell.contentView addSubview:lbl_review];
+        
+        NSArray *collectionViewArray = self.colorArray[collectionView.tag];
+        cell.backgroundColor = collectionViewArray[indexPath.item];
+    }
+
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CGSize returnSize;
+    
+    if (collectionView == _servicesTable) {
+        returnSize = CGSizeMake(collectionView.frame.size.width/3, collectionView.frame.size.width/3);
+    }else{
+        returnSize = CGSizeMake(100, 120);
     }
     
-    return cell;
+    return returnSize;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                   layout:(UICollectionViewLayout *)collectionViewLayout
+minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 0;
 }
 
 /*
@@ -306,8 +319,34 @@
 
 - (IBAction)segmentSelection:(UISegmentedControl *)sender {
     
-    //[_servicesTable reloadData];
-    [_tbl_stylist reloadData];
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 0:
+        {
+            self.view_tableContainer.hidden = YES;
+            _servicesTable.hidden = NO;
+            [_servicesTable reloadData];
+        }
+            break;
+        case 1:
+        {
+            self.view_tableContainer.hidden = YES;
+            _servicesTable.hidden = NO;
+            [_servicesTable reloadData];
+        }
+            break;
+        case 2:
+        {
+            self.view_tableContainer.hidden = NO;
+            _servicesTable.hidden = YES;
+            [_tbl_stylist reloadData];
+        }
+            break;
+        default:
+        {
+            
+        }
+            break;
+    }
 }
 
 
@@ -324,50 +363,102 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.colorArray.count;
+    if (_segmentControl.selectedSegmentIndex == 2) {
+        return self.colorArray.count;
+    }else{
+        return 0;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CellIdentifier";
-    
-    LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (!cell)
-    {
-        cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    return cell;
+            static NSString *CellIdentifier = @"CellIdentifier";
+            
+            LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (!cell)
+            {
+                cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            
+            return cell;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(LandingBriefCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [cell setCollectionViewDataSourceDelegate:self index:indexPath.row];
-    NSInteger index = cell.collectionView.tag;
-    
-    CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
-    [cell.collectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 2:
+        {
+            [cell setCollectionViewDataSourceDelegate:self index:indexPath.row];
+            NSInteger index = cell.collectionView.tag;
+            
+            CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
+            [cell.collectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
+        }
+            break;
+        default:
+        {
+
+        }
+            break;
+    }
 }
 
 #pragma mark - UITableViewDelegate Methods
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 2:
+        {
+            return 1;
+        }
+            break;
+        default:
+        {
+            return 1;
+        }
+            break;
+    }
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 2:
+        {
+            return 120;
+        }
+            break;
+        default:
+        {
+            return 0;
+        }
+            break;
+    }
 }
 
 #pragma mark - UIScrollViewDelegate Methods
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (![scrollView isKindOfClass:[UICollectionView class]]) return;
-    
-    CGFloat horizontalOffset = scrollView.contentOffset.x;
-    
-    UICollectionView *collectionView = (UICollectionView *)scrollView;
-    NSInteger index = collectionView.tag;
-    self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 2:
+        {
+            if (![scrollView isKindOfClass:[UICollectionView class]]) return;
+            
+            CGFloat horizontalOffset = scrollView.contentOffset.x;
+            
+            UICollectionView *collectionView = (UICollectionView *)scrollView;
+            NSInteger index = collectionView.tag;
+            self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
+        }
+            break;
+        default:
+        {
+            
+        }
+            break;
+    }
 }
 
 
