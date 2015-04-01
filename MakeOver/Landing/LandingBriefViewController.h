@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerMenu;
 @property (weak, nonatomic) IBOutlet UIView *headerGallery;
 @property (weak, nonatomic) IBOutlet UIView *headerStylist;
+@property (weak, nonatomic) IBOutlet UITableView *tbl_stylist;
 
 - (IBAction)segmentSelection:(UISegmentedControl *)sender;
 @end

@@ -41,6 +41,7 @@
 		7DADF0841A99322D00EE0C4C /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DADF0831A99322D00EE0C4C /* libz.1.2.5.dylib */; };
 		7DADF0861A99326D00EE0C4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DADF0851A99326D00EE0C4C /* Foundation.framework */; };
 		7DC396B31AB374D5009FDEE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC396B21AB374D5009FDEE1 /* UIKit.framework */; };
+		9AEA54B41ACB2100007606EA /* LandingBriefCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA54B31ACB2100007606EA /* LandingBriefCell.m */; };
 		B936DAD41A9861B70016E9C9 /* CustomSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B936DAD31A9861B70016E9C9 /* CustomSelection.m */; };
 		B9CDD5371A9859F200016B06 /* WYPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CDD5341A9859F200016B06 /* WYPopoverController.m */; };
 		B9CDD5381A9859F200016B06 /* WYStoryboardPopoverSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CDD5361A9859F200016B06 /* WYStoryboardPopoverSegue.m */; };
@@ -166,6 +167,8 @@
 		7DADF0831A99322D00EE0C4C /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		7DADF0851A99326D00EE0C4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7DC396B21AB374D5009FDEE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9AEA54B21ACB2100007606EA /* LandingBriefCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingBriefCell.h; path = Landing/LandingBriefCell.h; sourceTree = "<group>"; };
+		9AEA54B31ACB2100007606EA /* LandingBriefCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingBriefCell.m; path = Landing/LandingBriefCell.m; sourceTree = "<group>"; };
 		B936DAD21A9861B70016E9C9 /* CustomSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSelection.h; sourceTree = "<group>"; };
 		B936DAD31A9861B70016E9C9 /* CustomSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSelection.m; sourceTree = "<group>"; };
 		B9CDD5331A9859F200016B06 /* WYPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYPopoverController.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				BBA298E61AB5D7C4004C5595 /* ReviewCell.m */,
 				BB6B41C71A9261DA00CBCC7B /* LandingCell.h */,
 				BB6B41C81A9261DA00CBCC7B /* LandingCell.m */,
+				9AEA54B21ACB2100007606EA /* LandingBriefCell.h */,
+				9AEA54B31ACB2100007606EA /* LandingBriefCell.m */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -838,6 +843,7 @@
 				7DADF06D1A991F3E00EE0C4C /* ASIHTTPRequest.m in Sources */,
 				0903E3941AA7817700B0884D /* UIAlertView+MOAlertView.m in Sources */,
 				BB952A5D1ABF3DBE006A8328 /* FabStylist.m in Sources */,
+				9AEA54B41ACB2100007606EA /* LandingBriefCell.m in Sources */,
 				7D738FDF1ABEDAA300A9553B /* UMDateTimeLabel.m in Sources */,
 				BBA299581AB6901E004C5595 /* Review.m in Sources */,
 				BBA2995B1AB6901E004C5595 /* UserInfoModel.m in Sources */,

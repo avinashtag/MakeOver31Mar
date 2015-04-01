@@ -17,17 +17,52 @@
 #import "FilterViewController.h"
 #import "CollectionCell.h"
 #import "Services.h"
+#import "LandingBriefCell.h"
 
 @interface LandingBriefViewController (){
     MenuViewController *menuController;
     FilterViewController *filterViewController;
 }
-
+@property (nonatomic, strong) NSArray *colorArray;
+@property (nonatomic, strong) NSMutableDictionary *contentOffsetDictionary;
 @end
 
 @implementation LandingBriefViewController
 
 #pragma mark- UIViewController Methods
+
+-(void)loadView
+{
+    [super loadView];
+    
+    const NSInteger numberOfTableViewRows = 20;
+    const NSInteger numberOfCollectionViewCells = 15;
+    
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:numberOfTableViewRows];
+    
+    for (NSInteger tableViewRow = 0; tableViewRow < numberOfTableViewRows; tableViewRow++)
+    {
+        NSMutableArray *colorArray = [NSMutableArray arrayWithCapacity:numberOfCollectionViewCells];
+        
+        for (NSInteger collectionViewItem = 0; collectionViewItem < numberOfCollectionViewCells; collectionViewItem++)
+        {
+            
+            CGFloat red = arc4random() % 255;
+            CGFloat green = arc4random() % 255;
+            CGFloat blue = arc4random() % 255;
+            UIColor *color = [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0f];
+            
+            [colorArray addObject:color];
+        }
+        
+        [mutableArray addObject:colorArray];
+    }
+    
+    self.colorArray = [NSArray arrayWithArray:mutableArray];
+    
+    self.contentOffsetDictionary = [NSMutableDictionary dictionary];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
@@ -65,51 +100,120 @@
 }
 */
 
-
+/*
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return _service.services.count*2;
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 0:
+        {
+            return _service.services.count*2;
+
+        }
+            break;
+        case 1:
+        {
+            return _service.services.count*2;
+
+        }
+            break;
+        case 2:
+        {
+            return 1;
+
+        }
+            break;
+        default:
+        {
+            return _service.services.count*2;
+        }
+            break;
+    }
+    
 }
+*/
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return [_service.services[section] groups].count;
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 0:
+        {
+            return [_service.services[section] groups].count;
+            
+        }
+            break;
+        case 1:
+        {
+            return [_service.services[section] groups].count;
+            
+        }
+            break;
+        case 2:
+        {
+            NSArray *collectionViewArray = self.colorArray[collectionView.tag];
+            return collectionViewArray.count;
+        }
+            break;
+        default:
+        {
+            return 0;
+        }
+            break;
+    }
+    
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    //
+    
+    //
+    UICollectionViewCell *cell;
+    
     NSString *identifier = nil;
-    switch (_segmentControl.selectedSegmentIndex) {
-        case 2:
-            identifier = @"stylistCollectionCell";
-            break;
-        default:
-            identifier = @"MenuCollectionCell";
-            break;
-    }
-    
-    CollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    switch (_segmentControl.selectedSegmentIndex) {
-        case 2:
-            [cell doFavStylistCompletion:^(id sender) {
-                //TODO:: Pankaj Favourite Code
-                
-            }];
-            break;
-        default:
-            break;
-    }
 
-    (_segmentControl.selectedSegmentIndex) == 2? [cell.imageView.layer setCornerRadius:5.0]:NSLog(@"asd");
-    [cell.favourite setSelected:YES];
-//    [cell.imageView setImage:[UIImage imageNamed:@""]];
-//    [cell.review setText:@""];
-    
+    switch (_segmentControl.selectedSegmentIndex) {
+        case 0:
+        {
+            identifier = @"MenuCollectionCell";
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        }
+            break;
+        case 1:
+        {
+            identifier = @"MenuCollectionCell";
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        }
+            break;
+        case 2:
+        {
+            identifier = @"CollectionViewCellIdentifier";
+
+//            [cell doFavStylistCompletion:^(id sender) {
+//                //TODO:: Pankaj Favourite Code
+//                
+//            }];
+//            CollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+//            (_segmentControl.selectedSegmentIndex) == 2? [cell.imageView.layer setCornerRadius:5.0]:NSLog(@"asd");
+//            [cell.favourite setSelected:YES];
+            
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
+            
+            NSArray *collectionViewArray = self.colorArray[collectionView.tag];
+            cell.backgroundColor = collectionViewArray[indexPath.item];
+        }
+            break;
+        default:
+        {
+            identifier = @"MenuCollectionCell";
+        }
+            break;
+    }
     
     return cell;
 }
 
+/*
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
@@ -136,6 +240,8 @@
 
     
 }
+*/
+
 
 - (IBAction)selectCity:(id)sender{
     AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -200,7 +306,8 @@
 
 - (IBAction)segmentSelection:(UISegmentedControl *)sender {
     
-    [_servicesTable reloadData];
+    //[_servicesTable reloadData];
+    [_tbl_stylist reloadData];
 }
 
 
@@ -211,4 +318,57 @@
 //    [menuController.imageCollection selectItemAtIndexPath:indexpath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     
 }
+
+
+#pragma mark - UITableViewDataSource Methods
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.colorArray.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"CellIdentifier";
+    
+    LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell)
+    {
+        cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(LandingBriefCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setCollectionViewDataSourceDelegate:self index:indexPath.row];
+    NSInteger index = cell.collectionView.tag;
+    
+    CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
+    [cell.collectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
+}
+
+#pragma mark - UITableViewDelegate Methods
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 66;
+}
+
+#pragma mark - UIScrollViewDelegate Methods
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (![scrollView isKindOfClass:[UICollectionView class]]) return;
+    
+    CGFloat horizontalOffset = scrollView.contentOffset.x;
+    
+    UICollectionView *collectionView = (UICollectionView *)scrollView;
+    NSInteger index = collectionView.tag;
+    self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
+}
+
+
 @end

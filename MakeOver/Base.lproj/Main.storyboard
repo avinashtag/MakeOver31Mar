@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -2380,6 +2380,26 @@ IAo
                                     <action selector="segmentSelection:" destination="6ib-as-hCs" eventType="valueChanged" id="anM-6Z-pYX"/>
                                 </connections>
                             </segmentedControl>
+                            <view alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QMR-q3-AlF">
+                                <rect key="frame" x="16" y="278" width="288" height="282"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OUR STYLISTS &amp; SPECIALISTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mun-Vm-9oA">
+                                        <rect key="frame" x="10" y="7" width="255" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q12-Wo-j1C">
+                                        <rect key="frame" x="0.0" y="34" width="288" height="248"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="6ib-as-hCs" id="WbN-L4-kqT"/>
+                                            <outlet property="delegate" destination="6ib-as-hCs" id="eVi-jG-QH3"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.43921568630000002" green="0.0" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2419,6 +2439,7 @@ IAo
                         <outlet property="saloonName" destination="nQ0-h4-Nzz" id="3s4-vG-3Mp"/>
                         <outlet property="segmentControl" destination="gRf-TM-cUs" id="yNb-At-1Jk"/>
                         <outlet property="servicesTable" destination="91n-SN-XSe" id="o19-pG-T1T"/>
+                        <outlet property="tbl_stylist" destination="Q12-Wo-j1C" id="U6e-FR-cx5"/>
                         <outlet property="view" destination="mvQ-oe-wwa" id="h3Q-vR-w2c"/>
                     </connections>
                 </viewController>
