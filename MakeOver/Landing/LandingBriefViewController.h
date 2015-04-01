@@ -11,9 +11,10 @@
 #import "ReviewViewController.h"
 #import "WYPopoverController.h"
 
-@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate>{
+@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
     WYPopoverController *popoverController;
 }
+@property (weak, nonatomic) IBOutlet UIView *view_tableContainer;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *address;
