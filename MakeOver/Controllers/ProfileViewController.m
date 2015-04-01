@@ -39,6 +39,7 @@
     menuListView.delegate = self;
     menuListView.dataSource = self;
     [menuListView setBackgroundColor:[UIColor clearColor]];
+    [self.HTHorizontalView addSubview:menuListView];
     
     // Get fav saloons from saved records.
     
