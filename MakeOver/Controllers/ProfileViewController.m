@@ -98,8 +98,7 @@
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
 
-    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:index];
-    [self collectionView:self.collection cellForItemAtIndexPath:indexPath];
+    [_tableView reloadData];
 }
 
 -(NSString*)reuseIdentifier{
@@ -128,63 +127,19 @@
     
 }
 
-#pragma mark- Collection View methods
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-  
-    return menuItems.count;
-}
-
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    ProfileCollection* cell = nil;
-    switch (indexPath.row) {
-        case Reviews:
-            [menuListView setSelectedButtonIndex:Reviews];
-           cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MyReviewsCollection" forIndexPath:indexPath];
-            cell.tableView.delegate = self;
-            cell.tableView.dataSource  = self;
-            cell.tableView.tag = indexPath.row;
-            break;
-        case FavSaloons:
-            [menuListView setSelectedButtonIndex:FavSaloons];
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FavSaloonCollection" forIndexPath:indexPath];
-            cell.tableView.delegate = self;
-            cell.tableView.dataSource  = self;
-            cell.tableView.tag = indexPath.row;
-
-            break;
-        case FavStylists:
-            [menuListView setSelectedButtonIndex:FavStylists];
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"favStylistCollection" forIndexPath:indexPath];
-            cell.tableView.delegate = self;
-            cell.tableView.dataSource  = self;
-            cell.tableView.tag = indexPath.row;
-
-            break;
-        default:
-            break;
-    }
-
-    
-    return cell;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView.tag == 0) {
-        
-    }
-    else if (tableView.tag == 1) {
-//       TODO::  return _favSaloons.count;
-    }
-    else if (tableView.tag == 2) {
     
-        return  profile.fabStylist.count;
+    switch (menuListView.selectedButtonIndex) {
+        case 2:
+            return profile.fabStylist.count;
+            break;
+            
+        default:
+            return 2;
+            break;
     }
-    return 2;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -192,11 +147,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (tableView.tag == 0) {
+    if (menuListView.selectedButtonIndex == 0) {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell"];
         return cell;
     }
-    else if (tableView.tag == 1) {
+    else if (menuListView.selectedButtonIndex == 1) {
         //TODO:: Favourite Saloon Pasrse show
 //        ServiceList* saloon = _favSaloons[indexPath.row];
         ServiceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OtherCell"];

@@ -37,7 +37,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UILabel *userEmail;
 @property (weak, nonatomic) IBOutlet UILabel *mobile;
-@property (weak, nonatomic) IBOutlet UICollectionView *collection;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *favSaloons;
 @property (strong, nonatomic) NSMutableArray *favStylists;
