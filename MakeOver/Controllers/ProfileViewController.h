@@ -26,7 +26,7 @@ typedef enum {
 
 @interface ProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate, HTHorizontalSelectionListDelegate, HTHorizontalSelectionListDataSource> {
     
-    HTHorizontalSelectionList *menuListView;
+    __weak IBOutlet HTHorizontalSelectionList *menuListView;
     NSArray *menuItems;
 }
 

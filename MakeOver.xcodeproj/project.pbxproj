@@ -94,7 +94,6 @@
 		BBA2995A1AB6901E004C5595 /* StyleList.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA299551AB6901E004C5595 /* StyleList.m */; };
 		BBA2995B1AB6901E004C5595 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA299571AB6901E004C5595 /* UserInfoModel.m */; };
 		BBBC07B11AC5D6D60028FF8A /* PYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBC07B01AC5D6D60028FF8A /* PYButton.m */; };
-		BBBC07B31AC73ED80028FF8A /* StoryboardAvi.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBC07B21AC73ED80028FF8A /* StoryboardAvi.storyboard */; };
 		BBC895521AB8B4D000F1A56E /* NSObject+MOObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895511AB8B4D000F1A56E /* NSObject+MOObject.m */; };
 		BBC895551AB8BC5500F1A56E /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */; };
 		BBE32D081A950BD100A0D59E /* MOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE32D071A950BD100A0D59E /* MOTabBar.m */; };
@@ -269,7 +268,6 @@
 		BBA299571AB6901E004C5595 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoModel.m; path = Models/UserInfoModel.m; sourceTree = "<group>"; };
 		BBBC07AF1AC5D6D60028FF8A /* PYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYButton.h; sourceTree = "<group>"; };
 		BBBC07B01AC5D6D60028FF8A /* PYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYButton.m; sourceTree = "<group>"; };
-		BBBC07B21AC73ED80028FF8A /* StoryboardAvi.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = StoryboardAvi.storyboard; path = MakeOver/StoryboardAvi.storyboard; sourceTree = "<group>"; };
 		BBC895501AB8B4D000F1A56E /* NSObject+MOObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MOObject.h"; sourceTree = "<group>"; };
 		BBC895511AB8B4D000F1A56E /* NSObject+MOObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MOObject.m"; sourceTree = "<group>"; };
 		BBC895531AB8BC5500F1A56E /* ImageViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageViewerViewController.h; path = Controllers/ImageViewerViewController.h; sourceTree = "<group>"; };
@@ -602,7 +600,6 @@
 		BB6B41621A923CC100CBCC7B = {
 			isa = PBXGroup;
 			children = (
-				BBBC07B21AC73ED80028FF8A /* StoryboardAvi.storyboard */,
 				BBA2994B1AB60DC8004C5595 /* 5starsgray.png */,
 				7DADF0741A991F4900EE0C4C /* Shared Utility Classes */,
 				7DADF0301A991F3E00EE0C4C /* Custom UI Controls */,
@@ -781,7 +778,6 @@
 				096229701A9F99D10045CA63 /* TopBarView.xib in Resources */,
 				BB952A751ABF5DD7006A8328 /* not_selected_star@2x.png in Resources */,
 				BB952A731ABF5DD7006A8328 /* half_selected_star@2x.png in Resources */,
-				BBBC07B31AC73ED80028FF8A /* StoryboardAvi.storyboard in Resources */,
 				BB6B417C1A923CC200CBCC7B /* Images.xcassets in Resources */,
 				BB952A761ABF5DD7006A8328 /* selected_star.png in Resources */,
 				BB952A721ABF5DD7006A8328 /* half_selected_star.png in Resources */,
