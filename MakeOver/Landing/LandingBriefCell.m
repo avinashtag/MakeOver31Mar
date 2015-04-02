@@ -18,11 +18,17 @@
     layout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1);
     layout.itemSize = CGSizeMake(100, 120);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, self.bounds.size.height-20) collectionViewLayout:layout];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
+    
+    self.lblStylistCategory = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 20)];
+    self.lblStylistCategory.textColor = [UIColor whiteColor];
+    self.lblStylistCategory.backgroundColor = [UIColor clearColor];
+    
     [self.contentView addSubview:self.collectionView];
+    [self.contentView addSubview:self.lblStylistCategory];
     
     return self;
 }

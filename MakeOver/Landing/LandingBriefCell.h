@@ -13,6 +13,7 @@ static NSString *CollectionViewCellIdentifier = @"CollectionViewCellIdentifier";
 @interface LandingBriefCell : UITableViewCell
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UILabel *lblStylistCategory;
 
 -(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
 

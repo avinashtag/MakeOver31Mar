@@ -176,28 +176,25 @@
     if (collectionView == _servicesTable) {
         identifier = @"MenuCollectionCell";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    }else{
+    }
+    else{
         identifier = @"CollectionViewCellIdentifier";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
-        
-        UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(9, 0, 90, 30)];
-        lbl.backgroundColor = [UIColor blueColor];
-        lbl.text = [NSString stringWithFormat:@"label %d",indexPath.row];
-        [cell.contentView addSubview:lbl];
 
-        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
+        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 60)];
         imageVw.backgroundColor = [UIColor redColor];
         imageVw.center = CGPointMake(cell.contentView.center.x - cell.contentView.center.x/4, cell.contentView.center.y);
         [cell.contentView addSubview:imageVw];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(9, 90, 20, 20);
+        btn.frame = CGRectMake(9, 90, 32, 32);
         btn.backgroundColor = [UIColor greenColor];
         [cell.contentView addSubview:btn];
         
-        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(32, 90, 50, 20)];
-        lbl_review.backgroundColor = [UIColor grayColor];
-        lbl_review.text = [NSString stringWithFormat:@"review %d",indexPath.row];
+        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(40, 90, 50, 20)];
+        lbl_review.backgroundColor = [UIColor clearColor];
+        lbl_review.text = [NSString stringWithFormat:@"review %li",(long)indexPath.row];
+        lbl_review.font = [UIFont systemFontOfSize:14];
         [cell.contentView addSubview:lbl_review];
         
         NSArray *collectionViewArray = self.colorArray[collectionView.tag];
@@ -380,7 +377,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             {
                 cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
-            
+    
+    if (indexPath.row == 0) {
+        cell.lblStylistCategory.text = @"Senior";
+    }
+    else
+        cell.lblStylistCategory.text = @"Junior";
+    
             return cell;
 }
 
