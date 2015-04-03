@@ -181,9 +181,8 @@
         identifier = @"CollectionViewCellIdentifier";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
 
-        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 60)];
+        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 60, 60)];
         imageVw.backgroundColor = [UIColor redColor];
-        imageVw.center = CGPointMake(cell.contentView.center.x - cell.contentView.center.x/4, cell.contentView.center.y);
         [cell.contentView addSubview:imageVw];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -211,7 +210,7 @@
     if (collectionView == _servicesTable) {
         returnSize = CGSizeMake(collectionView.frame.size.width/3, collectionView.frame.size.width/3);
     }else{
-        returnSize = CGSizeMake(100, 120);
+        returnSize = CGSizeMake(80, 80);
     }
     
     return returnSize;
@@ -220,7 +219,17 @@
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 0;
+    
+    CGFloat returnSpacing;
+    
+    if (collectionView == _servicesTable) {
+        returnSpacing = 0;
+    }else{
+        returnSpacing = 0;
+    }
+    
+    return returnSpacing;
+    
 }
 
 /*
@@ -358,6 +367,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 #pragma mark - UITableViewDataSource Methods
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 3;
+    
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_segmentControl.selectedSegmentIndex == 2) {
@@ -413,7 +428,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     switch (_segmentControl.selectedSegmentIndex) {
         case 2:
         {
-            return 1;
+            return 20;
         }
             break;
         default:
@@ -424,12 +439,21 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *viewHeader = [[UIView alloc]initWithFrame:CGRectMake(0, 0,tableView.frame.size.width, 20)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    label.text = [NSString stringWithFormat:@"label Section %d",(int)section];
+    label.textAlignment = NSTextAlignmentCenter;
+    [viewHeader addSubview:label];
+    return viewHeader;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (_segmentControl.selectedSegmentIndex) {
         case 2:
         {
-            return 120;
+            return 100;
         }
             break;
         default:

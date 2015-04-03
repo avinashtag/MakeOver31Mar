@@ -38,6 +38,8 @@ static NSString *kstylistFabCount = @"stylistFabCount";
 +(NSArray*)initializeWithResponse:(NSDictionary*)dictionary{
     
     __block NSMutableArray *services = [[NSMutableArray alloc]init];
+    
+    
     NSArray* response = dictionary[kservices];
     [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {
         
@@ -53,6 +55,8 @@ static NSString *kstylistFabCount = @"stylistFabCount";
         }];
         
     }];
+    
+    
     return services;
 }
 
