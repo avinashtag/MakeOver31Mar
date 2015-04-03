@@ -14,6 +14,8 @@
 @interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
     WYPopoverController *popoverController;
 }
+
+@property (nonatomic, strong) NSArray *array_service;
 @property (weak, nonatomic) IBOutlet UIView *view_tableContainer;
 
 

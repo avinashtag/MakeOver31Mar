@@ -25,10 +25,10 @@
     
     self.lblStylistCategory = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 20)];
     self.lblStylistCategory.textColor = [UIColor whiteColor];
-    self.lblStylistCategory.backgroundColor = [UIColor clearColor];
+//    self.lblStylistCategory.backgroundColor = [UIColor clearColor];
     self.lblStylistCategory.backgroundColor = [UIColor greenColor];
 
-    self.lblStylistCategory.alpha = 0.3;
+//    self.lblStylistCategory.alpha = 1.0;
     [self.contentView addSubview:self.collectionView];
     [self.contentView addSubview:self.lblStylistCategory];
     

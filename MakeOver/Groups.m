@@ -20,7 +20,7 @@ NSString *const kGroupsStylistresp = @"stylistresp";
 
 @implementation Groups
 
-@synthesize position = _position;
+@synthesize positionName = _position;
 @synthesize stylistresp = _stylistresp;
 
 
@@ -36,7 +36,7 @@ NSString *const kGroupsStylistresp = @"stylistresp";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.position = [self objectOrNilForKey:kGroupsPosition fromDictionary:dict];
+            self.positionName = [self objectOrNilForKey:kGroupsPosition fromDictionary:dict];
             self.stylistresp = [self objectOrNilForKey:kGroupsStylistresp fromDictionary:dict];
 
     }
@@ -48,7 +48,7 @@ NSString *const kGroupsStylistresp = @"stylistresp";
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-    [mutableDict setValue:self.position forKey:kGroupsPosition];
+    [mutableDict setValue:self.positionName forKey:kGroupsPosition];
     NSMutableArray *tempArrayForStylistresp = [NSMutableArray array];
     for (NSObject *subArrayObject in self.stylistresp) {
         if([subArrayObject respondsToSelector:@selector(dictionaryRepresentation)]) {
@@ -83,7 +83,7 @@ NSString *const kGroupsStylistresp = @"stylistresp";
 {
     self = [super init];
 
-    self.position = [aDecoder decodeObjectForKey:kGroupsPosition];
+    self.positionName = [aDecoder decodeObjectForKey:kGroupsPosition];
     self.stylistresp = [aDecoder decodeObjectForKey:kGroupsStylistresp];
     return self;
 }
@@ -101,7 +101,7 @@ NSString *const kGroupsStylistresp = @"stylistresp";
     
     if (copy) {
 
-        copy.position = [self.position copyWithZone:zone];
+        copy.positionName = [self.positionName copyWithZone:zone];
         copy.stylistresp = [self.stylistresp copyWithZone:zone];
     }
     

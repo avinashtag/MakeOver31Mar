@@ -12,7 +12,10 @@
 #import "ServiceInvoker.h"
 #import "WYPopoverController.h"
 
-@interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate>
+@interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate> {
+    
+    NSArray *array_Saloons;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
 @property (assign,nonatomic) NSInteger serviceId;

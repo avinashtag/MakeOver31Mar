@@ -2254,7 +2254,7 @@ IAo
                             <view hidden="YES" alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMR-q3-AlF">
                                 <rect key="frame" x="16" y="278" width="288" height="282"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OUR STYLISTS &amp; SPECIALISTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mun-Vm-9oA">
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OUR STYLISTS &amp; SPECIALISTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mun-Vm-9oA">
                                         <rect key="frame" x="17" y="7" width="255" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Tys-Vf-KbZ"/>
@@ -2265,7 +2265,7 @@ IAo
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="20" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Q12-Wo-j1C">
                                         <rect key="frame" x="0.0" y="34" width="288" height="248"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="dataSource" destination="6ib-as-hCs" id="WbN-L4-kqT"/>
                                             <outlet property="delegate" destination="6ib-as-hCs" id="eVi-jG-QH3"/>

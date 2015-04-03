@@ -19,6 +19,8 @@
 #import "Services.h"
 #import "LandingBriefCell.h"
 
+#import "Groups.h"
+
 @interface LandingBriefViewController (){
     MenuViewController *menuController;
     FilterViewController *filterViewController;
@@ -342,6 +344,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             break;
         case 2:
         {
+            NSLog(@"%@",[[[[self.service.services objectAtIndex:0] groups] objectAtIndex:0] positionName]);
+            
+            
             self.view_tableContainer.hidden = NO;
             _servicesTable.hidden = YES;
             [_tbl_stylist reloadData];
@@ -394,7 +399,8 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             }
     
     if (indexPath.row == 0) {
-        cell.lblStylistCategory.text = @"Senior";
+        
+        cell.lblStylistCategory.text = @"Senior";//[[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
     }
     else
         cell.lblStylistCategory.text = @"Junior";
@@ -439,12 +445,15 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
     UIView *viewHeader = [[UIView alloc]initWithFrame:CGRectMake(0, 0,tableView.frame.size.width, 20)];
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
-    label.text = [NSString stringWithFormat:@"label Section %d",(int)section];
+    label.text = [[self.service.services objectAtIndex:section] serviceName];
     label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
     [viewHeader addSubview:label];
+    
     return viewHeader;
 }
 

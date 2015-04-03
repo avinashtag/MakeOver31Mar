@@ -83,6 +83,11 @@ static NSArray *menuItems;
         if (result == sirSuccess) {
             NSError *error = nil;
             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+            
+            if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                
+                array_Saloons = [responseDict objectForKey:@"object"];
+            }
             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
             [self.servicesTable reloadData];
         }
