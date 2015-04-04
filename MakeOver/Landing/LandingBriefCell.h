@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StylistCollectionView.h"
 
 static NSString *CollectionViewCellIdentifier = @"CollectionViewCellIdentifier";
 
 @interface LandingBriefCell : UITableViewCell
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) StylistCollectionView *collectionView;
 @property (nonatomic, strong) UILabel *lblStylistCategory;
 
--(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
+-(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSIndexPath*)iPath;
 
 @end

@@ -180,6 +180,18 @@ static NSArray *menuItems;
             [UtilityClass removeHudFromView:nil afterDelay:0];
             
             
+            landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
+            [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
+            if (landingBriefViewController.service.saloonServices.count) {
+                [landingBriefViewController.saloonDescription setText:[landingBriefViewController.service.saloonServices componentsJoinedByString:@","]];
+            }
+            
+            [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
+            
+            //    [self.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
+            
+            //    [self.startRatingView setRating:[service.saloonRating doubleValue]];
+
             // add this saloon in recently viewed records.
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1

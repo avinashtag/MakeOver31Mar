@@ -18,6 +18,7 @@
 #import "CollectionCell.h"
 #import "Services.h"
 #import "LandingBriefCell.h"
+#import "SDWebImageManager.h"
 
 #import "Groups.h"
 
@@ -74,7 +75,7 @@
 //    [_servicesTable registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
 
     // [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-big.png"]] ];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,8 +156,11 @@
             break;
         case 2:
         {
-            NSArray *collectionViewArray = self.colorArray[collectionView.tag];
-            return collectionViewArray.count;
+            NSInteger containerTableSection = [(StylistCollectionView*)collectionView tableSectionIndex];
+            NSLog(@"containerTableSection : %li",(long)containerTableSection);
+            NSInteger stylistCount = [[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] count];
+            
+            return stylistCount;
         }
             break;
         default:
@@ -183,18 +187,41 @@
         identifier = @"CollectionViewCellIdentifier";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
 
+        NSInteger containerTableSection = [(StylistCollectionView*)collectionView tableSectionIndex];
+
         UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 60, 60)];
         imageVw.backgroundColor = [UIColor redColor];
         [cell.contentView addSubview:imageVw];
+//        NSString *imageUrlString = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"styListImgUrl"];
+//        imageVw.image = [[SDWebImageManager sharedManager] imageWithURL:[NSURL URLWithString:imageUrlString]];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(9, 90, 32, 32);
         btn.backgroundColor = [UIColor greenColor];
         [cell.contentView addSubview:btn];
+        id favObj = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"faborateFlag"];
+        BOOL isFavourite;
+        if (favObj != [NSNull null])
+            isFavourite = [favObj boolValue];
+        else
+            isFavourite = NO;
+
+        if (isFavourite) {
+            [btn setSelected:YES];
+            [btn setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
+        }
+        else {
+            [btn setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
+        }
+        
+            
         
         UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(40, 90, 50, 20)];
         lbl_review.backgroundColor = [UIColor clearColor];
-        lbl_review.text = [NSString stringWithFormat:@"review %li",(long)indexPath.row];
+        
+        NSString *fabCount = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"stylistFabCount"];
+        
+        lbl_review.text = [NSString stringWithFormat:@"%@ reviews",fabCount];
         lbl_review.font = [UIFont systemFontOfSize:14];
         [cell.contentView addSubview:lbl_review];
         
@@ -416,7 +443,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     switch (_segmentControl.selectedSegmentIndex) {
         case 2:
         {
-            [cell setCollectionViewDataSourceDelegate:self index:indexPath.row];
+            [cell setCollectionViewDataSourceDelegate:self index:indexPath];
             NSInteger index = cell.collectionView.tag;
             
             CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];

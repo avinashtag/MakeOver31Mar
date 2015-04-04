@@ -18,7 +18,8 @@
     layout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1);
     layout.itemSize = CGSizeMake(80, 80);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, self.bounds.size.height-20) collectionViewLayout:layout];
+    
+    self.collectionView = [[StylistCollectionView alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, self.bounds.size.height-20) collectionViewLayout:layout];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
@@ -42,13 +43,13 @@
     self.collectionView.frame = CGRectMake(0, 20, self.bounds.size.width, self.bounds.size.height-20);
 }
 
--(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index
+-(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSIndexPath*)iPath
 {
     self.collectionView.dataSource = dataSourceDelegate;
     self.collectionView.delegate = dataSourceDelegate;
-    self.collectionView.tag = index;
+    self.collectionView.tag = iPath.row;
     
-    self.lblStylistCategory.tag = index;
+    self.collectionView.tableSectionIndex = iPath.section;
     
     [self.collectionView reloadData];
 }

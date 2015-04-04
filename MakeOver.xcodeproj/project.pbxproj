@@ -97,6 +97,7 @@
 		BBC895521AB8B4D000F1A56E /* NSObject+MOObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895511AB8B4D000F1A56E /* NSObject+MOObject.m */; };
 		BBC895551AB8BC5500F1A56E /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */; };
 		BBE32D081A950BD100A0D59E /* MOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE32D071A950BD100A0D59E /* MOTabBar.m */; };
+		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
 		CED424481AC805440045CE06 /* favSaloons.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED424471AC805440045CE06 /* favSaloons.plist */; };
 /* End PBXBuildFile section */
 
@@ -274,6 +275,8 @@
 		BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageViewerViewController.m; path = Controllers/ImageViewerViewController.m; sourceTree = "<group>"; };
 		BBE32D061A950BD100A0D59E /* MOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOTabBar.h; path = ../MakeOver/MOTabBar.h; sourceTree = "<group>"; };
 		BBE32D071A950BD100A0D59E /* MOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOTabBar.m; path = ../MakeOver/MOTabBar.m; sourceTree = "<group>"; };
+		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
+		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
 		CED424471AC805440045CE06 /* favSaloons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = favSaloons.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -382,6 +385,8 @@
 				BB6B41C81A9261DA00CBCC7B /* LandingCell.m */,
 				9AEA54B21ACB2100007606EA /* LandingBriefCell.h */,
 				9AEA54B31ACB2100007606EA /* LandingBriefCell.m */,
+				CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */,
+				CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -836,6 +841,7 @@
 				BB610B2B1AC87BE300DF54E0 /* SDWebImagePrefetcher.m in Sources */,
 				BB74FAD41A98B2CC00EEF89C /* StarRatingView.m in Sources */,
 				BB610B2C1AC87BE300DF54E0 /* UIButton+WebCache.m in Sources */,
+				CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */,
 				7DADF06D1A991F3E00EE0C4C /* ASIHTTPRequest.m in Sources */,
 				0903E3941AA7817700B0884D /* UIAlertView+MOAlertView.m in Sources */,
 				BB952A5D1ABF3DBE006A8328 /* FabStylist.m in Sources */,
