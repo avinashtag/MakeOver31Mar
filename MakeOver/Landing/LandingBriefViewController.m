@@ -374,14 +374,14 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 3;
+    return self.service.services.count;
     
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_segmentControl.selectedSegmentIndex == 2) {
-        return self.colorArray.count;
+        return [[[self.service.services objectAtIndex:section] groups] count];
     }else{
         return 0;
     }
@@ -389,21 +389,24 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-            static NSString *CellIdentifier = @"CellIdentifier";
-            
-            LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            
-            if (!cell)
-            {
-                cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            }
+    static NSString *CellIdentifier = @"CellIdentifier";
     
-    if (indexPath.row == 0) {
-        
-        cell.lblStylistCategory.text = @"Senior";//[[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
+    LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell)
+    {
+        cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    else
-        cell.lblStylistCategory.text = @"Junior";
+    
+    cell.lblStylistCategory.text = [[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
+    
+//    if (indexPath.row == 0) {
+//        
+//        cell.lblStylistCategory.text = @"Senior";
+//        
+//    }
+//    else
+//        cell.lblStylistCategory.text = @"Junior";
     
             return cell;
 }
