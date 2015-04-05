@@ -29,6 +29,8 @@ NSString *const ksortByRating = @"sortByRating";
 NSString *const kfilterBySex = @"filterBySex";
 NSString *const kfilterByTime = @"filterByTime";
 NSString *const kfilterByRange = @"filterByRange";
+NSString *const kisSorting = @"isSorting";
+NSString *const kisFiltering = @"isFiltering";
 
 
 @implementation FilterViewController
@@ -54,7 +56,7 @@ NSString *const kfilterByRange = @"filterByRange";
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     
-    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange, nil];
+    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"YES",kisSorting,@"NO",kisFiltering, nil];
     
     // Do any additional setup after loading the view.
 }
@@ -85,6 +87,16 @@ NSString *const kfilterByRange = @"filterByRange";
 
 - (IBAction)DistanceClicked:(UIButton *)sender {
     
+    [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+            // change button bg color to maroon
+            // change button text color to white
+            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }];
+    [dict_filterSortingParams setObject:@"" forKey:ksortByRating];
+
     UIButton *btn = (UIButton*)sender;
    
     [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -151,6 +163,16 @@ NSString *const kfilterByRange = @"filterByRange";
 }
 - (IBAction)SallonRatingClicked:(UIButton *)sender {
     
+    [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIButton *btnInView = (UIButton*)obj;
+            // change button bg color to maroon
+            // change button text color to white
+            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }];
+    
+    [dict_filterSortingParams setObject:@"" forKey:ksortByDistance];
+
     UIButton *btn = (UIButton*)sender;
     
     [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -312,7 +334,9 @@ NSString *const kfilterByRange = @"filterByRange";
         [dict_filterSortingParams setObject:@"" forKey:kfilterByTime];
         [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
         [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
-        
+        [dict_filterSortingParams setObject:@"NO" forKey:kisFiltering];
+        [dict_filterSortingParams setObject:@"YES" forKey:kisSorting];
+
         [self refreshFilterByUI];
         
         [_filterSegment setHidden:YES];
@@ -322,7 +346,9 @@ NSString *const kfilterByRange = @"filterByRange";
         
         [dict_filterSortingParams setObject:@"" forKey:ksortByDistance];
         [dict_filterSortingParams setObject:@"" forKey:ksortByRating];
-
+        [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];
+        [dict_filterSortingParams setObject:@"NO" forKey:kisSorting];
+        
         [self refreshSortByUI];
         
         [_filterSegment setHidden:NO];
@@ -399,11 +425,11 @@ NSString *const kfilterByRange = @"filterByRange";
     
     NSArray *arrTime = [string_time componentsSeparatedByString:@" "];
     
-    [dict_filterSortingParams setObject:string_time forKey:kfilterByTime];
-    
     self.txt_time.text = [arrTime objectAtIndex:0];
     self.txt_ampm.text = [arrTime objectAtIndex:1];
     
+    [dict_filterSortingParams setObject:self.txt_time.text forKey:kfilterByTime];
+
 }
 
 

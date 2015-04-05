@@ -86,72 +86,83 @@ static NSArray *menuItems;
         NSString *filterBySex       = [params objectForKey:@"filterBySex"];
         NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
         NSString *filterByTimeRange = [params objectForKey:@"filterByRange"];
+        NSString *str_isSorting = [params objectForKey:@"isSorting"];
+        NSString *str_isFiltering = [params objectForKey:@"isFiltering"];
 
-
-        if (sortingByRating != nil && sortingByRating.length != 0) {
+        if ([str_isSorting isEqualToString:@"YES"]) {
             
-             NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating <= %f", [sortingByRating floatValue]];
+            if (sortingByRating != nil && sortingByRating.length != 0) {
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating <= %f", [sortingByRating floatValue]];
+                
+                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+                
+                NSArray *sortedArray;
+                sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                    NSNumber *first = [(ServiceList*)a saloonRating];
+                    NSNumber *second = [(ServiceList*)b saloonRating];
+                    return [second compare:first];
+                }];
+                
+                arrayFilteredResults = sortedArray;
+                
+                [weakSelf.servicesTable reloadData];
+            }
             
-            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
             
-            NSArray *sortedArray;
-            sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                NSNumber *first = [(ServiceList*)a saloonRating];
-                NSNumber *second = [(ServiceList*)b saloonRating];
-                return [second compare:first];
-            }];
+            if (sortingByDistance != nil && sortingByDistance.length != 0) {
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonDstfrmCurrLocation.floatValue <= %f", [sortingByDistance floatValue]];
+                
+                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+                
+                NSArray *sortedArray;
+                sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                    NSString *first = [(ServiceList*)a saloonDstfrmCurrLocation];
+                    NSString *second = [(ServiceList*)b saloonDstfrmCurrLocation];
+                    return [second compare:first];
+                }];
+                
+                arrayFilteredResults = sortedArray;
+                
+                [weakSelf.servicesTable reloadData];
+            }
             
-            arrayFilteredResults = sortedArray;
-            
-            [weakSelf.servicesTable reloadData];
         }
         
-      
-        if (sortingByDistance != nil && sortingByDistance.length != 0) {
+        if ([str_isFiltering isEqualToString:@"YES"]){
+        
+            if (filterBySex != nil && filterBySex.length != 0) {
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
+                
+                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+                
+                [weakSelf.servicesTable reloadData];
+            }
             
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonDstfrmCurrLocation.floatValue <= %f", [sortingByDistance floatValue]];
             
-            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            if (filterByParticularTime != nil && filterByParticularTime.length != 0) {
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTime LIKE[c] %@",filterBySex];
+                
+                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+                
+                [weakSelf.servicesTable reloadData];
+            }
             
-            NSArray *sortedArray;
-            sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                NSString *first = [(ServiceList*)a saloonDstfrmCurrLocation];
-                NSString *second = [(ServiceList*)b saloonDstfrmCurrLocation];
-                return [second compare:first];
-            }];
+            if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTiming <= %@ <= SELF.endTiming",filterBySex];
+                
+                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+                
+                [weakSelf.servicesTable reloadData];
+            }
             
-            arrayFilteredResults = sortedArray;
-            
-            [weakSelf.servicesTable reloadData];
         }
         
-        if (filterBySex != nil && filterBySex.length != 0) {
-            
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
-            
-           arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-            
-            [weakSelf.servicesTable reloadData];
-        }
         
-        
-        if (filterByParticularTime != nil && filterByParticularTime.length != 0) {
-            
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTime LIKE[c] %@",filterBySex];
-            
-            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-            
-            [weakSelf.servicesTable reloadData];
-        }
-        
-        if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
-            
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTiming <= %@ <= SELF.endTiming",filterBySex];
-            
-            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-            
-            [weakSelf.servicesTable reloadData];
-        }
     };
 }
 
