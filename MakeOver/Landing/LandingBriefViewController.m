@@ -427,6 +427,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             
             NSMutableArray *favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
             [favSaloons addObject:self.service];
+            self.favourite.selected = YES;
 
             if (![NSKeyedArchiver archiveRootObject:favSaloons toFile:favsPath]) {
                 // Handle error
@@ -439,14 +440,23 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     else { // remove from favourite list
         
         NSMutableArray *favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
-        [favSaloons removeObject:self.service];
+        
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[self.service saloonId] integerValue]];
+        
+        NSArray *arrayResult = [favSaloons filteredArrayUsingPredicate:resultPredicate];
+        
+        if ((arrayResult != nil) && (arrayResult.count)) {
+            [favSaloons removeObject:[arrayResult objectAtIndex:0]];
+        }
         
         if (![NSKeyedArchiver archiveRootObject:favSaloons toFile:favsPath]) {
             // Handle error
             NSLog(@"error in archieving");
         }
-        else
-            NSLog(@"fav saloon object saved");
+        else {
+            NSLog(@"fav saloon object removed");
+            self.favourite.selected = NO;
+        }
     }
     
 }
