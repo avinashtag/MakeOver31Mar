@@ -7,7 +7,11 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
+<<<<<<< HEAD
 	<string>com.test.makeover</string>
+=======
+	<string>com.test.FootLght</string>
+>>>>>>> origin/master
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

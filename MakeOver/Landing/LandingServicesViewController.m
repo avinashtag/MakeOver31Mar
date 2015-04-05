@@ -28,6 +28,8 @@
 @interface LandingServicesViewController (){
     WYPopoverController *popoverController;
     FilterViewController *filterViewController;
+    
+    NSArray *arrayFilteredResults;
 }
 
 @end
@@ -57,6 +59,7 @@ static NSArray *menuItems;
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
     
+    arrayFilteredResults = [NSArray new];
 }
 
 -(IBAction)back:(id)sender{
@@ -67,6 +70,55 @@ static NSArray *menuItems;
     [filterViewController.view setBackgroundColor:[UIColor clearColor]];
     [[[UIApplication sharedApplication] keyWindow] addSubview:filterViewController.view];
     [[[UIApplication sharedApplication] keyWindow] bringSubviewToFront:filterViewController.view];
+    
+    __weak NSArray *weakArray = _services;
+    
+    __weak LandingServicesViewController *weakSelf = self;
+    
+    
+    filterViewController.callback = ^(NSDictionary *params) {
+        NSLog(@"%@",params);
+        
+        NSString *sortingByRating   = [params objectForKey:@"sortByRating"];
+        NSString *sortingByDistance = [params objectForKey:@"sortByDistance"];
+        NSString *filterBySex       = [params objectForKey:@"filterBySex"];
+
+        if (sortingByRating != nil && sortingByRating.length != 0) {
+            
+             NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating <= %f", [sortingByRating floatValue]];
+            
+            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            
+            NSLog(@"%lu",(unsigned long)arrayFilteredResults.count);
+            
+            [weakSelf.servicesTable reloadData];
+        }
+        
+      
+        if (sortingByDistance != nil && sortingByDistance.length != 0) {
+            
+            //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating CONTAINS [c] %@", sortingByDistance];
+            
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating <= %f", [sortingByDistance floatValue]];
+            
+            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            
+            [weakSelf.servicesTable reloadData];
+        }
+        
+        if (filterBySex != nil && filterBySex.length != 0) {
+            
+            //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender CONTAINS [c] %@", filterBySex];
+            
+            //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender ==[c] %@",filterBySex];
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
+            
+           arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            
+            [weakSelf.servicesTable reloadData];
+        }
+        
+    };
 }
 
 -(void)serviceLoad{
@@ -89,6 +141,9 @@ static NSArray *menuItems;
                 array_Saloons = [responseDict objectForKey:@"object"];
             }
             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+            
+            arrayFilteredResults = [NSArray arrayWithArray:_services];
+            
             [self.servicesTable reloadData];
         }
     }];
@@ -112,7 +167,8 @@ static NSArray *menuItems;
 #pragma mark - TableViewDatasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _services.count;
+    //return _services.count;
+    return arrayFilteredResults.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -120,7 +176,8 @@ static NSArray *menuItems;
     
     NSString *identifier =[self reuseIdentifier];
     ServiceCell *cell = (ServiceCell*)[tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-    ServiceList *service = _services[indexPath.row];
+    //ServiceList *service = _services[indexPath.row];
+    ServiceList *service = arrayFilteredResults[indexPath.row];
     cell.name.text = service.saloonName;
     [cell.distance setTitle:[NSString stringWithFormat:@"%@ KM",service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
     if (service.saloonServices.count) {
@@ -175,7 +232,9 @@ static NSArray *menuItems;
         [self.navigationController pushViewController:landingBriefViewController animated:YES];
         
         dispatch_after(0.3, dispatch_get_main_queue(), ^{
-            landingBriefViewController.service = _services[indexPath.row];
+            //landingBriefViewController.service = _services[indexPath.row];
+            landingBriefViewController.service = arrayFilteredResults[indexPath.row];
+
             [landingBriefViewController.servicesTable reloadData];
             [UtilityClass removeHudFromView:nil afterDelay:0];
             
@@ -232,7 +291,8 @@ static NSArray *menuItems;
                     
                     NSLog(@"recentlyViewed.plist created at Documents directory.");
                     
-                    NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
+                    //NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
+                    NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:arrayFilteredResults[indexPath.row], nil];
                     if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
                         // Handle error
                         NSLog(@"error in archieving");
@@ -247,16 +307,28 @@ static NSArray *menuItems;
                 // Read & Update records
                 NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
                 
+<<<<<<< HEAD
                 if (![saloons containsObject:_services[indexPath.row]])
                 {
+=======
+                if ([saloons indexOfObject:arrayFilteredResults[indexPath.row]] != NSNotFound) {
+                    // Do nothing
+                }
+//                if ([saloons indexOfObject:_services[indexPath.row]] != NSNotFound) {
+//                    // Do nothing
+//                }
+                else {
+>>>>>>> origin/master
                     
                     if (saloons.count <10) {
                         
                         // write Record:
-                        [saloons addObject:_services[indexPath.row]];
+                        //[saloons addObject:_services[indexPath.row]];
+                        [saloons addObject:arrayFilteredResults[indexPath.row]];
                     }
                     else {
-                        [saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
+                        //[saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
+                        [saloons replaceObjectAtIndex:saloons.count-1 withObject:arrayFilteredResults[indexPath.row]];
                     }
                     
                     if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
@@ -297,7 +369,9 @@ static NSArray *menuItems;
 -(void)reviewPresent:(NSIndexPath*)index{
     
    __block ReviewViewController *review = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReviewViewController class])];
-    review.service = _services[index.row];
+    //review.service = _services[index.row];
+    review.service = arrayFilteredResults[index.row];
+
     [review setModalPresentationStyle:UIModalPresentationFormSheet];
     [review setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     CGRect rect = self.view.frame;

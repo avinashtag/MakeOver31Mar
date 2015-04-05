@@ -22,6 +22,8 @@
 @property(nonatomic, strong)NSArray  *styleList;
 @property(nonatomic, strong)NSArray  *services;
 @property(nonatomic, strong)NSNumber  *faborateFlag;
+@property(nonatomic, strong)NSString *gender;
+
 
 
 -(instancetype)initWithDictionary:(NSDictionary*)dictioanry;

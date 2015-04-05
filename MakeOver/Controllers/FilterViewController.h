@@ -16,7 +16,15 @@
 
 @end
 
-@interface FilterViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate>
+
+@interface FilterViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate>{
+
+    __weak IBOutlet UIView *view_distanceBtnContainer;
+
+    __weak IBOutlet UIView *view_salonRatingBtnContainer;
+    
+    NSMutableDictionary *dict_filterSortingParams;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *animatedView;
 @property (weak, nonatomic) IBOutlet UIView *filterSegment;
@@ -34,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UIView *sortByHeader;
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
 
+@property (copy) void(^callback)(NSDictionary *params);
 
-
+- (IBAction)action_datePicker:(id)sender;
 @end
