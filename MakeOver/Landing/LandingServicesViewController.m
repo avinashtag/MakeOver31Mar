@@ -323,9 +323,8 @@ static NSArray *menuItems;
                 // Read & Update records
                 NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
                 
-                if (![saloons containsObject:_services[indexPath.row]])
+                if ([saloons containsObject:_services[indexPath.row]])
                 {
-                
                     // Do nothing
                 }
                 else {
