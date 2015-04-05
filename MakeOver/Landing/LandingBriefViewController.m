@@ -387,6 +387,69 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     }
 }
 
+- (IBAction)favButtonDidTap:(id)sender {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"];
+    
+    // Read & Update records
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if (!self.favourite.isSelected) // not present in favourite
+    {
+        
+        if (![fileManager fileExistsAtPath:favsPath]) //if file doesn't exist at path then create & add fav
+        {
+            
+            NSString *bundle = [[NSBundle mainBundle] pathForResource:@"favSaloons" ofType:@"plist"]; //5
+            
+            NSError *error;
+            [fileManager copyItemAtPath:bundle toPath:favsPath error:&error]; //6
+            
+            if (!error) {
+                
+                NSLog(@"favSaloons.plist created at Documents directory.");
+                
+                NSMutableArray *favSaloons = [[NSMutableArray alloc] initWithObjects:self.service, nil];
+                if (![NSKeyedArchiver archiveRootObject:favSaloons toFile:favsPath]) {
+                    // Handle error
+                    NSLog(@"error in archieving");
+                }
+                else {
+                    NSLog(@"favourite saloon saved");
+                }
+            }
+        }
+        else { // file exists at path so add favourite
+            
+            NSMutableArray *favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+            [favSaloons addObject:self.service];
+
+            if (![NSKeyedArchiver archiveRootObject:favSaloons toFile:favsPath]) {
+                // Handle error
+                NSLog(@"error in archieving");
+            }
+            else
+                NSLog(@"fav saloon object saved");
+        }
+    }
+    else { // remove from favourite list
+        
+        NSMutableArray *favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+        [favSaloons removeObject:self.service];
+        
+        if (![NSKeyedArchiver archiveRootObject:favSaloons toFile:favsPath]) {
+            // Handle error
+            NSLog(@"error in archieving");
+        }
+        else
+            NSLog(@"fav saloon object saved");
+    }
+    
+}
+
 
 -(IBAction)menuOpen:(id)sender{
     menuController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];

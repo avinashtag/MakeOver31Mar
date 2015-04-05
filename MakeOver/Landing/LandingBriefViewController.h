@@ -36,5 +36,9 @@
 @property (weak, nonatomic) IBOutlet UIView *headerStylist;
 @property (weak, nonatomic) IBOutlet UITableView *tbl_stylist;
 
+
 - (IBAction)segmentSelection:(UISegmentedControl *)sender;
+- (IBAction)favButtonDidTap:(id)sender;
+
+
 @end

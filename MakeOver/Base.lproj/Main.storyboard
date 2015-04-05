@@ -2143,7 +2143,10 @@ IAo
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="ic_favoritefill.png"/>
+                                        <state key="selected" image="ic_favoritefill"/>
+                                        <connections>
+                                            <action selector="favButtonDidTap:" destination="6ib-as-hCs" eventType="touchUpInside" id="q88-uf-Ulv"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7a2-7e-l4V" customClass="ASStarRatingView">
                                         <rect key="frame" x="10" y="64" width="130" height="20"/>
@@ -3885,6 +3888,7 @@ great</string>
         <image name="ic-info" width="17" height="17"/>
         <image name="ic_down" width="6" height="4"/>
         <image name="ic_favorite" width="21" height="18"/>
+        <image name="ic_favoritefill" width="21" height="18"/>
         <image name="ic_favoritefill.png" width="21" height="18"/>
         <image name="ic_female" width="16" height="16"/>
         <image name="ic_filter_top" width="16" height="16"/>

@@ -191,14 +191,35 @@ static NSArray *menuItems;
             //    [self.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
             
             //    [self.startRatingView setRating:[service.saloonRating doubleValue]];
-
-            // add this saloon in recently viewed records.
+            
+            // Get fav saloons from saved records.
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
             NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-            NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
+            NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
             
             NSFileManager *fileManager = [NSFileManager defaultManager];
+            
+            if (![fileManager fileExistsAtPath:favsPath]) //if file doesn't exist at path then create
+            {
+                
+                landingBriefViewController.favourite.selected = NO;
+            }
+            else {
+                
+                // Read records
+                NSMutableArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+                
+                if ([arrayFavSaloons containsObject:_services[indexPath.row]])
+                    landingBriefViewController.favourite.selected = YES;
+                else
+                    landingBriefViewController.favourite.selected = NO;
+            }
+
+
+            // add saloon in recently viewed records.
+            
+            NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
             
             if (![fileManager fileExistsAtPath:savedRecordsPath]) //if file doesn't exist at path then create
             {
@@ -226,10 +247,8 @@ static NSArray *menuItems;
                 // Read & Update records
                 NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
                 
-                if ([saloons indexOfObject:_services[indexPath.row]] != NSNotFound) {
-                    // Do nothing
-                }
-                else {
+                if (![saloons containsObject:_services[indexPath.row]])
+                {
                     
                     if (saloons.count <10) {
                         
