@@ -303,8 +303,13 @@ static NSArray *menuItems;
                 // Read records
                 NSMutableArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
                 
-                if ([arrayFavSaloons containsObject:_services[indexPath.row]])
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[_services[indexPath.row] saloonId] integerValue]];
+                
+                NSArray *arrayResult = [arrayFavSaloons filteredArrayUsingPredicate:resultPredicate];
+                
+                if ((arrayResult != nil) && (arrayResult.count)) {
                     landingBriefViewController.favourite.selected = YES;
+                }
                 else
                     landingBriefViewController.favourite.selected = NO;
             }
@@ -341,12 +346,15 @@ static NSArray *menuItems;
                 // Read & Update records
                 NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
                 
-                if (![saloons containsObject:_services[indexPath.row]])
-                {
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[_services[indexPath.row] saloonId] integerValue]];
                 
+                NSArray *arrayResult = [saloons filteredArrayUsingPredicate:resultPredicate];
+                
+                if ((arrayResult != nil) && (arrayResult.count)) {
                     // Do nothing
                 }
-                else {
+                else
+                {
                     
                     if (saloons.count <10) {
                         

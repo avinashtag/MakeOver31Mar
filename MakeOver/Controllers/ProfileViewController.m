@@ -136,6 +136,10 @@
             return profile.fabStylist.count;
             break;
             
+        case 1:
+            return self.favSaloons.count;
+            break;
+            
         default:
             return 2;
             break;
@@ -153,11 +157,12 @@
     }
     else if (menuListView.selectedButtonIndex == 1) {
         //TODO:: Favourite Saloon Pasrse show
-//        ServiceList* saloon = _favSaloons[indexPath.row];
+        ServiceList* saloon = _favSaloons[indexPath.row];
         ServiceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OtherCell"];
         
-//        cell.name.text = saloon.saloonName;
-//        [cell.address setText:saloon.saloonAddress];
+        cell.name.text = saloon.saloonName;
+        [cell.address setText:saloon.saloonAddress];
+        
         return cell;
     }
     else{

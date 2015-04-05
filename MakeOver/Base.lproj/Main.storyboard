@@ -2371,6 +2371,7 @@ IAo
                     <connections>
                         <outlet property="Time" destination="v06-bV-9dr" id="jVD-AT-avp"/>
                         <outlet property="address" destination="8po-Iq-O7l" id="8va-iS-3q5"/>
+                        <outlet property="btnReviews" destination="aJo-oa-ARZ" id="FAL-F4-0dn"/>
                         <outlet property="cityName" destination="cJw-Rl-Lgi" id="F5O-9x-wef"/>
                         <outlet property="distance" destination="WMf-dT-h76" id="2Fz-yW-ywk"/>
                         <outlet property="favourite" destination="saf-L2-Cra" id="UoB-AH-bGd"/>
@@ -2381,6 +2382,7 @@ IAo
                         <outlet property="saloonName" destination="nQ0-h4-Nzz" id="3s4-vG-3Mp"/>
                         <outlet property="segmentControl" destination="gRf-TM-cUs" id="yNb-At-1Jk"/>
                         <outlet property="servicesTable" destination="91n-SN-XSe" id="o19-pG-T1T"/>
+                        <outlet property="startRatingView" destination="7a2-7e-l4V" id="d86-W3-SZo"/>
                         <outlet property="tbl_stylist" destination="Q12-Wo-j1C" id="U6e-FR-cx5"/>
                         <outlet property="view" destination="mvQ-oe-wwa" id="h3Q-vR-w2c"/>
                         <outlet property="view_tableContainer" destination="QMR-q3-AlF" id="w3U-bI-4g5"/>
