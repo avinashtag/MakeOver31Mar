@@ -65,6 +65,8 @@ static NSArray *menuItems;
 -(IBAction)back:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 -(IBAction)filter:(id)sender{
     filterViewController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([FilterViewController class])];
     [filterViewController.view setBackgroundColor:[UIColor clearColor]];
@@ -82,6 +84,9 @@ static NSArray *menuItems;
         NSString *sortingByRating   = [params objectForKey:@"sortByRating"];
         NSString *sortingByDistance = [params objectForKey:@"sortByDistance"];
         NSString *filterBySex       = [params objectForKey:@"filterBySex"];
+        NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
+        NSString *filterByTimeRange = [params objectForKey:@"filterByRange"];
+
 
         if (sortingByRating != nil && sortingByRating.length != 0) {
             
@@ -89,17 +94,13 @@ static NSArray *menuItems;
             
             arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
             
-            NSLog(@"%lu",(unsigned long)arrayFilteredResults.count);
-            
             [weakSelf.servicesTable reloadData];
         }
         
       
         if (sortingByDistance != nil && sortingByDistance.length != 0) {
             
-            //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating CONTAINS [c] %@", sortingByDistance];
-            
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating <= %f", [sortingByDistance floatValue]];
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonDstfrmCurrLocation <= %f", [sortingByDistance floatValue]];
             
             arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
             
@@ -108,9 +109,6 @@ static NSArray *menuItems;
         
         if (filterBySex != nil && filterBySex.length != 0) {
             
-            //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender CONTAINS [c] %@", filterBySex];
-            
-            //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender ==[c] %@",filterBySex];
             NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
             
            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
@@ -118,6 +116,24 @@ static NSArray *menuItems;
             [weakSelf.servicesTable reloadData];
         }
         
+        
+        if (filterByParticularTime != nil && filterByParticularTime.length != 0) {
+            
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTiming LIKE[c] %@",filterBySex];
+            
+            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            
+            [weakSelf.servicesTable reloadData];
+        }
+        
+        if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
+            
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTiming <= %@ <= SELF.endTiming",filterBySex];
+            
+            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            
+            [weakSelf.servicesTable reloadData];
+        }
     };
 }
 

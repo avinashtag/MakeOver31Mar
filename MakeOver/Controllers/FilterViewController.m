@@ -221,8 +221,12 @@ NSString *const kfilterByRange = @"filterByRange";
     
     if ([sender tag] == 10) {
         string_sex = @"F";
+        [self.btn_female setSelected:YES];
+        [self.btn_male setSelected:NO];
     }else{
         string_sex = @"M";
+        [self.btn_female setSelected:NO];
+        [self.btn_male setSelected:YES];
     }
     
     [dict_filterSortingParams setObject:string_sex forKey:kfilterBySex];
@@ -260,6 +264,38 @@ NSString *const kfilterByRange = @"filterByRange";
     }];
 }
 
+-(void)refreshSortByUI{
+
+    [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        
+    }];
+    
+    [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        
+    }];
+    
+}
+
+-(void)refreshFilterByUI{
+    
+    self.txt_time.text = @"9:00";
+    self.txt_ampm.text = @"AM";
+    [self.btn_female setSelected:NO];
+    [self.btn_male setSelected:NO];
+    
+}
 
 - (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList{
     return menuItems.count;
@@ -271,11 +307,24 @@ NSString *const kfilterByRange = @"filterByRange";
 
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index {
-    if (index == 0) {        
+    if (index == 0) {
+        
+        [dict_filterSortingParams setObject:@"" forKey:kfilterByTime];
+        [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
+        [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
+        
+        [self refreshFilterByUI];
+        
         [_filterSegment setHidden:YES];
         [_sortSegment setHidden:NO];
     }
     else{
+        
+        [dict_filterSortingParams setObject:@"" forKey:ksortByDistance];
+        [dict_filterSortingParams setObject:@"" forKey:ksortByRating];
+
+        [self refreshSortByUI];
+        
         [_filterSegment setHidden:NO];
         [_sortSegment setHidden:YES];
     }
@@ -338,32 +387,22 @@ NSString *const kfilterByRange = @"filterByRange";
     return NO;
 }
 
-
--(void)filterWithChoosenParameters{
-/*
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.fullName CONTAINS [c] %@", searchText];//[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-    //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-    array_searchedFriends=nil;
-    
-    array_searchedFriends = [array_allSocialFriends filteredArrayUsingPredicate:resultPredicate];
-*/
-
-    
-}
-
-
-
 - (IBAction)action_datePicker:(id)sender {
 
     UIDatePicker *datePicker = (UIDatePicker*)sender;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm"];
+    [dateFormatter setDateFormat:@"hh:mm a"];
     
     NSString *string_time = [dateFormatter stringFromDate:datePicker.date];
     
+    NSArray *arrTime = [string_time componentsSeparatedByString:@" "];
+    
     [dict_filterSortingParams setObject:string_time forKey:kfilterByTime];
+    
+    self.txt_time.text = [arrTime objectAtIndex:0];
+    self.txt_ampm.text = [arrTime objectAtIndex:1];
     
 }
 

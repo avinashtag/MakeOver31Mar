@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -2797,6 +2797,7 @@ IAo
                                                 <state key="normal" image="ic_female">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="ic_male"/>
                                                 <connections>
                                                     <action selector="genderFilter:" destination="ZSD-hl-86X" eventType="touchUpInside" id="yZe-GG-GD3"/>
                                                 </connections>
@@ -2806,6 +2807,7 @@ IAo
                                                 <state key="normal" image="ic_male">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="ic_female"/>
                                                 <connections>
                                                     <action selector="genderFilter:" destination="ZSD-hl-86X" eventType="touchUpInside" id="3XO-Vs-FYq"/>
                                                 </connections>
@@ -2827,7 +2829,7 @@ IAo
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KHa-mw-PY7" id="7zY-Xh-Akv">
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="2VG-jC-iDn">
+                                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="2VG-jC-iDn">
                                                                     <rect key="frame" x="10" y="0.0" width="140" height="216"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2887,12 +2889,16 @@ IAo
                     <connections>
                         <outlet property="Done" destination="1hi-1y-523" id="jGQ-xo-emj"/>
                         <outlet property="animatedView" destination="ifa-MZ-Wut" id="cHr-bF-MKK"/>
+                        <outlet property="btn_female" destination="bUK-nT-h7y" id="zWG-z3-Xud"/>
+                        <outlet property="btn_male" destination="EkN-32-DTO" id="AEh-DX-gxS"/>
                         <outlet property="filterHeader" destination="cdg-IR-vQJ" id="Bxb-jB-bAo"/>
                         <outlet property="filterSegment" destination="MO5-OP-Jnw" id="kyn-Ag-bZb"/>
                         <outlet property="filterTable" destination="y8D-ln-kIB" id="10u-GL-tui"/>
                         <outlet property="horizontalUI" destination="6CT-eX-jAW" id="Pz0-Mx-vL6"/>
                         <outlet property="sortByHeader" destination="tvY-dF-U62" id="Hxh-6X-yVc"/>
                         <outlet property="sortSegment" destination="ucd-ZV-jcb" id="bHp-9w-lAY"/>
+                        <outlet property="txt_ampm" destination="U9I-s7-t21" id="aUR-Ow-YL0"/>
+                        <outlet property="txt_time" destination="Ldr-IB-PoP" id="7NK-nY-bpm"/>
                         <outlet property="view_distanceBtnContainer" destination="t6z-yG-kkk" id="7ZB-0X-MZM"/>
                         <outlet property="view_salonRatingBtnContainer" destination="eJc-Vk-FJt" id="jy7-yt-Z4u"/>
                     </connections>

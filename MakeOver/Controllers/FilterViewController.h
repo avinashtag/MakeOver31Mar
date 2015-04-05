@@ -41,6 +41,10 @@
 @property (weak, nonatomic) IBOutlet UIView *filterHeader;
 @property (weak, nonatomic) IBOutlet UIView *sortByHeader;
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
+@property (weak, nonatomic) IBOutlet UIButton *btn_female;
+@property (weak, nonatomic) IBOutlet UIButton *btn_male;
+@property (weak, nonatomic) IBOutlet UITextField *txt_time;
+@property (weak, nonatomic) IBOutlet UITextField *txt_ampm;
 
 @property (copy) void(^callback)(NSDictionary *params);
 
