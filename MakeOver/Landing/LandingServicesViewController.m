@@ -307,18 +307,12 @@ static NSArray *menuItems;
                 // Read & Update records
                 NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
                 
-<<<<<<< HEAD
                 if (![saloons containsObject:_services[indexPath.row]])
                 {
-=======
-                if ([saloons indexOfObject:arrayFilteredResults[indexPath.row]] != NSNotFound) {
+                
                     // Do nothing
                 }
-//                if ([saloons indexOfObject:_services[indexPath.row]] != NSNotFound) {
-//                    // Do nothing
-//                }
                 else {
->>>>>>> origin/master
                     
                     if (saloons.count <10) {
                         

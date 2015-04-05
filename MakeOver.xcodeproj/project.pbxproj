@@ -204,7 +204,6 @@
 		BB610B251AC87BE300DF54E0 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		BB610B261AC87BE300DF54E0 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		BB6B416B1A923CC200CBCC7B /* MakeOver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeOver.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB6B416F1A923CC200CBCC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB6B41701A923CC200CBCC7B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB6B41721A923CC200CBCC7B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB6B41731A923CC200CBCC7B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -647,7 +646,6 @@
 				7D7C1AFB1AC7267A008D66DE /* recentlyViewed.plist */,
 				CED424471AC805440045CE06 /* favSaloons.plist */,
 				7DADF07C1A992DD600EE0C4C /* MakeOver-Prefix.pch */,
-				BB6B416F1A923CC200CBCC7B /* Info.plist */,
 				BB6B41701A923CC200CBCC7B /* main.m */,
 			);
 			name = "Supporting Files";
