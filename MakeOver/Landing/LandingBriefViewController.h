@@ -10,6 +10,7 @@
 #import "ServiceList.h"
 #import "ReviewViewController.h"
 #import "WYPopoverController.h"
+#import "ASStarRatingView.h"
 
 @interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
     WYPopoverController *popoverController;
@@ -20,6 +21,8 @@
 
 
 @property (weak, nonatomic) IBOutlet UILabel *address;
+@property (strong, nonatomic) IBOutlet ASStarRatingView *startRatingView;
+@property (weak, nonatomic) IBOutlet UIButton *btnReviews;
 
 @property (weak, nonatomic) IBOutlet UILabel *Time;
 @property (weak, nonatomic) IBOutlet UIButton *favourite;
