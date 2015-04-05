@@ -121,7 +121,8 @@
     [_starViews removeAllObjects];
     
     // Add new image views
-    [self setupView];    
+    [self setupView];
+    \
     // Relayout and refresh
     [self setNeedsLayout];
     [self refreshStars];

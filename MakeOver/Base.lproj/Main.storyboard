@@ -2258,7 +2258,7 @@ IAo
                                 <rect key="frame" x="16" y="278" width="288" height="282"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OUR STYLISTS &amp; SPECIALISTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mun-Vm-9oA">
-                                        <rect key="frame" x="17" y="7" width="255" height="21"/>
+                                        <rect key="frame" x="16" y="7" width="255" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Tys-Vf-KbZ"/>
                                         </constraints>
@@ -2277,10 +2277,11 @@ IAo
                                 </subviews>
                                 <color key="backgroundColor" red="0.43921568630000002" green="0.0" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="mun-Vm-9oA" firstAttribute="leading" secondItem="QMR-q3-AlF" secondAttribute="leading" constant="17" id="6al-oE-voc"/>
+                                    <constraint firstItem="mun-Vm-9oA" firstAttribute="leading" secondItem="QMR-q3-AlF" secondAttribute="leading" constant="16" id="6al-oE-voc"/>
                                     <constraint firstItem="mun-Vm-9oA" firstAttribute="centerX" secondItem="Q12-Wo-j1C" secondAttribute="centerX" id="V7W-rt-CAJ"/>
                                     <constraint firstItem="Q12-Wo-j1C" firstAttribute="top" secondItem="mun-Vm-9oA" secondAttribute="bottom" constant="6" id="cSX-Ff-eBQ"/>
                                     <constraint firstAttribute="trailing" secondItem="Q12-Wo-j1C" secondAttribute="trailing" id="jzK-ux-rAn"/>
+                                    <constraint firstItem="Q12-Wo-j1C" firstAttribute="top" secondItem="mun-Vm-9oA" secondAttribute="top" constant="27" id="kYb-Kw-wsS"/>
                                     <constraint firstAttribute="bottom" secondItem="Q12-Wo-j1C" secondAttribute="bottom" id="mZN-CG-0ac"/>
                                     <constraint firstItem="mun-Vm-9oA" firstAttribute="top" secondItem="QMR-q3-AlF" secondAttribute="top" constant="7" id="o15-kN-gSO"/>
                                     <constraint firstItem="Q12-Wo-j1C" firstAttribute="leading" secondItem="QMR-q3-AlF" secondAttribute="leading" id="o8H-cr-Vec"/>

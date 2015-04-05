@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "449929714.915009"
+            timestampString = "449960228.0113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
             landmarkName = "-favButtonDidTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -102,48 +102,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "449929778.773934"
+            timestampString = "449959258.273516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "449929789.256532"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Custom UI Controls/ASStarRatingView.m"
-            timestampString = "449945497.046228"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-setRating:"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-serviceLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

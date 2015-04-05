@@ -18,7 +18,7 @@
 #import "CollectionCell.h"
 #import "Services.h"
 #import "LandingBriefCell.h"
-#import "SDWebImageManager.h"
+#import "UIImageView+WebCache.h"
 
 #import "Groups.h"
 
@@ -183,7 +183,8 @@
         identifier = @"MenuCollectionCell";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     }
-    else{
+    else
+    {
         identifier = @"CollectionViewCellIdentifier";
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
 
@@ -192,8 +193,9 @@
         UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 60, 60)];
         imageVw.backgroundColor = [UIColor redColor];
         [cell.contentView addSubview:imageVw];
-//        NSString *imageUrlString = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"styListImgUrl"];
-//        imageVw.image = [[SDWebImageManager sharedManager] imageWithURL:[NSURL URLWithString:imageUrlString]];
+        
+        NSString *imageUrlString = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"styListImgUrl"];
+        [imageVw setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(9, 90, 32, 32);
@@ -225,8 +227,8 @@
         lbl_review.font = [UIFont systemFontOfSize:14];
         [cell.contentView addSubview:lbl_review];
         
-        NSArray *collectionViewArray = self.colorArray[collectionView.tag];
-        cell.backgroundColor = collectionViewArray[indexPath.item];
+ //       NSArray *collectionViewArray = self.colorArray[collectionView.tag];
+        cell.backgroundColor = [UIColor clearColor];//collectionViewArray[indexPath.item];
     }
 
     return cell;
@@ -501,15 +503,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     cell.lblStylistCategory.text = [[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
     
-//    if (indexPath.row == 0) {
-//        
-//        cell.lblStylistCategory.text = @"Senior";
-//        
-//    }
-//    else
-//        cell.lblStylistCategory.text = @"Junior";
-    
-            return cell;
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(LandingBriefCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

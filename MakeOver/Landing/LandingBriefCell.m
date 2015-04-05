@@ -14,6 +14,8 @@
 {
     if (!(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) return nil;
     
+    self.contentView.backgroundColor = self.backgroundColor = [UIColor clearColor];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1);
     layout.itemSize = CGSizeMake(80, 80);
@@ -21,13 +23,13 @@
     
     self.collectionView = [[StylistCollectionView alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, self.bounds.size.height-20) collectionViewLayout:layout];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     
-    self.lblStylistCategory = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 20)];
+    self.lblStylistCategory = [[UILabel alloc] initWithFrame:CGRectMake(4, 0, self.bounds.size.width-20, 20)];
     self.lblStylistCategory.textColor = [UIColor whiteColor];
-//    self.lblStylistCategory.backgroundColor = [UIColor clearColor];
-    self.lblStylistCategory.backgroundColor = [UIColor greenColor];
+    self.lblStylistCategory.backgroundColor = [UIColor clearColor];
+//    self.lblStylistCategory.backgroundColor = [UIColor greenColor];
 
 //    self.lblStylistCategory.alpha = 1.0;
     [self.contentView addSubview:self.collectionView];

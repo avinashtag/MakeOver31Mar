@@ -292,6 +292,8 @@ static NSArray *menuItems;
             
             [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
             
+            landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
+            
             [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
             
             [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
