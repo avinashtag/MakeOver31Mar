@@ -94,15 +94,33 @@ static NSArray *menuItems;
             
             arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
             
+            NSArray *sortedArray;
+            sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                NSNumber *first = [(ServiceList*)a saloonRating];
+                NSNumber *second = [(ServiceList*)b saloonRating];
+                return [second compare:first];
+            }];
+            
+            arrayFilteredResults = sortedArray;
+            
             [weakSelf.servicesTable reloadData];
         }
         
       
         if (sortingByDistance != nil && sortingByDistance.length != 0) {
             
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonDstfrmCurrLocation <= %f", [sortingByDistance floatValue]];
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonDstfrmCurrLocation.floatValue <= %f", [sortingByDistance floatValue]];
             
             arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            
+            NSArray *sortedArray;
+            sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                NSString *first = [(ServiceList*)a saloonDstfrmCurrLocation];
+                NSString *second = [(ServiceList*)b saloonDstfrmCurrLocation];
+                return [second compare:first];
+            }];
+            
+            arrayFilteredResults = sortedArray;
             
             [weakSelf.servicesTable reloadData];
         }
@@ -119,7 +137,7 @@ static NSArray *menuItems;
         
         if (filterByParticularTime != nil && filterByParticularTime.length != 0) {
             
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTiming LIKE[c] %@",filterBySex];
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTime LIKE[c] %@",filterBySex];
             
             arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
             
@@ -263,9 +281,9 @@ static NSArray *menuItems;
             
             [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
             
-            //    [self.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
+            [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
             
-            //    [self.startRatingView setRating:[service.saloonRating doubleValue]];
+            [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
             
             // Get fav saloons from saved records.
             

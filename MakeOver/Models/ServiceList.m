@@ -28,6 +28,9 @@ static NSString *kstyList = @"styList";
 static NSString *ksallonReviewCount = @"sallonReviewCount";
 static NSString *kfaborateFlag = @"faborateFlag";
 static NSString *kgender = @"gender";
+static NSString *kstartTime = @"startTiming";
+static NSString *kendTime = @"endTiming";
+
 
 static NSString *kresponseObject = @"object";
 
@@ -43,6 +46,9 @@ static NSString *kresponseObject = @"object";
     self.sallonReviewCount                = @([nullRemover(dictioanry[ksallonReviewCount]) doubleValue]);
     self.faborateFlag                = @([nullRemover(dictioanry[kfaborateFlag]) doubleValue]);
     self.gender               = nullRemover(dictioanry[kgender]);
+    self.startTime               = nullRemover(dictioanry[kstartTime]);
+    self.endTime               = nullRemover(dictioanry[kendTime]);
+
 
     if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSArray class]]) {
         self.saloonServices              = nullRemover(dictioanry[ksaloonServices]);

@@ -23,6 +23,8 @@
 @property(nonatomic, strong)NSArray  *services;
 @property(nonatomic, strong)NSNumber  *faborateFlag;
 @property(nonatomic, strong)NSString *gender;
+@property(nonatomic, strong)NSString *startTime;
+@property(nonatomic, strong)NSString *endTime;
 
 
 
