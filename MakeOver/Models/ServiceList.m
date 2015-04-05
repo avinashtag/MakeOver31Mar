@@ -27,6 +27,7 @@ static NSString *ksaloonServices = @"saloonServices";
 static NSString *kstyList = @"styList";
 static NSString *ksallonReviewCount = @"sallonReviewCount";
 static NSString *kfaborateFlag = @"faborateFlag";
+static NSString *kgender = @"gender";
 
 static NSString *kresponseObject = @"object";
 
@@ -41,6 +42,8 @@ static NSString *kresponseObject = @"object";
     self.saloonRating                = @([nullRemover(dictioanry[ksaloonRating]) doubleValue]);
     self.sallonReviewCount                = @([nullRemover(dictioanry[ksallonReviewCount]) doubleValue]);
     self.faborateFlag                = @([nullRemover(dictioanry[kfaborateFlag]) doubleValue]);
+    self.gender               = nullRemover(dictioanry[kgender]);
+
     if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSArray class]]) {
         self.saloonServices              = nullRemover(dictioanry[ksaloonServices]);
     }
@@ -48,6 +51,8 @@ static NSString *kresponseObject = @"object";
         self.saloonServices              = [nullRemover(dictioanry[ksaloonServices]) componentsSeparatedByString:@","];
     }
     self.styleList                   = [StyleList initializeWithResponse:dictioanry];
+    
+
     
     NSObject *receivedServices = [dictioanry objectForKey:kObjectServices];
     NSMutableArray *parsedServices = [NSMutableArray array];

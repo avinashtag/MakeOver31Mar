@@ -24,9 +24,14 @@
 
 @end
 
+NSString *const ksortByDistance = @"sortByDistance";
+NSString *const ksortByRating = @"sortByRating";
+NSString *const kfilterBySex = @"filterBySex";
+NSString *const kfilterByTime = @"filterByTime";
+NSString *const kfilterByRange = @"filterByRange";
+
+
 @implementation FilterViewController
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +53,9 @@
     [self animateViewIn];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
+    
+    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange, nil];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -67,17 +75,160 @@
 */
 
 - (IBAction)doneClicked:(UIButton *)sender {
+        
+    if (self.callback !=nil) {
+        self.callback(dict_filterSortingParams);
+    }
+
     [self animateViewOut];
 }
 
 - (IBAction)DistanceClicked:(UIButton *)sender {
+    
+    UIButton *btn = (UIButton*)sender;
+   
+    [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+       
+        UIButton *btnInView = (UIButton*)obj;
+        
+        if (btn.tag == btnInView.tag) {
+            
+            // change button bg color to white
+            // change button text color to maroon
+            
+            [btnInView setBackgroundColor:[UIColor whiteColor]];
+            [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+            
+            NSString *string_distance;
+            
+            switch (btn.tag) {
+                case 0:
+                {
+                    string_distance = @"0.5";
+                }
+                    break;
+                case 1:
+                {
+                    string_distance = @"2";
+                }
+                    break;
+                case 2:
+                {
+                    string_distance = @"10";
+                }
+                    break;
+                case 3:
+                {
+                    string_distance = @"15";
+                }
+                    break;
+                case 4:
+                {
+                    string_distance = @"30";
+                }
+                    break;
+                    
+                default:
+                    string_distance = @"";
+
+                    break;
+            }
+            
+            [dict_filterSortingParams setObject:string_distance forKey:ksortByDistance];
+            
+        }else{
+        
+            // change button bg color to maroon
+            // change button text color to white
+        
+            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+        
+    }];
+    
+    
 }
 - (IBAction)SallonRatingClicked:(UIButton *)sender {
+    
+    UIButton *btn = (UIButton*)sender;
+    
+    [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        if (btn.tag == btnInView.tag) {
+            
+            // change button bg color to white
+            // change button text color to maroon
+            
+            [btnInView setBackgroundColor:[UIColor whiteColor]];
+            [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+            
+            NSString *string_rating;
+            
+            switch (btn.tag) {
+                case 0:
+                {
+                    string_rating = @"3";
+                }
+                    break;
+                case 1:
+                {
+                    string_rating = @"3.5";
+                }
+                    break;
+                case 2:
+                {
+                    string_rating = @"4";
+                }
+                    break;
+                case 3:
+                {
+                    string_rating = @"4.5";
+                }
+                    break;
+                case 4:
+                {
+                    string_rating = @"5";
+                }
+                    break;
+                    
+                default:
+                    string_rating = @"";
+                    
+                    break;
+            }
+            
+            [dict_filterSortingParams setObject:string_rating forKey:ksortByRating];
+            
+        }else{
+            
+            // change button bg color to maroon
+            // change button text color to white
+            
+            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+        
+    }];
     
 }
 
 - (IBAction)genderFilter:(UIButton *)sender {
+    
+    NSString *string_sex;
+    
+    if ([sender tag] == 10) {
+        string_sex = @"F";
+    }else{
+        string_sex = @"M";
+    }
+    
+    [dict_filterSortingParams setObject:string_sex forKey:kfilterBySex];
 }
+
+
 - (IBAction)cancelTap:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded) {
         [self animateViewOut];
@@ -120,7 +271,7 @@
 
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index {
-    if (index == 0) {
+    if (index == 0) {        
         [_filterSegment setHidden:YES];
         [_sortSegment setHidden:NO];
     }
@@ -162,7 +313,7 @@
     
 }
 -(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section{
-    return 60;
+    return 70;
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -185,6 +336,35 @@
     [_filterTable reloadData];
     
     return NO;
+}
+
+
+-(void)filterWithChoosenParameters{
+/*
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.fullName CONTAINS [c] %@", searchText];//[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+    //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+    array_searchedFriends=nil;
+    
+    array_searchedFriends = [array_allSocialFriends filteredArrayUsingPredicate:resultPredicate];
+*/
+
+    
+}
+
+
+
+- (IBAction)action_datePicker:(id)sender {
+
+    UIDatePicker *datePicker = (UIDatePicker*)sender;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm"];
+    
+    NSString *string_time = [dateFormatter stringFromDate:datePicker.date];
+    
+    [dict_filterSortingParams setObject:string_time forKey:kfilterByTime];
+    
 }
 
 
