@@ -418,6 +418,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
                     NSLog(@"error in archieving");
                 }
                 else {
+                    self.favourite.selected = YES;
                     NSLog(@"favourite saloon saved");
                 }
             }
