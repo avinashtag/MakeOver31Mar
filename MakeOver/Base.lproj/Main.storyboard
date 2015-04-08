@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -2895,10 +2895,12 @@ IAo
                         <outlet property="animatedView" destination="ifa-MZ-Wut" id="cHr-bF-MKK"/>
                         <outlet property="btn_female" destination="bUK-nT-h7y" id="zWG-z3-Xud"/>
                         <outlet property="btn_male" destination="EkN-32-DTO" id="AEh-DX-gxS"/>
+                        <outlet property="doubleSlider" destination="mRf-Ef-xIa" id="Rlf-2H-AqG"/>
                         <outlet property="filterHeader" destination="cdg-IR-vQJ" id="Bxb-jB-bAo"/>
                         <outlet property="filterSegment" destination="MO5-OP-Jnw" id="kyn-Ag-bZb"/>
                         <outlet property="filterTable" destination="y8D-ln-kIB" id="10u-GL-tui"/>
                         <outlet property="horizontalUI" destination="6CT-eX-jAW" id="Pz0-Mx-vL6"/>
+                        <outlet property="label_doubleSlider" destination="NEC-ZO-FYJ" id="6nq-4s-mag"/>
                         <outlet property="sortByHeader" destination="tvY-dF-U62" id="Hxh-6X-yVc"/>
                         <outlet property="sortSegment" destination="ucd-ZV-jcb" id="bHp-9w-lAY"/>
                         <outlet property="txt_ampm" destination="U9I-s7-t21" id="aUR-Ow-YL0"/>
@@ -2940,7 +2942,7 @@ IAo
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="cdg-IR-vQJ" userLabel="FROM">
-                    <rect key="frame" x="0.0" y="0.0" width="140" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FROM 10:30 AM TO 9:00 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEC-ZO-FYJ">
@@ -2949,11 +2951,13 @@ IAo
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="16" translatesAutoresizingMaskIntoConstraints="NO" id="Lr8-qS-E9F">
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mRf-Ef-xIa" customClass="NMRangeSlider">
                             <rect key="frame" x="10" y="40" width="140" height="31"/>
-                            <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </slider>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="doubleSliderChanged:" destination="ZSD-hl-86X" eventType="valueChanged" id="2oF-8g-hwK"/>
+                            </connections>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>

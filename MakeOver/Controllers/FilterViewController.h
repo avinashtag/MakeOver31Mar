@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HTHorizontalSelectionList.h"
 
+@class NMRangeSlider;
 
 @interface FilterCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicked;
@@ -45,8 +46,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_male;
 @property (weak, nonatomic) IBOutlet UITextField *txt_time;
 @property (weak, nonatomic) IBOutlet UITextField *txt_ampm;
+@property (weak, nonatomic) IBOutlet NMRangeSlider *doubleSlider;
+@property (weak, nonatomic) IBOutlet UILabel *label_doubleSlider;
 
 @property (copy) void(^callback)(NSDictionary *params);
+
+- (IBAction)doubleSliderChanged:(id)sender;
 
 - (IBAction)action_datePicker:(id)sender;
 @end

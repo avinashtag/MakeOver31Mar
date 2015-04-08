@@ -7,7 +7,7 @@
 //
 
 #import "FilterViewController.h"
-
+#import "NMRangeSlider.h"
 
 
 @implementation FilterCell
@@ -38,6 +38,7 @@ NSString *const kisFiltering = @"isFiltering";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureLabelSlider];
     
     cellReload = @[@(0),@(0)];
     _menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.horizontalUI.frame.size.width, self.horizontalUI.frame.size.height)];
@@ -413,6 +414,8 @@ NSString *const kisFiltering = @"isFiltering";
     return NO;
 }
 
+
+
 - (IBAction)action_datePicker:(id)sender {
 
     UIDatePicker *datePicker = (UIDatePicker*)sender;
@@ -430,6 +433,30 @@ NSString *const kisFiltering = @"isFiltering";
     
     [dict_filterSortingParams setObject:self.txt_time.text forKey:kfilterByTime];
 
+}
+
+#pragma mark - Double Slider Methods & Delegates
+
+- (void) configureLabelSlider
+{
+    self.doubleSlider.minimumValue = 0;
+    self.doubleSlider.maximumValue = 24;
+    
+    self.doubleSlider.lowerValue = 0;
+    self.doubleSlider.upperValue = 24;
+    
+    self.doubleSlider.minimumRange = 1;
+}
+
+- (IBAction)doubleSliderChanged:(id)sender {
+    [self updateSliderLabels];
+}
+
+- (void) updateSliderLabels
+{
+    // You get get the center point of the slider handles and use this to arrange other subviews
+
+    self.label_doubleSlider.text = [NSString stringWithFormat:@"FROM %d TO %d",(int)self.doubleSlider.lowerValue,(int)self.doubleSlider.upperValue];
 }
 
 
