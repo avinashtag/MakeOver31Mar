@@ -10,6 +10,7 @@
 #import "WYPopoverController.h"
 
 @interface MOSuperViewController : UIViewController<WYPopoverControllerDelegate>{
+    
     WYPopoverController *popoverController;
 }
 

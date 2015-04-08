@@ -288,7 +288,6 @@ static NSArray *menuItems;
             [landingBriefViewController.servicesTable reloadData];
             [UtilityClass removeHudFromView:nil afterDelay:0];
             
-            
             landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
             [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
             if (landingBriefViewController.service.saloonServices.count) {
