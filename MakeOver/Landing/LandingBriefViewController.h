@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *view_tableContainer;
 
 
+@property (weak, nonatomic) IBOutlet UIImageView *genderImage;
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (strong, nonatomic) IBOutlet ASStarRatingView *startRatingView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReviews;

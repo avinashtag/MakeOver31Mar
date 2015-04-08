@@ -2376,6 +2376,7 @@ IAo
                         <outlet property="cityName" destination="cJw-Rl-Lgi" id="F5O-9x-wef"/>
                         <outlet property="distance" destination="WMf-dT-h76" id="2Fz-yW-ywk"/>
                         <outlet property="favourite" destination="saf-L2-Cra" id="UoB-AH-bGd"/>
+                        <outlet property="genderImage" destination="N0b-Ah-BA3" id="vqo-JM-oIz"/>
                         <outlet property="headerGallery" destination="oPI-jU-r7v" id="R2Q-4S-sWh"/>
                         <outlet property="headerMenu" destination="gbx-92-v7t" id="WXL-oe-xK4"/>
                         <outlet property="headerStylist" destination="NVc-ci-n93" id="v2R-Vn-3hy"/>

@@ -224,6 +224,11 @@ static NSArray *menuItems;
     //ServiceList *service = _services[indexPath.row];
     ServiceList *service = arrayFilteredResults[indexPath.row];
     cell.name.text = service.saloonName;
+    
+    if ([service.gender isEqualToString:@"M"]) {
+        cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
+    }
+    
     [cell.distance setTitle:[NSString stringWithFormat:@"%@ KM",service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
     if (service.saloonServices.count) {
         [cell.descriptionService setText:[service.saloonServices componentsJoinedByString:@","]];
@@ -289,6 +294,11 @@ static NSArray *menuItems;
             if (landingBriefViewController.service.saloonServices.count) {
                 [landingBriefViewController.saloonDescription setText:[landingBriefViewController.service.saloonServices componentsJoinedByString:@","]];
             }
+            
+            if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
+                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+            }
+
             
             [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
             
