@@ -322,7 +322,6 @@
 		7D0477671AA39541000CDF8D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7D7C1AF91AC72222008D66DE /* Custom Classes */,
 				7D364EEB1AB0C29D006FEB6A /* Login N Register Module */,
 				BB6B41C41A925CF200CBCC7B /* LandingNavigationController.h */,
 				BB6B41C51A925CF200CBCC7B /* LandingNavigationController.m */,
@@ -401,13 +400,6 @@
 				7D364EED1AB0C2DF006FEB6A /* RegistrationViewController.m */,
 			);
 			name = "Login N Register Module";
-			sourceTree = "<group>";
-		};
-		7D7C1AF91AC72222008D66DE /* Custom Classes */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Custom Classes";
 			sourceTree = "<group>";
 		};
 		7D7C1AFA1AC72245008D66DE /* Saloon Module */ = {
