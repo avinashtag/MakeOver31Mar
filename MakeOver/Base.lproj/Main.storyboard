@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -2797,21 +2797,21 @@ IAo
                                         <rect key="frame" x="0.0" y="100" width="160" height="495"/>
                                         <subviews>
                                             <button opaque="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUK-nT-h7y">
-                                                <rect key="frame" x="40" y="0.0" width="30" height="30"/>
-                                                <state key="normal" image="ic_female">
+                                                <rect key="frame" x="45" y="0.0" width="20" height="20"/>
+                                                <state key="normal" image="ic_filter_female">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ic_male"/>
+                                                <state key="selected" image="ic_filter_female_selected"/>
                                                 <connections>
                                                     <action selector="genderFilter:" destination="ZSD-hl-86X" eventType="touchUpInside" id="yZe-GG-GD3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkN-32-DTO">
-                                                <rect key="frame" x="90" y="0.0" width="30" height="30"/>
-                                                <state key="normal" image="ic_male">
+                                                <rect key="frame" x="95" y="0.0" width="20" height="20"/>
+                                                <state key="normal" image="ic_filter_male">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected" image="ic_female"/>
+                                                <state key="selected" image="ic_filter_male_selected"/>
                                                 <connections>
                                                     <action selector="genderFilter:" destination="ZSD-hl-86X" eventType="touchUpInside" id="3XO-Vs-FYq"/>
                                                 </connections>
@@ -2868,9 +2868,9 @@ IAo
                                         </subviews>
                                         <color key="backgroundColor" red="0.30980392159999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hi-1y-523">
-                                        <rect key="frame" x="111" y="0.0" width="46" height="30"/>
-                                        <state key="normal" title="tt">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hi-1y-523">
+                                        <rect key="frame" x="112" y="0.0" width="49" height="30"/>
+                                        <state key="normal" image="ic_filter_done">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -4030,6 +4030,11 @@ great</string>
         <image name="ic_favoritefill" width="21" height="18"/>
         <image name="ic_favoritefill.png" width="21" height="18"/>
         <image name="ic_female" width="16" height="16"/>
+        <image name="ic_filter_done" width="17" height="13"/>
+        <image name="ic_filter_female" width="30" height="30"/>
+        <image name="ic_filter_female_selected" width="30" height="30"/>
+        <image name="ic_filter_male" width="30" height="30"/>
+        <image name="ic_filter_male_selected" width="30" height="30"/>
         <image name="ic_filter_top" width="16" height="16"/>
         <image name="ic_foot_profilepic" width="63" height="64"/>
         <image name="ic_home" width="30" height="30"/>
