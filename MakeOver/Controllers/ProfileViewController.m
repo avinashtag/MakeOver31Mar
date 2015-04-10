@@ -40,6 +40,17 @@
     menuListView.dataSource = self;
     [menuListView setBackgroundColor:[UIColor clearColor]];
     [self.HTHorizontalView addSubview:menuListView];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self serviceRequest];
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.tabBarController.tabBar setHidden:YES];
+//    [_pageControl setHidden:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     
     // Get fav saloons from saved records.
     
@@ -56,18 +67,14 @@
     }
     else {
         
+        if ((self.favSaloons !=nil) && (self.favSaloons.count)) {
+            [self.favSaloons removeAllObjects];
+        }
         // Read & Update records
         self.favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
-        
     }
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self serviceRequest];
-    [self.navigationController setNavigationBarHidden:YES];
-    [self.tabBarController.tabBar setHidden:YES];
-//    [_pageControl setHidden:YES];
+    
+    [_tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -405,7 +405,7 @@ IAo
         <!--Navigation Controller-->
         <scene sceneID="VYb-ym-Ony">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M1N-H7-Fce" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="M1N-H7-Fce" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="ic_nearby.png" id="JeE-39-IkE"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
