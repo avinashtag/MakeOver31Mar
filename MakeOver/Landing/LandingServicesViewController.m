@@ -171,9 +171,18 @@ static NSArray *menuItems;
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     parameters[@"serviceId"] = @(_serviceId);
     CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
-    parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
-    parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
-    NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+    
+    if (self.tabBarController.selectedIndex == 1) {
+        parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
+        parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
+    }
+    else
+    {
+        parameters[@"curr_lat"] = @"";
+        parameters[@"curr_Long"] = @"";
+    }
+    
+        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
