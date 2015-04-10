@@ -68,6 +68,7 @@
 		9A4298E21AD2EA6D0089A702 /* slider-metal-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298C81AD2EA6D0089A702 /* slider-metal-track@2x.png */; };
 		9A4298E31AD2EA6D0089A702 /* slider-metal-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298C91AD2EA6D0089A702 /* slider-metal-trackBackground.png */; };
 		9A4298E41AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298CA1AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png */; };
+		9AE156B61AD84BB000FE7BD3 /* FavouriteStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */; };
 		9AEA54B41ACB2100007606EA /* LandingBriefCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA54B31ACB2100007606EA /* LandingBriefCell.m */; };
 		B936DAD41A9861B70016E9C9 /* CustomSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B936DAD31A9861B70016E9C9 /* CustomSelection.m */; };
 		B9CDD5371A9859F200016B06 /* WYPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CDD5341A9859F200016B06 /* WYPopoverController.m */; };
@@ -223,6 +224,8 @@
 		9A4298C81AD2EA6D0089A702 /* slider-metal-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-track@2x.png"; sourceTree = "<group>"; };
 		9A4298C91AD2EA6D0089A702 /* slider-metal-trackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-trackBackground.png"; sourceTree = "<group>"; };
 		9A4298CA1AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-trackBackground@2x.png"; sourceTree = "<group>"; };
+		9AE156B41AD84BB000FE7BD3 /* FavouriteStylistButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteStylistButton.h; sourceTree = "<group>"; };
+		9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteStylistButton.m; sourceTree = "<group>"; };
 		9AEA54B21ACB2100007606EA /* LandingBriefCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingBriefCell.h; path = Landing/LandingBriefCell.h; sourceTree = "<group>"; };
 		9AEA54B31ACB2100007606EA /* LandingBriefCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingBriefCell.m; path = Landing/LandingBriefCell.m; sourceTree = "<group>"; };
 		B936DAD21A9861B70016E9C9 /* CustomSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSelection.h; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				BB3C70BE1A9CF1DA0000B602 /* City.m */,
 				B936DAD21A9861B70016E9C9 /* CustomSelection.h */,
 				B936DAD31A9861B70016E9C9 /* CustomSelection.m */,
+				9AE156B41AD84BB000FE7BD3 /* FavouriteStylistButton.h */,
+				9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -981,6 +986,7 @@
 				BB952A491ABEC9B7006A8328 /* FilterViewController.m in Sources */,
 				BB6B41C61A925CF200CBCC7B /* LandingNavigationController.m in Sources */,
 				094E39F51AAC4CBD00F6D9EE /* OfferDetailViewController.m in Sources */,
+				9AE156B61AD84BB000FE7BD3 /* FavouriteStylistButton.m in Sources */,
 				BB6B41711A923CC200CBCC7B /* main.m in Sources */,
 				BB610B2B1AC87BE300DF54E0 /* SDWebImagePrefetcher.m in Sources */,
 				BB74FAD41A98B2CC00EEF89C /* StarRatingView.m in Sources */,

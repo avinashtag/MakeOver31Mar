@@ -40,6 +40,7 @@ enum TimeConstants {
 
 #define API_GET_Profile @"myProfile"
 
+#define API_ADD_FAVOURITE @"addFaborate"
 
 // ********* End of Macros related to API services ******** //
 

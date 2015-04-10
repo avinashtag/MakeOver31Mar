@@ -27,7 +27,6 @@
 @end
 
 typedef enum {
-    
     sirSuccess=0,
     sirFailed ,
 }ServiceInvokerRequestResult;

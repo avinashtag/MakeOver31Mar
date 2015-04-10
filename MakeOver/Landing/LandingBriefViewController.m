@@ -19,6 +19,7 @@
 #import "Services.h"
 #import "LandingBriefCell.h"
 #import "UIImageView+WebCache.h"
+#import "FavouriteStylistButton.h"
 
 #import "Groups.h"
 
@@ -190,19 +191,29 @@
 
         NSInteger containerTableSection = [(StylistCollectionView*)collectionView tableSectionIndex];
 
-        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 60, 60)];
+        UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(4, 0, 60, 60)];
         imageVw.backgroundColor = [UIColor redColor];
         [cell.contentView addSubview:imageVw];
         
-        NSString *imageUrlString = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"styListImgUrl"];
-        [imageVw setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil];
+        id imageUrlString = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"styListImgUrl"];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(9, 90, 32, 32);
-        btn.backgroundColor = [UIColor greenColor];
+        if (imageUrlString != [NSNull null])
+            [imageVw setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil];
+        
+        FavouriteStylistButton *btn = [FavouriteStylistButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(2, 60, 20, 20);
+        btn.tableSectionIndex = containerTableSection;
+        btn.collectionViewIndex = collectionView.tag;
+        btn.collectionViewCellIndex = indexPath.row;
+        
+        btn.backgroundColor = [UIColor clearColor];
+        [btn addTarget:self action:@selector(action_addFavourite:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:btn];
+        [cell.contentView bringSubviewToFront:btn];
+        
         id favObj = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"faborateFlag"];
         BOOL isFavourite;
+        
         if (favObj != [NSNull null])
             isFavourite = [favObj boolValue];
         else
@@ -213,20 +224,23 @@
             [btn setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
         }
         else {
+            [btn setSelected:NO];
             [btn setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
         }
         
-            
-        
-        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(40, 90, 50, 20)];
+        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(24, 60, 60, 16)];
         lbl_review.backgroundColor = [UIColor clearColor];
         
         NSString *fabCount = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"stylistFabCount"];
-        
+
         lbl_review.text = [NSString stringWithFormat:@"%@ reviews",fabCount];
-        lbl_review.font = [UIFont systemFontOfSize:14];
+        lbl_review.font = [UIFont systemFontOfSize:10];
+        //lbl_review.textAlignment = NSTextAlignmentCenter;
+        //lbl_review.backgroundColor = [UIColor blueColor];
+        lbl_review.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:lbl_review];
-        
+        [cell.contentView bringSubviewToFront:lbl_review];
+
  //       NSArray *collectionViewArray = self.colorArray[collectionView.tag];
         cell.backgroundColor = [UIColor clearColor];//collectionViewArray[indexPath.item];
     }
@@ -292,6 +306,56 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 */
 
+-(void)action_addFavourite:(id)sender{
+    
+    FavouriteStylistButton *button = (FavouriteStylistButton*)sender;
+    
+    //[[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"faborateFlag"];
+    
+    id favObj = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"faborateFlag"];
+    
+    BOOL isFavourite;
+    
+    if (favObj != [NSNull null])
+        isFavourite = [favObj boolValue];
+//    else
+//        return;
+    
+    if (isFavourite) {
+        [button setSelected:NO];
+        [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
+
+    }
+    else
+    {
+        [button setSelected:YES];
+        [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
+    }
+    
+    NSString *string_userId = @"1";//[UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_saloonId = self.service.saloonId;
+    NSString *string_stylistId = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:string_userId,@"userId",string_saloonId,@"saloonId",string_stylistId,@"stylishId",@"stylist",@"type", nil];
+    [self serviceRequestWithParameters:dict andSender:sender];
+}
+
+-(void)serviceRequestWithParameters:(NSDictionary*)parameter andSender:(id)sender{
+    [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_ADD_FAVOURITE spinningMessage:@"Loading profile" completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+        if (result == sirSuccess) {
+            NSError *error = nil;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+            
+                        // if successful then update button image accordingly
+            
+        }else{
+            // if unsuccessful then update button image accordingly
+            FavouriteStylistButton *button = (FavouriteStylistButton*)sender;
+            [button setSelected:NO];
+            [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
+        }
+    }];
+}
 
 - (IBAction)selectCity:(id)sender{
     AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -502,6 +566,8 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     }
     
     cell.lblStylistCategory.text = [[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
