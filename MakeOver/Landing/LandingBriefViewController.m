@@ -20,6 +20,10 @@
 #import "LandingBriefCell.h"
 #import "UIImageView+WebCache.h"
 #import "FavouriteStylistButton.h"
+#import "MenuCollectionViewCell.h"
+
+#import "ImageViewerViewController.h"
+
 
 #import "Groups.h"
 
@@ -143,15 +147,16 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     switch (_segmentControl.selectedSegmentIndex) {
+            
         case 0:
         {
-            return 30;
+            return _service.menuImages.count;
             
         }
             break;
         case 1:
         {
-            return 14;
+            return _service.clubImages.count;
             
         }
             break;
@@ -182,7 +187,36 @@
 
     if (collectionView == _servicesTable) {
         identifier = @"MenuCollectionCell";
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        MenuCollectionViewCell *cell = (MenuCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        
+        switch (_segmentControl.selectedSegmentIndex) {
+                
+            case 0:
+            {
+                id imageUrlString = [self.service.menuImages objectAtIndex:indexPath.row];
+                
+                if (imageUrlString != [NSNull null])
+                    [cell.imageView_galleryOrMenu setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil];
+                
+            }
+                break;
+            case 1:
+            {
+                id imageUrlString = [self.service.clubImages objectAtIndex:indexPath.row];
+                
+                if (imageUrlString != [NSNull null])
+                    [cell.imageView_galleryOrMenu setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil];
+            }
+                break;
+
+            default:
+            {
+                return 0;
+            }
+                break;
+        }
+        
+        return cell;
     }
     else
     {
@@ -243,9 +277,50 @@
 
  //       NSArray *collectionViewArray = self.colorArray[collectionView.tag];
         cell.backgroundColor = [UIColor clearColor];//collectionViewArray[indexPath.item];
+        
+        return cell;
+
     }
 
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    switch (_segmentControl.selectedSegmentIndex) {
+            
+        case 0:
+            [self imageViewerPresent:_service.menuImages];
+            break;
+        case 1:
+            [self imageViewerPresent:_service.clubImages];// Dnt know what to show
+            break;
+        
+        default:
+        {
+            // do nothing
+        }
+            break;
+    }
+}
+
+-(void)imageViewerPresent:(NSArray*)images{
+    if (images.count) {
+        __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
+        
+        imageViewer.images = images;
+        
+        CGRect rect = self.view.frame;
+        rect.size.width = rect.size.width- 40;
+        rect.size.height = rect.size.height -60;
+        
+        [popoverController setPopoverContentSize:rect.size];
+        popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
+        [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+            
+        }];
+    }
+    
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -525,6 +600,39 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
         }
     }
     
+}
+
+- (IBAction)callButtonDidTap:(id)sender {
+    
+    if (_service.contacts.count) {
+        
+        NSMutableString *buttonTitles = [NSMutableString new];
+        
+        for (NSString *number in _service.contacts) {
+            
+            if (number != (id)[NSNull null]) {
+                [buttonTitles appendFormat:@"%@,",number];
+            }
+        }
+        
+        buttonTitles = [[buttonTitles stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]] mutableCopy];
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:buttonTitles, nil];
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    }
+    else {
+        [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
+    }
+
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
+    NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
+    [[UIApplication sharedApplication] openURL:phoneURL];
 }
 
 

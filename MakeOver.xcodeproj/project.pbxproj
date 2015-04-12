@@ -128,6 +128,7 @@
 		BBC895551AB8BC5500F1A56E /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */; };
 		BBE32D081A950BD100A0D59E /* MOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE32D071A950BD100A0D59E /* MOTabBar.m */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
+		CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */; };
 		CEB233B31AD145F00046A785 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB233B21AD145F00046A785 /* Info.plist */; };
 		CED424481AC805440045CE06 /* favSaloons.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED424471AC805440045CE06 /* favSaloons.plist */; };
 /* End PBXBuildFile section */
@@ -341,6 +342,8 @@
 		BBE32D071A950BD100A0D59E /* MOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOTabBar.m; path = ../MakeOver/MOTabBar.m; sourceTree = "<group>"; };
 		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
+		CEA49A7B1ADB1202002BB32F /* MenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionViewCell.h; sourceTree = "<group>"; };
+		CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCollectionViewCell.m; sourceTree = "<group>"; };
 		CEB233B21AD145F00046A785 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CED424471AC805440045CE06 /* favSaloons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = favSaloons.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -457,6 +460,8 @@
 				9AEA54B31ACB2100007606EA /* LandingBriefCell.m */,
 				CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */,
 				CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */,
+				CEA49A7B1ADB1202002BB32F /* MenuCollectionViewCell.h */,
+				CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -998,6 +1003,7 @@
 				BB952A491ABEC9B7006A8328 /* FilterViewController.m in Sources */,
 				BB6B41C61A925CF200CBCC7B /* LandingNavigationController.m in Sources */,
 				094E39F51AAC4CBD00F6D9EE /* OfferDetailViewController.m in Sources */,
+				CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */,
 				9AE156B61AD84BB000FE7BD3 /* FavouriteStylistButton.m in Sources */,
 				BB6B41711A923CC200CBCC7B /* main.m in Sources */,
 				BB610B2B1AC87BE300DF54E0 /* SDWebImagePrefetcher.m in Sources */,

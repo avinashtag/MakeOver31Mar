@@ -62,6 +62,32 @@ static NSArray *menuItems;
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
     
     arrayFilteredResults = [NSArray new];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    // Get fav saloons from saved records.
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:favsPath]) //if file doesn't exist at path then create
+    {
+        // Do nothing
+        array_favSaloons = [NSMutableArray new];
+    }
+    else {
+        
+        // Read records
+        array_favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+    }
+    
+    [_servicesTable reloadData];
+    
 }
 
 -(IBAction)back:(id)sender{
@@ -236,6 +262,17 @@ static NSArray *menuItems;
     ServiceList *service = arrayFilteredResults[indexPath.row];
     cell.name.text = service.saloonName;
     
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[service saloonId] integerValue]];
+    
+    NSArray *arrayResult = [array_favSaloons filteredArrayUsingPredicate:resultPredicate];
+    
+    if ((arrayResult != nil) && (arrayResult.count)) {
+        cell.favourite.selected = YES;
+    }
+    else
+        cell.favourite.selected = NO;
+
+    
     if ([service.gender isEqualToString:@"M"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
     }
@@ -332,7 +369,7 @@ static NSArray *menuItems;
             
             NSFileManager *fileManager = [NSFileManager defaultManager];
             
-            if (![fileManager fileExistsAtPath:favsPath]) //if file doesn't exist at path then create
+            if (![fileManager fileExistsAtPath:favsPath])
             {
                 
                 landingBriefViewController.favourite.selected = NO;
@@ -340,7 +377,7 @@ static NSArray *menuItems;
             else {
                 
                 // Read records
-                NSMutableArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+                NSArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
                 
                 NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[_services[indexPath.row] saloonId] integerValue]];
                 
@@ -471,24 +508,56 @@ static NSArray *menuItems;
     
     NSLog(@"Calling PopUp");
     
-    __block ContactListViewerController *contactsObj = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ContactListViewerController class])];
-    //review.service = _services[index.row];
-    contactsObj.array_contacts = contacts;
+//    __block ContactListViewerController *contactsObj = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ContactListViewerController class])];
+//    //review.service = _services[index.row];
+//    contactsObj.array_contacts = contacts;
     
-    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
-    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    CGRect rect = self.view.frame;
-    rect.size.width = rect.size.width -20;
-    rect.size.height = rect.size.height -20;
-    [popoverController setPopoverContentSize:rect.size];
-    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
-    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+
+    if (contacts.count) {
         
-    }];
+        NSMutableString *buttonTitles = [NSMutableString new];
+        
+        for (NSString *number in contacts) {
+            
+            if (number != (id)[NSNull null]) {
+                [buttonTitles appendFormat:@"%@,",number];
+            }
+        }
+        
+        buttonTitles = [[buttonTitles stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]] mutableCopy];
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:buttonTitles, nil];
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    }
+    else {
+        [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
+    }
+
+    
+    
+    
+//    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
+//    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//    CGRect rect = self.view.frame;
+//    rect.size.width = rect.size.width -20;
+//    rect.size.height = rect.size.height -20;
+//    [popoverController setPopoverContentSize:rect.size];
+//    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
+//    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+//        
+//    }];
 
     
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
+    NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
+    [[UIApplication sharedApplication] openURL:phoneURL];
+}
 
 -(void)showMenuPopUp {
     

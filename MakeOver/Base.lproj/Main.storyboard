@@ -885,7 +885,7 @@ IAo
                                                     <color key="textColor" red="0.4549019608" green="0.37254901959999998" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oS-IH-RM0">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oS-IH-RM0">
                                                     <rect key="frame" x="289" y="39" width="21" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="21" id="IZa-Hv-8Jv"/>
@@ -896,7 +896,7 @@ IAo
                                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="selected" image="ic_favoritefill.png"/>
+                                                    <state key="selected" image="ic_favoritefill"/>
                                                     <connections>
                                                         <action selector="favouriteCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="Tnr-Vs-xkm"/>
                                                     </connections>
@@ -2196,6 +2196,9 @@ IAo
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="callButtonDidTap:" destination="6ib-as-hCs" eventType="touchUpInside" id="fdd-Da-8l7"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOm-mr-MUS">
                                         <rect key="frame" x="66" y="156" width="68" height="28"/>
@@ -2315,7 +2318,7 @@ IAo
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="MenuCollectionCell" id="DTK-2u-2e7" userLabel="Menu GALLERY COLLECTION" customClass="CollectionCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="MenuCollectionCell" id="DTK-2u-2e7" userLabel="Menu GALLERY COLLECTION" customClass="MenuCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2335,7 +2338,7 @@ IAo
                                             <constraint firstAttribute="trailing" secondItem="144-Iw-nuF" secondAttribute="trailing" constant="10" id="NZn-4V-aJN"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="imageView" destination="144-Iw-nuF" id="tUa-si-cpM"/>
+                                            <outlet property="imageView_galleryOrMenu" destination="144-Iw-nuF" id="kVp-JV-Puk"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

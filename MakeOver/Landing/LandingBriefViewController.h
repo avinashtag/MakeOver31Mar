@@ -12,7 +12,7 @@
 #import "WYPopoverController.h"
 #import "ASStarRatingView.h"
 
-@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
+@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UIActionSheetDelegate>{
     WYPopoverController *popoverController;
 }
 
@@ -44,5 +44,6 @@
 - (IBAction)segmentSelection:(UISegmentedControl *)sender;
 - (IBAction)favButtonDidTap:(id)sender;
 
+- (IBAction)callButtonDidTap:(id)sender;
 
 @end
