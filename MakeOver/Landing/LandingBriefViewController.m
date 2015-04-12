@@ -36,7 +36,7 @@
 @implementation LandingBriefViewController
 
 #pragma mark- UIViewController Methods
-
+/*
 -(void)loadView
 {
     [super loadView];
@@ -68,7 +68,7 @@
     
     self.contentOffsetDictionary = [NSMutableDictionary dictionary];
 }
-
+*/
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];

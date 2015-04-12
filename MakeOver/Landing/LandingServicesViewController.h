@@ -23,5 +23,6 @@
 @property (strong, nonatomic) __block NSMutableArray *services;
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;
 @property (weak, nonatomic) IBOutlet UIButton *cityName;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

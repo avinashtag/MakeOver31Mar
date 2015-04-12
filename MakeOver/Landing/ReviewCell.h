@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StarRatingView.h"
+#import "ASStarRatingView.h"
 
 @interface ReviewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *dateSubtitle;
 @property (strong, nonatomic) IBOutlet UILabel *name;
-@property (strong, nonatomic) IBOutlet UILabel *detail;
-@property (strong, nonatomic) IBOutlet StarRatingView *startRatingView;
+@property (strong, nonatomic) IBOutlet UITextView *detail;
+@property (weak, nonatomic) IBOutlet UIImageView *imgVw_userImage;
+@property (strong, nonatomic) IBOutlet ASStarRatingView *startRatingView;
 @end

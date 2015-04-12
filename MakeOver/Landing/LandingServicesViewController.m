@@ -23,7 +23,9 @@
 #import "ImageViewerViewController.h"
 
 #import "FilterViewController.h"
-
+#import "FavouriteStylistController.h"
+#import "StyleList.h"
+#import "ContactListViewerController.h"
 
 @interface LandingServicesViewController (){
     WYPopoverController *popoverController;
@@ -81,6 +83,7 @@ static NSArray *menuItems;
     filterViewController.callback = ^(NSDictionary *params) {
         NSLog(@"%@",params);
         
+        NSString *sortingByFavouriteStylist   = [params objectForKey:@"sortByFavouriteStylist"];
         NSString *sortingByRating   = [params objectForKey:@"sortByRating"];
         NSString *sortingByDistance = [params objectForKey:@"sortByDistance"];
         NSString *filterBySex       = [params objectForKey:@"filterBySex"];
@@ -91,11 +94,7 @@ static NSArray *menuItems;
 
         if ([str_isSorting isEqualToString:@"YES"]) {
             
-            if (sortingByRating != nil && sortingByRating.length != 0) {
-                
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonRating <= %f", [sortingByRating floatValue]];
-                
-                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            if (sortingByRating != nil && sortingByRating.length != 0 && [sortingByRating isEqualToString:@"YES"]) {
                 
                 NSArray *sortedArray;
                 sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
@@ -110,17 +109,13 @@ static NSArray *menuItems;
             }
             
             
-            if (sortingByDistance != nil && sortingByDistance.length != 0) {
-                
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonDstfrmCurrLocation.floatValue <= %f", [sortingByDistance floatValue]];
-                
-                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
+            if (sortingByDistance != nil && sortingByDistance.length != 0 && [sortingByDistance isEqualToString:@"YES"]) {
                 
                 NSArray *sortedArray;
                 sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                    NSString *first = [(ServiceList*)a saloonDstfrmCurrLocation];
-                    NSString *second = [(ServiceList*)b saloonDstfrmCurrLocation];
-                    return [second compare:first];
+                    NSNumber *first = [NSNumber numberWithFloat:[[(ServiceList*)a saloonDstfrmCurrLocation] floatValue]] ;
+                    NSNumber *second = [NSNumber numberWithFloat:[[(ServiceList*)b saloonDstfrmCurrLocation] floatValue]];
+                    return [first compare:second];
                 }];
                 
                 arrayFilteredResults = sortedArray;
@@ -128,6 +123,13 @@ static NSArray *menuItems;
                 [weakSelf.servicesTable reloadData];
             }
             
+            
+            if (sortingByFavouriteStylist != nil && sortingByFavouriteStylist.length != 0 && [sortingByFavouriteStylist isEqualToString:@"YES"]) {
+                
+                FavouriteStylistController *favouriteStylistController = [self.storyboard instantiateViewControllerWithIdentifier:@"SIDFavouriteStylist"];
+                [self.navigationController pushViewController:favouriteStylistController animated:YES];
+
+                }
         }
         
         if ([str_isFiltering isEqualToString:@"YES"]){
@@ -245,29 +247,35 @@ static NSArray *menuItems;
     
     [cell.address setText:service.saloonAddress];
     [cell.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
+    
     __weak LandingServicesViewController *selfWeak = self;
+    
     [cell reviewWithCompletion:^(UIButton *sender, ServiceCollectionType serviceType){
         switch (serviceType) {
+            
             case tReview:
                 [selfWeak reviewPresent:indexPath];
                 break;
             case tMenu:
-                [selfWeak imageViewerPresent:[service.styleList valueForKeyPath:@"imageUrl"]];
+                [selfWeak imageViewerPresent:service.menuImages];
                 break;
             case tPhoto:
-                [selfWeak imageViewerPresent:[service.styleList valueForKeyPath:@"imageUrl"]];
+                [selfWeak imageViewerPresent:service.clubImages];// Dnt know what to show
                 break;
             case tInfo:
                 [selfWeak showSaloonInfo];
+            case tCall:
+                [selfWeak showCallingPopup:service.contacts];
+            case tDistance:
+                [selfWeak showDistancePopUp];
             default:
                 break;
+                
         }
     }];
+        
     [cell.startRatingView setRating:[service.saloonRating doubleValue]];
-//    cell.startRatingView = [cell.startRatingView initWithFrame:cell.startRatingView.frame andRating:[service.saloonRating intValue] withLabel:NO animated:YES withCompletion:^(NSInteger rating) {
     
-//        [self ratingOpen];
-//    }];
     return cell;
 }
 
@@ -459,17 +467,54 @@ static NSArray *menuItems;
 }
 
 
+-(void)showCallingPopup:(NSArray*)contacts {
+    
+    NSLog(@"Calling PopUp");
+    
+    __block ContactListViewerController *contactsObj = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ContactListViewerController class])];
+    //review.service = _services[index.row];
+    contactsObj.array_contacts = contacts;
+    
+    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
+    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    CGRect rect = self.view.frame;
+    rect.size.width = rect.size.width -20;
+    rect.size.height = rect.size.height -20;
+    [popoverController setPopoverContentSize:rect.size];
+    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
+    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+        
+    }];
+
+    
+}
+
+
+-(void)showMenuPopUp {
+    
+    NSLog(@"Menu PopUp");
+
+}
+
+
+-(void)showDistancePopUp {
+    
+    NSLog(@"Distance PopUp");
+    
+}
+
 -(void)imageViewerPresent:(NSArray*)images{
     if (images.count) {
-        __block ImageViewerViewController *review = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
-        review.images = images;
+        __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
+        
+        imageViewer.images = images;
         
         CGRect rect = self.view.frame;
         rect.size.width = rect.size.width- 40;
         rect.size.height = rect.size.height -60;
         
         [popoverController setPopoverContentSize:rect.size];
-        popoverController = [[WYPopoverController alloc] initWithContentViewController:review];
+        popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
         [popoverController presentPopoverAsDialogAnimated:YES completion:^{
             
         }];
@@ -572,22 +617,65 @@ static NSArray *menuItems;
 
 
 
+
+#pragma mark - SearchBar Delegates
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    
     [searchBar setShowsCancelButton:YES animated:YES];
     return YES;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
 }
+
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSString* searchText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
+    
+    NSLog(@"%@",searchText);
+    
+    if (searchText.length == 5) {
+        NSLog(@"Hit Web Service");
+        //also check if already hit or not
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"",@"",@"",@"",@"",@"",@"", nil];
+        
+        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+            
+            if (result == sirSuccess) {
+               
+                NSError *error = nil;
+                NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+                
+                if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                    
+                    array_Saloons = [responseDict objectForKey:@"object"];
+                }
+                _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                
+                arrayFilteredResults = [NSArray arrayWithArray:_services];
+                
+                [self.servicesTable reloadData];
+            }else if (sirFailed){
+            
+            }
+        }];
+    }
+    
+    return YES;
+}
+
+
+
 
 
 @end

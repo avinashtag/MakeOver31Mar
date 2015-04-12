@@ -24,6 +24,7 @@
 
     __weak IBOutlet UIView *view_salonRatingBtnContainer;
     
+    __weak IBOutlet UIView *view_stylistBtnContainer;
     NSMutableDictionary *dict_filterSortingParams;
 }
 
@@ -37,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *SaloonRating;
 - (IBAction)SallonRatingClicked:(UIButton *)sender;
 - (IBAction)genderFilter:(UIButton *)sender;
+- (IBAction)action_sortBystylistClicked:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *filterTable;
 @property (weak, nonatomic) IBOutlet UIView *filterHeader;

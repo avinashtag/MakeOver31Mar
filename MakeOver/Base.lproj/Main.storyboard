@@ -484,39 +484,44 @@ IAo
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-lp-BsC">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="205-3w-P3e" customClass="StarRatingView">
-                                                            <rect key="frame" x="162" y="8" width="130" height="20"/>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="205-3w-P3e" customClass="ASStarRatingView">
+                                                            <rect key="frame" x="186" y="1" width="114" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(24 Feb, 2015)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rw8-1o-NfK">
-                                                            <rect key="frame" x="15" y="29" width="185" height="16"/>
+                                                            <rect key="frame" x="58" y="29" width="185" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviewer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qod-hG-D32">
-                                                            <rect key="frame" x="15" y="11" width="185" height="16"/>
+                                                            <rect key="frame" x="58" y="2" width="120" height="16"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bcu-uV-RQi">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.98431372549999996" green="0.94117647059999998" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="all good .." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dik-Yq-vuK">
-                                                    <rect key="frame" x="15" y="51" width="270" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="10" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krg-bb-eGU">
+                                                    <rect key="frame" x="10" y="49" width="280" height="24"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateSubtitle" destination="rw8-1o-NfK" id="ptT-SG-aAl"/>
-                                            <outlet property="detail" destination="Dik-Yq-vuK" id="GPm-UX-1gR"/>
+                                            <outlet property="detail" destination="krg-bb-eGU" id="yqf-bx-Oz8"/>
+                                            <outlet property="imgVw_userImage" destination="Bcu-uV-RQi" id="bIx-CG-O3s"/>
                                             <outlet property="name" destination="Qod-hG-D32" id="v8Z-Df-h29"/>
-                                            <outlet property="startRatingView" destination="205-3w-P3e" id="daA-Oa-N38"/>
+                                            <outlet property="startRatingView" destination="205-3w-P3e" id="3YE-GM-Vxg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -898,7 +903,7 @@ IAo
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1Z-3O-0JW" customClass="ASStarRatingView">
                                                     <rect key="frame" x="10" y="59" width="130" height="20"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="dlm-ga-IlQ"/>
                                                     </constraints>
@@ -1101,7 +1106,7 @@ IAo
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxg-IZ-RRF" customClass="ASStarRatingView">
                                                     <rect key="frame" x="10" y="59" width="130" height="20"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="DGx-iJ-vX4"/>
                                                     </constraints>
@@ -1492,6 +1497,7 @@ IAo
                     <connections>
                         <outlet property="HTHorizontalView" destination="U7h-Fa-1SK" id="5Ka-Rt-54l"/>
                         <outlet property="cityName" destination="cWb-Kt-Wvj" id="TIi-9I-5my"/>
+                        <outlet property="searchBar" destination="deB-jg-vUA" id="eBY-Hb-ZdU"/>
                         <outlet property="servicesTable" destination="VJT-Kv-4tb" id="CLa-jv-8EU"/>
                     </connections>
                 </viewController>
@@ -1678,6 +1684,37 @@ IAo
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EIR-2m-wpe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2168" y="-1014"/>
+        </scene>
+        <!--Contact List Viewer Controller-->
+        <scene sceneID="aNe-kl-KBH">
+            <objects>
+                <viewController storyboardIdentifier="ContactListViewerController" id="eeo-RE-rG3" customClass="ContactListViewerController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lzt-uH-esF"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wsv-lc-Lea"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W6x-oS-Dae">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="28v-hE-ZGl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="eeo-RE-rG3" id="JmM-j5-LoC"/>
+                                    <outlet property="delegate" destination="eeo-RE-rG3" id="wpH-Uv-Ssx"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView_contacts" destination="28v-hE-ZGl" id="mCr-GV-0Yn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dso-go-Dha" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2537" y="-1014"/>
         </scene>
         <!--Offer Detail View Controller-->
         <scene sceneID="43h-iu-nvc">
@@ -2619,16 +2656,16 @@ IAo
                                 <rect key="frame" x="160" y="0.0" width="160" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ucd-ZV-jcb" userLabel="SEGMENT 1">
-                                        <rect key="frame" x="0.0" y="100" width="160" height="495"/>
+                                        <rect key="frame" x="0.0" y="70" width="160" height="495"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t6z-yG-kkk">
                                                 <rect key="frame" x="10" y="17" width="140" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDX-aE-Xv1">
-                                                        <rect key="frame" x="4" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="0.5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="DISTANCE">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -2636,65 +2673,17 @@ IAo
                                                             <action selector="DistanceClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="BbO-gv-I6L"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFn-je-4VS">
-                                                        <rect key="frame" x="31" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="2">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="DistanceClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="7os-HO-dvu"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Wx-Ty-2gV">
-                                                        <rect key="frame" x="58" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="10">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="DistanceClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="3gn-ns-oH0"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLx-7a-aFb">
-                                                        <rect key="frame" x="85" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="15">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="DistanceClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="hAL-aF-3c3"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S97-2g-9T2">
-                                                        <rect key="frame" x="112" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="30">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="DistanceClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="6W7-oZ-yJn"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-Vk-FJt">
-                                                <rect key="frame" x="10" y="89" width="140" height="30"/>
+                                                <rect key="frame" x="10" y="75" width="140" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUq-xy-NTo">
-                                                        <rect key="frame" x="4" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="SALON RATING">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -2702,83 +2691,47 @@ IAo
                                                             <action selector="SallonRatingClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="4b5-Kt-0OC"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRl-fI-Pm2">
-                                                        <rect key="frame" x="31" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="3.5">
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kiI-n8-6HC">
+                                                <rect key="frame" x="10" y="133" width="140" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZ1-Fm-YBh">
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="FAVOURITE STYLIST">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="SallonRatingClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="3EW-yb-xMF"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVI-8a-knG">
-                                                        <rect key="frame" x="58" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="4">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="SallonRatingClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="jC3-C9-xAJ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAF-ce-eFV">
-                                                        <rect key="frame" x="85" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="4.5">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="SallonRatingClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="pnh-BU-t2A"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvC-pT-dD5">
-                                                        <rect key="frame" x="112" y="3" width="24" height="24"/>
-                                                        <color key="backgroundColor" red="0.30980392156862746" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <state key="normal" title="5">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="SallonRatingClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="VcR-jA-KMr"/>
+                                                            <action selector="action_sortBystylistClicked:" destination="ZSD-hl-86X" eventType="touchUpInside" id="zbd-ZR-AeY"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SALON RATING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwh-36-Nvx">
-                                                <rect key="frame" x="10" y="72" width="140" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPK-EG-l7G">
                                                 <rect key="frame" x="0.0" y="60" width="160" height="2"/>
                                                 <color key="backgroundColor" red="0.504329758219077" green="0.28747754035824852" blue="0.27539102812177502" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DISTANCE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEX-OI-9qq">
-                                                <rect key="frame" x="10" y="0.0" width="140" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxR-Ei-StH">
+                                                <rect key="frame" x="0.0" y="118" width="160" height="2"/>
+                                                <color key="backgroundColor" red="0.50432975820000003" green="0.28747754040000001" blue="0.27539102809999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.30980392159999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MO5-OP-Jnw" userLabel="SEGMENT 2">
-                                        <rect key="frame" x="0.0" y="100" width="160" height="495"/>
+                                        <rect key="frame" x="0.0" y="70" width="160" height="495"/>
                                         <subviews>
                                             <button opaque="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUK-nT-h7y">
-                                                <rect key="frame" x="45" y="0.0" width="20" height="20"/>
+                                                <rect key="frame" x="45" y="13" width="20" height="20"/>
                                                 <state key="normal" image="ic_filter_female">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2788,7 +2741,7 @@ IAo
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkN-32-DTO">
-                                                <rect key="frame" x="95" y="0.0" width="20" height="20"/>
+                                                <rect key="frame" x="95" y="13" width="20" height="20"/>
                                                 <state key="normal" image="ic_filter_male">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2798,14 +2751,14 @@ IAo
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRd-PO-W05">
-                                                <rect key="frame" x="0.0" y="43" width="160" height="2"/>
+                                                <rect key="frame" x="0.0" y="46" width="160" height="2"/>
                                                 <color key="backgroundColor" red="0.50588235294117645" green="0.28627450980392155" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.86666666670000003" green="0.12941176469999999" blue="0.023529411760000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="216" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="y8D-ln-kIB">
-                                                <rect key="frame" x="0.0" y="67" width="160" height="400"/>
+                                                <rect key="frame" x="0.0" y="61" width="160" height="400"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <prototypes>
@@ -2850,7 +2803,7 @@ IAo
                                         <color key="backgroundColor" red="0.30980392159999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hi-1y-523">
-                                        <rect key="frame" x="112" y="0.0" width="49" height="30"/>
+                                        <rect key="frame" x="121" y="0.0" width="49" height="30"/>
                                         <state key="normal" image="ic_filter_done">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2888,6 +2841,7 @@ IAo
                         <outlet property="txt_time" destination="Ldr-IB-PoP" id="7NK-nY-bpm"/>
                         <outlet property="view_distanceBtnContainer" destination="t6z-yG-kkk" id="7ZB-0X-MZM"/>
                         <outlet property="view_salonRatingBtnContainer" destination="eJc-Vk-FJt" id="jy7-yt-Z4u"/>
+                        <outlet property="view_stylistBtnContainer" destination="kiI-n8-6HC" id="ofB-LD-Lwb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sl6-Eq-idg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2950,6 +2904,40 @@ IAo
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2231" y="-67"/>
+        </scene>
+        <!--Favourite Stylist Controller-->
+        <scene sceneID="4ck-E6-a1H">
+            <objects>
+                <viewController storyboardIdentifier="SIDFavouriteStylist" id="ZKh-42-j1Z" customClass="FavouriteStylistController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cpe-U6-xVI"/>
+                        <viewControllerLayoutGuide type="bottom" id="ocX-bf-hYm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="z0O-Wi-siv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_big" translatesAutoresizingMaskIntoConstraints="NO" id="ATa-iH-YyH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6b-hS-T2t">
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="ic_topback">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="action_back:" destination="ZKh-42-j1Z" eventType="touchUpInside" id="Kej-m0-bxw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oBw-db-3T3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2596" y="-67"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="NPt-rA-8KZ">

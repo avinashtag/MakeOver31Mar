@@ -96,10 +96,9 @@
 }
 
 - (IBAction)distanceCompletion:(UIButton *)sender{
-//    if(_collectionReviewDidSelect != nil){
-//        _collectionReviewDidSelect(sender , tDistance);
-//    }
-//
+    if(_collectionReviewDidSelect != nil){
+        _collectionReviewDidSelect(sender , tDistance);
+    }
 }
 
 - (IBAction)favouriteCompletion:(UIButton *)sender{

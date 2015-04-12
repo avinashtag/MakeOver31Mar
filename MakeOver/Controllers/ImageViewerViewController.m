@@ -46,14 +46,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *idt = @"collectionCellImage";
     CollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:idt forIndexPath:indexPath];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_images[indexPath.row]]]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [cell.imageView setImage:image];
-        });
-
-//    [cell.imageView setImageWithURL:[NSURL URLWithString:_images[indexPath.row]] placeholderImage:[UIImage imageNamed:@"5starsgray.png"]];
-    });
+    //[cell.imageView setImageWithURL:[NSURL URLWithString:@"https://graph.facebook.com/794134670660627/picture?type=normal"] placeholderImage:nil];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:_images[indexPath.row]] placeholderImage:nil];
+    
     return cell;
 }
 

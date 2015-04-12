@@ -25,6 +25,10 @@
 @property(nonatomic, strong)NSString *gender;
 @property(nonatomic, strong)NSString *startTime;
 @property(nonatomic, strong)NSString *endTime;
+@property(nonatomic, strong)NSArray  *menuImages;
+@property(nonatomic, strong)NSArray  *contacts;
+@property(nonatomic, strong)NSArray  *clubImages;
+
 
 
 

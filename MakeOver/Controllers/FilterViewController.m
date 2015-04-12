@@ -8,7 +8,7 @@
 
 #import "FilterViewController.h"
 #import "NMRangeSlider.h"
-
+#import "FavouriteStylistController.h"
 
 @implementation FilterCell
 
@@ -24,6 +24,7 @@
 
 @end
 
+NSString *const ksortByFavouriteStylist = @"sortByFavouriteStylist";
 NSString *const ksortByDistance = @"sortByDistance";
 NSString *const ksortByRating = @"sortByRating";
 NSString *const kfilterBySex = @"filterBySex";
@@ -57,7 +58,7 @@ NSString *const kisFiltering = @"isFiltering";
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     
-    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"YES",kisSorting,@"NO",kisFiltering, nil];
+    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ksortByFavouriteStylist,@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"YES",kisSorting,@"NO",kisFiltering, nil];
     
     // Do any additional setup after loading the view.
 }
@@ -88,154 +89,95 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (IBAction)DistanceClicked:(UIButton *)sender {
     
-    [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [[view_salonRatingBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         UIButton *btnInView = (UIButton*)obj;
-            // change button bg color to maroon
-            // change button text color to white
-            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }];
-    [dict_filterSortingParams setObject:@"" forKey:ksortByRating];
-
-    UIButton *btn = (UIButton*)sender;
-   
-    [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-       
-        UIButton *btnInView = (UIButton*)obj;
         
-        if (btn.tag == btnInView.tag) {
-            
-            // change button bg color to white
-            // change button text color to maroon
-            
-            [btnInView setBackgroundColor:[UIColor whiteColor]];
-            [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
-            
-            NSString *string_distance;
-            
-            switch (btn.tag) {
-                case 0:
-                {
-                    string_distance = @"0.5";
-                }
-                    break;
-                case 1:
-                {
-                    string_distance = @"2";
-                }
-                    break;
-                case 2:
-                {
-                    string_distance = @"10";
-                }
-                    break;
-                case 3:
-                {
-                    string_distance = @"15";
-                }
-                    break;
-                case 4:
-                {
-                    string_distance = @"30";
-                }
-                    break;
-                    
-                default:
-                    string_distance = @"";
-
-                    break;
-            }
-            
-            [dict_filterSortingParams setObject:string_distance forKey:ksortByDistance];
-            
-        }else{
-        
-            // change button bg color to maroon
-            // change button text color to white
-        
-            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        }
+        [btnInView setBackgroundColor:[UIColor clearColor]];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
     }];
     
+    [[view_stylistBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        [btnInView setBackgroundColor:[UIColor clearColor]];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+    }];
+    
+    [dict_filterSortingParams setObject:@"NO" forKey:ksortByRating];
+    [dict_filterSortingParams setObject:@"YES" forKey:ksortByDistance];
+    [dict_filterSortingParams setObject:@"NO" forKey:ksortByFavouriteStylist];
+
+    UIButton *btn = (UIButton*)sender;
+    
+    [btn setBackgroundColor:[UIColor whiteColor]];
+    [btn setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
     
 }
 - (IBAction)SallonRatingClicked:(UIButton *)sender {
     
-    [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [[view_distanceBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
         UIButton *btnInView = (UIButton*)obj;
-            // change button bg color to maroon
-            // change button text color to white
-            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        [btnInView setBackgroundColor:[UIColor clearColor]];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
     }];
     
-    [dict_filterSortingParams setObject:@"" forKey:ksortByDistance];
+    [[view_stylistBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        [btnInView setBackgroundColor:[UIColor clearColor]];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+    }];
+    
+    [dict_filterSortingParams setObject:@"YES" forKey:ksortByRating];
+    [dict_filterSortingParams setObject:@"NO" forKey:ksortByDistance];
+    [dict_filterSortingParams setObject:@"NO" forKey:ksortByFavouriteStylist];
 
     UIButton *btn = (UIButton*)sender;
     
-    [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [btn setBackgroundColor:[UIColor whiteColor]];
+    [btn setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+}
+
+- (IBAction)action_sortBystylistClicked:(id)sender {
+    
+    [[view_distanceBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         UIButton *btnInView = (UIButton*)obj;
         
-        if (btn.tag == btnInView.tag) {
-            
-            // change button bg color to white
-            // change button text color to maroon
-            
-            [btnInView setBackgroundColor:[UIColor whiteColor]];
-            [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
-            
-            NSString *string_rating;
-            
-            switch (btn.tag) {
-                case 0:
-                {
-                    string_rating = @"3";
-                }
-                    break;
-                case 1:
-                {
-                    string_rating = @"3.5";
-                }
-                    break;
-                case 2:
-                {
-                    string_rating = @"4";
-                }
-                    break;
-                case 3:
-                {
-                    string_rating = @"4.5";
-                }
-                    break;
-                case 4:
-                {
-                    string_rating = @"5";
-                }
-                    break;
-                    
-                default:
-                    string_rating = @"";
-                    
-                    break;
-            }
-            
-            [dict_filterSortingParams setObject:string_rating forKey:ksortByRating];
-            
-        }else{
-            
-            // change button bg color to maroon
-            // change button text color to white
-            
-            btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        }
+        [btnInView setBackgroundColor:[UIColor clearColor]];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
     }];
     
+    [[view_salonRatingBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        [btnInView setBackgroundColor:[UIColor clearColor]];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+    }];
+    
+    [dict_filterSortingParams setObject:@"NO" forKey:ksortByRating];
+    [dict_filterSortingParams setObject:@"NO" forKey:ksortByDistance];
+    [dict_filterSortingParams setObject:@"YES" forKey:ksortByFavouriteStylist];
+
+    
+    UIButton *btn = (UIButton*)sender;
+    
+    [btn setBackgroundColor:[UIColor whiteColor]];
+    [btn setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+    
+    //push another controller on done callback
 }
 
 - (IBAction)genderFilter:(UIButton *)sender {
@@ -254,6 +196,8 @@ NSString *const kisFiltering = @"isFiltering";
     
     [dict_filterSortingParams setObject:string_sex forKey:kfilterBySex];
 }
+
+
 
 
 - (IBAction)cancelTap:(UITapGestureRecognizer *)sender {
@@ -293,9 +237,8 @@ NSString *const kisFiltering = @"isFiltering";
         
         UIButton *btnInView = (UIButton*)obj;
         
-        btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+        btnInView.backgroundColor = [UIColor clearColor];
         [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
         
     }];
     
@@ -303,9 +246,17 @@ NSString *const kisFiltering = @"isFiltering";
         
         UIButton *btnInView = (UIButton*)obj;
         
-        btnInView.backgroundColor = [UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+        btnInView.backgroundColor = [UIColor clearColor];
         [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
+    }];
+    
+    [view_stylistBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIButton *btnInView = (UIButton*)obj;
+        
+        btnInView.backgroundColor = [UIColor clearColor];
+        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
     }];
     

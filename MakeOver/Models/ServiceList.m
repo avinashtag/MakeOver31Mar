@@ -30,6 +30,9 @@ static NSString *kfaborateFlag = @"faborateFlag";
 static NSString *kgender = @"gender";
 static NSString *kstartTime = @"startTiming";
 static NSString *kendTime = @"endTiming";
+static NSString *kmenuImages = @"menuImages";
+static NSString *kcontacts = @"saloonContact";
+static NSString *kclubImages = @"clubImages";
 
 
 static NSString *kresponseObject = @"object";
@@ -73,6 +76,11 @@ static NSString *kresponseObject = @"object";
     }
     self.services = [NSArray arrayWithArray:parsedServices];
 
+    self.contacts = [NSArray arrayWithArray:[dictioanry objectForKey:kcontacts]];
+    self.clubImages = [NSArray arrayWithArray:[dictioanry objectForKey:kclubImages]];
+    self.menuImages = [NSArray arrayWithArray:[dictioanry objectForKey:kmenuImages]];
+
+    
     return self;
 }
 

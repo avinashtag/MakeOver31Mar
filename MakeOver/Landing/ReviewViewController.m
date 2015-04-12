@@ -10,15 +10,23 @@
 #import "ReviewCell.h"
 #import "ServiceInvoker.h"
 #import "SaloonReview.h"
+#import "UIImageView+WebCache.h"
 
 @interface ReviewViewController ()
+{
+    UITextView *textView_getResizableHeight;
 
+}
 @end
 
 @implementation ReviewViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    textView_getResizableHeight = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, 280, 10)];
+    textView_getResizableHeight.scrollEnabled = NO;
+    
     [_activityIndicator startAnimating];
     [self getreviews];
     // Do any additional setup after loading the view.
@@ -55,14 +63,46 @@
     
     SaloonReview *review = _reviews[indexPath.row];
     
+    UITextView *textview_dynamic = (UITextView *)[cell viewWithTag:10];
+    textview_dynamic.dataDetectorTypes = UIDataDetectorTypeAll;
+    textview_dynamic.text = review.review;
+    [textview_dynamic sizeToFit];
+    [textview_dynamic setTextColor:[UIColor blackColor]];
+    
     [cell.name setText:review.user];
     [cell.dateSubtitle setText:review.reviewDate];
     [cell.startRatingView setRating:review.rating];
+    cell.startRatingView.canEdit = NO;
     [cell.detail setText:review.review];
-    
+    [cell.imgVw_userImage setImageWithURL:[NSURL URLWithString:review.userImgUrl] placeholderImage:nil];
+
     return cell;
     
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    SaloonReview *review = _reviews[indexPath.row];
+    
+    CGFloat dynamicHeight;
+    
+    textView_getResizableHeight.text = review.review;
+    [textView_getResizableHeight sizeToFit];
+    [textView_getResizableHeight layoutIfNeeded];
+    CGRect frame = textView_getResizableHeight.frame;
+    frame.size.height = textView_getResizableHeight.contentSize.height;
+    textView_getResizableHeight.frame = frame;
+    
+    dynamicHeight = textView_getResizableHeight.frame.size.height + 50;
+    
+    NSLog(@"%f",dynamicHeight);
+    
+    if (dynamicHeight>75)
+        return dynamicHeight;
+    else
+        return 75;
+}
+
 
 
 -(void)getreviews{
