@@ -70,6 +70,7 @@
 		9A4298E41AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298CA1AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png */; };
 		9A4A8EB81ADA30A500EA7623 /* FavouriteStylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4A8EB71ADA30A500EA7623 /* FavouriteStylistController.m */; };
 		9A6F885B1ADAB41400BB7C73 /* ContactListViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F885A1ADAB41400BB7C73 /* ContactListViewerController.m */; };
+		9ACD3BAB1ADD82CF005746AF /* DropDownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACD3BAA1ADD82CF005746AF /* DropDownList.m */; };
 		9AE156B61AD84BB000FE7BD3 /* FavouriteStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */; };
 		9AEA54B41ACB2100007606EA /* LandingBriefCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA54B31ACB2100007606EA /* LandingBriefCell.m */; };
 		B936DAD41A9861B70016E9C9 /* CustomSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B936DAD31A9861B70016E9C9 /* CustomSelection.m */; };
@@ -231,6 +232,9 @@
 		9A4A8EB71ADA30A500EA7623 /* FavouriteStylistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavouriteStylistController.m; path = Controllers/FavouriteStylistController.m; sourceTree = "<group>"; };
 		9A6F88591ADAB41400BB7C73 /* ContactListViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactListViewerController.h; path = Controllers/ContactListViewerController.h; sourceTree = "<group>"; };
 		9A6F885A1ADAB41400BB7C73 /* ContactListViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactListViewerController.m; path = Controllers/ContactListViewerController.m; sourceTree = "<group>"; };
+		9ACD3BA91ADD82CF005746AF /* DropDownList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropDownList.h; path = "Custom UI Controls/DropDownList.h"; sourceTree = SOURCE_ROOT; };
+		9ACD3BAA1ADD82CF005746AF /* DropDownList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DropDownList.m; path = "Custom UI Controls/DropDownList.m"; sourceTree = SOURCE_ROOT; };
+		9ACD3BAE1ADD8396005746AF /* DropDownListPassValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DropDownListPassValueDelegate.h; path = "Custom UI Controls/DropDownListPassValueDelegate.h"; sourceTree = SOURCE_ROOT; };
 		9AE156B41AD84BB000FE7BD3 /* FavouriteStylistButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteStylistButton.h; sourceTree = "<group>"; };
 		9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteStylistButton.m; sourceTree = "<group>"; };
 		9AEA54B21ACB2100007606EA /* LandingBriefCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingBriefCell.h; path = Landing/LandingBriefCell.h; sourceTree = "<group>"; };
@@ -488,6 +492,9 @@
 				BB6B41D11A926B7800CBCC7B /* LandingBriefViewController.m */,
 				7D7C1AFD1AC74C77008D66DE /* RecentSaloonViewController.h */,
 				7D7C1AFE1AC74C77008D66DE /* RecentSaloonViewController.m */,
+				9ACD3BAE1ADD8396005746AF /* DropDownListPassValueDelegate.h */,
+				9ACD3BA91ADD82CF005746AF /* DropDownList.h */,
+				9ACD3BAA1ADD82CF005746AF /* DropDownList.m */,
 			);
 			name = "Saloon Module";
 			sourceTree = "<group>";
@@ -1033,6 +1040,7 @@
 				7DADF0681A991F3E00EE0C4C /* ASIAuthenticationDialog.m in Sources */,
 				BB952A5F1ABF3DBE006A8328 /* Profile.m in Sources */,
 				BBA298E41AB5D00B004C5595 /* ReviewViewController.m in Sources */,
+				9ACD3BAB1ADD82CF005746AF /* DropDownList.m in Sources */,
 				7D7C1AFF1AC74C77008D66DE /* RecentSaloonViewController.m in Sources */,
 				7D364EEE1AB0C2DF006FEB6A /* RegistrationViewController.m in Sources */,
 				7DADF06A1A991F3E00EE0C4C /* ASIDataDecompressor.m in Sources */,

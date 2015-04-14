@@ -64,6 +64,12 @@ static NSArray *menuItems;
     arrayFilteredResults = [NSArray new];
     array_SearchResults = [NSMutableArray new];
     
+    _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
+    _ddList._delegate = self;
+
+    [_ddList.view setFrame:CGRectMake(0,self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, 0)];
+    [self.view addSubview:_ddList.view];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -688,7 +694,54 @@ static NSArray *menuItems;
 
 
 
+- (void)setDDListHidden:(BOOL)hidden {
+    NSInteger height = hidden ? 0 : 180;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.2];
+    [_ddList.view setFrame:CGRectMake(0, self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, height)];
+    [UIView commitAnimations];
+}
+
+#pragma mark -
+#pragma mark DropDownListPassValueDelegate protocol
+
+-(void)firstRowSelectedWithValue:(NSString*)value{
+    if (value) {
+        _searchBar.text = value;
+        [self searchBarSearchButtonClicked:_searchBar];
+        [self setDDListHidden:YES];
+    }
+    else {
+        
+    }
+}
+
+-(void)didSelectRowWithObject:(id)object{
+    if (object) {
+        ServiceList *objServiceList = (ServiceList*)object;
+        _searchBar.text = objServiceList.saloonName;
+        [self searchBarSearchButtonClicked:_searchBar];
+        [self setDDListHidden:YES];
+    }
+    else {
+        
+    }
+}
+
+
 #pragma mark - SearchBar Delegates
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText length] != 0) {
+        _ddList._searchText = searchText;
+        //[_ddList updateData];
+        [self setDDListHidden:NO];
+    }
+    else {
+        [self setDDListHidden:YES];
+    }
+    
+}
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     [searchBar setShowsCancelButton:YES animated:YES];
@@ -739,6 +792,8 @@ static NSArray *menuItems;
                 }
                 
                 NSMutableArray *array_SearchedServices = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                
+                [_ddList updateDataWithArray:array_SearchedServices];
                 
             }else if (sirFailed){
             

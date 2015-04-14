@@ -11,14 +11,19 @@
 #import "City.h"
 #import "ServiceInvoker.h"
 #import "WYPopoverController.h"
+#import "DropDownList.h"
+#import "DropDownListPassValueDelegate.h"
 
-@interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate> {
+@interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate,DropDownListPassValueDelegate> {
     
     NSArray *array_Saloons;
     
     NSMutableArray *array_favSaloons;
     BOOL isSearchReqQueued;
     NSMutableArray *array_SearchResults;
+    
+    DropDownList    *_ddList;
+
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
@@ -28,5 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;
 @property (weak, nonatomic) IBOutlet UIButton *cityName;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
+- (void)setDDListHidden:(BOOL)hidden;
 
 @end
