@@ -17,6 +17,8 @@
     NSArray *array_Saloons;
     
     NSMutableArray *array_favSaloons;
+    BOOL isSearchReqQueued;
+    NSMutableArray *array_SearchResults;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;

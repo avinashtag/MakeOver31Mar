@@ -62,6 +62,7 @@ static NSArray *menuItems;
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
     
     arrayFilteredResults = [NSArray new];
+    array_SearchResults = [NSMutableArray new];
     
 }
 
@@ -712,13 +713,19 @@ static NSArray *menuItems;
     
     NSLog(@"%@",searchText);
     
-    if (searchText.length == 5) {
+    if (!isSearchReqQueued && (searchText.length == 4))
+    {
         NSLog(@"Hit Web Service");
         //also check if already hit or not
+        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
         
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"",@"",@"",@"",@"",@"",@"", nil];
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString",@"1",@"userId", nil];
         
-        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+        isSearchReqQueued = YES;
+        
+        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+        {
+            isSearchReqQueued = NO;
             
             if (result == sirSuccess) {
                
@@ -727,13 +734,12 @@ static NSArray *menuItems;
                 
                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
                     
-                    array_Saloons = [responseDict objectForKey:@"object"];
+                    [array_SearchResults removeAllObjects];
+                    [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
                 }
-                _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
                 
-                arrayFilteredResults = [NSArray arrayWithArray:_services];
+                NSMutableArray *array_SearchedServices = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
                 
-                [self.servicesTable reloadData];
             }else if (sirFailed){
             
             }
