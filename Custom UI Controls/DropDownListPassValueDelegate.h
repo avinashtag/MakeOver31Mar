@@ -12,7 +12,7 @@
 
 @protocol DropDownListPassValueDelegate <NSObject>
 
--(void)firstRowSelectedWithValue:(NSString*)value;
+-(void)firstRowSelectedWithValue:(id)value;
 -(void)didSelectRowWithObject:(id)object;
 
 @end

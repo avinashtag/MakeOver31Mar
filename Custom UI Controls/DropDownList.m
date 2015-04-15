@@ -30,11 +30,12 @@
     
 }
 
-- (void)updateDataWithArray:(NSArray*)array{
+- (void)updateDataWithArray:(NSArray*)array {
+    
     [_resultList removeAllObjects];
     _resultList = [[NSMutableArray alloc]initWithArray:array];
     
-    [_resultList insertObject:[NSString stringWithFormat:@"%d records found..",_resultList.count] atIndex:0];
+    [_resultList insertObject:[NSString stringWithFormat:@"%lu records found..",(unsigned long)_resultList.count] atIndex:0];
     
     [self.tableView reloadData];
 }
@@ -88,7 +89,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        [_delegate firstRowSelectedWithValue:[_resultList objectAtIndex:0]];
+        [_delegate firstRowSelectedWithValue:_resultList];
     }else{
         [_delegate didSelectRowWithObject:[_resultList objectAtIndex:indexPath.row]];
     }
