@@ -8,7 +8,6 @@
 
 #import "FilterViewController.h"
 #import "NMRangeSlider.h"
-#import "FavouriteStylistController.h"
 
 @implementation FilterCell
 
@@ -30,6 +29,8 @@ NSString *const ksortByRating = @"sortByRating";
 NSString *const kfilterBySex = @"filterBySex";
 NSString *const kfilterByTime = @"filterByTime";
 NSString *const kfilterByRange = @"filterByRange";
+NSString *const kfilterByCardSupport = @"filterByCardPresent";
+
 NSString *const kisSorting = @"isSorting";
 NSString *const kisFiltering = @"isFiltering";
 
@@ -58,8 +59,8 @@ NSString *const kisFiltering = @"isFiltering";
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     
-    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ksortByFavouriteStylist,@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"YES",kisSorting,@"NO",kisFiltering, nil];
-    
+    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ksortByFavouriteStylist,@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"NO",kfilterByCardSupport,@"YES",kisSorting,@"NO",kisFiltering, nil];
+
     // Do any additional setup after loading the view.
 }
 
@@ -197,6 +198,19 @@ NSString *const kisFiltering = @"isFiltering";
     [dict_filterSortingParams setObject:string_sex forKey:kfilterBySex];
 }
 
+
+- (IBAction)cardSupportFilter:(UIButton *)sender {
+    
+    UIButton *btn = (UIButton*)sender;
+    
+    if (!btn.selected) {
+        [btn setSelected:YES];
+        [dict_filterSortingParams setObject:@"YES" forKey:kfilterByCardSupport];
+    }else{
+        [dict_filterSortingParams setObject:@"NO" forKey:kfilterByCardSupport];
+        [btn setSelected:NO];
+    }
+}
 
 
 

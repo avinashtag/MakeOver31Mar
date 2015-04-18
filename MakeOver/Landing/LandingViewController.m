@@ -13,6 +13,8 @@
 #import "LandingServicesViewController.h"
 #import "ServiceInvoker.h"
 #import "City.h"
+#import "ServiceList.h"
+#import "LandingBriefViewController.h"
 
 @interface LandingViewController () <ServiceInvokerDelegate>{
     
@@ -33,6 +35,12 @@
     [_servicesTable reloadData];
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
 
+    
+    array_SearchResults = [NSMutableArray new];
+    _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
+    _ddList._delegate = self;
+    [_ddList.view setFrame:CGRectMake(0,searchBar.frame.origin.y + searchBar.frame.size.height, self.view.frame.size.width, 0)];
+    [self.view addSubview:_ddList.view];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -123,23 +131,254 @@
 
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+
+
+
+#pragma mark -
+#pragma mark DropDownListPassValueDelegate protocol
+
+- (void)setDDListHidden:(BOOL)hidden {
+    NSInteger height = hidden ? 0 : 180;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.2];
+    [_ddList.view setFrame:CGRectMake(0, searchBar.frame.origin.y + searchBar.frame.size.height, self.view.frame.size.width, height)];
+    [UIView commitAnimations];
+}
+
+
+-(void)firstRowSelectedWithValue:(id)value {
+    if (value) {
+        [self searchBarSearchButtonClicked:searchBar];
+        [self setDDListHidden:YES];
+        
+        NSMutableArray *array = (NSMutableArray*)value;
+        [array removeObjectAtIndex:0];
+        
+        LandingServicesViewController *landingservice = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingServicesViewController"];
+        //landingservice.serviceId = listObj.services;
+        landingservice.services = [NSMutableArray arrayWithArray:array];
+        landingservice.isComingFromSearch = YES;
+        landingservice.selectedSegmentFromSearch = 0;
+        [self.navigationController pushViewController:landingservice animated:YES];
+    }
+    else {
+        
+    }
+}
+
+-(void)didSelectRowWithObject:(id)object{
     
+    searchBar.text = nil;// objServiceList.saloonName;
+    [self searchBarSearchButtonClicked:searchBar];
+    [self setDDListHidden:YES];
+    
+    if (object)
+    {
+        ServiceList *objServiceList = (ServiceList*)object;
+        
+        LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
+        [self.navigationController pushViewController:landingBriefViewController animated:YES];
+        
+        dispatch_after(0.3, dispatch_get_main_queue(), ^{
+            //landingBriefViewController.service = _services[indexPath.row];
+            landingBriefViewController.service = objServiceList;
+            
+            [landingBriefViewController.servicesTable reloadData];
+            [UtilityClass removeHudFromView:nil afterDelay:0];
+            
+            landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
+            [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
+            if (landingBriefViewController.service.saloonServices.count) {
+                [landingBriefViewController.saloonDescription setText:[landingBriefViewController.service.saloonServices componentsJoinedByString:@","]];
+            }
+            
+            if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
+                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+            }
+            
+            
+            [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
+            
+            landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
+            
+            [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
+            
+            [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
+            
+            // Get fav saloons from saved records.
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+            NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+            NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            
+            if (![fileManager fileExistsAtPath:favsPath])
+            {
+                
+                landingBriefViewController.favourite.selected = NO;
+            }
+            else {
+                
+                // Read records
+                NSArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[objServiceList saloonId] integerValue]];
+                
+                NSArray *arrayResult = [arrayFavSaloons filteredArrayUsingPredicate:resultPredicate];
+                
+                if ((arrayResult != nil) && (arrayResult.count)) {
+                    landingBriefViewController.favourite.selected = YES;
+                }
+                else
+                    landingBriefViewController.favourite.selected = NO;
+            }
+            
+            
+            // add saloon in recently viewed records.
+            
+            NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
+            
+            if (![fileManager fileExistsAtPath:savedRecordsPath]) //if file doesn't exist at path then create
+            {
+                NSString *bundle = [[NSBundle mainBundle] pathForResource:@"recentlyViewed" ofType:@"plist"]; //5
+                
+                NSError *error;
+                [fileManager copyItemAtPath:bundle toPath:savedRecordsPath error:&error]; //6
+                
+                if (!error) {
+                    
+                    NSLog(@"recentlyViewed.plist created at Documents directory.");
+                    
+                    //NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
+                    NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:objServiceList, nil];
+                    if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
+                        // Handle error
+                        NSLog(@"error in archieving");
+                    }
+                    else {
+                        NSLog(@"Recently viewed object saved");
+                    }
+                }
+            }
+            else {
+                
+                // Read & Update records
+                NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[objServiceList saloonId] integerValue]];
+                
+                NSArray *arrayResult = [saloons filteredArrayUsingPredicate:resultPredicate];
+                
+                if ((arrayResult != nil) && (arrayResult.count)) {
+                    // Do nothing
+                }
+                else
+                {
+                    
+                    if (saloons.count <10) {
+                        
+                        // write Record:
+                        //[saloons addObject:_services[indexPath.row]];
+                        [saloons addObject:objServiceList];
+                    }
+                    else {
+                        //[saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
+                        [saloons replaceObjectAtIndex:saloons.count-1 withObject:objServiceList];
+                    }
+                    
+                    if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
+                        // Handle error
+                        NSLog(@"error in archieving");
+                    }
+                    else
+                        NSLog(@"Recently viewed object saved");
+                }
+                
+            }
+            
+        });
+    }
+    else {
+        [UtilityClass showAlertwithTitle:nil message:@"some error occured, please try after some time."];
+    }
+}
+
+
+#pragma mark - SearchBar Delegates
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText length] != 0) {
+        _ddList._searchText = searchText;
+        //[_ddList updateData];
+        [self setDDListHidden:NO];
+    }
+    else {
+        [self setDDListHidden:YES];
+    }
+    
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     [searchBar setShowsCancelButton:YES animated:YES];
     return YES;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar resignFirstResponder];
+}
+
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSString* searchText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     
-    [searchBar setShowsCancelButton:NO animated:YES];
-    [searchBar resignFirstResponder];
+    NSLog(@"%@",searchText);
+    
+    if (!isSearchReqQueued && (searchText.length == 4))
+    {
+        NSLog(@"Hit Web Service");
+        //also check if already hit or not
+        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString",@"1",@"userId", nil];
+        
+        isSearchReqQueued = YES;
+        
+        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+         {
+             isSearchReqQueued = NO;
+             
+             if (result == sirSuccess) {
+                 
+                 NSError *error = nil;
+                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+                 
+                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     
+                     [array_SearchResults removeAllObjects];
+                     [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                 }
+                 
+                 NSMutableArray *array_SearchedServices = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                 
+                 [_ddList updateDataWithArray:array_SearchedServices];
+                 
+             }else if (sirFailed){
+                 
+             }
+         }];
+    }
+    
+    return YES;
 }
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [searchBar setShowsCancelButton:NO animated:YES];
-    [searchBar resignFirstResponder];
-}
-
 
 
 

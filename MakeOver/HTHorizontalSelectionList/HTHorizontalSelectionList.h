@@ -30,9 +30,13 @@ typedef NS_ENUM(NSInteger, HTHorizontalSelectionIndicatorStyle) {
 
 @property (nonatomic) HTHorizontalSelectionIndicatorStyle selectionIndicatorStyle;
 
+@property (nonatomic, strong) NSMutableArray *buttons;
+
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state;
 
 - (void)reloadData;
+
+- (void)buttonWasTapped:(id)sender;
 
 @end
 

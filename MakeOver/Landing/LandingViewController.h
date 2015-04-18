@@ -10,12 +10,22 @@
 #import "WYPopoverController.h"
 #import "MOSuperViewController.h"
 #import "AppDelegate.h"
+#import "DropDownList.h"
 
-@interface LandingViewController : MOSuperViewController< UISearchBarDelegate> {
+@interface LandingViewController : MOSuperViewController< UISearchBarDelegate,DropDownListPassValueDelegate> {
 
     __weak IBOutlet UIBarButtonItem *button_citySelection;
+    
+    DropDownList    *_ddList;
+    BOOL isSearchReqQueued;
+    __weak IBOutlet UISearchBar *searchBar;
+    NSMutableArray *array_SearchResults;
+
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *servicesTable;
 @property (strong, nonatomic) IBOutlet UIButton *cityName;
+
+- (void)setDDListHidden:(BOOL)hidden;
+
 @end

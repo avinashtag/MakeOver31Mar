@@ -12,7 +12,6 @@
 @interface HTHorizontalSelectionList ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) NSMutableArray *buttons;
 
 @property (nonatomic, strong) UIView *contentView;
 

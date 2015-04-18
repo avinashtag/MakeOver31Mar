@@ -18,7 +18,7 @@ NSString *const kObjectServices = @"services";
 
 
 static NSString *ksaloonAddress = @"saloonAddress";
-static NSString *ksaloonContact = @"saloonContact";
+static NSString *ksaloonContact = @"";
 static NSString *ksaloonDstfrmCurrLocation = @"saloonDstfrmCurrLocation";
 static NSString *ksaloonId = @"saloonId";
 static NSString *ksaloonName = @"saloonName";
@@ -33,6 +33,7 @@ static NSString *kendTime = @"endTiming";
 static NSString *kmenuImages = @"menuImages";
 static NSString *kcontacts = @"saloonContact";
 static NSString *kclubImages = @"clubImages";
+static NSString *kcreditDebitCardSupport = @"creditDebitCardSupport";
 
 
 static NSString *kresponseObject = @"object";
@@ -51,6 +52,8 @@ static NSString *kresponseObject = @"object";
     self.gender               = nullRemover(dictioanry[kgender]);
     self.startTime               = nullRemover(dictioanry[kstartTime]);
     self.endTime               = nullRemover(dictioanry[kendTime]);
+    
+    self.creditDebitCardSupport = nullRemover(dictioanry[kcreditDebitCardSupport]);
 
 
     if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSArray class]]) {
@@ -79,7 +82,7 @@ static NSString *kresponseObject = @"object";
     self.contacts = [NSArray arrayWithArray:[dictioanry objectForKey:kcontacts]];
     self.clubImages = [NSArray arrayWithArray:[dictioanry objectForKey:kclubImages]];
     self.menuImages = [NSArray arrayWithArray:[dictioanry objectForKey:kmenuImages]];
-
+    
     
     return self;
 }
@@ -99,35 +102,68 @@ static NSString *kresponseObject = @"object";
     return services;
 }
 
++(NSArray*)initializeWithTutorialResponse:(NSDictionary*)dictionary{
+    
+    __block NSMutableArray *services = [[NSMutableArray alloc]init];
+    NSArray* response = dictionary[kresponseObject];
+    [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {
+        
+        ServiceList *service = [[ServiceList alloc]initWithDictionary:[ServiceRaw objectForKey:@"saloonResponse"]];
+        [services addObject:service];
+        
+    }];
+    return services;
+}
+
+
+
 // Implementation
 - (void) encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:self.saloonAddress forKey:@"saloonAddress"];
-    [encoder encodeObject:self.saloonContact forKey:@"saloonContact"];
-    [encoder encodeObject:self.saloonDstfrmCurrLocation forKey:@"saloonDstfrmCurrLocation"];
-    [encoder encodeObject:self.saloonId forKey:@"saloonId"];
-    [encoder encodeObject:self.saloonName forKey:@"saloonName"];
-    [encoder encodeObject:self.sallonReviewCount forKey:@"sallonReviewCount"];
-    [encoder encodeObject:self.saloonRating forKey:@"saloonRating"];
-    [encoder encodeObject:self.saloonServices forKey:@"saloonServices"];
-    [encoder encodeObject:self.styleList forKey:@"styleList"];
-    [encoder encodeObject:self.services forKey:@"services"];
-    [encoder encodeObject:self.faborateFlag forKey:@"faborateFlag"];
+    [encoder encodeObject:self.saloonAddress forKey:ksaloonAddress];
+    [encoder encodeObject:self.saloonContact forKey:ksaloonContact];
+    [encoder encodeObject:self.saloonDstfrmCurrLocation forKey:ksaloonDstfrmCurrLocation];
+    [encoder encodeObject:self.saloonId forKey:ksaloonId];
+    [encoder encodeObject:self.saloonName forKey:ksaloonName];
+    [encoder encodeObject:self.sallonReviewCount forKey:ksallonReviewCount];
+    [encoder encodeObject:self.saloonRating forKey:ksaloonRating];
+    [encoder encodeObject:self.saloonServices forKey:ksaloonServices];
+    [encoder encodeObject:self.styleList forKey:kstyList];
+    [encoder encodeObject:self.services forKey:kObjectServices];
+    [encoder encodeObject:self.faborateFlag forKey:kfaborateFlag];
+    
+    [encoder encodeObject:self.gender forKey:kgender];
+    [encoder encodeObject:self.startTime forKey:kstartTime];
+    [encoder encodeObject:self.endTime forKey:kendTime];
+    [encoder encodeObject:self.menuImages forKey:kmenuImages];
+    [encoder encodeObject:self.contacts forKey:kcontacts];
+    [encoder encodeObject:self.clubImages forKey:kclubImages];
+    [encoder encodeObject:self.creditDebitCardSupport forKey:kcreditDebitCardSupport];
+
+    
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     
-    self.saloonAddress = [decoder decodeObjectForKey:@"saloonAddress"];
-    self.saloonContact = [decoder decodeObjectForKey:@"saloonContact"];
-    self.saloonDstfrmCurrLocation = [decoder decodeObjectForKey:@"saloonDstfrmCurrLocation"];
-    self.saloonId = [decoder decodeObjectForKey:@"saloonId"];
-    self.saloonName = [decoder decodeObjectForKey:@"saloonName"];
-    self.sallonReviewCount = [decoder decodeObjectForKey:@"sallonReviewCount"];
-    self.saloonRating = [decoder decodeObjectForKey:@"saloonRating"];
-    self.saloonServices = [decoder decodeObjectForKey:@"saloonServices"];
-    self.styleList = [decoder decodeObjectForKey:@"styleList"];
-    self.services = [decoder decodeObjectForKey:@"services"];
-    self.faborateFlag = [decoder decodeObjectForKey:@"faborateFlag"];
+    self.saloonAddress = [decoder decodeObjectForKey:ksaloonAddress];
+    self.saloonContact = [decoder decodeObjectForKey:ksaloonContact];
+    self.saloonDstfrmCurrLocation = [decoder decodeObjectForKey:ksaloonDstfrmCurrLocation];
+    self.saloonId = [decoder decodeObjectForKey:ksaloonId];
+    self.saloonName = [decoder decodeObjectForKey:ksaloonName];
+    self.sallonReviewCount = [decoder decodeObjectForKey:ksallonReviewCount];
+    self.saloonRating = [decoder decodeObjectForKey:ksaloonRating];
+    self.saloonServices = [decoder decodeObjectForKey:ksaloonServices];
+    self.styleList = [decoder decodeObjectForKey:kstyList];
+    self.services = [decoder decodeObjectForKey:kObjectServices];
+    self.faborateFlag = [decoder decodeObjectForKey:kfaborateFlag];
+
+    self.gender = [decoder decodeObjectForKey:kgender];
+    self.startTime = [decoder decodeObjectForKey:kstartTime];
+    self.endTime = [decoder decodeObjectForKey:kendTime];
+    self.menuImages = [decoder decodeObjectForKey:kmenuImages];
+    self.contacts = [decoder decodeObjectForKey:kcontacts];
+    self.clubImages = [decoder decodeObjectForKey:kclubImages];
+    self.creditDebitCardSupport = [decoder decodeObjectForKey:kcreditDebitCardSupport];
 
     return self;
 }

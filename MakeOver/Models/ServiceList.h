@@ -28,12 +28,14 @@
 @property(nonatomic, strong)NSArray  *menuImages;
 @property(nonatomic, strong)NSArray  *contacts;
 @property(nonatomic, strong)NSArray  *clubImages;
+@property(nonatomic, strong)NSString *creditDebitCardSupport;
 
 
 
 
 -(instancetype)initWithDictionary:(NSDictionary*)dictioanry;
 +(NSArray*)initializeWithResponse:(NSDictionary*)dictionary;
++(NSArray*)initializeWithTutorialResponse:(NSDictionary*)dictionary;
 
 
 @end

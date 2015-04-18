@@ -44,6 +44,10 @@ enum TimeConstants {
 
 #define API_ADD_FAVOURITE @"addFaborate"
 
+#define API_GET_TUTORIAL @"getTutorial"
+
+#define API_GET_OFFER @"getOffer"
+
 // ********* End of Macros related to API services ******** //
 
 

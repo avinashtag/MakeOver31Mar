@@ -606,18 +606,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     if (_service.contacts.count) {
         
-        NSMutableString *buttonTitles = [NSMutableString new];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
         
         for (NSString *number in _service.contacts) {
-            
-            if (number != (id)[NSNull null]) {
-                [buttonTitles appendFormat:@"%@,",number];
-            }
+            if (number.length == 10)
+                [actionSheet addButtonWithTitle:number];
         }
         
-        buttonTitles = [[buttonTitles stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]] mutableCopy];
-        
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:buttonTitles, nil];
         [actionSheet showFromTabBar:self.tabBarController.tabBar];
     }
     else {
