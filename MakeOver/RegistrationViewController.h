@@ -18,6 +18,8 @@
     __weak IBOutlet UIButton *btn_female;
 }
 
+@property (nonatomic,assign) BOOL isInsideProfileTab;
+
 - (IBAction)actionSelectGender:(id)sender;
 - (IBAction)actionNextButtonClicked:(id)sender;
 

@@ -10,59 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Controllers/LoginViewController.m"
-            timestampString = "449314579.775986"
+            timestampString = "451092578.896645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-submitUserEmail:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Controllers/LoginViewController.m"
-            timestampString = "449315493.166239"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-request"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Controllers/LoginViewController.m"
-            timestampString = "449315572.447373"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "-registerUser:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Controllers/LoginViewController.m"
-            timestampString = "449315758.296331"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "-registerUser:"
             landmarkType = "5">
          </BreakpointContent>
@@ -79,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "-filter:"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -159,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
             endingLineNumber = "219"
-            landmarkName = "-serviceLoad"
+            landmarkName = "-filter:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -175,8 +127,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "858"
             endingLineNumber = "858"
-            landmarkName = "@implementation LandingServicesViewController"
-            landmarkType = "3">
+            landmarkName = "-didSelectRowWithObject:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -191,8 +143,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "720"
             endingLineNumber = "720"
-            landmarkName = "-didSelectRowWithObject:"
+            landmarkName = "-selectCity:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LandingServicesViewController selectCity:]"
+                  moduleName = "MakeOver"
+                  urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
+                  timestampString = "451093843.368294"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "720"
+                  endingLineNumber = "720"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__44-[LandingServicesViewController selectCity:]_block_invoke"
+                  moduleName = "MakeOver"
+                  urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
+                  timestampString = "451093843.368444"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "720"
+                  endingLineNumber = "720"
+                  offsetFromSymbolStart = "67">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -207,7 +189,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "708"
             endingLineNumber = "708"
-            landmarkName = "-firstRowSelectedWithValue:"
+            landmarkName = "-popoverControllerShouldDismissPopover:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MakeOver/MOTabBar.m"
+            timestampString = "451092995.697061"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "-tabBarController:didSelectViewController:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

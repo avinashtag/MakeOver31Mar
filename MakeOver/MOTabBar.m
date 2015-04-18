@@ -8,6 +8,10 @@
 
 #import "MOTabBar.h"
 
+#import "UtilityClass.h"
+#import "LoginViewController.h"
+#import "ProfileViewController.h"
+
 @interface MOTabBar ()
 
 @end
@@ -21,6 +25,8 @@
     self.tabBar.tintColor = [UIColor whiteColor];
     
     // Do any additional setup after loading the view.
+    
+    self.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,12 +73,44 @@
     [button addTarget:self action:@selector(profiletab:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:button];
-    
 }
 
 -(void)profiletab:(UIButton*)sender{
-    [sender setHidden:YES];
-    [self setSelectedIndex:2];
+//    [sender setHidden:YES];
+    
+    if (!isSelectedIndex2) {
+        
+        isSelectedIndex2 = YES;
+        
+        [self setSelectedIndex:2];
+        
+        [self tabBarController:self didSelectViewController:[self.viewControllers objectAtIndex:2]];
+    }
+}
+
+#pragma mark- UITabBar Delegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    UINavigationController *navController = (UINavigationController*)viewController;
+    
+    if (tabBarController.selectedIndex == 2)
+    {
+        NSString *loggedUserID = nil;//[UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
+            
+            ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+        }
+        else {
+            
+            LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            controller.isInsideProfileTab = YES;
+            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+        }
+    }
+    else
+        isSelectedIndex2 = NO;
 }
 
 

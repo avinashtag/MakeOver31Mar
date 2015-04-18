@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MOTabBar : UITabBarController
+@interface MOTabBar : UITabBarController <UITabBarControllerDelegate, UITabBarControllerDelegate> {
+    
+    BOOL isSelectedIndex2;
+}
 
 
 -(UIViewController*) viewControllerWithTabTitle:(NSString*)title image:(UIImage*)image;

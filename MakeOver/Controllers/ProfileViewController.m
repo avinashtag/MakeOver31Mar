@@ -46,7 +46,7 @@
     [super viewWillAppear:animated];
     [self serviceRequest];
     [self.navigationController setNavigationBarHidden:YES];
-    [self.tabBarController.tabBar setHidden:YES];
+//    [self.tabBarController.tabBar setHidden:YES];
 //    [_pageControl setHidden:YES];
 }
 
@@ -199,7 +199,7 @@
 
 -(void)serviceRequest{
     
-    NSDictionary *parameter = @{@"userId" : @"1"};
+    NSDictionary *parameter = @{@"userId" : [NSNumber numberWithInt:[[UtilityClass RetrieveDataFromUserDefault:@"userid"] intValue]]};
     
     [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_GET_Profile spinningMessage:@"Loading profile" completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
         if (result == sirSuccess) {

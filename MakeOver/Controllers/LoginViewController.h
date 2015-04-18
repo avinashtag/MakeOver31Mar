@@ -16,7 +16,7 @@
     __weak IBOutlet UITextField *txtField_email;
 }
 
-
+@property (nonatomic,assign) BOOL isInsideProfileTab;
 @property(nonatomic, weak)IBOutlet UIButton *submit;
 @property(nonatomic, weak)IBOutlet UIButton *skip;
 @property(nonatomic, weak)IBOutlet UIButton *facebookLogin;

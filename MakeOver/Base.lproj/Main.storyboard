@@ -311,10 +311,10 @@ IAo
             </objects>
             <point key="canvasLocation" x="-1656" y="294"/>
         </scene>
-        <!--Tab Bar-->
+        <!--Tab Bar Controller-->
         <scene sceneID="voH-h0-GlV">
             <objects>
-                <tabBarController storyboardIdentifier="MOTabBar" id="QKS-xU-CPr" customClass="MOTabBar" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MOTabBar" id="QKS-xU-CPr" userLabel="Tab Bar Controller" customClass="MOTabBar" sceneMemberID="viewController">
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -328,6 +328,7 @@ IAo
                         <color key="selectedImageTintColor" red="0.30980392159999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
+                        <outlet property="delegate" destination="2oI-g6-Pbi" id="OxA-93-3oP"/>
                         <segue destination="Lxx-tL-Vwz" kind="relationship" relationship="viewControllers" id="gme-kc-VPg"/>
                         <segue destination="M1N-H7-Fce" kind="relationship" relationship="viewControllers" id="YmL-G3-evP"/>
                         <segue destination="lCV-yN-4S6" kind="relationship" relationship="viewControllers" id="1Rl-r3-Q9s"/>
@@ -550,7 +551,7 @@ IAo
         <!--Navigation Controller-->
         <scene sceneID="OGf-2C-hS6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lCV-yN-4S6" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="lCV-yN-4S6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="WeG-0S-AG0"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -560,7 +561,7 @@ IAo
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="xZu-Vc-Qo5" kind="relationship" relationship="rootViewController" id="VAO-Vh-IKF"/>
+                        <segue destination="xZu-Vc-Qo5" kind="relationship" relationship="rootViewController" id="VJV-UB-sOt"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL9-2y-OwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2970,7 +2971,7 @@ IAo
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kan-YZ-jrb">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kan-YZ-jrb">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="kW2-br-NZF"/>

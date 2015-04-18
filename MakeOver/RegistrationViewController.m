@@ -9,6 +9,7 @@
 #import "RegistrationViewController.h"
 #import "MOTabBar.h"
 #import "ServiceInvoker.h"
+#import "ProfileViewController.h"
 
 @interface RegistrationViewController ()
 
@@ -96,9 +97,15 @@
         NSError *error = nil;
         __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
-        MOTabBar *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MOTabBar class])];
-        [self.navigationController pushViewController:tabBarController animated:YES];
-
+        if (self.isInsideProfileTab) {
+            
+            ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        else {
+            MOTabBar *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MOTabBar class])];
+            [self.navigationController pushViewController:tabBarController animated:YES];
+        }
 /*        [[UIAlertView alloc] initWithTitle:@"OTP" message:@"Please enter the OTP recived on your email to verify." alertStyle:UIAlertViewStyleSecureTextInput completionHandler:^(NSInteger index) {
 
             if (index == 0) {

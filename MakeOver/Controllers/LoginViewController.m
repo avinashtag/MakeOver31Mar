@@ -13,6 +13,7 @@
 #import "ServiceInvoker.h"
 #import "UIAlertView+MOAlertView.h"
 #import "RegistrationViewController.h"
+#import "ProfileViewController.h"
 
 
 #define kFBappId        @"239886072798506"  //Facebook App ID 239886072798506
@@ -84,6 +85,8 @@
     [self.navigationController pushViewController:tabBarController animated:YES];
 }
 
+
+#pragma mark- TextField Delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
@@ -203,11 +206,10 @@
         NSError *error = nil;
        __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
-         if ([[response objectForKey:@"error"] objectForKey:@"errorCode"]) {
+         if ([[[response objectForKey:@"error"] objectForKey:@"errorCode"] integerValue]) {
 
-//             [UtilityClass showAlertwithTitle:nil message:[[response objectForKey:@"error"] objectForKey:@"errorMessage"]];
-
-             [self skipClicked:nil];
+             [UtilityClass showAlertwithTitle:nil message:[[response objectForKey:@"error"] objectForKey:@"errorMessage"]];
+             // [self skipClicked:nil];
 
          }
          else if ([[response objectForKey:@"object"] count]) {
@@ -217,10 +219,24 @@
              if ([[paramsRegister objectForKey:@"fullName"] isEqualToString:@""]) {
                  // Submit email flow
                  RegistrationViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RegistrationViewController"];
+                 
+                 if (self.isInsideProfileTab)
+                     nextViewController.isInsideProfileTab = self.isInsideProfileTab;
+                 
                  [self.navigationController pushViewController:nextViewController animated:YES];
              }
              else // facebook flow
-                 [self skipClicked:nil];
+             {
+                 
+                 if (self.isInsideProfileTab) {
+                     
+                     ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                     [self.navigationController pushViewController:controller animated:YES];
+                 }
+                 else
+                     [self skipClicked:nil];
+             
+             }
 
          }
 
