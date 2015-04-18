@@ -18,6 +18,8 @@
     [super viewDidLoad];
     [self addCenterButtonWithImage:[UIImage imageNamed:@"ic_profilepage_pic"] highlightImage:[UIImage imageNamed:@"ic_profilepage_pic"]];
     
+    self.tabBar.tintColor = [UIColor whiteColor];
+    
     // Do any additional setup after loading the view.
 }
 

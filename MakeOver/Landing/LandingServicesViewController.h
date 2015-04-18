@@ -23,7 +23,8 @@
     NSMutableArray *array_SearchResults;
     
     DropDownList    *_ddList;
-
+    
+    __weak IBOutlet NSLayoutConstraint *constraintTopMargin_tableView;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
@@ -33,6 +34,9 @@
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;
 @property (weak, nonatomic) IBOutlet UIButton *cityName;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
+@property (nonatomic,assign) BOOL isComingFromSearch;
+@property (nonatomic,assign) NSUInteger selectedSegmentFromSearch;
 
 - (void)setDDListHidden:(BOOL)hidden;
 

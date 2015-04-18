@@ -57,19 +57,52 @@ static NSArray *menuItems;
     self.menuListView.dataSource = self;[self.menuListView setBackgroundColor:[UIColor clearColor]];
     [self.HTHorizontalView addSubview:self.menuListView];
     
-    [self serviceLoad];
-    [[UIApplication sharedApplication]setStatusBarHidden:YES];
-    [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
     
-    arrayFilteredResults = [NSArray new];
-    array_SearchResults = [NSMutableArray new];
     
-    _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
-    _ddList._delegate = self;
+    if (_isComingFromSearch) {
+        // hide search bar
+        // hide scroller
+        // set segment based on selected segment at search
+        // then load results
+        
+        self.searchBar.hidden = YES;
+        self.HTHorizontalView.hidden = YES;
+        
+        constraintTopMargin_tableView.active = NO;
+        
+        NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:_servicesTable attribute:NSLayoutAttributeTopMargin relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:53];
+        
+        [self.view addConstraint:topConstraint];
+        
+        [self.servicesTable updateConstraints];
+//        CGRect frame = self.servicesTable.frame;
+//        frame.origin.y = 44;
+//        frame.size.height += 44;
+//        self.servicesTable.frame = frame;
+        
+        _menuListView.selectedButtonIndex = self.selectedSegmentFromSearch;
+        
+        arrayFilteredResults = [NSArray arrayWithArray:_services];
+        [self.servicesTable reloadData];
+    }
+    else{
+    
+        [self serviceLoad];
+        [[UIApplication sharedApplication]setStatusBarHidden:YES];
+        [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
+        
+        arrayFilteredResults = [NSArray new];
+        array_SearchResults = [NSMutableArray new];
+        
+        _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
+        _ddList._delegate = self;
+        
+        [_ddList.view setFrame:CGRectMake(0,self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, 0)];
+        [self.view addSubview:_ddList.view];
 
-    [_ddList.view setFrame:CGRectMake(0,self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, 0)];
-    [self.view addSubview:_ddList.view];
-
+        
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -707,9 +740,18 @@ static NSArray *menuItems;
 
 -(void)firstRowSelectedWithValue:(id)value {
     if (value) {
-//        _searchBar.text = value;
         [self searchBarSearchButtonClicked:_searchBar];
         [self setDDListHidden:YES];
+        
+        NSMutableArray *array = (NSMutableArray*)value;
+        [array removeObjectAtIndex:0];
+        
+        LandingServicesViewController *landingservice = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingServicesViewController"];
+        //landingservice.serviceId = listObj.services;
+        landingservice.services = [NSMutableArray arrayWithArray:array];
+        landingservice.isComingFromSearch = YES;
+        landingservice.selectedSegmentFromSearch = self.menuListView.selectedButtonIndex;
+        [self.navigationController pushViewController:landingservice animated:YES];
     }
     else {
         
