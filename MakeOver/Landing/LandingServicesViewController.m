@@ -293,9 +293,9 @@ static NSArray *menuItems;
 
 
 -(void)webServiceSortByStylist{
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"cityId",@"1",@"serviceId",@"25.17",@"curr_lat",@"37.14",@"curr_Long",@"3",@"userId",@"fabStylist",@"orderBy", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"cityId",@"1",@"serviceId",@"3",@"userId", nil];
     
-    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
          
          if (result == sirSuccess) {
@@ -308,7 +308,7 @@ static NSArray *menuItems;
                  array_Saloons = [responseDict objectForKey:@"object"];
 
              }
-             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+             _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
              
              arrayFilteredResults = [NSArray arrayWithArray:_services];
              
@@ -376,7 +376,7 @@ static NSArray *menuItems;
                          array_Saloons = [responseDict objectForKey:@"object"];
                          
                      }
-                     _services = [[ServiceList initializeWithTutorialResponse:responseDict] mutableCopy];
+                     _services = [[ServiceList initializeWithOffersResponse:responseDict] mutableCopy];
                      
                      arrayFilteredResults = [NSArray arrayWithArray:_services];
                      

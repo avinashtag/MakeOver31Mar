@@ -34,6 +34,7 @@ static NSString *kmenuImages = @"menuImages";
 static NSString *kcontacts = @"saloonContact";
 static NSString *kclubImages = @"clubImages";
 static NSString *kcreditDebitCardSupport = @"creditDebitCardSupport";
+static NSString *kextraParams = @"extraParams";
 
 
 static NSString *kresponseObject = @"object";
@@ -83,7 +84,6 @@ static NSString *kresponseObject = @"object";
     self.clubImages = [NSArray arrayWithArray:[dictioanry objectForKey:kclubImages]];
     self.menuImages = [NSArray arrayWithArray:[dictioanry objectForKey:kmenuImages]];
     
-    
     return self;
 }
 
@@ -109,6 +109,9 @@ static NSString *kresponseObject = @"object";
     [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {
         
         ServiceList *service = [[ServiceList alloc]initWithDictionary:[ServiceRaw objectForKey:@"saloonResponse"]];
+        
+        service.extraParams = [NSArray arrayWithArray:[ServiceRaw objectForKey:@"tutorials"]];
+        
         [services addObject:service];
         
     }];
@@ -116,6 +119,41 @@ static NSString *kresponseObject = @"object";
 }
 
 
++(NSArray*)initializeWithOffersResponse:(NSDictionary*)dictionary{
+    __block NSMutableArray *services = [[NSMutableArray alloc]init];
+    NSArray* response = dictionary[kresponseObject];
+    [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {
+        
+        ServiceList *service = [[ServiceList alloc]initWithDictionary:[ServiceRaw objectForKey:@"saloonResponse"]];
+        
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        
+        for (NSString *key in ServiceRaw.allKeys) {
+            if (![key isEqualToString:@"saloonResponse"])
+                [dict setObject:[ServiceRaw objectForKey:key] forKey:key];
+        }
+        
+        service.extraParams = dict;
+        [services addObject:service];
+    }];
+    return services;
+}
+
+
++(NSArray*)initializeWithFavStylistsResponse:(NSDictionary*)dictionary{
+    __block NSMutableArray *services = [[NSMutableArray alloc]init];
+    NSArray* response = dictionary[kresponseObject];
+    [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {
+        
+        ServiceList *service = [[ServiceList alloc]initWithDictionary:[ServiceRaw objectForKey:@"saloonResponse"]];
+        
+        service.extraParams = [NSMutableDictionary dictionaryWithDictionary:[ServiceRaw objectForKey:@"stlitsResponse"]];
+        
+        [services addObject:service];
+        
+    }];
+    return services;
+}
 
 // Implementation
 - (void) encodeWithCoder:(NSCoder *)encoder {

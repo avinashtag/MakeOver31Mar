@@ -210,6 +210,7 @@ NSString *const kisFiltering = @"isFiltering";
         [dict_filterSortingParams setObject:@"NO" forKey:kfilterByCardSupport];
         [btn setSelected:NO];
     }
+    
 }
 
 

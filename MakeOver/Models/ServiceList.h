@@ -30,12 +30,15 @@
 @property(nonatomic, strong)NSArray  *clubImages;
 @property(nonatomic, strong)NSString *creditDebitCardSupport;
 
+@property(nonatomic, strong)id extraParams;
 
 
 
 -(instancetype)initWithDictionary:(NSDictionary*)dictioanry;
 +(NSArray*)initializeWithResponse:(NSDictionary*)dictionary;
 +(NSArray*)initializeWithTutorialResponse:(NSDictionary*)dictionary;
++(NSArray*)initializeWithOffersResponse:(NSDictionary*)dictionary;
++(NSArray*)initializeWithFavStylistsResponse:(NSDictionary*)dictionary;
 
 
 @end

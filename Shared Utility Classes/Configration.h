@@ -48,6 +48,9 @@ enum TimeConstants {
 
 #define API_GET_OFFER @"getOffer"
 
+#define API_GET_FAV_STYLIST @"getFabStylist"
+
+
 // ********* End of Macros related to API services ******** //
 
 
