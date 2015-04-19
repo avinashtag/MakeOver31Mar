@@ -96,7 +96,7 @@
     
     if (tabBarController.selectedIndex == 2)
     {
-        NSString *loggedUserID = nil;//[UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
         if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
             
             ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];

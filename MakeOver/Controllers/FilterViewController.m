@@ -323,10 +323,15 @@ NSString *const kisFiltering = @"isFiltering";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    if (section == 2) {
+        return 1;
+    }
+    
     return [cellReload[section] integerValue];
 }
 
@@ -339,6 +344,15 @@ NSString *const kisFiltering = @"isFiltering";
         static NSString* idts = @"cell";
         UITableViewCell *cellt = [tableView dequeueReusableCellWithIdentifier:idts];
         return cellt;
+    }
+    else if (indexPath.section == 2) {
+        static NSString* card = @"cellCard";
+        UITableViewCell *cellCard = [tableView dequeueReusableCellWithIdentifier:card];
+        
+        UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
+        [btn addTarget:self action:@selector(cardSupportFilter:) forControlEvents:UIControlEventTouchUpInside];
+        
+        return cellCard;
     }
     
     return cell;
@@ -360,6 +374,9 @@ NSString *const kisFiltering = @"isFiltering";
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 216;
+    }
+    if (indexPath.section == 2) {
+        return 70;
     }
     return 1;
 }
