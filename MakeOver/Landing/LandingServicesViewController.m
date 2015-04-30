@@ -114,6 +114,9 @@ static NSArray *menuItems;
 
 - (void)viewWillAppear:(BOOL)animated {
     
+    if (self.tabBarController.selectedIndex == 1) {
+        backButton.hidden = YES;
+    }
     // Get fav saloons from saved records.
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1

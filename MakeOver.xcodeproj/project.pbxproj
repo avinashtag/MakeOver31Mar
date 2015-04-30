@@ -126,6 +126,8 @@
 		BBC895521AB8B4D000F1A56E /* NSObject+MOObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895511AB8B4D000F1A56E /* NSObject+MOObject.m */; };
 		BBC895551AB8BC5500F1A56E /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */; };
 		BBE32D081A950BD100A0D59E /* MOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE32D071A950BD100A0D59E /* MOTabBar.m */; };
+		CE28233F1AF2C1C600ADA969 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28233E1AF2C1C600ADA969 /* MoreViewController.m */; };
+		CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2823401AF2C65500ADA969 /* MessageUI.framework */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
 		CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */; };
 		CEB233B31AD145F00046A785 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB233B21AD145F00046A785 /* Info.plist */; };
@@ -338,6 +340,9 @@
 		BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageViewerViewController.m; path = Controllers/ImageViewerViewController.m; sourceTree = "<group>"; };
 		BBE32D061A950BD100A0D59E /* MOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOTabBar.h; path = ../MakeOver/MOTabBar.h; sourceTree = "<group>"; };
 		BBE32D071A950BD100A0D59E /* MOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOTabBar.m; path = ../MakeOver/MOTabBar.m; sourceTree = "<group>"; };
+		CE28233D1AF2C1C600ADA969 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		CE28233E1AF2C1C600ADA969 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		CE2823401AF2C65500ADA969 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
 		CEA49A7B1ADB1202002BB32F /* MenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionViewCell.h; sourceTree = "<group>"; };
@@ -351,6 +356,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */,
 				BBA299111AB5E90C004C5595 /* QuartzCore.framework in Frameworks */,
 				7DC396B31AB374D5009FDEE1 /* UIKit.framework in Frameworks */,
 				7DADF0841A99322D00EE0C4C /* libz.1.2.5.dylib in Frameworks */,
@@ -404,6 +410,8 @@
 				BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */,
 				BB952A471ABEC9B7006A8328 /* FilterViewController.h */,
 				BB952A481ABEC9B7006A8328 /* FilterViewController.m */,
+				CE28233D1AF2C1C600ADA969 /* MoreViewController.h */,
+				CE28233E1AF2C1C600ADA969 /* MoreViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -617,6 +625,7 @@
 		7DADF0791A992C6F00EE0C4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE2823401AF2C65500ADA969 /* MessageUI.framework */,
 				BBA299101AB5E90C004C5595 /* QuartzCore.framework */,
 				7DC396B21AB374D5009FDEE1 /* UIKit.framework */,
 				0903E38F1AA7646A00B0884D /* FacebookSDK.framework */,
@@ -1031,6 +1040,7 @@
 				9ACD3BAB1ADD82CF005746AF /* DropDownList.m in Sources */,
 				7D7C1AFF1AC74C77008D66DE /* RecentSaloonViewController.m in Sources */,
 				7D364EEE1AB0C2DF006FEB6A /* RegistrationViewController.m in Sources */,
+				CE28233F1AF2C1C600ADA969 /* MoreViewController.m in Sources */,
 				7DADF06A1A991F3E00EE0C4C /* ASIDataDecompressor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
