@@ -27,7 +27,7 @@
     _searchText = nil;
     _selectedText = nil;
     _resultList = [[NSMutableArray alloc] initWithCapacity:5];
-    
+    //self.view.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)updateDataWithArray:(NSArray*)array {

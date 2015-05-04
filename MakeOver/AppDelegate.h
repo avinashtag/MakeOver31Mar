@@ -21,6 +21,8 @@ extern NSString *const FBSessionStateChangedNotification;
 @property (weak, nonatomic) UILabel *titleMO;
 @property (weak, nonatomic) UILabel *timeLabel;
 @property (weak, nonatomic) UIButton *selectCity;
+@property (weak, nonatomic) IBOutlet  UINavigationController *navConCenterTab;
+
 AppDelegate* appdelegate();
 - (IBAction)selectCityActionWithController:(id)controller popverFroomRect:(CGRect)frame CompletionHandler:(SelectCityCompletion)block ;
 

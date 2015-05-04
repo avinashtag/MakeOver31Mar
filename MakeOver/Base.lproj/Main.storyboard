@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -119,6 +119,9 @@
                             </tableView>
                             <searchBar contentMode="redraw" placeholder="search salon, services..." translatesAutoresizingMaskIntoConstraints="NO" id="vcf-SI-us1">
                                 <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="8xd-hy-CBz"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" red="0.45830687390000002" green="0.13201208249999999" blue="0.099716268910000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -153,6 +156,7 @@
                     <connections>
                         <outlet property="cityName" destination="gxj-F9-0SP" id="CPP-03-mCr"/>
                         <outlet property="servicesTable" destination="8UK-zF-U7B" id="c4L-ts-IjZ"/>
+                        <outlet property="view_topBar" destination="RMF-P1-j64" id="Q98-f1-zLe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYD-CZ-e43" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,7 +342,7 @@ IAo
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcz-DT-NAx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1072" y="294"/>
+            <point key="canvasLocation" x="-1074" y="229"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="v59-CV-EDK">
@@ -551,7 +555,7 @@ IAo
         <!--Navigation Controller-->
         <scene sceneID="OGf-2C-hS6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="lCV-yN-4S6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavControllerCenterTabSID" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="lCV-yN-4S6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="WeG-0S-AG0"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -565,6 +569,11 @@ IAo
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL9-2y-OwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="G8t-he-dCr" customClass="AppDelegate">
+                    <connections>
+                        <outlet property="navConCenterTab" destination="lCV-yN-4S6" id="93t-pW-P4Y"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="22" y="294"/>
         </scene>

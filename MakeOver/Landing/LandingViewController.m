@@ -35,12 +35,12 @@
     [_servicesTable reloadData];
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
 
-    
     array_SearchResults = [NSMutableArray new];
     _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
     _ddList._delegate = self;
-    [_ddList.view setFrame:CGRectMake(0,searchBar.frame.origin.y + searchBar.frame.size.height, self.view.frame.size.width, 0)];
+    [_ddList.view setFrame:CGRectMake(0,88.0, self.view.frame.size.width, 0)];
     [self.view addSubview:_ddList.view];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,7 +141,7 @@
     NSInteger height = hidden ? 0 : 180;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:.2];
-    [_ddList.view setFrame:CGRectMake(0, searchBar.frame.origin.y + searchBar.frame.size.height, self.view.frame.size.width, height)];
+    [_ddList.view setFrame:CGRectMake(0,88.0, self.view.frame.size.width, height)];
     [UIView commitAnimations];
 }
 
@@ -337,7 +337,7 @@
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
+{    
     NSString* searchText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     
     NSLog(@"%@",searchText);

@@ -21,6 +21,7 @@
     __weak IBOutlet UISearchBar *searchBar;
     NSMutableArray *array_SearchResults;
 
+    __weak IBOutlet UIView *view_topBar;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *servicesTable;
