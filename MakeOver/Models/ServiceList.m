@@ -18,6 +18,8 @@ NSString *const kObjectServices = @"services";
 
 
 static NSString *ksaloonAddress = @"saloonAddress";
+static NSString *ksaloonMainArea = @"saloonMainArea";
+
 static NSString *ksaloonContact = @"";
 static NSString *ksaloonDstfrmCurrLocation = @"saloonDstfrmCurrLocation";
 static NSString *ksaloonId = @"saloonId";
@@ -43,6 +45,8 @@ static NSString *kresponseObject = @"object";
     
     self = [super init];
     self.saloonAddress               = nullRemover(dictioanry[ksaloonAddress]);
+    self.saloonMainArea               = nullRemover(dictioanry[ksaloonMainArea]);
+
     self.saloonContact               = nullRemover(dictioanry[ksaloonContact]);
     self.saloonDstfrmCurrLocation    = [NSString stringWithFormat:@"%@",nullRemover(dictioanry[ksaloonDstfrmCurrLocation])];
     self.saloonId                    = nullRemover(dictioanry[ksaloonId]);
@@ -158,6 +162,8 @@ static NSString *kresponseObject = @"object";
 // Implementation
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.saloonAddress forKey:ksaloonAddress];
+    [encoder encodeObject:self.saloonMainArea forKey:ksaloonMainArea];
+
     [encoder encodeObject:self.saloonContact forKey:ksaloonContact];
     [encoder encodeObject:self.saloonDstfrmCurrLocation forKey:ksaloonDstfrmCurrLocation];
     [encoder encodeObject:self.saloonId forKey:ksaloonId];
@@ -184,6 +190,8 @@ static NSString *kresponseObject = @"object";
     self = [super init];
     
     self.saloonAddress = [decoder decodeObjectForKey:ksaloonAddress];
+    self.saloonMainArea = [decoder decodeObjectForKey:ksaloonMainArea];
+
     self.saloonContact = [decoder decodeObjectForKey:ksaloonContact];
     self.saloonDstfrmCurrLocation = [decoder decodeObjectForKey:ksaloonDstfrmCurrLocation];
     self.saloonId = [decoder decodeObjectForKey:ksaloonId];

@@ -15,6 +15,7 @@
 @interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UIActionSheetDelegate>{
     WYPopoverController *popoverController;
 }
+@property (weak, nonatomic) IBOutlet UILabel *lbl_creditDebitStatus;
 
 @property (nonatomic, strong) NSArray *array_service;
 @property (weak, nonatomic) IBOutlet UIView *view_tableContainer;

@@ -609,7 +609,6 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
         
         for (NSString *number in _service.contacts) {
-            if (number.length == 10)
                 [actionSheet addButtonWithTitle:number];
         }
         

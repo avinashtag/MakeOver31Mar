@@ -19,6 +19,8 @@
 @interface FilterViewController (){
     NSArray *menuItems;
     NSArray *cellReload;
+    
+    BOOL isNeedToRefreshCardButton;
 }
 
 @end
@@ -201,6 +203,8 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (IBAction)cardSupportFilter:(UIButton *)sender {
     
+    isNeedToRefreshCardButton = NO;
+    
     UIButton *btn = (UIButton*)sender;
     
     if (!btn.selected) {
@@ -210,6 +214,15 @@ NSString *const kisFiltering = @"isFiltering";
         [dict_filterSortingParams setObject:@"NO" forKey:kfilterByCardSupport];
         [btn setSelected:NO];
     }
+    
+}
+
+
+- (IBAction)clearFilter:(UIButton *)sender {
+    
+    UIButton *btn = (UIButton*)sender;
+    
+    [self refreshFilterByUI];
     
 }
 
@@ -278,12 +291,15 @@ NSString *const kisFiltering = @"isFiltering";
 }
 
 -(void)refreshFilterByUI{
-    
     self.txt_time.text = @"9:00";
     self.txt_ampm.text = @"AM";
     [self.btn_female setSelected:NO];
     [self.btn_male setSelected:NO];
+    [self configureLabelSlider];
+    [self updateSliderLabels];
     
+    isNeedToRefreshCardButton = YES;
+    [self.filterTable reloadData];
 }
 
 - (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList{
@@ -324,47 +340,44 @@ NSString *const kisFiltering = @"isFiltering";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 2) {
-        return 1;
-    }
-    
-    return [cellReload[section] integerValue];
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString* idt = @"filterCell";
-    FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:idt];
-    
-    if (indexPath.section == 1) {
-        static NSString* idts = @"cell";
-        UITableViewCell *cellt = [tableView dequeueReusableCellWithIdentifier:idts];
-        return cellt;
-    }
-    else if (indexPath.section == 2) {
         static NSString* card = @"cellCard";
         UITableViewCell *cellCard = [tableView dequeueReusableCellWithIdentifier:card];
-        
-        UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
-        [btn addTarget:self action:@selector(cardSupportFilter:) forControlEvents:UIControlEventTouchUpInside];
-        
-        return cellCard;
-    }
     
-    return cell;
+        if (indexPath.row == 0) {
+            UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
+            [btn setImage:[UIImage imageNamed:@"ic_nocards"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"ic_cards"] forState:UIControlStateSelected];
+            [btn addTarget:self action:@selector(cardSupportFilter:) forControlEvents:UIControlEventTouchUpInside];
+            
+            if (isNeedToRefreshCardButton == YES)
+                btn.selected = NO;
+            
+        }else if (indexPath.row == 1){
+            UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
+            [btn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(clearFilter:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    
+        return cellCard;
+    
 }
 
 -(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return _sortByHeader;
+        return _filterHeader;
     }
     else{
-        return _filterHeader;
+        return [[UIView alloc]init];
     }
     
 }
@@ -373,12 +386,14 @@ NSString *const kisFiltering = @"isFiltering";
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (indexPath.section == 0) {
-        return 216;
+        return 60; //return 216;
     }
-    if (indexPath.section == 2) {
-        return 70;
+    if (indexPath.section == 1) {
+        return 60;
     }
+    
     return 1;
 }
 

@@ -449,7 +449,9 @@ static NSArray *menuItems;
         [cell.descriptionService setText:[service.saloonServices componentsJoinedByString:@","]];
     }
     
-    [cell.address setText:service.saloonAddress];
+    //[cell.address setText:service.saloonAddress];
+    [cell.address setText:service.saloonMainArea];
+
     [cell.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
     
     __weak LandingServicesViewController *selfWeak = self;
@@ -523,6 +525,14 @@ static NSArray *menuItems;
             [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
             
             landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
+            
+            if ([landingBriefViewController.service.creditDebitCardSupport isEqualToString:@"Y"]) {
+                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : YES";
+            }else{
+                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : NO";
+            }
+            
+
             
             [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
             
@@ -680,7 +690,6 @@ static NSArray *menuItems;
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
         
         for (NSString *number in contacts) {
-            if (number.length == 10)
                 [actionSheet addButtonWithTitle:number];
         }
         
@@ -932,6 +941,12 @@ static NSArray *menuItems;
             [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
             
             landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
+            
+            if ([landingBriefViewController.service.creditDebitCardSupport isEqualToString:@"Y"]) {
+                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : YES";
+            }else{
+                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : NO";
+            }
             
             [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
             
