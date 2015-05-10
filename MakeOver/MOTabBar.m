@@ -111,9 +111,8 @@
     }
 }
 
+
 #pragma mark- UITabBar Delegate
-
-
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
@@ -121,17 +120,17 @@
     
     if (tabBarController.selectedIndex == 2)
     {
-//        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
-//        if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
-//            ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-//            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
-//            
-//        }
-//        else {
-//            LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//            controller.isInsideProfileTab = YES;
-//            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
-//        }
+        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
+            ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+            
+        }
+        else {
+            LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            controller.isInsideProfileTab = YES;
+            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+        }
     }
     else
         isSelectedIndex2 = NO;

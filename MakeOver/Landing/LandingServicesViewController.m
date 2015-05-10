@@ -273,8 +273,11 @@ static NSArray *menuItems;
         parameters[@"curr_Long"] = @"";
     }
     
-        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+    NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
+    
+    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    parameters[@"userId"] = string_userId!=nil ? string_userId : @"";
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
         if (result == sirSuccess) {

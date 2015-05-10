@@ -387,19 +387,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     //[[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"faborateFlag"];
     
-    id favObj = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"faborateFlag"];
+    NSString *favObj = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"faborateFlag"];
     
-    BOOL isFavourite;
     
-    if (favObj != [NSNull null])
-        isFavourite = [favObj boolValue];
-//    else
-//        return;
-    
-    if (isFavourite) {
+    if ((favObj != [NSNull null]) && ([favObj isEqualToString:@"Y"])) {
         [button setSelected:NO];
         [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
-
     }
     else
     {
@@ -407,25 +400,36 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
         [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
     }
     
-    NSString *string_userId = @"1";//[UtilityClass RetrieveDataFromUserDefault:@"userid"];
-    NSString *string_saloonId = self.service.saloonId;
-    NSString *string_stylistId = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"];
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:string_userId,@"userId",string_saloonId,@"saloonId",string_stylistId,@"stylishId",@"stylist",@"type", nil];
-    [self serviceRequestWithParameters:dict andSender:sender];
+    if ((string_userId != nil) && (string_userId.length)){
+        
+        NSString *string_stylistId = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"];
+        
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:string_userId,@"userId",string_stylistId,@"stylishId",favObj,@"fabFlag", nil];
+        [self serviceRequestWithParameters:dict andSender:sender];
+    }
+    else {
+        [UtilityClass showAlertwithTitle:@"Login required!" message:@"You need to be logged in to perform this action."];
+    }
+    
 }
 
 -(void)serviceRequestWithParameters:(NSDictionary*)parameter andSender:(id)sender{
+    
     [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_ADD_FAVOURITE spinningMessage:@"Loading profile" completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+        
+        FavouriteStylistButton *button = (FavouriteStylistButton*)sender;
+
         if (result == sirSuccess) {
             NSError *error = nil;
             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-            
-                        // if successful then update button image accordingly
+            // if successful then update button image accordingly
+            [button setSelected:YES];
+            [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
             
         }else{
             // if unsuccessful then update button image accordingly
-            FavouriteStylistButton *button = (FavouriteStylistButton*)sender;
             [button setSelected:NO];
             [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
         }
