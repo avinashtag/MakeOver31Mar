@@ -64,6 +64,8 @@ NSString *const kisFiltering = @"isFiltering";
     dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ksortByFavouriteStylist,@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"NO",kfilterByCardSupport,@"YES",kisSorting,@"NO",kisFiltering, nil];
 
     // Do any additional setup after loading the view.
+    
+    self.label_doubleSlider.text = @"FROM 0 TO 24";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -185,18 +187,31 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (IBAction)genderFilter:(UIButton *)sender {
     
-    NSString *string_sex;
+    UIButton *button = (UIButton*)sender;
     
-    if ([sender tag] == 10) {
-        string_sex = @"F";
-        [self.btn_female setSelected:YES];
-        [self.btn_male setSelected:NO];
-    }else{
-        string_sex = @"M";
+    NSString *string_sex = @"";
+    
+    if ((button.tag == 10) && button.isSelected == YES) {
         [self.btn_female setSelected:NO];
+    }else if ((button.tag == 10) && button.isSelected == NO){
+        [self.btn_female setSelected:YES];
+    }
+    
+    if ((button.tag != 10) && button.isSelected == YES) {
+        [self.btn_male setSelected:NO];
+    }else if ((button.tag != 10) && button.isSelected == NO){
         [self.btn_male setSelected:YES];
     }
     
+    if (self.btn_female.isSelected == YES && self.btn_male.isSelected == YES) {
+        string_sex = @"U";
+    }else if (self.btn_female.isSelected == YES && self.btn_male.isSelected == NO){
+        string_sex = @"F";
+    }else if (self.btn_female.isSelected == NO && self.btn_male.isSelected == YES){
+        string_sex = @"M";
+    }else if (self.btn_female.isSelected == NO && self.btn_male.isSelected == NO){
+        string_sex = @"";
+    }
     [dict_filterSortingParams setObject:string_sex forKey:kfilterBySex];
 }
 
@@ -209,9 +224,9 @@ NSString *const kisFiltering = @"isFiltering";
     
     if (!btn.selected) {
         [btn setSelected:YES];
-        [dict_filterSortingParams setObject:@"YES" forKey:kfilterByCardSupport];
+        [dict_filterSortingParams setObject:@"Y" forKey:kfilterByCardSupport];
     }else{
-        [dict_filterSortingParams setObject:@"NO" forKey:kfilterByCardSupport];
+        [dict_filterSortingParams setObject:@"N" forKey:kfilterByCardSupport];
         [btn setSelected:NO];
     }
     
@@ -300,6 +315,12 @@ NSString *const kisFiltering = @"isFiltering";
     
     isNeedToRefreshCardButton = YES;
     [self.filterTable reloadData];
+    
+    [dict_filterSortingParams setObject:@"" forKey:kfilterByCardSupport];
+    [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
+    [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
+    [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_lower"];
+    [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_upper"];
 }
 
 - (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList{
@@ -453,8 +474,12 @@ NSString *const kisFiltering = @"isFiltering";
 - (void) updateSliderLabels
 {
     // You get get the center point of the slider handles and use this to arrange other subviews
-
     self.label_doubleSlider.text = [NSString stringWithFormat:@"FROM %d TO %d",(int)self.doubleSlider.lowerValue,(int)self.doubleSlider.upperValue];
+    
+    [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];
+    [dict_filterSortingParams setObject:@"YES" forKey:kfilterByRange];
+    [dict_filterSortingParams setObject:[NSString stringWithFormat:@"%d",(int)self.doubleSlider.lowerValue] forKey:@"filterByRange_lower"];
+    [dict_filterSortingParams setObject:[NSString stringWithFormat:@"%d",(int)self.doubleSlider.upperValue] forKey:@"filterByRange_upper"];
 }
 
 

@@ -31,7 +31,8 @@
 @property(nonatomic, strong)NSArray  *contacts;
 @property(nonatomic, strong)NSArray  *clubImages;
 @property(nonatomic, strong)NSString *creditDebitCardSupport;
-
+@property(nonatomic, strong)NSString *startTimeDecimal;
+@property(nonatomic, strong)NSString *endTimeDecimal;
 @property(nonatomic, strong)id extraParams;
 
 

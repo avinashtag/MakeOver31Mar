@@ -18,7 +18,7 @@ NSString *const kObjectServices = @"services";
 
 
 static NSString *ksaloonAddress = @"saloonAddress";
-static NSString *ksaloonMainArea = @"saloonMainArea";
+static NSString *ksaloonMainArea = @"mainArea";
 
 static NSString *ksaloonContact = @"";
 static NSString *ksaloonDstfrmCurrLocation = @"saloonDstfrmCurrLocation";
@@ -37,7 +37,8 @@ static NSString *kcontacts = @"saloonContact";
 static NSString *kclubImages = @"clubImages";
 static NSString *kcreditDebitCardSupport = @"creditDebitCardSupport";
 static NSString *kextraParams = @"extraParams";
-
+static NSString *kstartTimeDecimal = @"startTimingDecimal";
+static NSString *kendTimeDecimal = @"endTimingDecimal";
 
 static NSString *kresponseObject = @"object";
 
@@ -48,7 +49,14 @@ static NSString *kresponseObject = @"object";
     self.saloonMainArea               = nullRemover(dictioanry[ksaloonMainArea]);
 
     self.saloonContact               = nullRemover(dictioanry[ksaloonContact]);
-    self.saloonDstfrmCurrLocation    = [NSString stringWithFormat:@"%@",nullRemover(dictioanry[ksaloonDstfrmCurrLocation])];
+    
+    
+    if ([nullRemover(dictioanry[ksaloonDstfrmCurrLocation]) length] == 0) {
+        self.saloonDstfrmCurrLocation    = @"0.0"; // by default 0
+    }else{
+        self.saloonDstfrmCurrLocation    = [NSString stringWithFormat:@"%@",nullRemover(dictioanry[ksaloonDstfrmCurrLocation])];
+    }
+    
     self.saloonId                    = nullRemover(dictioanry[ksaloonId]);
     self.saloonName                  = nullRemover(dictioanry[ksaloonName]);
     self.saloonRating                = @([nullRemover(dictioanry[ksaloonRating]) doubleValue]);
@@ -57,6 +65,21 @@ static NSString *kresponseObject = @"object";
     self.gender               = nullRemover(dictioanry[kgender]);
     self.startTime               = nullRemover(dictioanry[kstartTime]);
     self.endTime               = nullRemover(dictioanry[kendTime]);
+
+    
+    NSArray *array_startTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kstartTime]) componentsSeparatedByString:@":"]];
+    if (array_startTime.count == 2) {
+        self.startTimeDecimal              = [NSString stringWithFormat:@"%f",[[array_startTime objectAtIndex:0] floatValue]+[[array_startTime objectAtIndex:1] floatValue]/60];
+    }else{
+        self.startTimeDecimal               = nullRemover(dictioanry[kstartTime]);
+    }
+    
+    NSArray *array_endTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kendTime]) componentsSeparatedByString:@":"]];
+    if (array_endTime.count == 2) {
+        self.endTimeDecimal              = [NSString stringWithFormat:@"%f",[[array_endTime objectAtIndex:0] floatValue]+[[array_endTime objectAtIndex:1] floatValue]/60];
+    }else{
+        self.endTimeDecimal               = nullRemover(dictioanry[kendTime]);
+    }
     
     self.creditDebitCardSupport = nullRemover(dictioanry[kcreditDebitCardSupport]);
 
@@ -183,6 +206,8 @@ static NSString *kresponseObject = @"object";
     [encoder encodeObject:self.clubImages forKey:kclubImages];
     [encoder encodeObject:self.creditDebitCardSupport forKey:kcreditDebitCardSupport];
 
+    [encoder encodeObject:self.startTimeDecimal forKey:kstartTimeDecimal];
+    [encoder encodeObject:self.endTimeDecimal forKey:kendTimeDecimal];
     
 }
 
@@ -211,6 +236,9 @@ static NSString *kresponseObject = @"object";
     self.clubImages = [decoder decodeObjectForKey:kclubImages];
     self.creditDebitCardSupport = [decoder decodeObjectForKey:kcreditDebitCardSupport];
 
+    self.startTimeDecimal = [decoder decodeObjectForKey:kstartTimeDecimal];
+    self.endTimeDecimal = [decoder decodeObjectForKey:kendTimeDecimal];
+    
     return self;
 }
 

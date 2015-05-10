@@ -215,42 +215,50 @@ static NSArray *menuItems;
         
         if ([str_isFiltering isEqualToString:@"YES"]){
         
+            NSPredicate *resultPredicate_gender;
+            NSPredicate *resultPredicate_time;
+            NSPredicate *resultPredicate_card;
+
             if (filterBySex != nil && filterBySex.length != 0) {
-                
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
-                
-                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-                
-                [weakSelf.servicesTable reloadData];
-            }
-            
-            
-            if (filterByParticularTime != nil && filterByParticularTime.length != 0) {
-                
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTime LIKE[c] %@",filterBySex];
-                
-                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-                
-                [weakSelf.servicesTable reloadData];
+               resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
             }
             
             if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
+                NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
+                NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
                 
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.startTiming <= %@ <= SELF.endTiming",filterBySex];
-                
-                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-                
-                [weakSelf.servicesTable reloadData];
+                resultPredicate_time = [NSCompoundPredicate andPredicateWithSubpredicates:@[[NSPredicate predicateWithFormat:@"%@ >= SELF.startTimeDecimal",str_startTime],[NSPredicate predicateWithFormat:@"SELF.endTimeDecimal >= %@",str_endTime]]];;
             }
             
-            
-            if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && [filterByCreditCardHolders isEqualToString:@"YES"]) {
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.creditDebitCardSupport LIKE[c] %@",@"Y"];
-                
-                arrayFilteredResults = [weakArray filteredArrayUsingPredicate:resultPredicate];
-                
-                [weakSelf.servicesTable reloadData];
+            if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && ([filterByCreditCardHolders isEqualToString:@"Y"])) {
+                resultPredicate_card = [NSPredicate predicateWithFormat:@"SELF.creditDebitCardSupport LIKE[c] %@",filterByCreditCardHolders];
             }
+            
+            NSMutableArray *array = [NSMutableArray new];
+            
+            if (resultPredicate_gender != nil) {
+                [array addObject:resultPredicate_gender];
+            }
+            if (resultPredicate_time != nil) {
+                [array addObject:resultPredicate_time];
+            }
+            if (resultPredicate_card != nil) {
+                [array addObject:resultPredicate_card];
+            }
+            
+            NSPredicate *multiplePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
+            
+            for (id service in weakArray) {
+                ServiceList *serviceListObj = (ServiceList*)service;
+                NSLog(@"gender = %@",serviceListObj.gender);
+                NSLog(@"startTime = %@ endTime = %@",serviceListObj.startTimeDecimal,serviceListObj.endTimeDecimal);
+                NSLog(@"card = %@",serviceListObj.creditDebitCardSupport);
+                NSLog(@"***********************************************");
+            }
+            
+            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:multiplePredicate];
+            
+            [weakSelf.servicesTable reloadData];
         }
         
         
@@ -313,12 +321,16 @@ static NSArray *menuItems;
                  
                  array_Saloons = [responseDict objectForKey:@"object"];
 
+                 _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
+                 
+                 arrayFilteredResults = [NSArray arrayWithArray:_services];
+                 
+                 [self.servicesTable reloadData];
+                 
+             }else{
+                 [UtilityClass showAlertwithTitle:@"" message:@"Object is Null"];
              }
-             _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
              
-             arrayFilteredResults = [NSArray arrayWithArray:_services];
-             
-             [self.servicesTable reloadData];
              
          }else if (sirFailed){
              
