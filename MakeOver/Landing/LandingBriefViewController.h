@@ -46,5 +46,6 @@
 - (IBAction)favButtonDidTap:(id)sender;
 
 - (IBAction)callButtonDidTap:(id)sender;
+- (IBAction)showInfo:(id)sender;
 
 @end

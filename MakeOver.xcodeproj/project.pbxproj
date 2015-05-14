@@ -91,7 +91,6 @@
 		BB6B417A1A923CC200CBCC7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6B41781A923CC200CBCC7B /* Main.storyboard */; };
 		BB6B417C1A923CC200CBCC7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB6B417B1A923CC200CBCC7B /* Images.xcassets */; };
 		BB6B41961A925C0000CBCC7B /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6B41951A925C0000CBCC7B /* LandingViewController.m */; };
-		BB6B41C61A925CF200CBCC7B /* LandingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6B41C51A925CF200CBCC7B /* LandingNavigationController.m */; };
 		BB6B41C91A9261DA00CBCC7B /* LandingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6B41C81A9261DA00CBCC7B /* LandingCell.m */; };
 		BB6B41CC1A9268F200CBCC7B /* LandingServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6B41CB1A9268F200CBCC7B /* LandingServicesViewController.m */; };
 		BB6B41CF1A92691500CBCC7B /* ServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6B41CE1A92691500CBCC7B /* ServiceCell.m */; };
@@ -277,8 +276,6 @@
 		BB6B417B1A923CC200CBCC7B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BB6B41941A925C0000CBCC7B /* LandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingViewController.h; path = Landing/LandingViewController.h; sourceTree = "<group>"; };
 		BB6B41951A925C0000CBCC7B /* LandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingViewController.m; path = Landing/LandingViewController.m; sourceTree = "<group>"; };
-		BB6B41C41A925CF200CBCC7B /* LandingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingNavigationController.h; path = Landing/LandingNavigationController.h; sourceTree = "<group>"; };
-		BB6B41C51A925CF200CBCC7B /* LandingNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingNavigationController.m; path = Landing/LandingNavigationController.m; sourceTree = "<group>"; };
 		BB6B41C71A9261DA00CBCC7B /* LandingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingCell.h; path = Landing/LandingCell.h; sourceTree = "<group>"; };
 		BB6B41C81A9261DA00CBCC7B /* LandingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingCell.m; path = Landing/LandingCell.m; sourceTree = "<group>"; };
 		BB6B41CA1A9268F200CBCC7B /* LandingServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingServicesViewController.h; path = Landing/LandingServicesViewController.h; sourceTree = "<group>"; };
@@ -394,8 +391,6 @@
 			isa = PBXGroup;
 			children = (
 				7D364EEB1AB0C29D006FEB6A /* Login N Register Module */,
-				BB6B41C41A925CF200CBCC7B /* LandingNavigationController.h */,
-				BB6B41C51A925CF200CBCC7B /* LandingNavigationController.m */,
 				7D7C1AFA1AC72245008D66DE /* Saloon Module */,
 				CED4244A1AC8066F0045CE06 /* Profile Module */,
 				094E39F31AAC4CBD00F6D9EE /* OfferDetailViewController.h */,
@@ -1005,7 +1000,6 @@
 				BB0F21B51AC3481C00F7C9F7 /* NSDate+MakeDate.m in Sources */,
 				7DADF0721A991F3E00EE0C4C /* ServiceInvoker.m in Sources */,
 				BB952A491ABEC9B7006A8328 /* FilterViewController.m in Sources */,
-				BB6B41C61A925CF200CBCC7B /* LandingNavigationController.m in Sources */,
 				094E39F51AAC4CBD00F6D9EE /* OfferDetailViewController.m in Sources */,
 				CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */,
 				9AE156B61AD84BB000FE7BD3 /* FavouriteStylistButton.m in Sources */,

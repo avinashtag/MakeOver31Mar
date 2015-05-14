@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -927,7 +927,7 @@ IAo
                                                     <color key="textColor" red="0.1529411765" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="KxW-X5-XmR">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="KxW-X5-XmR">
                                                     <rect key="frame" x="66" y="7" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="V3d-Nb-0vc"/>
@@ -984,7 +984,7 @@ IAo
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wW2-eB-ePg">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wW2-eB-ePg">
                                                     <rect key="frame" x="10" y="109" width="46" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="aSl-cj-aJh"/>
@@ -999,7 +999,7 @@ IAo
                                                         <action selector="callCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="JC1-VF-A9F"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1w-TX-XRp">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1w-TX-XRp">
                                                     <rect key="frame" x="66" y="109" width="56" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="Hbg-IX-DDe"/>
@@ -1014,7 +1014,7 @@ IAo
                                                         <action selector="menuCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="RE6-jX-I8R"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXb-uf-zmf">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXb-uf-zmf">
                                                     <rect key="frame" x="132" y="109" width="56" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="56" id="bkE-2b-q7s"/>
@@ -1043,7 +1043,7 @@ IAo
                                                         <action selector="reviewCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="782-Lo-Cso"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AqW-P5-Zjb">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AqW-P5-Zjb">
                                                     <rect key="frame" x="87" y="7" width="27" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="27" id="GcM-bd-PFL"/>
@@ -1123,14 +1123,14 @@ IAo
                                                     <color key="textColor" red="0.1529411765" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="LVZ-5S-Kt7">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="LVZ-5S-Kt7">
                                                     <rect key="frame" x="66" y="7" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="8EF-ld-PvQ"/>
                                                         <constraint firstAttribute="height" constant="20" id="HDd-T5-kjR"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-tc-wEz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-tc-wEz">
                                                     <rect key="frame" x="96" y="7" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="9ij-Lv-sBT"/>
@@ -1187,7 +1187,7 @@ IAo
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pz7-wy-Lcp">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pz7-wy-Lcp">
                                                     <rect key="frame" x="10" y="109" width="46" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="2db-ou-8jb"/>
@@ -1202,7 +1202,7 @@ IAo
                                                         <action selector="callCompletion:" destination="Ghc-FX-UKU" eventType="touchUpInside" id="VsG-zG-HVU"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHJ-z1-naY">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHJ-z1-naY">
                                                     <rect key="frame" x="66" y="109" width="56" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="sh3-u6-TYg"/>
@@ -1217,7 +1217,7 @@ IAo
                                                         <action selector="menuCompletion:" destination="Ghc-FX-UKU" eventType="touchUpInside" id="CsK-yI-0Kc"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg4-2q-NrF">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg4-2q-NrF">
                                                     <rect key="frame" x="132" y="109" width="56" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="4JI-dw-Xax"/>
@@ -1347,14 +1347,14 @@ IAo
                                                     <color key="textColor" red="0.1529411765" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="nA2-qj-NSx">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="nA2-qj-NSx">
                                                     <rect key="frame" x="66" y="7" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="JcG-Fe-3eR"/>
                                                         <constraint firstAttribute="width" constant="20" id="h6Y-Yy-xGR"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="qGo-oF-tj0">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="qGo-oF-tj0">
                                                     <rect key="frame" x="96" y="7" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="AEe-4r-Xao"/>
@@ -1411,7 +1411,7 @@ IAo
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4he-zN-fDz">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4he-zN-fDz">
                                                     <rect key="frame" x="10" y="109" width="46" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="Rdg-Mw-Kwd"/>
@@ -1426,7 +1426,7 @@ IAo
                                                         <action selector="callCompletion:" destination="fad-sV-dA0" eventType="touchUpInside" id="HIa-P1-rVb"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjr-hB-Nc5">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjr-hB-Nc5">
                                                     <rect key="frame" x="66" y="109" width="56" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="3O4-kD-vvt"/>
@@ -2167,8 +2167,8 @@ IAo
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7F7-Gd-yVe">
                                 <rect key="frame" x="0.0" y="44" width="320" height="193"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lakme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQ0-h4-Nzz">
-                                        <rect key="frame" x="10" y="11" width="51.5" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Lakme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQ0-h4-Nzz">
+                                        <rect key="frame" x="10" y="11" width="52" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dAS-Wc-o27"/>
                                         </constraints>
@@ -2176,18 +2176,11 @@ IAo
                                         <color key="textColor" red="0.1529411765" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="N0b-Ah-BA3">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="N0b-Ah-BA3">
                                         <rect key="frame" x="66" y="12" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="9Rh-e4-PGY"/>
                                             <constraint firstAttribute="width" constant="20" id="FU2-D5-5NO"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-info" translatesAutoresizingMaskIntoConstraints="NO" id="IiO-VI-BIa">
-                                        <rect key="frame" x="96" y="12" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="1BW-cD-LW5"/>
-                                            <constraint firstAttribute="width" constant="20" id="shM-vy-0nQ"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMf-dT-h76">
@@ -2310,7 +2303,7 @@ IAo
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 am to 09:00 pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v06-bV-9dr">
-                                        <rect key="frame" x="134" y="66" width="132.5" height="21"/>
+                                        <rect key="frame" x="134" y="66" width="133" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="ogr-1M-K3s"/>
                                         </constraints>
@@ -2318,12 +2311,22 @@ IAo
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srD-2i-nm2">
+                                        <rect key="frame" x="92" y="11" width="17" height="22"/>
+                                        <state key="normal" image="ic-info">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showInfo:" destination="6ib-as-hCs" eventType="touchUpInside" id="2b8-Vn-Ts0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="saf-L2-Cra" firstAttribute="leading" secondItem="g45-3L-e0W" secondAttribute="trailing" constant="3" id="2Sp-eM-EOE"/>
                                     <constraint firstItem="aJo-oa-ARZ" firstAttribute="top" secondItem="8po-Iq-O7l" secondAttribute="bottom" constant="5" id="AAP-Tf-GDj"/>
                                     <constraint firstItem="8po-Iq-O7l" firstAttribute="leading" secondItem="7F7-Gd-yVe" secondAttribute="leading" constant="10" id="Brd-Ws-6ys"/>
+                                    <constraint firstItem="srD-2i-nm2" firstAttribute="leading" secondItem="N0b-Ah-BA3" secondAttribute="trailing" constant="6" id="CFw-oi-K9x"/>
                                     <constraint firstItem="nQ0-h4-Nzz" firstAttribute="top" secondItem="7F7-Gd-yVe" secondAttribute="top" constant="11" id="Dbx-hf-wnf"/>
                                     <constraint firstItem="g45-3L-e0W" firstAttribute="top" secondItem="WMf-dT-h76" secondAttribute="bottom" constant="1" id="E26-u9-ei5"/>
                                     <constraint firstAttribute="trailing" secondItem="aJo-oa-ARZ" secondAttribute="trailing" constant="10" id="Fhn-2V-eoQ"/>
@@ -2333,14 +2336,14 @@ IAo
                                     <constraint firstItem="v06-bV-9dr" firstAttribute="top" secondItem="7a2-7e-l4V" secondAttribute="bottom" constant="-21" id="L2a-XX-PSU"/>
                                     <constraint firstAttribute="height" constant="193" id="LZD-Tf-fX6"/>
                                     <constraint firstItem="7a2-7e-l4V" firstAttribute="top" secondItem="g45-3L-e0W" secondAttribute="bottom" constant="9" id="M2Y-J5-kqM"/>
+                                    <constraint firstItem="WMf-dT-h76" firstAttribute="leading" secondItem="srD-2i-nm2" secondAttribute="trailing" constant="120" id="MLr-0H-2oQ"/>
                                     <constraint firstItem="WMf-dT-h76" firstAttribute="top" secondItem="7F7-Gd-yVe" secondAttribute="top" constant="8" id="Oji-fN-BU9"/>
                                     <constraint firstItem="7a2-7e-l4V" firstAttribute="leading" secondItem="7F7-Gd-yVe" secondAttribute="leading" constant="6" id="Oxv-BV-tn8"/>
                                     <constraint firstItem="DOm-mr-MUS" firstAttribute="top" secondItem="8po-Iq-O7l" secondAttribute="bottom" constant="5" id="PVc-ur-Hlb"/>
                                     <constraint firstItem="lh4-H1-kPb" firstAttribute="leading" secondItem="DOm-mr-MUS" secondAttribute="trailing" constant="10" id="QKc-G3-bOu"/>
-                                    <constraint firstItem="IiO-VI-BIa" firstAttribute="leading" secondItem="N0b-Ah-BA3" secondAttribute="trailing" constant="10" id="VNA-Gq-WoO"/>
                                     <constraint firstItem="nQ0-h4-Nzz" firstAttribute="leading" secondItem="7F7-Gd-yVe" secondAttribute="leading" constant="10" id="Y6p-5h-hyW"/>
+                                    <constraint firstItem="g45-3L-e0W" firstAttribute="top" secondItem="srD-2i-nm2" secondAttribute="bottom" constant="4" id="YV8-Fp-Qcv"/>
                                     <constraint firstItem="DOm-mr-MUS" firstAttribute="leading" secondItem="3vh-ON-rVn" secondAttribute="trailing" constant="10" id="Zl5-eq-o1P"/>
-                                    <constraint firstItem="IiO-VI-BIa" firstAttribute="top" secondItem="7F7-Gd-yVe" secondAttribute="top" constant="12" id="fNQ-GB-in6"/>
                                     <constraint firstItem="8po-Iq-O7l" firstAttribute="top" secondItem="v06-bV-9dr" secondAttribute="bottom" constant="28" id="fku-dS-kBr"/>
                                     <constraint firstItem="N0b-Ah-BA3" firstAttribute="top" secondItem="7F7-Gd-yVe" secondAttribute="top" constant="12" id="ih4-tq-b97"/>
                                     <constraint firstItem="3vh-ON-rVn" firstAttribute="top" secondItem="8po-Iq-O7l" secondAttribute="bottom" constant="5" id="jPO-TL-lCJ"/>
@@ -2350,6 +2353,7 @@ IAo
                                     <constraint firstItem="3vh-ON-rVn" firstAttribute="leading" secondItem="7F7-Gd-yVe" secondAttribute="leading" constant="10" id="sEy-54-3o2"/>
                                     <constraint firstItem="v06-bV-9dr" firstAttribute="leading" secondItem="7F7-Gd-yVe" secondAttribute="leading" constant="134" id="tEG-aX-4B1"/>
                                     <constraint firstAttribute="trailing" secondItem="8po-Iq-O7l" secondAttribute="trailing" constant="10" id="vsl-io-0nC"/>
+                                    <constraint firstItem="srD-2i-nm2" firstAttribute="top" secondItem="7F7-Gd-yVe" secondAttribute="top" constant="11" id="wMh-E8-XXd"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMR-q3-AlF">
@@ -2387,7 +2391,7 @@ IAo
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="91n-SN-XSe">
                                 <rect key="frame" x="10" y="276" width="300" height="292"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="XSm-Om-8pD">
                                     <size key="itemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>

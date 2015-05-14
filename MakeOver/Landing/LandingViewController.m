@@ -85,22 +85,22 @@
 
         case 4:
             [cell.serviceImage setImage:[UIImage imageNamed:@"05-medispa"]];
-            [cell.serviceName setText:@"MEDI-SPA"];
+            [cell.serviceName setText:@"MEDISPA"];
             break;
 
         case 5:
             [cell.serviceImage setImage:[UIImage imageNamed:@"06-tattoos&piercing"]];
-            [cell.serviceName setText:@"TATTOOS & PIERCING"];
+            [cell.serviceName setText:@"TATTOO & PIERCING"];
             break;
 
         case 6:
             [cell.serviceImage setImage:[UIImage imageNamed:@"07-nailservices"]];
-            [cell.serviceName setText:@"NAIL SERVICES"];
+            [cell.serviceName setText:@"NAILS"];
             break;
 
         case 7:
             [cell.serviceImage setImage:[UIImage imageNamed:@"08-hair&makeup"]];
-            [cell.serviceName setText:@"HAIR & MAKEUP"];
+            [cell.serviceName setText:@"TUTORIALS"];
             break;
 
         case 8:

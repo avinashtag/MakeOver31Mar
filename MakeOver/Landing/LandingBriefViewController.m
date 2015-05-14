@@ -400,9 +400,11 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
         [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
     }
     
-    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
+    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    string_userId = string_userId!=nil ? string_userId : @"";
+
     
-    if ((string_userId != nil) && (string_userId.length)){
+    if (string_userId != nil) {
         
         NSString *string_stylistId = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"];
         
@@ -417,7 +419,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 -(void)serviceRequestWithParameters:(NSDictionary*)parameter andSender:(id)sender{
     
-    [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_ADD_FAVOURITE spinningMessage:@"Loading profile" completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+    [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_ADD_FAVOURITE spinningMessage:@"Loading..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
         
         FavouriteStylistButton *button = (FavouriteStylistButton*)sender;
 
@@ -467,15 +469,21 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     __block RatingViewController *rating = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([RatingViewController class])];
     popoverController = [[WYPopoverController alloc] initWithContentViewController:rating];
+ 
     [rating ratingCompletion:^(NSString* review , double rating ,BOOL isCancelled) {
         
+        
+        
         if (!isCancelled) {
+            
+            NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+            NSString *strUser = string_userId!=nil ? string_userId : @"";
             
             NSDictionary *prams = @{
                                     @"stylishId" : _service.saloonId,
                                     @"rating" : @(rating),
                                     @"review" : review,
-                                    @"userId" : @"3"
+                                    @"userId" :strUser
                                     };
             [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:prams requestAPI:API_RATE_SALOON spinningMessage:nil completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
                 
@@ -621,6 +629,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     else {
         [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
     }
+
+}
+
+- (IBAction)showInfo:(id)sender {
+    
+    [UtilityClass showAlertwithTitle:nil message:self.service.saloonInfo];
 
 }
 

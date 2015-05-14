@@ -29,11 +29,10 @@
 		}
 	}
     if (!instance.cities.count) {
-        [instance serviceInvokeWithParameters:nil requestAPI:API_GET_CITIES spinningMessage:@"Fetching Cities..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+        [instance serviceInvokeWithParameters:nil requestAPI:API_GET_CITIES spinningMessage:nil completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
             if (result == sirSuccess) {
                 NSError *error = nil;
                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-                
                 
                 instance.cities = [[City initializeWithResponse:responseDict] mutableCopy];
                 instance.city = instance.cities.count ? instance.cities[0] : nil;

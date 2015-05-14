@@ -30,12 +30,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_submit.layer setCornerRadius:CornerRadius];
-    [_skip.layer setCornerRadius:CornerRadius];
-    [_facebookLogin.layer setCornerRadius:CornerRadius];
-    // Do any additional setup after loading the view.
-
+    
     [ServiceInvoker sharedInstance];
+
+    NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
+        
+        [self skipClicked:nil];
+    }
+    else {
+      
+        [_submit.layer setCornerRadius:CornerRadius];
+        [_skip.layer setCornerRadius:CornerRadius];
+        [_facebookLogin.layer setCornerRadius:CornerRadius];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -306,8 +306,12 @@ static NSArray *menuItems;
 }
 
 
--(void)webServiceSortByStylist{
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"cityId",@"1",@"serviceId",@"3",@"userId", nil];
+-(void)webServiceSortByStylist {
+    
+    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    string_userId = string_userId!=nil ? string_userId : @"";
+
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"cityId",@"1",@"serviceId",string_userId,@"userId", nil];
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
@@ -484,11 +488,20 @@ static NSArray *menuItems;
                 [selfWeak imageViewerPresent:service.clubImages];// Dnt know what to show
                 break;
             case tInfo:
+                
+                [UtilityClass showAlertwithTitle:nil message:service.saloonInfo];
                 [selfWeak showSaloonInfo];
+                
+                break;
+                
             case tCall:
                 [selfWeak showCallingPopup:service.contacts];
+                break;
+                
             case tDistance:
                 [selfWeak showDistancePopUp];
+                break;
+                
             default:
                 break;
                 
@@ -692,7 +705,6 @@ static NSArray *menuItems;
 -(void)showSaloonInfo {
     
     NSLog(@"show info");
-    
 }
 
 
@@ -1108,9 +1120,13 @@ static NSArray *menuItems;
     {
         NSLog(@"Hit Web Service");
         //also check if already hit or not
+        
+        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        string_userId = string_userId!=nil ? string_userId : @"";
+        
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
         
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString",@"1",@"userId", nil];
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString",@"string_userId",@"userId", nil];
         
         isSearchReqQueued = YES;
         

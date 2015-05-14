@@ -13,6 +13,8 @@
 
 @property(nonatomic, strong)NSString *saloonAddress;
 @property(nonatomic, strong)NSString *saloonMainArea;
+@property(nonatomic, strong)NSString *saloonInfo;
+
 
 @property(nonatomic, strong)NSString *saloonContact;
 @property(nonatomic, strong)NSString *saloonDstfrmCurrLocation;
