@@ -13,4 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollection;
 @property(strong, nonatomic) NSArray *images;
+@property (nonatomic, assign) NSIndexPath *startImageIndexPath;
+
 @end

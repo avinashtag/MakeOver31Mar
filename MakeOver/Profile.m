@@ -59,7 +59,7 @@ NSString *const kObjectName = @"name";
        [parsedFabStylist addObject:[FabStylist modelObjectWithDictionary:(NSDictionary *)receivedFabStylist]];
     }
 
-    self.fabStylist = [NSArray arrayWithArray:parsedFabStylist];
+        self.fabStylist = [NSArray arrayWithArray:parsedFabStylist];
             self.userId = [[self objectOrNilForKey:kObjectUserId fromDictionary:dict] doubleValue];
             self.mobileNo = [self objectOrNilForKey:kObjectMobileNo fromDictionary:dict];
             self.imageUrl = [self objectOrNilForKey:kObjectImageUrl fromDictionary:dict];

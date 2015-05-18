@@ -20,8 +20,18 @@
     [super viewDidLoad];
     
     [_imageCollection reloadData];
+    
+//    [_imageCollection scrollToItemAtIndexPath:_startImageIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
-    // Do any additional setup after loading the view.
+
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    [_imageCollection scrollToItemAtIndexPath:_startImageIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

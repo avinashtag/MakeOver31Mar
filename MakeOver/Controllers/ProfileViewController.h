@@ -28,6 +28,8 @@ typedef enum {
     
     HTHorizontalSelectionList *menuListView;
     NSArray *menuItems;
+    
+    BOOL isRequestInProgress;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;

@@ -79,32 +79,11 @@
 -(void)profiletab:(UIButton*)sender{
 //    [sender setHidden:YES];
     
-    if (!isSelectedIndex2) {
+    if (!isSelectedIndex2)
+    {
         
         isSelectedIndex2 = YES;
         
-        //AppDelegate *delegateObj = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavControllerCenterTabSID"];
-
-        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
-        if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
-            ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-//            [delegateObj.navConCenterTab setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
-            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
-        }
-        else {
-            LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-            controller.isInsideProfileTab = YES;
-            //[delegateObj.navConCenterTab setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
-            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
-
-        }
-        
-        NSMutableArray* newArray = [NSMutableArray arrayWithArray:self.viewControllers];
-        [newArray removeObjectAtIndex:2];
-        //[newArray insertObject:delegateObj.navConCenterTab atIndex:2];
-        [newArray insertObject:navController atIndex:2];
-        [self.tabBarController setViewControllers:newArray animated:YES];
         
         [self setSelectedIndex:2];
         [self tabBarController:self didSelectViewController:[self.viewControllers objectAtIndex:2]];
@@ -120,7 +99,7 @@
     
     if (tabBarController.selectedIndex == 2)
     {
-        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+/*        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
         if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
             ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
             [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
@@ -130,6 +109,30 @@
             LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
             controller.isInsideProfileTab = YES;
             [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+        }
+ */
+        NSMutableArray* newArray = [NSMutableArray arrayWithArray:self.viewControllers];
+        
+        UINavigationController *navController = [newArray objectAtIndex:2];//[self.storyboard instantiateViewControllerWithIdentifier:@"NavControllerCenterTabSID"];
+        
+        
+        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        
+        if (loggedUserID != nil && ([loggedUserID integerValue] > -1))
+        {
+            if (![[navController topViewController] isKindOfClass:[ProfileViewController class]]) {
+                
+                ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+            }
+        }
+        else if (![[[newArray objectAtIndex:2] topViewController] isKindOfClass:[LoginViewController class]]){
+            
+            LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            controller.isInsideProfileTab = YES;
+            
+            [navController setViewControllers:[NSArray arrayWithObject: controller] animated: YES];
+            
         }
     }
     else

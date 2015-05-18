@@ -12,7 +12,7 @@
 @interface Groups : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSString *positionName;
-@property (nonatomic, strong) NSArray *stylistresp;
+@property (nonatomic, strong) NSMutableArray *stylistresp;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

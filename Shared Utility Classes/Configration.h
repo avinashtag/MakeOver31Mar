@@ -42,7 +42,7 @@ enum TimeConstants {
 
 #define API_GET_Profile @"myProfile"
 
-#define API_ADD_FAVOURITE @"addFaborate"
+#define API_ADD_FAVOURITE @"addFaborateStylist"
 
 #define API_GET_TUTORIAL @"getTutorial"
 

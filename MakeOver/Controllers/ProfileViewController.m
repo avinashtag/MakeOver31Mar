@@ -44,11 +44,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self serviceRequest];
+    
+    if (!isRequestInProgress) {
+        
+        isRequestInProgress = YES;
+        [self serviceRequest];
+    }
+    
     [self.navigationController setNavigationBarHidden:YES];
 //    [self.tabBarController.tabBar setHidden:YES];
 //    [_pageControl setHidden:YES];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     
@@ -146,9 +153,13 @@
         case 1:
             return self.favSaloons.count;
             break;
-            
+        
+        case 0:
+            return profile.myRatedSaloons.count;
+            break;
+
         default:
-            return 2;
+            return 0;
             break;
     }
 }
@@ -160,10 +171,27 @@
     
     if (menuListView.selectedButtonIndex == 0) {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell"];
+        
+        UILabel *lbl_saloonName = (UILabel*)[cell viewWithTag:21];
+        UILabel *lbl_saloonAddress = (UILabel*)[cell viewWithTag:22];
+        UILabel *lbl_review = (UILabel*)[cell viewWithTag:23];
+
+        NSString *saloonName = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"saloonName"];
+        NSString *address = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"mainArea"];
+        
+        NSString *reviewDate = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"reviewDate"];
+        NSString *review = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"myReview"];
+        
+        lbl_saloonName.text = [NSString stringWithFormat:@"%@ (%@)",saloonName,reviewDate];
+        lbl_review.text = review;
+        if (address != [NSNull null] && address) {
+            lbl_saloonAddress.text = address;
+        }
+        
         return cell;
     }
     else if (menuListView.selectedButtonIndex == 1) {
-        //TODO:: Favourite Saloon Pasrse show
+        //TODO:: Favourite Saloon Parse show
         ServiceList* saloon = _favSaloons[indexPath.row];
         ServiceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OtherCell"];
         
@@ -175,9 +203,11 @@
     else{
         FabStylist *stylist = profile.fabStylist[indexPath.row];
         ServiceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"StylistCell"];
-        [cell.userImage setImageWithURL:[NSURL URLWithString:stylist.imageUrl] placeholderImage:nil];
-        [cell.name setText:stylist.stylistName];
-        [cell.address setText:[stylist.stylishPosition isEqualToString:@"J"]?@"Junior":@"Senior"];
+        
+        [cell.name setText: [NSString stringWithFormat:@"%@ (%@)",stylist.stylistName,[stylist.sallonResponse.saloonServices componentsJoinedByString:@","]]];
+        cell.descriptionService.text = stylist.sallonResponse.saloonName;
+        [cell.address setText:stylist.sallonResponse.saloonMainArea];
+        
         return cell;
     }
     
@@ -188,7 +218,27 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return 65.0f;
+    switch (menuListView.selectedButtonIndex) {
+        case 0:
+            return 100.0f;
+            
+            break;
+           
+        case 1:
+            return 90.0f;
+            
+            break;
+            
+        case 2:
+            return 80.0f;
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return 0;
 }
 
 - (IBAction)back:(UIButton *)sender {
@@ -201,16 +251,20 @@
     
     NSDictionary *parameter = @{@"userId" : [NSNumber numberWithInt:[[UtilityClass RetrieveDataFromUserDefault:@"userid"] intValue]]};
     
-    [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_GET_Profile spinningMessage:@"Loading profile" completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
-        if (result == sirSuccess) {
-            NSError *error = nil;
-            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-            
-            profile = [Profile modelObjectWithDictionary:responseDict[@"object"]];
-            [self loadProfile];
-            
-        }
-    }];
+    [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_GET_Profile spinningMessage:@"Loading profile" completion:
+                                            ^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+                                                {
+                                                    isRequestInProgress = NO;
+                                                    
+                                                    if (result == sirSuccess) {
+                                                        NSError *error = nil;
+                                                        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+                                                        
+                                                        profile = [Profile modelObjectWithDictionary:responseDict[@"object"]];
+                                                        [self loadProfile];
+                                                        
+                                                    }
+                                                }];
 }
 
 -(void)loadProfile{
@@ -219,7 +273,6 @@
     [_userEmail setText:profile.email];
     [_mobile setText:profile.mobileNo];
     [_profilePic setImageWithURL:[NSURL URLWithString:profile.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
-
-    
+    [_tableView reloadData];
 }
 @end

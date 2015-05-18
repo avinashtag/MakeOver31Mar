@@ -6,7 +6,7 @@
 //
 
 #import "FabStylist.h"
-#import "SallonResponse.h"
+#import "ServiceList.h"
 
 
 NSString *const kFabStylistStylistMobile = @"stylistMobile";
@@ -52,7 +52,7 @@ NSString *const kFabStylistStylishPosition = @"stylishPosition";
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.stylistMobile = [self objectOrNilForKey:kFabStylistStylistMobile fromDictionary:dict];
-            self.sallonResponse = [SallonResponse modelObjectWithDictionary:[dict objectForKey:kFabStylistSallonResponse]];
+            self.sallonResponse = [[ServiceList alloc] initWithDictionary:[dict objectForKey:kFabStylistSallonResponse]];
             self.stylistName = [self objectOrNilForKey:kFabStylistStylistName fromDictionary:dict];
             self.createdDate = [self objectOrNilForKey:kFabStylistCreatedDate fromDictionary:dict];
             self.stylistId = [[self objectOrNilForKey:kFabStylistStylistId fromDictionary:dict] doubleValue];
@@ -71,7 +71,7 @@ NSString *const kFabStylistStylishPosition = @"stylishPosition";
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:self.stylistMobile forKey:kFabStylistStylistMobile];
-    [mutableDict setValue:[self.sallonResponse dictionaryRepresentation] forKey:kFabStylistSallonResponse];
+//    [mutableDict setValue:[self.sallonResponse dictionaryRepresentation] forKey:kFabStylistSallonResponse];
     [mutableDict setValue:self.stylistName forKey:kFabStylistStylistName];
     [mutableDict setValue:self.createdDate forKey:kFabStylistCreatedDate];
     [mutableDict setValue:[NSNumber numberWithDouble:self.stylistId] forKey:kFabStylistStylistId];
@@ -145,7 +145,7 @@ NSString *const kFabStylistStylishPosition = @"stylishPosition";
     if (copy) {
 
         copy.stylistMobile = [self.stylistMobile copyWithZone:zone];
-        copy.sallonResponse = [self.sallonResponse copyWithZone:zone];
+//        copy.sallonResponse = [self.sallonResponse copyWithZone:zone];
         copy.stylistName = [self.stylistName copyWithZone:zone];
         copy.createdDate = [self.createdDate copyWithZone:zone];
         copy.stylistId = self.stylistId;

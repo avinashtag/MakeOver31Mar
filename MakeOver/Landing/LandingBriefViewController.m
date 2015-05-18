@@ -227,6 +227,7 @@
 
         UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(4, 0, 60, 60)];
         imageVw.backgroundColor = [UIColor redColor];
+        imageVw.contentMode = UIViewContentModeScaleAspectFit;
         [cell.contentView addSubview:imageVw];
         
         id imageUrlString = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"styListImgUrl"];
@@ -234,8 +235,20 @@
         if (imageUrlString != [NSNull null])
             [imageVw setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil];
         
+        UILabel *lbl_stylistName = [[UILabel alloc]initWithFrame:CGRectMake(2, 60, 64, 20)];
+        lbl_stylistName.backgroundColor = [UIColor clearColor];
+        lbl_stylistName.textAlignment = NSTextAlignmentCenter;
+        
+        NSString *name = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"stylistName"];
+        
+        lbl_stylistName.text = name;
+        lbl_stylistName.font = [UIFont boldSystemFontOfSize:11];
+        lbl_stylistName.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:lbl_stylistName];
+        [cell.contentView bringSubviewToFront:lbl_stylistName];
+        
         FavouriteStylistButton *btn = [FavouriteStylistButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(2, 60, 20, 20);
+        btn.frame = CGRectMake(2, 76, 20, 20);
         btn.tableSectionIndex = containerTableSection;
         btn.collectionViewIndex = collectionView.tag;
         btn.collectionViewCellIndex = indexPath.row;
@@ -246,7 +259,8 @@
         [cell.contentView bringSubviewToFront:btn];
         
         id favObj = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"faborateFlag"];
-        BOOL isFavourite;
+        
+        BOOL isFavourite = NO;
         
         if (favObj != [NSNull null])
             isFavourite = [favObj boolValue];
@@ -255,19 +269,21 @@
 
         if (isFavourite) {
             [btn setSelected:YES];
+            [btn setImage:nil forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
         }
         else {
             [btn setSelected:NO];
+            [btn setImage:nil forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
         }
         
-        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(24, 60, 60, 16)];
+        UILabel *lbl_review = [[UILabel alloc]initWithFrame:CGRectMake(24, 76, 60, 16)];
         lbl_review.backgroundColor = [UIColor clearColor];
         
         NSString *fabCount = [[[[[[self.service.services objectAtIndex:containerTableSection] groups] objectAtIndex:collectionView.tag] stylistresp] objectAtIndex:indexPath.row] objectForKey:@"stylistFabCount"];
 
-        lbl_review.text = [NSString stringWithFormat:@"%@ reviews",fabCount];
+        lbl_review.text = [NSString stringWithFormat:@"%@ favorites",fabCount];
         lbl_review.font = [UIFont systemFontOfSize:10];
         //lbl_review.textAlignment = NSTextAlignmentCenter;
         //lbl_review.backgroundColor = [UIColor blueColor];
@@ -290,10 +306,10 @@
     switch (_segmentControl.selectedSegmentIndex) {
             
         case 0:
-            [self imageViewerPresent:_service.menuImages];
+            [self imageViewerPresent:_service.menuImages atIndex:indexPath];
             break;
         case 1:
-            [self imageViewerPresent:_service.clubImages];// Dnt know what to show
+            [self imageViewerPresent:_service.clubImages atIndex:indexPath];// Dnt know what to show
             break;
         
         default:
@@ -304,9 +320,12 @@
     }
 }
 
--(void)imageViewerPresent:(NSArray*)images{
+-(void)imageViewerPresent:(NSArray*)images atIndex:(NSIndexPath*)index{
+    
     if (images.count) {
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
+       
+        imageViewer.startImageIndexPath = index;
         
         imageViewer.images = images;
         
@@ -330,7 +349,7 @@
     if (collectionView == _servicesTable) {
         returnSize = CGSizeMake(collectionView.frame.size.width/3, collectionView.frame.size.width/3);
     }else{
-        returnSize = CGSizeMake(80, 80);
+        returnSize = CGSizeMake(80, 110);
     }
     
     return returnSize;
@@ -391,22 +410,20 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     
     if ((favObj != [NSNull null]) && ([favObj isEqualToString:@"Y"])) {
-        [button setSelected:NO];
-        [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
+        favObj = @"N";
     }
     else
     {
-        [button setSelected:YES];
-        [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
+        favObj = @"Y";
     }
     
-    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     string_userId = string_userId!=nil ? string_userId : @"";
 
     
     if (string_userId != nil) {
         
-        NSString *string_stylistId = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"];
+        NSString *string_stylistId = [[[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"] stringValue];
         
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:string_userId,@"userId",string_stylistId,@"stylishId",favObj,@"fabFlag", nil];
         [self serviceRequestWithParameters:dict andSender:sender];
@@ -423,14 +440,39 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
         
         FavouriteStylistButton *button = (FavouriteStylistButton*)sender;
 
-        if (result == sirSuccess) {
+        if (result == sirSuccess)
+        {
             NSError *error = nil;
-            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-            // if successful then update button image accordingly
-            [button setSelected:YES];
-            [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
             
-        }else{
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+ 
+            NSString *favObj = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"faborateFlag"];
+            
+            NSMutableDictionary *stylistDict = [[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] mutableCopy];
+            [stylistDict setObject:[responseDict objectForKey:@"object"] forKey:@"stylistFabCount"];
+
+            
+            // if successful then update button image accordingly
+            if ((favObj != [NSNull null]) && ([favObj isEqualToString:@"Y"])) {
+                [button setSelected:NO];
+                [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
+                
+                [stylistDict setObject:@"N" forKey:@"faborateFlag"];
+            }
+            else
+            {
+                [button setSelected:YES];
+                [button setImage:[UIImage imageNamed:@"ic_favoritefill"] forState:UIControlStateSelected];
+                
+                [stylistDict setObject:@"Y" forKey:@"faborateFlag"];
+            }
+            
+            
+            [[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] replaceObjectAtIndex:button.collectionViewCellIndex withObject:stylistDict];
+            
+            [_tbl_stylist reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:button.collectionViewIndex inSection:button.tableSectionIndex]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        else{
             // if unsuccessful then update button image accordingly
             [button setSelected:NO];
             [button setImage:[UIImage imageNamed:@"ic_favorite"] forState:UIControlStateNormal];
@@ -746,7 +788,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     switch (_segmentControl.selectedSegmentIndex) {
         case 2:
         {
-            return 100;
+            return 110;
         }
             break;
         default:

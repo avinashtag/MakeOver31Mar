@@ -37,7 +37,7 @@ NSString *const kGroupsStylistresp = @"stylistresp";
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.positionName = [self objectOrNilForKey:kGroupsPosition fromDictionary:dict];
-            self.stylistresp = [self objectOrNilForKey:kGroupsStylistresp fromDictionary:dict];
+            self.stylistresp = [[self objectOrNilForKey:kGroupsStylistresp fromDictionary:dict] mutableCopy];
 
     }
     

@@ -7,12 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class SallonResponse;
+@class ServiceList;
 
 @interface FabStylist : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSString *stylistMobile;
-@property (nonatomic, strong) SallonResponse *sallonResponse;
+@property (nonatomic, strong) ServiceList *sallonResponse;
 @property (nonatomic, strong) NSString *stylistName;
 @property (nonatomic, strong) NSString *createdDate;
 @property (nonatomic, assign) double stylistId;
