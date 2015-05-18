@@ -128,6 +128,7 @@
 		CE28233F1AF2C1C600ADA969 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28233E1AF2C1C600ADA969 /* MoreViewController.m */; };
 		CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2823401AF2C65500ADA969 /* MessageUI.framework */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
+		CE95AE051B0A8169003C51EA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95AE041B0A8169003C51EA /* AboutViewController.m */; };
 		CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */; };
 		CEB233B31AD145F00046A785 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB233B21AD145F00046A785 /* Info.plist */; };
 		CED424481AC805440045CE06 /* favSaloons.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED424471AC805440045CE06 /* favSaloons.plist */; };
@@ -342,6 +343,8 @@
 		CE2823401AF2C65500ADA969 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
+		CE95AE031B0A8169003C51EA /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		CE95AE041B0A8169003C51EA /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		CEA49A7B1ADB1202002BB32F /* MenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionViewCell.h; sourceTree = "<group>"; };
 		CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCollectionViewCell.m; sourceTree = "<group>"; };
 		CEB233B21AD145F00046A785 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -393,6 +396,7 @@
 				7D364EEB1AB0C29D006FEB6A /* Login N Register Module */,
 				7D7C1AFA1AC72245008D66DE /* Saloon Module */,
 				CED4244A1AC8066F0045CE06 /* Profile Module */,
+				CE95AE021B0A8146003C51EA /* More Tab */,
 				094E39F31AAC4CBD00F6D9EE /* OfferDetailViewController.h */,
 				094E39F41AAC4CBD00F6D9EE /* OfferDetailViewController.m */,
 				094E39BF1AAAE43E00F6D9EE /* MenuViewController.h */,
@@ -405,8 +409,6 @@
 				BBC895541AB8BC5500F1A56E /* ImageViewerViewController.m */,
 				BB952A471ABEC9B7006A8328 /* FilterViewController.h */,
 				BB952A481ABEC9B7006A8328 /* FilterViewController.m */,
-				CE28233D1AF2C1C600ADA969 /* MoreViewController.h */,
-				CE28233E1AF2C1C600ADA969 /* MoreViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -845,6 +847,17 @@
 			path = ../MakeOver/Categories;
 			sourceTree = "<group>";
 		};
+		CE95AE021B0A8146003C51EA /* More Tab */ = {
+			isa = PBXGroup;
+			children = (
+				CE28233D1AF2C1C600ADA969 /* MoreViewController.h */,
+				CE28233E1AF2C1C600ADA969 /* MoreViewController.m */,
+				CE95AE031B0A8169003C51EA /* AboutViewController.h */,
+				CE95AE041B0A8169003C51EA /* AboutViewController.m */,
+			);
+			name = "More Tab";
+			sourceTree = "<group>";
+		};
 		CED4244A1AC8066F0045CE06 /* Profile Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -1012,6 +1025,7 @@
 				0903E3941AA7817700B0884D /* UIAlertView+MOAlertView.m in Sources */,
 				BB952A5D1ABF3DBE006A8328 /* FabStylist.m in Sources */,
 				9AEA54B41ACB2100007606EA /* LandingBriefCell.m in Sources */,
+				CE95AE051B0A8169003C51EA /* AboutViewController.m in Sources */,
 				7D738FDF1ABEDAA300A9553B /* UMDateTimeLabel.m in Sources */,
 				BBA299581AB6901E004C5595 /* Review.m in Sources */,
 				BBA2995B1AB6901E004C5595 /* UserInfoModel.m in Sources */,

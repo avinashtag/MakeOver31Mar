@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MoreViewController : UITableViewController {
+@interface MoreViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     
 }
 

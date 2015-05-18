@@ -7,6 +7,7 @@
 //
 
 #import "MoreViewController.h"
+#import "AboutViewController.h"
 
 #import <MessageUI/MessageUI.h>
 
@@ -21,13 +22,57 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    
+        
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    switch (indexPath.row)
+    {
+        case 0:
+            cell.textLabel.text = @"About us";
+
+            break;
+        
+        case 1:
+            cell.textLabel.text = @"Contact us";
+
+            break;
+            
+        case 2:
+            cell.textLabel.text = @"Rate us";
+
+            break;
+            
+            
+        default:
+            break;
+    }
+    
+    return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row ==0) {
-        // open about us page
+        AboutViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if (indexPath.row ==1) {
         [self openMail:indexPath];
