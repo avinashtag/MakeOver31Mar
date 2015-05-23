@@ -521,7 +521,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             NSString *strUser = string_userId!=nil ? string_userId : @"";
             
             NSDictionary *prams = @{
-                                    @"stylishId" : _service.saloonId,
+                                    @"saloonId" : _service.saloonId,
                                     @"rating" : @(rating),
                                     @"review" : review,
                                     @"userId" :strUser
