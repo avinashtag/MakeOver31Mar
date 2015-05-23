@@ -77,8 +77,6 @@
     [super viewDidLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
-    
-    [_tbl_stylist registerClass:[LandingBriefCell class] forCellReuseIdentifier:@"CellIdentifier"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -225,7 +223,7 @@
         NSInteger containerTableSection = [(StylistCollectionView*)collectionView tableSectionIndex];
 
         UIImageView *imageVw = [[UIImageView alloc]initWithFrame:CGRectMake(4, 0, 60, 60)];
-        imageVw.backgroundColor = [UIColor redColor];
+        //imageVw.backgroundColor = [UIColor redColor];
         imageVw.contentMode = UIViewContentModeScaleAspectFit;
         [cell.contentView addSubview:imageVw];
         
@@ -719,7 +717,10 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 {
     static NSString *CellIdentifier = @"CellIdentifier";
     
-    LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    LandingBriefCell *cell = [[LandingBriefCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
+    
+    //LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell.lblStylistCategory.text = [[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
     
