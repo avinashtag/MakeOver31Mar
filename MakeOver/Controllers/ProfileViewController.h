@@ -24,7 +24,7 @@ typedef enum {
 } selectedMenu;
 
 
-@interface ProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate, HTHorizontalSelectionListDelegate, HTHorizontalSelectionListDataSource> {
+@interface ProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate, HTHorizontalSelectionListDelegate, HTHorizontalSelectionListDataSource, UIActionSheetDelegate> {
     
     HTHorizontalSelectionList *menuListView;
     NSArray *menuItems;

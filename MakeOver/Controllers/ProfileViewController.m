@@ -198,6 +198,22 @@
         cell.name.text = saloon.saloonName;
         [cell.address setText:saloon.saloonAddress];
         
+        __weak ProfileViewController *selfWeak = self;
+
+        [cell reviewWithCompletion:^(UIButton *sender, ServiceCollectionType serviceType){
+            switch (serviceType) {
+                    
+                case tCall:
+                    [selfWeak showCallingPopup:saloon.contacts];
+                    break;
+                    
+                    
+                default:
+                    break;
+                    
+            }
+        }];
+        
         return cell;
     }
     else{
@@ -207,6 +223,22 @@
         [cell.name setText: [NSString stringWithFormat:@"%@ (%@)",stylist.stylistName,[stylist.sallonResponse.saloonServices componentsJoinedByString:@","]]];
         cell.descriptionService.text = stylist.sallonResponse.saloonName;
         [cell.address setText:stylist.sallonResponse.saloonMainArea];
+        
+        __weak ProfileViewController *selfWeak = self;
+        
+        [cell reviewWithCompletion:^(UIButton *sender, ServiceCollectionType serviceType){
+            switch (serviceType) {
+                    
+                case tCall:
+                    [selfWeak showCallingPopup:stylist.sallonResponse.contacts];
+                    break;
+                    
+                    
+                default:
+                    break;
+                    
+            }
+        }];
         
         return cell;
     }
@@ -314,4 +346,53 @@
     [_profilePic setImageWithURL:[NSURL URLWithString:profile.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
     [_tableView reloadData];
 }
+
+
+
+-(void)showCallingPopup:(NSArray*)contacts {
+    
+    NSLog(@"Calling PopUp");
+    
+    if (contacts.count) {
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        
+        for (NSString *number in contacts) {
+            [actionSheet addButtonWithTitle:number];
+        }
+        
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    }
+    else {
+        [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
+    }
+    
+    
+    
+    
+    //    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
+    //    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    //    CGRect rect = self.view.frame;
+    //    rect.size.width = rect.size.width -20;
+    //    rect.size.height = rect.size.height -20;
+    //    [popoverController setPopoverContentSize:rect.size];
+    //    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
+    //    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+    //
+    //    }];
+    
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
+    NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
+    [[UIApplication sharedApplication] openURL:phoneURL];
+}
+
+
+
 @end
