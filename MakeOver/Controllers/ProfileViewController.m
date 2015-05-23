@@ -177,7 +177,7 @@
         UILabel *lbl_review = (UILabel*)[cell viewWithTag:23];
 
         NSString *saloonName = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"saloonName"];
-        NSString *address = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"mainArea"];
+        NSString *address = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"saloonAddress"];
         
         NSString *reviewDate = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"reviewDate"];
         NSString *review = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"myReview"];
