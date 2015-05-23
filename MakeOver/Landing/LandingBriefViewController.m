@@ -77,10 +77,8 @@
     [super viewDidLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
-//    [_servicesTable registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
-
-    // [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-big.png"]] ];
-
+    
+    [_tbl_stylist registerClass:[LandingBriefCell class] forCellReuseIdentifier:@"CellIdentifier"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -221,6 +219,7 @@
     else
     {
         identifier = @"CollectionViewCellIdentifier";
+        
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
 
         NSInteger containerTableSection = [(StylistCollectionView*)collectionView tableSectionIndex];
@@ -721,11 +720,6 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     static NSString *CellIdentifier = @"CellIdentifier";
     
     LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (!cell)
-    {
-        cell = [[LandingBriefCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
     
     cell.lblStylistCategory.text = [[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
     
