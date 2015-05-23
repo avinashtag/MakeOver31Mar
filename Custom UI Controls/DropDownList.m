@@ -69,11 +69,17 @@
     // Configure the cell...
     
     if (indexPath.row == 0) {
-        cell.textLabel.text = [_resultList objectAtIndex:0];
-    }else{
-        ServiceList *listObj = (ServiceList*)[_resultList objectAtIndex:indexPath.row];
         
-        cell.textLabel.text = listObj.saloonName;//[_resultList objectAtIndex:row];
+        cell.textLabel.text = [_resultList objectAtIndex:0];
+        
+    }else{
+
+        NSString *searchKey = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchKey"];
+        NSString *searchValue = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchValue"];
+        NSString *searchHelper = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchHelper"];
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",searchValue,searchHelper];
+        
     }
     
     return cell;

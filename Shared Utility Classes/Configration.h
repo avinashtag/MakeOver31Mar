@@ -30,6 +30,8 @@ enum TimeConstants {
 
 #define API_SEARCH @"saloonSearch"
 
+#define API_KEY_SEARCH @"keySearch"
+
 #define API_RATE_SALOON @"rateSaloon"
 
 #define API_RATE_STYLISH @"rateStylish"

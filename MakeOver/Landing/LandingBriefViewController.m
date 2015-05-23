@@ -718,9 +718,6 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     static NSString *CellIdentifier = @"CellIdentifier";
     
     LandingBriefCell *cell = [[LandingBriefCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
-    
-    //LandingBriefCell *cell = (LandingBriefCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell.lblStylistCategory.text = [[[[self.service.services objectAtIndex:indexPath.section] groups] objectAtIndex:indexPath.row] positionName];
     
