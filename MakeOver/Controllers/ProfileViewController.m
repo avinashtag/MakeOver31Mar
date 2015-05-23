@@ -218,27 +218,66 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    switch (menuListView.selectedButtonIndex) {
-        case 0:
-            return 100.0f;
-            
-            break;
-           
-        case 1:
-            return 90.0f;
-            
-            break;
-            
-        case 2:
-            return 80.0f;
-            
-            break;
-            
-        default:
-            break;
+    CGFloat height;
+    
+    if (menuListView.selectedButtonIndex == 0) {
+
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell"];
+        
+        UILabel *lbl_saloonName = (UILabel*)[cell viewWithTag:21];
+        UILabel *lbl_saloonAddress = (UILabel*)[cell viewWithTag:22];
+        UILabel *lbl_review = (UILabel*)[cell viewWithTag:23];
+        
+        NSString *saloonName = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"saloonName"];
+        NSString *address = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"mainArea"];
+        
+        NSString *reviewDate = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"reviewDate"];
+        NSString *review = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"myReview"];
+        
+        lbl_saloonName.text = [NSString stringWithFormat:@"%@ (%@)",saloonName,reviewDate];
+        lbl_review.text = review;
+        if (address != [NSNull null] && address) {
+            lbl_saloonAddress.text = address;
+        }
+        
+        
+        [cell setNeedsLayout];
+        [cell layoutIfNeeded];
+        height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        
+        //height = 100.0f;
+    }
+    else if (menuListView.selectedButtonIndex == 1) {
+        //TODO:: Favourite Saloon Parse show
+        
+        height = 90.0f;
+    }
+    else{
+        
+        height = 80.0f;
     }
     
-    return 0;
+//    switch (menuListView.selectedButtonIndex) {
+//        case 0:
+//            return 100.0f;
+//            
+//            break;
+//           
+//        case 1:
+//            return 90.0f;
+//            
+//            break;
+//            
+//        case 2:
+//            return 80.0f;
+//            
+//            break;
+//            
+//        default:
+//            break;
+//    }
+    
+    return height;
 }
 
 - (IBAction)back:(UIButton *)sender {
