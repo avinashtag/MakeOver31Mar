@@ -12,10 +12,6 @@
 @interface ReviewViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 
-
-
-
-
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UITableView *reviewsTable;
 @property (strong, nonatomic)__block NSMutableArray* reviews;

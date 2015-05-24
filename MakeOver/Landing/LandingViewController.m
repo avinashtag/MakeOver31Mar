@@ -117,7 +117,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     LandingServicesViewController *landingservice = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingServicesViewController"];
-    landingservice.serviceId = indexPath.row;
+    landingservice.serviceId = indexPath.row +1;
     [self.navigationController pushViewController:landingservice animated:YES];
 }
 
@@ -510,7 +510,7 @@
     
     NSLog(@"%@",searchText);
     
-    if (!isSearchReqQueued && (searchText.length == 4))
+    if (!isSearchReqQueued && searchText.length && !(searchText.length/3))
     {
         NSLog(@"Hit Web Service");
         //also check if already hit or not

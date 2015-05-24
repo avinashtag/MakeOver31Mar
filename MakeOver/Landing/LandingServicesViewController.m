@@ -38,7 +38,7 @@
 @implementation LandingServicesViewController
 
 typedef enum {
-    sHAIR= 0,
+    sHAIR= 1,
     sFACEBODY,
     sSPA,
     sMAKEUPBRIDAL,
@@ -52,6 +52,7 @@ typedef enum {
 static NSArray *menuItems;
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -106,8 +107,6 @@ static NSArray *menuItems;
         
         [_ddList.view setFrame:CGRectMake(0,self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, 0)];
         [self.view addSubview:_ddList.view];
-
-        
     }
     
 }
@@ -275,11 +274,7 @@ static NSArray *menuItems;
         parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
         parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
     }
-    else
-    {
-        parameters[@"curr_lat"] = @"";
-        parameters[@"curr_Long"] = @"";
-    }
+
     
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
@@ -310,8 +305,11 @@ static NSArray *menuItems;
     
     NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
     string_userId = string_userId!=nil ? string_userId : @"";
+    
+    NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+    idCity = idCity!=nil ? idCity : @"1";
 
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"cityId",@"1",@"serviceId",string_userId,@"userId", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",_serviceId,@"serviceId",string_userId,@"userId", nil];
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {

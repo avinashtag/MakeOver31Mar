@@ -83,7 +83,7 @@
         paramsRegister[@"notificationId"] =@"";
         paramsRegister[@"deviceType"] = @"iPhone";
         paramsRegister[@"fullName"] = @"";
-        paramsRegister[@"createdBy"] = @"submit email";//email
+        paramsRegister[@"createdBy"] = @"email";//email
         paramsRegister[@"usrImgUrl"] = @"";
 
         [self registerUser:paramsRegister];
@@ -209,7 +209,6 @@
 
 //    [UtilityClass showSpinnerWithMessage:@"..." onView:self.view];
 
-
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:paramsRegister
                                                       requestAPI:API_RegisterUser spinningMessage:@"Registering user.."
                                                             completion:
@@ -224,13 +223,14 @@
 
              [UtilityClass showAlertwithTitle:nil message:[[response objectForKey:@"error"] objectForKey:@"errorMessage"]];
              // [self skipClicked:nil];
-
          }
          else if ([[response objectForKey:@"object"] count]) {
 
              [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
 
-             if ([[paramsRegister objectForKey:@"fullName"] isEqualToString:@""]) {
+             if ([[[response objectForKey:@"object"] objectForKey:@"fullName"] isEqualToString:@""])
+             {
+                 
                  // Submit email flow
                  RegistrationViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RegistrationViewController"];
                  
