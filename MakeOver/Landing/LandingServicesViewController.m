@@ -516,13 +516,8 @@ static NSArray *menuItems;
         }];
         
     }
-<<<<<<< HEAD
-    else{
-
-=======
     else
     {
->>>>>>> origin/master
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [UtilityClass showSpinnerWithMessage:@"" onView:nil];
         });
