@@ -31,6 +31,7 @@ AppDelegate* appdelegate(){
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
+    [ServiceInvoker sharedInstance];
     
     return YES;
 }

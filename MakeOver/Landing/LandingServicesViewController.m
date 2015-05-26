@@ -37,17 +37,6 @@
 
 @implementation LandingServicesViewController
 
-typedef enum {
-    sHAIR= 1,
-    sFACEBODY,
-    sSPA,
-    sMAKEUPBRIDAL,
-    sMEDISPA,
-    sTATOOPIERCING,
-    sNAILS,
-    sTUTORIAL,
-    sOFFERS,
-}MenuServiceType;
 
 static NSArray *menuItems;
 
@@ -60,13 +49,14 @@ static NSArray *menuItems;
     menuItems = @[@"HAIR",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS",@"TUTORIALS",@"OFFERS"];
 
     self.menuListView.delegate = self;
-    self.menuListView.dataSource = self;[self.menuListView setBackgroundColor:[UIColor clearColor]];
+    self.menuListView.dataSource = self;
+    [self.menuListView setBackgroundColor:[UIColor clearColor]];
     [self.HTHorizontalView addSubview:self.menuListView];
     
     [self.menuListView reloadData];
     
-    [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId]];
-    self.menuListView.selectedButtonIndex = _serviceId;
+    [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId -1]];
+//    self.menuListView.selectedButtonIndex = _serviceId -1 ;
 
     
     if (_isComingFromSearch) {
@@ -86,15 +76,15 @@ static NSArray *menuItems;
         
         [self.servicesTable updateConstraints];
 
-        _menuListView.selectedButtonIndex = self.selectedSegmentFromSearch;
+        _menuListView.selectedButtonIndex = self.selectedSegmentFromSearch -1;
         
         arrayFilteredResults = [NSArray arrayWithArray:_services];
         [self.servicesTable reloadData];
     }
     else{
     
-        if (_serviceId == 0)// if first tab selected
-            [self serviceLoad];
+//        if (_serviceId == 1)// if first tab selected
+//            [self serviceLoad];
         
         [[UIApplication sharedApplication]setStatusBarHidden:YES];
         [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
@@ -662,6 +652,7 @@ static NSArray *menuItems;
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
     switch (_menuListView.selectedButtonIndex) {
             
         case sTUTORIAL:
@@ -782,6 +773,7 @@ static NSArray *menuItems;
     
 }
 
+#pragma mark- Menulist Items Datasource & Delegate
 - (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList{
     return menuItems.count;
 }
@@ -792,56 +784,57 @@ static NSArray *menuItems;
 
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
+  
     switch (index) {
-        case sHAIR:
+        case 0:
         {
             _serviceId = sHAIR;
             [self serviceLoad];
         }
             break;
-        case sFACEBODY:
+        case 1:
         {
             _serviceId = sFACEBODY;
             [self serviceLoad];
         }
             break;
-        case sSPA:
+        case 2:
         {
             _serviceId = sSPA;
             [self serviceLoad];
         }
             break;
-        case sMAKEUPBRIDAL:
+        case 3:
         {
             _serviceId = sMAKEUPBRIDAL;
             [self serviceLoad];
         }
             break;
-        case sMEDISPA:
+        case 4:
         {
             _serviceId = sMEDISPA;
             [self serviceLoad];
         }
             break;
-        case sTATOOPIERCING:
+        case 5:
         {
             _serviceId = sTATOOPIERCING;
             [self serviceLoad];
         }
             break;
-        case sNAILS:
+        case 6:
         {
             _serviceId = sNAILS;
             [self serviceLoad];
         }
             break;
-        case sTUTORIAL:
+        case 7:
         {
             _serviceId = sTUTORIAL;
             [self webServiceWithType:sTUTORIAL];
         }
             break;
-        case sOFFERS:
+        case 8:
         {
             _serviceId = sOFFERS;
             [self webServiceWithType:sOFFERS];
@@ -852,6 +845,7 @@ static NSArray *menuItems;
         default:
             break;
     }
+    
     [_servicesTable reloadData];
 }
 

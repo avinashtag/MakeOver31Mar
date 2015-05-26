@@ -40,7 +40,6 @@
     _ddList._delegate = self;
     [_ddList.view setFrame:CGRectMake(0,88.0, self.view.frame.size.width, 0)];
     [self.view addSubview:_ddList.view];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,10 +111,12 @@
         default:
             break;
     }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
     LandingServicesViewController *landingservice = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingServicesViewController"];
     landingservice.serviceId = indexPath.row +1;
     [self.navigationController pushViewController:landingservice animated:YES];

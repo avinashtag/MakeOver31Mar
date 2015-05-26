@@ -14,6 +14,19 @@
 #import "DropDownList.h"
 #import "DropDownListPassValueDelegate.h"
 
+typedef enum {
+    sHAIR= 1,
+    sFACEBODY,
+    sSPA,
+    sMAKEUPBRIDAL,
+    sMEDISPA,
+    sTATOOPIERCING,
+    sNAILS,
+    sTUTORIAL,
+    sOFFERS,
+}
+MenuServiceType;
+
 @interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate,DropDownListPassValueDelegate> {
     
     NSArray *array_Saloons;
