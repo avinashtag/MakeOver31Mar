@@ -49,10 +49,10 @@ NSString *const kSaloonReviewObjectRating = @"rating";
             self.user = [self objectOrNilForKey:kSaloonReviewObjectUser fromDictionary:dict];
             self.review = [self objectOrNilForKey:kSaloonReviewObjectReview fromDictionary:dict];
             self.saloonId = [[self objectOrNilForKey:kSaloonReviewObjectSaloonId fromDictionary:dict] doubleValue];
-            self.reviewDate = [self objectOrNilForKey:kSaloonReviewObjectReviewDate fromDictionary:dict];
+            self.reviewDate = [[self objectOrNilForKey:kSaloonReviewObjectReviewDate fromDictionary:dict] copy];
             self.rating = [[self objectOrNilForKey:kSaloonReviewObjectRating fromDictionary:dict] doubleValue];
-            self.dateCreated = [self.reviewDate dateWithFormater:@"dd-MM-yyyy"];
-            self.reviewDate = [self.dateCreated stringWithFormator:@"'('dd MMM, yyyy')'"];
+//            self.dateCreated = [self.reviewDate dateWithFormater:@"dd-MM-yyyy"];
+//            self.reviewDate = [self.dateCreated stringWithFormator:@"'('dd MMM, yyyy')'"];
         
     }
     

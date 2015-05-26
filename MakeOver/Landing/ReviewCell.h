@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *dateSubtitle;
 @property (strong, nonatomic) IBOutlet UILabel *name;
-@property (strong, nonatomic) IBOutlet UITextView *detail;
+@property (strong, nonatomic) IBOutlet UILabel *detail;
 @property (weak, nonatomic) IBOutlet UIImageView *imgVw_userImage;
 @property (strong, nonatomic) IBOutlet ASStarRatingView *startRatingView;
 @end

@@ -55,9 +55,6 @@ static NSArray *menuItems;
     
     [self.menuListView reloadData];
     
-    [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId -1]];
-//    self.menuListView.selectedButtonIndex = _serviceId -1 ;
-
     
     if (_isComingFromSearch) {
         // hide search bar
@@ -82,9 +79,6 @@ static NSArray *menuItems;
         [self.servicesTable reloadData];
     }
     else{
-    
-//        if (_serviceId == 1)// if first tab selected
-//            [self serviceLoad];
         
         [[UIApplication sharedApplication]setStatusBarHidden:YES];
         [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
@@ -97,6 +91,16 @@ static NSArray *menuItems;
         
         [_ddList.view setFrame:CGRectMake(0,self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, 0)];
         [self.view addSubview:_ddList.view];
+        
+        if (!_serviceId)
+            _serviceId = 1;
+        
+        if (_serviceId == 1) { // if first tab selected
+            [self serviceLoad];
+            self.menuListView.selectedButtonIndex = _serviceId -1;
+        }
+        else
+            [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId -1]];
     }
     
 }
@@ -512,7 +516,8 @@ static NSArray *menuItems;
         }];
         
     }
-    else{
+    else
+    {
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [UtilityClass showSpinnerWithMessage:@"" onView:nil];
         });

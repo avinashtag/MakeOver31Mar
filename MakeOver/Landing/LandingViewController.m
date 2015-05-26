@@ -33,13 +33,14 @@
 //    [ServiceInvoker sharedInstance];
     
     [_servicesTable reloadData];
-    [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
 
     array_SearchResults = [NSMutableArray new];
     _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
     _ddList._delegate = self;
     [_ddList.view setFrame:CGRectMake(0,88.0, self.view.frame.size.width, 0)];
     [self.view addSubview:_ddList.view];
+    
+    [self performSelector:@selector(setDefaultCity) withObject:nil afterDelay:1.0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +48,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setDefaultCity {
+    
+    City *stringCityName = [ServiceInvoker sharedInstance].city;
+    
+    if (stringCityName)
+        [_cityName setTitle:stringCityName.cityName forState:UIControlStateNormal];
+}
 
 #pragma mark - TableViewDatasource
 
