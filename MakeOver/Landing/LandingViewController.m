@@ -335,10 +335,11 @@
                      if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]])
                          return ;
                      
-                     ServiceList *objServiceList = [[ServiceList alloc]initWithDictionary:[[responseDict objectForKey:@"object"] objectAtIndex:0]];
+                ServiceList *objServiceList = [[ServiceList alloc]initWithDictionary:[[responseDict objectForKey:@"object"] objectAtIndex:0]];
                      
+   
                      LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
-                     [self.navigationController pushViewController:landingBriefViewController animated:YES];
+                     
                      
                      dispatch_after(0.3, dispatch_get_main_queue(), ^{
                          //landingBriefViewController.service = _services[indexPath.row];
@@ -459,6 +460,11 @@
                          }
                          
                      });
+                     
+                     
+                     [self.navigationController pushViewController:landingBriefViewController animated:YES];
+                     
+                     
                      
                  }
                  
