@@ -341,11 +341,14 @@ static NSArray *menuItems;
     
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
-    
-    NSString *userId = @"1";
-    
+
+    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *userId = string_userId!=nil ? string_userId : @"";
+    NSString *string_serviceId = [NSString stringWithFormat:@"%d",_serviceId];
+
     [parameters setObject:userId forKey:@"userId"];
-    
+    [parameters setObject:string_serviceId forKey:@"serviceId"];
+
     switch (serviceType) {
         case sTUTORIAL:
         {
