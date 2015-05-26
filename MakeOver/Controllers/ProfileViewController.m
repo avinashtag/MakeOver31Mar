@@ -13,6 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "ServiceList.h"
 #import "ServiceCell.h"
+#import "LandingBriefViewController.h"
 
 @implementation ProfileCollection
 
@@ -247,6 +248,158 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ServiceList *saloon = nil;
+    
+    if ((menuListView.selectedButtonIndex == 1)
+        ||(menuListView.selectedButtonIndex == 2)) {
+       
+        if (menuListView.selectedButtonIndex == 1) {
+            
+            //GO TO saloon detail page
+            saloon = _favSaloons[indexPath.row];
+        }
+        else if (menuListView.selectedButtonIndex == 2) {
+            FabStylist *stylist = profile.fabStylist[indexPath.row];
+            saloon = stylist.sallonResponse;
+        }
+        
+        LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
+        [self.navigationController pushViewController:landingBriefViewController animated:YES];
+        
+        dispatch_after(0.3, dispatch_get_main_queue(), ^{
+            //landingBriefViewController.service = _services[indexPath.row];
+            landingBriefViewController.service = saloon;
+            
+            [landingBriefViewController.servicesTable reloadData];
+            [UtilityClass removeHudFromView:nil afterDelay:0];
+            
+            landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
+            [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
+            if (landingBriefViewController.service.saloonServices.count) {
+                [landingBriefViewController.saloonDescription setText:[landingBriefViewController.service.saloonServices componentsJoinedByString:@","]];
+            }
+            
+            if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
+                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+            }
+            
+            
+            [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
+            
+            landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
+            
+            if ([landingBriefViewController.service.creditDebitCardSupport isEqualToString:@"Y"]) {
+                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : YES";
+            }else{
+                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : NO";
+            }
+            
+            
+            
+            [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
+            
+            [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
+            
+            
+            // Get fav saloons from saved records.
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+            NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+            NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            
+            if (![fileManager fileExistsAtPath:favsPath])
+            {
+                
+                landingBriefViewController.favourite.selected = NO;
+            }
+            else {
+                
+                // Read records
+                NSArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[saloon saloonId] integerValue]];
+                
+                NSArray *arrayResult = [arrayFavSaloons filteredArrayUsingPredicate:resultPredicate];
+                
+                if ((arrayResult != nil) && (arrayResult.count)) {
+                    landingBriefViewController.favourite.selected = YES;
+                }
+                else
+                    landingBriefViewController.favourite.selected = NO;
+            }
+            
+            
+            // add saloon in recently viewed records.
+            
+            NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
+            
+            if (![fileManager fileExistsAtPath:savedRecordsPath]) //if file doesn't exist at path then create
+            {
+                NSString *bundle = [[NSBundle mainBundle] pathForResource:@"recentlyViewed" ofType:@"plist"]; //5
+                
+                NSError *error;
+                [fileManager copyItemAtPath:bundle toPath:savedRecordsPath error:&error]; //6
+                
+                if (!error) {
+                    
+                    NSLog(@"recentlyViewed.plist created at Documents directory.");
+                    
+                    //NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
+                    NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:saloon, nil];
+                    if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
+                        // Handle error
+                        NSLog(@"error in archieving");
+                    }
+                    else {
+                        NSLog(@"Recently viewed object saved");
+                    }
+                }
+            }
+            else {
+                
+                // Read & Update records
+                NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
+                
+                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[saloon saloonId] integerValue]];
+                
+                NSArray *arrayResult = [saloons filteredArrayUsingPredicate:resultPredicate];
+                
+                if ((arrayResult != nil) && (arrayResult.count)) {
+                    // Do nothing
+                }
+                else
+                {
+                    
+                    if (saloons.count <10) {
+                        
+                        // write Record:
+                        //[saloons addObject:_services[indexPath.row]];
+                        [saloons addObject:saloon];
+                    }
+                    else {
+                        //[saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
+                        [saloons replaceObjectAtIndex:saloons.count-1 withObject:saloon];
+                    }
+                    
+                    if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
+                        // Handle error
+                        NSLog(@"error in archieving");
+                    }
+                    else
+                        NSLog(@"Recently viewed object saved");
+                }
+                
+            }
+            
+        });
+    }
+}
+
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -289,28 +442,10 @@
         height = 80.0f;
     }
     
-//    switch (menuListView.selectedButtonIndex) {
-//        case 0:
-//            return 100.0f;
-//            
-//            break;
-//           
-//        case 1:
-//            return 90.0f;
-//            
-//            break;
-//            
-//        case 2:
-//            return 80.0f;
-//            
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
     return height;
 }
+
+
 
 - (IBAction)back:(UIButton *)sender {
     [(MOTabBar*)self.tabBarController addCenterButtonWithImage:[UIImage imageNamed:@"ic_profilepage_pic"] highlightImage:[UIImage imageNamed:@"ic_profilepage_pic"]];

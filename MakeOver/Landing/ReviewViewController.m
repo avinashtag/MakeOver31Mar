@@ -14,7 +14,7 @@
 
 @interface ReviewViewController ()
 {
-    UITextView *textView_getResizableHeight;
+    UILabel *lbl_getResizableHeight;
 
 }
 
@@ -25,8 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    textView_getResizableHeight = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, 280, 10)];
-    textView_getResizableHeight.scrollEnabled = NO;
+    lbl_getResizableHeight = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 280, 10)];
     
     [_activityIndicator startAnimating];
     [self getreviews];
@@ -83,25 +82,25 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    SaloonReview *review = _reviews[indexPath.row];
-    
-    CGFloat dynamicHeight;
-    
-    textView_getResizableHeight.text = review.review;
-    [textView_getResizableHeight sizeToFit];
-    [textView_getResizableHeight layoutIfNeeded];
-    CGRect frame = textView_getResizableHeight.frame;
-    frame.size.height = textView_getResizableHeight.contentSize.height;
-    textView_getResizableHeight.frame = frame;
-    
-    dynamicHeight = textView_getResizableHeight.frame.size.height + 50;
-    
-    NSLog(@"%f",dynamicHeight);
-    
-    if (dynamicHeight>75)
-        return dynamicHeight;
-    else
-        return 75;
+//    SaloonReview *review = _reviews[indexPath.row];
+//    
+//    CGFloat dynamicHeight;
+//    
+//    lbl_getResizableHeight.text = review.review;
+//    [lbl_getResizableHeight sizeToFit];
+//    [lbl_getResizableHeight layoutIfNeeded];
+//    CGRect frame = lbl_getResizableHeight.frame;
+////    frame.size.height = lbl_getResizableHeight.contentSize.height;
+//    lbl_getResizableHeight.frame = frame;
+//    
+//    dynamicHeight = lbl_getResizableHeight.frame.size.height + 50;
+//    
+//    NSLog(@"%f",dynamicHeight);
+//    
+//    if (dynamicHeight>84)
+//        return dynamicHeight;
+//    else
+        return 90;
 }
 
 
@@ -110,7 +109,9 @@
     
     NSDictionary *prameter = @{ @"saloonId" : self.service.saloonId
                             };
-    [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:prameter requestAPI:API_GET_REVIEW_BY_SALOON spinningMessage:nil completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+    [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:prameter requestAPI:API_GET_REVIEW_BY_SALOON spinningMessage:nil completion:
+     ^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+     {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:nil];
         _reviews = [[NSMutableArray alloc]init];
         NSArray *parse = response[@"object"];

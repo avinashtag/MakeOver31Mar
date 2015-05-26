@@ -55,9 +55,6 @@ static NSArray *menuItems;
     
     [self.menuListView reloadData];
     
-    [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId -1]];
-//    self.menuListView.selectedButtonIndex = _serviceId -1 ;
-
     
     if (_isComingFromSearch) {
         // hide search bar
@@ -82,9 +79,6 @@ static NSArray *menuItems;
         [self.servicesTable reloadData];
     }
     else{
-    
-//        if (_serviceId == 1)// if first tab selected
-//            [self serviceLoad];
         
         [[UIApplication sharedApplication]setStatusBarHidden:YES];
         [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
@@ -97,6 +91,16 @@ static NSArray *menuItems;
         
         [_ddList.view setFrame:CGRectMake(0,self.searchBar.frame.origin.y + self.searchBar.frame.size.height, self.view.frame.size.width, 0)];
         [self.view addSubview:_ddList.view];
+        
+        if (!_serviceId)
+            _serviceId = 1;
+        
+        if (_serviceId == 1) { // if first tab selected
+            [self serviceLoad];
+            self.menuListView.selectedButtonIndex = _serviceId -1;
+        }
+        else
+            [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId -1]];
     }
     
 }
@@ -512,7 +516,13 @@ static NSArray *menuItems;
         }];
         
     }
+<<<<<<< HEAD
     else{
+
+=======
+    else
+    {
+>>>>>>> origin/master
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [UtilityClass showSpinnerWithMessage:@"" onView:nil];
         });
@@ -908,6 +918,7 @@ static NSArray *menuItems;
 
 -(void)firstRowSelectedWithValue:(id)value {
     if (value) {
+        /*
         [self searchBarSearchButtonClicked:_searchBar];
         [self setDDListHidden:YES];
         
@@ -920,6 +931,7 @@ static NSArray *menuItems;
         landingservice.isComingFromSearch = YES;
         landingservice.selectedSegmentFromSearch = 0;
         [self.navigationController pushViewController:landingservice animated:YES];
+         */
     }
     else {
         
@@ -934,140 +946,174 @@ static NSArray *menuItems;
     
     if (object)
     {
-        ServiceList *objServiceList = (ServiceList*)object;
-        
-        LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
-        [self.navigationController pushViewController:landingBriefViewController animated:YES];
-        
-        dispatch_after(0.3, dispatch_get_main_queue(), ^{
-            //landingBriefViewController.service = _services[indexPath.row];
-            landingBriefViewController.service = objServiceList;
-            
-            [landingBriefViewController.servicesTable reloadData];
-            [UtilityClass removeHudFromView:nil afterDelay:0];
-            
-            landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
-            [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
-            if (landingBriefViewController.service.saloonServices.count) {
-                [landingBriefViewController.saloonDescription setText:[landingBriefViewController.service.saloonServices componentsJoinedByString:@","]];
-            }
-            
-            if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
-                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
-            }
-            
-            
-            [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
-            
-            landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
-            
-            if ([landingBriefViewController.service.creditDebitCardSupport isEqualToString:@"Y"]) {
-                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : YES";
-            }else{
-                landingBriefViewController.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : NO";
-            }
-            
-            [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
-            
-            [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
-            
-            // Get fav saloons from saved records.
-            
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-            NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-            NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
-            
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            
-            if (![fileManager fileExistsAtPath:favsPath])
-            {
-                
-                landingBriefViewController.favourite.selected = NO;
-            }
-            else {
-                
-                // Read records
-                NSArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
-                
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[objServiceList saloonId] integerValue]];
-                
-                NSArray *arrayResult = [arrayFavSaloons filteredArrayUsingPredicate:resultPredicate];
-                
-                if ((arrayResult != nil) && (arrayResult.count)) {
-                    landingBriefViewController.favourite.selected = YES;
-                }
-                else
-                    landingBriefViewController.favourite.selected = NO;
-            }
-            
-            
-            // add saloon in recently viewed records.
-            
-            NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
-            
-            if (![fileManager fileExistsAtPath:savedRecordsPath]) //if file doesn't exist at path then create
-            {
-                NSString *bundle = [[NSBundle mainBundle] pathForResource:@"recentlyViewed" ofType:@"plist"]; //5
-                
-                NSError *error;
-                [fileManager copyItemAtPath:bundle toPath:savedRecordsPath error:&error]; //6
-                
-                if (!error) {
-                    
-                    NSLog(@"recentlyViewed.plist created at Documents directory.");
-                    
-                    //NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
-                    NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:objServiceList, nil];
-                    if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
-                        // Handle error
-                        NSLog(@"error in archieving");
-                    }
-                    else {
-                        NSLog(@"Recently viewed object saved");
-                    }
-                }
-            }
-            else {
-                
-                // Read & Update records
-                NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
-                
-                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[objServiceList saloonId] integerValue]];
-                
-                NSArray *arrayResult = [saloons filteredArrayUsingPredicate:resultPredicate];
-                
-                if ((arrayResult != nil) && (arrayResult.count)) {
-                    // Do nothing
-                }
-                else
-                {
-                    
-                    if (saloons.count <10) {
-                        
-                        // write Record:
-                        //[saloons addObject:_services[indexPath.row]];
-                        [saloons addObject:objServiceList];
-                    }
-                    else {
-                        //[saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
-                        [saloons replaceObjectAtIndex:saloons.count-1 withObject:objServiceList];
-                    }
-                    
-                    if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
-                        // Handle error
-                        NSLog(@"error in archieving");
-                    }
-                    else
-                        NSLog(@"Recently viewed object saved");
-                }
-                
-            }
-            
-        });
+
+        NSDictionary *dict = (NSDictionary*)object;
+
+        NSString *searchKey = [dict objectForKey:@"searchKey"];
+        NSString *searchValue = [dict objectForKey:@"searchValue"];
+        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *userId = string_userId!=nil ? string_userId : @"";
+
+        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchKey,@"searchKey",searchValue,@"searchValue",userId,@"userId", nil];
+
+        isSearchReqQueued = YES;
+
+        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+         {
+
+             isSearchReqQueued = NO;
+
+             if (result == sirSuccess) {
+
+                 NSError *error = nil;
+                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+
+                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+
+                     if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]])
+                         return ;
+
+                     ServiceList *objServiceList = [[ServiceList alloc]initWithDictionary:[[responseDict objectForKey:@"object"] objectAtIndex:0]];
+
+
+                     LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
+                     [self.navigationController pushViewController:landingBriefViewController animated:YES];
+
+
+                     dispatch_after(0.3, dispatch_get_main_queue(), ^{
+                         //landingBriefViewController.service = _services[indexPath.row];
+                         landingBriefViewController.service = objServiceList;
+
+                         [landingBriefViewController.servicesTable reloadData];
+                         [UtilityClass removeHudFromView:nil afterDelay:0];
+
+                         landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
+                         [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
+                         if (landingBriefViewController.service.saloonServices.count) {
+                             [landingBriefViewController.saloonDescription setText:[landingBriefViewController.service.saloonServices componentsJoinedByString:@","]];
+                         }
+
+                         if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
+                             landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+                         }
+
+
+                         [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
+
+                         landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
+
+                         [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
+
+                         [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
+
+                         // Get fav saloons from saved records.
+
+                         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+                         NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+                         NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
+
+                         NSFileManager *fileManager = [NSFileManager defaultManager];
+
+                         if (![fileManager fileExistsAtPath:favsPath])
+                         {
+
+                             landingBriefViewController.favourite.selected = NO;
+                         }
+                         else {
+
+                             // Read records
+                             NSArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+
+                             NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[objServiceList saloonId] integerValue]];
+
+                             NSArray *arrayResult = [arrayFavSaloons filteredArrayUsingPredicate:resultPredicate];
+
+                             if ((arrayResult != nil) && (arrayResult.count)) {
+                                 landingBriefViewController.favourite.selected = YES;
+                             }
+                             else
+                                 landingBriefViewController.favourite.selected = NO;
+                         }
+
+
+                         // add saloon in recently viewed records.
+
+                         NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
+
+                         if (![fileManager fileExistsAtPath:savedRecordsPath]) //if file doesn't exist at path then create
+                         {
+                             NSString *bundle = [[NSBundle mainBundle] pathForResource:@"recentlyViewed" ofType:@"plist"]; //5
+
+                             NSError *error;
+                             [fileManager copyItemAtPath:bundle toPath:savedRecordsPath error:&error]; //6
+
+                             if (!error) {
+
+                                 NSLog(@"recentlyViewed.plist created at Documents directory.");
+
+                                 //NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
+                                 NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:objServiceList, nil];
+                                 if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
+                                     // Handle error
+                                     NSLog(@"error in archieving");
+                                 }
+                                 else {
+                                     NSLog(@"Recently viewed object saved");
+                                 }
+                             }
+                         }
+                         else {
+
+                             // Read & Update records
+                             NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
+
+                             NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[objServiceList saloonId] integerValue]];
+
+                             NSArray *arrayResult = [saloons filteredArrayUsingPredicate:resultPredicate];
+
+                             if ((arrayResult != nil) && (arrayResult.count)) {
+                                 // Do nothing
+                             }
+                             else
+                             {
+
+                                 if (saloons.count <10) {
+
+                                     // write Record:
+                                     //[saloons addObject:_services[indexPath.row]];
+                                     [saloons addObject:objServiceList];
+                                 }
+                                 else {
+                                     //[saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
+                                     [saloons replaceObjectAtIndex:saloons.count-1 withObject:objServiceList];
+                                 }
+
+                                 if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
+                                     // Handle error
+                                     NSLog(@"error in archieving");
+                                 }
+                                 else
+                                     NSLog(@"Recently viewed object saved");
+                             }
+
+                         }
+
+                     });
+                 }
+
+             }else if (sirFailed){
+                 
+             }
+             
+
+         }];
     }
     else {
         [UtilityClass showAlertwithTitle:nil message:@"some error occured, please try after some time."];
     }
+
 }
 
 
@@ -1108,7 +1154,7 @@ static NSArray *menuItems;
     
     NSLog(@"%@",searchText);
     
-    if (!isSearchReqQueued && (searchText.length == 4))
+    if (!isSearchReqQueued && searchText.length && !(searchText.length/3 == 0))
     {
         NSLog(@"Hit Web Service");
         //also check if already hit or not
@@ -1117,33 +1163,33 @@ static NSArray *menuItems;
         string_userId = string_userId!=nil ? string_userId : @"";
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
-        
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString",@"string_userId",@"userId", nil];
-        
+
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
+
         isSearchReqQueued = YES;
         
-        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
         {
             isSearchReqQueued = NO;
-            
+
             if (result == sirSuccess) {
-               
+
                 NSError *error = nil;
                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-                
+
                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
-                    
+
                     [array_SearchResults removeAllObjects];
                     [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
                 }
-                
-                NSMutableArray *array_SearchedServices = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
-                
-                [_ddList updateDataWithArray:array_SearchedServices];
-                
+
+                [_ddList updateDataWithArray:array_SearchResults];
+
             }else if (sirFailed){
-            
+
             }
+
+
         }];
     }
     
