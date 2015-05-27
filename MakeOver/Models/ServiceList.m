@@ -143,11 +143,13 @@ static NSString *kresponseObject = @"object";
         [services addObject:service];
         
     }];
+    
     return services;
 }
 
 
-+(NSArray*)initializeWithOffersResponse:(NSDictionary*)dictionary{
++(NSArray*)initializeWithOffersResponse:(NSDictionary*)dictionary {
+    
     __block NSMutableArray *services = [[NSMutableArray alloc]init];
     NSArray* response = dictionary[kresponseObject];
     [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {

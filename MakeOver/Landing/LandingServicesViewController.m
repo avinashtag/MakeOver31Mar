@@ -78,7 +78,7 @@ static NSArray *menuItems;
         arrayFilteredResults = [NSArray arrayWithArray:_services];
         [self.servicesTable reloadData];
     }
-    else{
+    else {
         
         [[UIApplication sharedApplication]setStatusBarHidden:YES];
         [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
@@ -95,7 +95,7 @@ static NSArray *menuItems;
         if (!_serviceId)
             _serviceId = 1;
         
-        if (_serviceId == 1) { // if first tab selected
+        if (_serviceId == 1) {
             [self serviceLoad];
             self.menuListView.selectedButtonIndex = _serviceId -1;
         }
@@ -347,6 +347,7 @@ static NSArray *menuItems;
     [parameters setObject:userId forKey:@"userId"];
     
     switch (serviceType) {
+            
         case sTUTORIAL:
         {
             [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_TUTORIAL spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
@@ -856,7 +857,7 @@ static NSArray *menuItems;
 
 -(NSString*)reuseIdentifier{
     
-    switch (_menuListView.selectedButtonIndex) {
+    switch (_menuListView.selectedButtonIndex +1) {
         case sOFFERS:
             return  @"OfferCell";
 
