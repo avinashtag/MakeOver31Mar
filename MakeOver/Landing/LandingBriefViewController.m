@@ -40,39 +40,7 @@
 @implementation LandingBriefViewController
 
 #pragma mark- UIViewController Methods
-/*
--(void)loadView
-{
-    [super loadView];
-    
-    const NSInteger numberOfTableViewRows = 20;
-    const NSInteger numberOfCollectionViewCells = 15;
-    
-    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:numberOfTableViewRows];
-    
-    for (NSInteger tableViewRow = 0; tableViewRow < numberOfTableViewRows; tableViewRow++)
-    {
-        NSMutableArray *colorArray = [NSMutableArray arrayWithCapacity:numberOfCollectionViewCells];
-        
-        for (NSInteger collectionViewItem = 0; collectionViewItem < numberOfCollectionViewCells; collectionViewItem++)
-        {
-            
-            CGFloat red = arc4random() % 255;
-            CGFloat green = arc4random() % 255;
-            CGFloat blue = arc4random() % 255;
-            UIColor *color = [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0f];
-            
-            [colorArray addObject:color];
-        }
-        
-        [mutableArray addObject:colorArray];
-    }
-    
-    self.colorArray = [NSArray arrayWithArray:mutableArray];
-    
-    self.contentOffsetDictionary = [NSMutableDictionary dictionary];
-}
-*/
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
@@ -96,15 +64,7 @@
     [[[UIApplication sharedApplication] keyWindow] addSubview:filterViewController.view];
     [[[UIApplication sharedApplication] keyWindow] bringSubviewToFront:filterViewController.view];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 /*
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
