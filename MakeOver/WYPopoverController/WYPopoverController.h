@@ -105,6 +105,9 @@ typedef NS_OPTIONS(NSUInteger, WYPopoverAnimationOptions) {
 
 @property (nonatomic, strong) WYPopoverTheme                   *theme;
 
+@property(nonatomic,strong)    UIViewController        *viewController;
+
+
 + (void)setDefaultTheme:(WYPopoverTheme *)theme;
 + (WYPopoverTheme *)defaultTheme;
 

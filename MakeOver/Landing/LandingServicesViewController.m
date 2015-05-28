@@ -505,7 +505,16 @@ static NSArray *menuItems;
     }];
         
     [cell.startRatingView setRating:[service.saloonRating doubleValue]];
-    
+
+
+    if ([identifier isEqualToString:@"OfferCell"]) {
+        [cell.btn_showOffers addTarget:self action:@selector(showOffersPopUp:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.btn_showOffers setTag:indexPath.row];
+    }else if ([identifier isEqualToString:@"TutorialCell"]){
+        [cell.btn_showTutorials addTarget:self action:@selector(showTutorialPopUp:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.btn_showTutorials setTag:indexPath.row];
+    }
+
     return cell;
 }
 
@@ -681,6 +690,72 @@ static NSArray *menuItems;
  
 }
 
+
+-(void)showOffersPopUp:(id)sender {
+
+    NSLog(@"Offer index %d",[sender tag]);
+
+    ServiceList *service = arrayFilteredResults[[sender tag]];
+
+    if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
+
+        NSDictionary *dictOffer = [service.extraParams objectForKey:@"offer"];
+
+        __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
+
+        CGRect rect = self.view.frame;
+        rect.size.width = rect.size.width- 40;
+        rect.size.height = rect.size.height -60;
+        [popoverController setPopoverContentSize:rect.size];
+        popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
+        if ([[dictOffer objectForKey:@"offerType"] isEqualToString:@"TEXT"]) {
+            imageViewer.isTextDescription = YES;
+            imageViewer.text_description = [dictOffer objectForKey:@"offerDesc"];
+            imageViewer.images = [NSArray new];
+        }else if ([[dictOffer objectForKey:@"offerType"] isEqualToString:@"IMAGE"]){
+            imageViewer.isTextDescription = NO;
+            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"offerImage"]]; // only one image url will be in offer
+        }
+        [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
+
+
+    }else{
+        [UtilityClass showAlertwithTitle:nil message:@"Currently No Offer available"];
+    }
+
+}
+
+-(void)showTutorialPopUp:(id)sender {
+
+    NSLog(@"Tutorial index %d",[sender tag]);
+
+    ServiceList *service = arrayFilteredResults[[sender tag]];
+
+    if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
+
+        __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
+
+        CGRect rect = self.view.frame;
+        rect.size.width = rect.size.width- 40;
+        rect.size.height = rect.size.height -60;
+        [popoverController setPopoverContentSize:rect.size];
+        popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
+
+        if ([[service.extraParams objectForKey:@"offerType"] isEqualToString:@"TEXT"]) {
+            imageViewer.isTextDescription = YES;
+            imageViewer.text_description = [service.extraParams objectForKey:@"offerDesc"];
+            imageViewer.images = [NSArray new];
+        }else if ([[service.extraParams objectForKey:@"offerType"] isEqualToString:@"IMAGE"]){
+            imageViewer.isTextDescription = NO;
+            imageViewer.images = [NSArray arrayWithObject:[service.extraParams objectForKey:@"offerImage"]];
+        }
+
+    }else{
+        [UtilityClass showAlertwithTitle:nil message:@"Currently No Tutorial available"];
+    }
+
+}
+
 -(void)reviewPresent:(NSIndexPath*)index{
     
    __block ReviewViewController *review = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReviewViewController class])];
@@ -772,7 +847,7 @@ static NSArray *menuItems;
         CGRect rect = self.view.frame;
         rect.size.width = rect.size.width- 40;
         rect.size.height = rect.size.height -60;
-        
+
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
         [popoverController presentPopoverAsDialogAnimated:YES completion:^{

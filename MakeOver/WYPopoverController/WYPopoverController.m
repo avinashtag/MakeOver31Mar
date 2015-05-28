@@ -1539,7 +1539,7 @@ static float edgeSizeFromCornerRadius(float cornerRadius) {
 
 @interface WYPopoverController () <WYPopoverOverlayViewDelegate, WYPopoverBackgroundViewDelegate>
 {
-    UIViewController        *viewController;
+    //UIViewController        *viewController;
     CGRect                   rect;
     UIView                  *inView;
     WYPopoverOverlayView    *overlayView;
@@ -1695,7 +1695,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
     
     if (self)
     {
-        viewController = aViewController;
+        self.viewController = aViewController;
     }
     
     return self;
@@ -1791,18 +1791,18 @@ static WYPopoverTheme *defaultTheme_ = nil;
 
 - (UIViewController *)contentViewController
 {
-    return viewController;
+    return self.viewController;
 }
 
 - (CGSize)topViewControllerContentSize
 {
     CGSize result = CGSizeZero;
     
-    UIViewController *topViewController = viewController;
+    UIViewController *topViewController = self.viewController;
     
-    if ([viewController isKindOfClass:[UINavigationController class]] == YES)
+    if ([self.viewController isKindOfClass:[UINavigationController class]] == YES)
     {
-        UINavigationController *navigationController = (UINavigationController *)viewController;
+        UINavigationController *navigationController = (UINavigationController *)self.viewController;
         topViewController = [navigationController topViewController];
     }
     
@@ -1925,7 +1925,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
         overlayView.accessibilityTraits = UIAccessibilityTraitNone;
         overlayView.delegate = self;
         overlayView.passthroughViews = passthroughViews;
-        
+
         backgroundView = [[WYPopoverBackgroundView alloc] initWithContentSize:contentViewSize];
         backgroundView.appearing = YES;
         backgroundView.isAccessibilityElement = YES;
@@ -1933,13 +1933,13 @@ static WYPopoverTheme *defaultTheme_ = nil;
         
         backgroundView.delegate = self;
         backgroundView.hidden = YES;
-        
+
         [inView.window addSubview:backgroundView];
         [inView.window insertSubview:overlayView belowSubview:backgroundView];
     }
     
     [self updateThemeUI];
-    
+
     __weak __typeof__(self) weakSelf = self;
     
     void (^completionBlock)(BOOL) = ^(BOOL animated) {
@@ -1948,18 +1948,18 @@ static WYPopoverTheme *defaultTheme_ = nil;
         
         if (strongSelf)
         {
-            if ([strongSelf->viewController isKindOfClass:[UINavigationController class]] == NO)
+            if ([strongSelf->_viewController isKindOfClass:[UINavigationController class]] == NO)
             {
-                [strongSelf->viewController viewDidAppear:YES];
+                [strongSelf->_viewController viewDidAppear:YES];
             }
             
-            if ([strongSelf->viewController respondsToSelector:@selector(preferredContentSize)])
+            if ([strongSelf->_viewController respondsToSelector:@selector(preferredContentSize)])
             {
-                [strongSelf->viewController addObserver:self forKeyPath:NSStringFromSelector(@selector(preferredContentSize)) options:0 context:nil];
+                [strongSelf->_viewController addObserver:self forKeyPath:NSStringFromSelector(@selector(preferredContentSize)) options:0 context:nil];
             }
             else
             {
-                [strongSelf->viewController addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSizeForViewInPopover)) options:0 context:nil];
+                [strongSelf->_viewController addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSizeForViewInPopover)) options:0 context:nil];
             }
             
             strongSelf->backgroundView.appearing = NO;
@@ -1999,7 +1999,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
             backgroundView.alpha = 0;
         }
         
-        [viewController viewWillAppear:YES];
+        [self.viewController viewWillAppear:YES];
         
         CGAffineTransform endTransform = backgroundView.transform;
         
@@ -2026,7 +2026,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
     else
     {
         adjustTintDimmed();
-        [viewController viewWillAppear:NO];
+        [self.viewController viewWillAppear:NO];
         completionBlock(NO);
     }
     
@@ -2187,9 +2187,9 @@ static WYPopoverTheme *defaultTheme_ = nil;
 
 - (void)setPopoverNavigationBarBackgroundImage
 {
-    if ([viewController isKindOfClass:[UINavigationController class]] == YES)
+    if ([self.viewController isKindOfClass:[UINavigationController class]] == YES)
     {
-        UINavigationController *navigationController = (UINavigationController *)viewController;
+        UINavigationController *navigationController = (UINavigationController *)self.viewController;
         navigationController.embedInPopover = YES;
         
 #ifdef WY_BASE_SDK_7_ENABLED
@@ -2206,11 +2206,11 @@ static WYPopoverTheme *defaultTheme_ = nil;
         }
     }
     
-    viewController.view.clipsToBounds = YES;
+    self.viewController.view.clipsToBounds = YES;
     
     if (backgroundView.borderWidth == 0)
     {
-        viewController.view.layer.cornerRadius = backgroundView.outerCornerRadius;
+        self.viewController.view.layer.cornerRadius = backgroundView.outerCornerRadius;
     }
 }
 
@@ -2494,7 +2494,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
     
     backgroundView.wantsDefaultContentAppearance = wantsDefaultContentAppearance;
     
-    [backgroundView setViewController:viewController];
+    [backgroundView setViewController:self.viewController];
     
     // keyboard support
     //
@@ -2609,9 +2609,9 @@ static WYPopoverTheme *defaultTheme_ = nil;
             [strongSelf->overlayView removeFromSuperview];
             strongSelf->overlayView = nil;
             
-            if ([strongSelf->viewController isKindOfClass:[UINavigationController class]] == NO)
+            if ([strongSelf->_viewController isKindOfClass:[UINavigationController class]] == NO)
             {
-                [strongSelf->viewController viewDidDisappear:aAnimated];
+                [strongSelf->_viewController viewDidDisappear:aAnimated];
             }
         }
         
@@ -2647,16 +2647,16 @@ static WYPopoverTheme *defaultTheme_ = nil;
                                                       object:nil];
     }
     
-    if ([viewController isKindOfClass:[UINavigationController class]] == NO)
+    if ([self.viewController isKindOfClass:[UINavigationController class]] == NO)
     {
-        [viewController viewWillDisappear:aAnimated];
+        [self.viewController viewWillDisappear:aAnimated];
     }
     
     @try {
-        if ([viewController respondsToSelector:@selector(preferredContentSize)]) {
-            [viewController removeObserver:self forKeyPath:NSStringFromSelector(@selector(preferredContentSize))];
+        if ([self.viewController respondsToSelector:@selector(preferredContentSize)]) {
+            [self.viewController removeObserver:self forKeyPath:NSStringFromSelector(@selector(preferredContentSize))];
         } else {
-            [viewController removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSizeForViewInPopover))];
+            [self.viewController removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSizeForViewInPopover))];
         }
     }
     @catch (NSException * __unused exception) {}
@@ -2696,7 +2696,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object == viewController)
+    if (object == self.viewController)
     {
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(preferredContentSize))]
             || [keyPath isEqualToString:NSStringFromSelector(@selector(contentSizeForViewInPopover))])
@@ -2719,7 +2719,7 @@ static WYPopoverTheme *defaultTheme_ = nil;
     
     //if (!isTouched)
     //{
-        BOOL shouldDismiss = !viewController.modalInPopover;
+        BOOL shouldDismiss = !self.viewController.modalInPopover;
         
         if (shouldDismiss && delegate && [delegate respondsToSelector:@selector(popoverControllerShouldDismissPopover:)])
         {
@@ -3073,9 +3073,9 @@ static CGPoint WYPointRelativeToOrientation(CGPoint origin, CGSize size, UIInter
     
     isInterfaceOrientationChanging = NO;
     
-    if ([viewController isKindOfClass:[UINavigationController class]])
+    if ([self.viewController isKindOfClass:[UINavigationController class]])
     {
-        UINavigationController* navigationController = (UINavigationController*)viewController;
+        UINavigationController* navigationController = (UINavigationController*)self.viewController;
         
         if (navigationController.navigationBarHidden == NO)
         {
@@ -3159,7 +3159,7 @@ static CGPoint WYPointRelativeToOrientation(CGPoint origin, CGSize size, UIInter
     
     barButtonItem = nil;
     passthroughViews = nil;
-    viewController = nil;
+    self.viewController = nil;
     inView = nil;
     overlayView = nil;
     backgroundView = nil;

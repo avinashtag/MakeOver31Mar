@@ -49,6 +49,10 @@ typedef void(^CollectionReviewDidSelect)(UIButton* sender , ServiceCollectionTyp
 @property (strong, nonatomic) NSMutableArray *collectionImages;
 @property (strong, nonatomic) CollectionDidSelect collectionCompletionBlock;
 @property (strong, nonatomic) CollectionReviewDidSelect collectionReviewDidSelect;
+@property (strong, nonatomic) IBOutlet UIButton *btn_showOffers;
+@property (strong, nonatomic) IBOutlet UIButton *btn_showTutorials;
+
+
 
 - (IBAction)callCompletion:(UIButton *)sender;
 - (IBAction)menuCompletion:(UIButton *)sender;
