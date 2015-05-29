@@ -18,9 +18,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [_imageCollection reloadData];
-    
+
+    if (self.isTextDescription) {
+        _imageCollection.hidden = YES;
+        self.textVw_description.hidden = NO;
+        self.textVw_description.text = self.text_description;
+    }else{
+        self.textVw_description.hidden = YES;
+        _imageCollection.hidden = NO;
+        [_imageCollection reloadData];
+    }
+
+
 //    [_imageCollection scrollToItemAtIndexPath:_startImageIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
