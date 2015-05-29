@@ -527,7 +527,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             break;
         case 2:
         {
-            NSLog(@"%@",[[[[self.service.services objectAtIndex:0] groups] objectAtIndex:0] positionName]);
+           // NSLog(@"%@",[[[[self.service.services objectAtIndex:0] groups] objectAtIndex:0] positionName]);
             
             
             self.view_tableContainer.hidden = NO;

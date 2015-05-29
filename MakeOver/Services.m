@@ -38,12 +38,20 @@ NSString *const kServicesGroups = @"groups";
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.serviceName = [self objectOrNilForKey:kServicesServiceName fromDictionary:dict];
+
+
+
     NSObject *receivedGroups = [dict objectForKey:kServicesGroups];
     NSMutableArray *parsedGroups = [NSMutableArray array];
     if ([receivedGroups isKindOfClass:[NSArray class]]) {
         for (NSDictionary *item in (NSArray *)receivedGroups) {
             if ([item isKindOfClass:[NSDictionary class]]) {
-                [parsedGroups addObject:[Groups modelObjectWithDictionary:item]];
+
+                NSArray *arrayStylistResp = [item objectForKey:@"stylistresp"];
+                if (arrayStylistResp.count != 0) {
+                    [parsedGroups addObject:[Groups modelObjectWithDictionary:item]];
+                }
+
             }
        }
     } else if ([receivedGroups isKindOfClass:[NSDictionary class]]) {

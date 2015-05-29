@@ -23,6 +23,8 @@
         _imageCollection.hidden = YES;
         self.textVw_description.hidden = NO;
         self.textVw_description.text = self.text_description;
+        [self.btnCancel_textViewer addTarget:self action:@selector(action_cancelTextViewer) forControlEvents:UIControlEventTouchUpInside];
+
     }else{
         self.textVw_description.hidden = YES;
         _imageCollection.hidden = NO;
@@ -69,15 +71,15 @@
     [cell.imageView setImageWithURL:[NSURL URLWithString:_images[indexPath.row]] placeholderImage:nil];
 
     if (self.isTextDescription == YES) {
-        cell.btnCancel_textViewer.hidden = NO;
+        self.btnCancel_textViewer.hidden = NO;
         cell.btnCancel_imageSviwer.hidden = YES;
     }else{
-        cell.btnCancel_textViewer.hidden = YES;
+        self.btnCancel_textViewer.hidden = YES;
         cell.btnCancel_imageSviwer.hidden = NO;
     }
 
     [cell.btnCancel_imageSviwer addTarget:self action:@selector(action_cancelImageViewer) forControlEvents:UIControlEventTouchUpInside];
-    [cell.btnCancel_textViewer addTarget:self action:@selector(action_cancelTextViewer) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnCancel_textViewer addTarget:self action:@selector(action_cancelTextViewer) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
 }
