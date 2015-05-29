@@ -179,8 +179,8 @@
 
 -(void)didSelectRowWithObject:(id)object{
     
-    searchBar.text = nil;// objServiceList.saloonName;
-    [self searchBarSearchButtonClicked:searchBar];
+    _searchBar.text = nil;// objServiceList.saloonName;
+    [self searchBarSearchButtonClicked:_searchBar];
     [self setDDListHidden:YES];
     
     if (object)

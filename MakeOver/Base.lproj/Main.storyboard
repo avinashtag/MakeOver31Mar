@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1ej-n8-bYY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -1093,9 +1093,6 @@ IAo
                                                         <color key="titleColor" red="0.30980392156862746" green="0.10196078431372549" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="menuCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="RE6-jX-I8R"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXb-uf-zmf">
                                                     <rect key="frame" x="135" y="112" width="67" height="28"/>
@@ -1134,9 +1131,6 @@ IAo
                                                     <state key="normal" image="ic-info">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="infoCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="QUa-Rj-nVW"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1184,8 +1178,6 @@ IAo
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="address" destination="eae-su-L7f" id="dfC-zf-LzZ"/>
-                                            <outlet property="btnInfoCompletion" destination="AqW-P5-Zjb" id="SM1-Lr-sFI"/>
-                                            <outlet property="constraint_leading" destination="jaW-0C-MqJ" id="aVk-a1-qz4"/>
                                             <outlet property="descriptionService" destination="AzA-3J-KMD" id="CG5-7a-Zh4"/>
                                             <outlet property="distance" destination="ChA-hW-3D0" id="7Ab-6G-faj"/>
                                             <outlet property="favourite" destination="0oS-IH-RM0" id="G57-uH-OXE"/>
@@ -1212,21 +1204,21 @@ IAo
                                                     <color key="textColor" red="0.1529411765" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="LVZ-5S-Kt7">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="LVZ-5S-Kt7">
                                                     <rect key="frame" x="66" y="9" width="16" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="8EF-ld-PvQ"/>
                                                         <constraint firstAttribute="height" constant="16" id="HDd-T5-kjR"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-tc-wEz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-tc-wEz">
                                                     <rect key="frame" x="85" y="9" width="16" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="9ij-Lv-sBT"/>
                                                         <constraint firstAttribute="width" constant="16" id="ZhW-Bs-2tH"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfq-gK-QLd">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfq-gK-QLd">
                                                     <rect key="frame" x="87" y="6" width="27" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="27" id="v1z-i4-bOG"/>
@@ -1234,9 +1226,6 @@ IAo
                                                     <state key="normal" image="ic-info">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="infoCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="QsL-u2-aKI"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0g-1r-zUr">
                                                     <rect key="frame" x="236" y="3" width="81" height="27"/>
@@ -1314,9 +1303,6 @@ IAo
                                                         <color key="titleColor" red="0.17254901959999999" green="0.039215686270000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="menuCompletion:" destination="Ghc-FX-UKU" eventType="touchUpInside" id="CsK-yI-0Kc"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg4-2q-NrF">
                                                     <rect key="frame" x="135" y="112" width="67" height="28"/>
@@ -1435,7 +1421,6 @@ IAo
                                         <connections>
                                             <outlet property="address" destination="xZp-FB-QeZ" id="gcN-c0-0lZ"/>
                                             <outlet property="btn_showOffers" destination="LZu-RD-FcG" id="j6I-Ft-43H"/>
-                                            <outlet property="constraint_leading" destination="70C-ha-eiJ" id="Uy9-pQ-JVb"/>
                                             <outlet property="descriptionService" destination="wpB-di-BbJ" id="bOe-mS-EMS"/>
                                             <outlet property="distance" destination="M0g-1r-zUr" id="cjq-cv-YZe"/>
                                             <outlet property="favourite" destination="so0-Km-H5p" id="2Mj-8v-kAJ"/>
@@ -1461,21 +1446,21 @@ IAo
                                                     <color key="textColor" red="0.1529411765" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="nA2-qj-NSx">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_female" translatesAutoresizingMaskIntoConstraints="NO" id="nA2-qj-NSx">
                                                     <rect key="frame" x="66" y="9" width="16" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="JcG-Fe-3eR"/>
                                                         <constraint firstAttribute="width" constant="16" id="h6Y-Yy-xGR"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="XR2-7L-nex">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_male" translatesAutoresizingMaskIntoConstraints="NO" id="XR2-7L-nex">
                                                     <rect key="frame" x="85" y="9" width="16" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="kkt-6p-7Gp"/>
                                                         <constraint firstAttribute="width" constant="16" id="nG1-Rm-DuX"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BP-9o-fev">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BP-9o-fev">
                                                     <rect key="frame" x="87" y="6" width="27" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="27" id="bOf-9R-dOR"/>
@@ -1483,9 +1468,6 @@ IAo
                                                     <state key="normal" image="ic-info">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="infoCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="DUm-pG-efA"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRV-CD-S3P">
                                                     <rect key="frame" x="236" y="3" width="81" height="27"/>
@@ -1563,9 +1545,6 @@ IAo
                                                         <color key="titleColor" red="0.17254901959999999" green="0.039215686270000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="menuCompletion:" destination="Ghc-FX-UKU" eventType="touchUpInside" id="1HO-5L-blu"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjr-hB-Nc5">
                                                     <rect key="frame" x="135" y="112" width="69" height="28"/>
@@ -1673,7 +1652,6 @@ IAo
                                         <connections>
                                             <outlet property="address" destination="tcn-7d-yP1" id="fTC-Ya-Ta1"/>
                                             <outlet property="btn_showTutorials" destination="SRH-ou-Y5V" id="GNm-Dn-AcY"/>
-                                            <outlet property="constraint_leading" destination="En5-Lx-JAP" id="gve-s2-89k"/>
                                             <outlet property="descriptionService" destination="2Rz-UF-0kg" id="Fgd-Vz-hRp"/>
                                             <outlet property="distance" destination="zRV-CD-S3P" id="EWP-8v-x3U"/>
                                             <outlet property="favourite" destination="B2f-Wf-vIz" id="Vzu-JG-vdq"/>
