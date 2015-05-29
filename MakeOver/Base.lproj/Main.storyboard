@@ -1093,6 +1093,9 @@ IAo
                                                         <color key="titleColor" red="0.30980392156862746" green="0.10196078431372549" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="menuCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="ULp-Lt-VIJ"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXb-uf-zmf">
                                                     <rect key="frame" x="135" y="112" width="67" height="28"/>
@@ -1132,6 +1135,9 @@ IAo
                                                     <state key="normal" image="ic-info">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="infoCompletion:" destination="C90-Bs-UOX" eventType="touchUpInside" id="BaF-u1-Z3a"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1141,7 +1147,6 @@ IAo
                                                 <constraint firstAttribute="trailing" secondItem="ChA-hW-3D0" secondAttribute="trailing" constant="3" id="4xk-HQ-9p1"/>
                                                 <constraint firstItem="iaO-RT-keq" firstAttribute="leading" secondItem="KxW-X5-XmR" secondAttribute="trailing" constant="3" id="5zT-fP-lmq"/>
                                                 <constraint firstItem="7JM-NI-r2O" firstAttribute="top" secondItem="JWR-fI-cJn" secondAttribute="top" constant="6" id="8oJ-el-YXG"/>
-                                                <constraint firstItem="AqW-P5-Zjb" firstAttribute="leading" secondItem="iaO-RT-keq" secondAttribute="trailing" constant="3.5" id="8rQ-9V-ImE"/>
                                                 <constraint firstItem="A1Z-3O-0JW" firstAttribute="leading" secondItem="JWR-fI-cJn" secondAttribute="leading" constant="3" id="9iC-c9-T3M"/>
                                                 <constraint firstItem="0oS-IH-RM0" firstAttribute="leading" secondItem="AzA-3J-KMD" secondAttribute="trailing" constant="-23" id="GNi-54-ofn"/>
                                                 <constraint firstAttribute="bottom" secondItem="H4p-QE-LyT" secondAttribute="bottom" constant="5" id="Gxc-Gn-Isd"/>
@@ -1162,6 +1167,7 @@ IAo
                                                 <constraint firstItem="iaO-RT-keq" firstAttribute="top" secondItem="JWR-fI-cJn" secondAttribute="top" constant="9" id="eyl-BW-YkZ"/>
                                                 <constraint firstItem="H4p-QE-LyT" firstAttribute="leading" secondItem="JWR-fI-cJn" secondAttribute="leading" id="h3a-3v-WHc"/>
                                                 <constraint firstItem="lXb-uf-zmf" firstAttribute="top" secondItem="eae-su-L7f" secondAttribute="bottom" constant="7" id="hYJ-Pl-2Fq"/>
+                                                <constraint firstItem="AqW-P5-Zjb" firstAttribute="leading" secondItem="KxW-X5-XmR" secondAttribute="trailing" constant="22" id="ioC-Pj-AaV"/>
                                                 <constraint firstItem="0oS-IH-RM0" firstAttribute="top" secondItem="ChA-hW-3D0" secondAttribute="bottom" priority="250" constant="37.5" id="oQY-dS-7b8"/>
                                                 <constraint firstItem="H4p-QE-LyT" firstAttribute="top" secondItem="JWR-fI-cJn" secondAttribute="top" id="pR1-gn-Do8"/>
                                                 <constraint firstItem="lXb-uf-zmf" firstAttribute="top" secondItem="eae-su-L7f" secondAttribute="bottom" constant="7" id="tPX-Xk-b0X"/>
@@ -1171,13 +1177,13 @@ IAo
                                                 <constraint firstAttribute="trailing" secondItem="A1Z-3O-0JW" secondAttribute="trailing" constant="187" id="w1n-jG-db1"/>
                                                 <constraint firstItem="o1w-TX-XRp" firstAttribute="top" secondItem="eae-su-L7f" secondAttribute="bottom" constant="7" id="wN3-7B-AE0"/>
                                                 <constraint firstItem="AqW-P5-Zjb" firstAttribute="top" secondItem="JWR-fI-cJn" secondAttribute="top" constant="6" id="x92-iL-gFW"/>
-                                                <constraint firstItem="AqW-P5-Zjb" firstAttribute="leading" secondItem="iaO-RT-keq" secondAttribute="trailing" constant="3" id="xHi-D0-8ed"/>
                                                 <constraint firstItem="AzA-3J-KMD" firstAttribute="top" secondItem="ChA-hW-3D0" secondAttribute="bottom" constant="0.5" id="yJp-1w-bHw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="address" destination="eae-su-L7f" id="dfC-zf-LzZ"/>
+                                            <outlet property="constraint_leading" destination="ioC-Pj-AaV" id="7Ta-W7-QtO"/>
                                             <outlet property="descriptionService" destination="AzA-3J-KMD" id="CG5-7a-Zh4"/>
                                             <outlet property="distance" destination="ChA-hW-3D0" id="7Ab-6G-faj"/>
                                             <outlet property="favourite" destination="0oS-IH-RM0" id="G57-uH-OXE"/>
@@ -1280,6 +1286,9 @@ IAo
                                                         <color key="titleColor" red="0.17254901959999999" green="0.039215686270000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="menuCompletion:" destination="Ghc-FX-UKU" eventType="touchUpInside" id="Pzm-cU-9hU"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg4-2q-NrF">
                                                     <rect key="frame" x="135" y="112" width="67" height="28"/>
@@ -1370,6 +1379,9 @@ IAo
                                                     <state key="normal" image="ic-info">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="infoCompletion:" destination="Ghc-FX-UKU" eventType="touchUpInside" id="ZLb-Rw-t6w"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1387,6 +1399,7 @@ IAo
                                                 <constraint firstItem="wpB-di-BbJ" firstAttribute="leading" secondItem="XnC-Db-StF" secondAttribute="leading" constant="10" id="F1Z-ml-3VP"/>
                                                 <constraint firstItem="Pz7-wy-Lcp" firstAttribute="top" secondItem="xZp-FB-QeZ" secondAttribute="bottom" constant="11" id="FLE-fI-szS"/>
                                                 <constraint firstItem="Yuo-EP-noC" firstAttribute="leading" secondItem="XnC-Db-StF" secondAttribute="leading" id="GOd-Fg-DUP"/>
+                                                <constraint firstItem="Mfq-gK-QLd" firstAttribute="leading" secondItem="LVZ-5S-Kt7" secondAttribute="trailing" constant="22" id="Gfz-TT-yNk"/>
                                                 <constraint firstItem="wpB-di-BbJ" firstAttribute="top" secondItem="M0g-1r-zUr" secondAttribute="bottom" id="GrR-0s-oKF"/>
                                                 <constraint firstItem="LVZ-5S-Kt7" firstAttribute="leading" secondItem="Lmd-ht-WS5" secondAttribute="trailing" constant="6" id="Nyf-jY-qBa"/>
                                                 <constraint firstItem="xZp-FB-QeZ" firstAttribute="leading" secondItem="Pz7-wy-Lcp" secondAttribute="leading" id="PTu-dB-uC4"/>
@@ -1401,7 +1414,6 @@ IAo
                                                 <constraint firstItem="eSt-tc-wEz" firstAttribute="top" secondItem="XnC-Db-StF" secondAttribute="top" constant="9" id="eLO-jq-nrE"/>
                                                 <constraint firstItem="M0g-1r-zUr" firstAttribute="top" secondItem="XnC-Db-StF" secondAttribute="top" constant="3" id="gzI-vY-ICG"/>
                                                 <constraint firstItem="Mfq-gK-QLd" firstAttribute="top" secondItem="XnC-Db-StF" secondAttribute="top" constant="6" id="jxt-uf-bXe"/>
-                                                <constraint firstItem="Mfq-gK-QLd" firstAttribute="leading" secondItem="eSt-tc-wEz" secondAttribute="trailing" constant="3" id="k73-rW-RyJ"/>
                                                 <constraint firstAttribute="bottom" secondItem="o7R-k9-gDE" secondAttribute="bottom" constant="51" id="kA7-f7-ial"/>
                                                 <constraint firstItem="Lmd-ht-WS5" firstAttribute="leading" secondItem="XnC-Db-StF" secondAttribute="leading" constant="10" id="kxj-EB-oRR"/>
                                                 <constraint firstItem="xZp-FB-QeZ" firstAttribute="trailing" secondItem="so0-Km-H5p" secondAttribute="trailing" id="mGg-Wg-Hi0"/>
@@ -1419,6 +1431,7 @@ IAo
                                         <connections>
                                             <outlet property="address" destination="xZp-FB-QeZ" id="gcN-c0-0lZ"/>
                                             <outlet property="btn_showOffers" destination="LZu-RD-FcG" id="j6I-Ft-43H"/>
+                                            <outlet property="constraint_leading" destination="Gfz-TT-yNk" id="9nb-Uf-ZAh"/>
                                             <outlet property="descriptionService" destination="wpB-di-BbJ" id="bOe-mS-EMS"/>
                                             <outlet property="distance" destination="M0g-1r-zUr" id="cjq-cv-YZe"/>
                                             <outlet property="favourite" destination="so0-Km-H5p" id="2Mj-8v-kAJ"/>
@@ -1535,6 +1548,9 @@ IAo
                                                         <color key="titleColor" red="0.17254901959999999" green="0.039215686270000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="menuCompletion:" destination="fad-sV-dA0" eventType="touchUpInside" id="P3f-1W-D8U"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjr-hB-Nc5">
                                                     <rect key="frame" x="135" y="112" width="69" height="28"/>
@@ -1602,6 +1618,9 @@ IAo
                                                     <state key="normal" image="ic-info">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="infoCompletion:" destination="fad-sV-dA0" eventType="touchUpInside" id="G69-qp-tqe"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1625,9 +1644,9 @@ IAo
                                                 <constraint firstAttribute="trailing" secondItem="XcH-Rj-V1B" secondAttribute="trailing" constant="187" id="RLc-SH-adw"/>
                                                 <constraint firstItem="XcH-Rj-V1B" firstAttribute="leading" secondItem="MWG-A7-clw" secondAttribute="leading" constant="3" id="Sxz-1J-w4m"/>
                                                 <constraint firstAttribute="bottom" secondItem="xGC-0W-zpG" secondAttribute="bottom" constant="50" id="T8e-Pf-D8u"/>
-                                                <constraint firstItem="9BP-9o-fev" firstAttribute="leading" secondItem="XR2-7L-nex" secondAttribute="trailing" constant="3" id="Thz-gh-kdh"/>
                                                 <constraint firstAttribute="trailing" secondItem="B2f-Wf-vIz" secondAttribute="trailing" constant="10" id="Y2h-VU-4VV"/>
                                                 <constraint firstAttribute="trailing" secondItem="zRV-CD-S3P" secondAttribute="trailing" constant="3" id="a7e-9s-ud4"/>
+                                                <constraint firstItem="9BP-9o-fev" firstAttribute="leading" secondItem="nA2-qj-NSx" secondAttribute="trailing" constant="22" id="aEJ-je-V0K"/>
                                                 <constraint firstAttribute="trailing" secondItem="ziY-sc-hhq" secondAttribute="trailing" id="bRX-aj-TWO"/>
                                                 <constraint firstItem="4he-zN-fDz" firstAttribute="top" secondItem="tcn-7d-yP1" secondAttribute="bottom" constant="11" id="dyA-sB-aWd"/>
                                                 <constraint firstAttribute="bottom" secondItem="S9a-HG-lIb" secondAttribute="bottom" constant="5" id="eXC-jb-WrP"/>
@@ -1652,6 +1671,7 @@ IAo
                                         <connections>
                                             <outlet property="address" destination="tcn-7d-yP1" id="fTC-Ya-Ta1"/>
                                             <outlet property="btn_showTutorials" destination="SRH-ou-Y5V" id="GNm-Dn-AcY"/>
+                                            <outlet property="constraint_leading" destination="aEJ-je-V0K" id="vwK-j8-oVH"/>
                                             <outlet property="descriptionService" destination="2Rz-UF-0kg" id="Fgd-Vz-hRp"/>
                                             <outlet property="distance" destination="zRV-CD-S3P" id="EWP-8v-x3U"/>
                                             <outlet property="favourite" destination="B2f-Wf-vIz" id="Vzu-JG-vdq"/>
