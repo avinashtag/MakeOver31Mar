@@ -642,12 +642,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+    if (!buttonIndex == 0) {
     NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
-    
     NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
     NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
     [[UIApplication sharedApplication] openURL:phoneURL];
+    }
 }
 
 

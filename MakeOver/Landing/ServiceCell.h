@@ -65,6 +65,7 @@ typedef void(^CollectionReviewDidSelect)(UIButton* sender , ServiceCollectionTyp
 - (IBAction)reviewCompletion:(UIButton *)sender;
 - (IBAction)checkInCompletion:(UIButton *)sender;
 - (IBAction)LikeItCompletion:(UIButton *)sender;
+- (IBAction)infoCompletion:(UIButton *)sender;
 
 -(void)collectionCellIdentifier:(NSString*)identifierName didSelectCell:(CollectionDidSelect)block;
 - (void)reviewWithCompletion:(CollectionReviewDidSelect)block;
