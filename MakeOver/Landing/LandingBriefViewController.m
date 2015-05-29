@@ -295,6 +295,10 @@
         [popoverController presentPopoverAsDialogAnimated:YES completion:^{
             
         }];
+
+        imageViewer.callbackCancel = ^(void) {
+            [popoverController dismissPopoverAnimated:YES];
+        };
     }
     
 }

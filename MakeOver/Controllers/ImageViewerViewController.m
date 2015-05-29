@@ -67,9 +67,29 @@
     CollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:idt forIndexPath:indexPath];
     //[cell.imageView setImageWithURL:[NSURL URLWithString:@"https://graph.facebook.com/794134670660627/picture?type=normal"] placeholderImage:nil];
     [cell.imageView setImageWithURL:[NSURL URLWithString:_images[indexPath.row]] placeholderImage:nil];
-    
+
+    if (self.isTextDescription == YES) {
+        cell.btnCancel_textViewer.hidden = NO;
+        cell.btnCancel_imageSviwer.hidden = YES;
+    }else{
+        cell.btnCancel_textViewer.hidden = YES;
+        cell.btnCancel_imageSviwer.hidden = NO;
+    }
+
+    [cell.btnCancel_imageSviwer addTarget:self action:@selector(action_cancelImageViewer) forControlEvents:UIControlEventTouchUpInside];
+    [cell.btnCancel_textViewer addTarget:self action:@selector(action_cancelTextViewer) forControlEvents:UIControlEventTouchUpInside];
+
     return cell;
 }
 
+
+
+-(void)action_cancelImageViewer{
+    self.callbackCancel();
+}
+
+-(void)action_cancelTextViewer{
+    self.callbackCancel();
+}
 
 @end

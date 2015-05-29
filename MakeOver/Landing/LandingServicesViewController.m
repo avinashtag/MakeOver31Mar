@@ -457,8 +457,25 @@ static NSArray *menuItems;
     
     if ([service.gender isEqualToString:@"M"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
+        cell.genderImage2.hidden = YES;
+        cell.constraint_leading.constant =  3;
+        [cell.btnInfoCompletion updateConstraints];
+
+    }else if ([service.gender isEqualToString:@"F"]) {
+        cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
+        cell.genderImage2.hidden = YES;
+        cell.constraint_leading.constant =  3;
+        [cell.btnInfoCompletion updateConstraints];
+
+    }else if ([service.gender isEqualToString:@"U"]) {
+        cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
+        cell.genderImage2.image = [UIImage imageNamed:@"ic_male"];
+        cell.genderImage2.hidden = NO;
+        cell.constraint_leading.constant = cell.genderImage2.frame.size.width + 3;
+        [cell.btnInfoCompletion updateConstraints];
     }
-    
+
+
     [cell.distance setTitle:[NSString stringWithFormat:@"%@ KM",service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
     if (service.saloonServices.count) {
         [cell.descriptionService setText:[service.saloonServices componentsJoinedByString:@","]];
@@ -553,9 +570,13 @@ static NSArray *menuItems;
             
             if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
                 landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+            }else if ([landingBriefViewController.service.gender isEqualToString:@"F"]) {
+                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_female"];
+            }else if ([landingBriefViewController.service.gender isEqualToString:@"U"]) {
+                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
             }
 
-            
+
             [landingBriefViewController.address setText:landingBriefViewController.service.saloonAddress];
             
             landingBriefViewController.Time.text = [NSString stringWithFormat:@"%@ to %@",landingBriefViewController.service.startTime,landingBriefViewController.service.endTime];
@@ -718,6 +739,9 @@ static NSArray *menuItems;
         }
         [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
 
+        imageViewer.callbackCancel = ^(void) {
+            [popoverController dismissPopoverAnimated:YES];
+        };
 
     }else{
         [UtilityClass showAlertwithTitle:nil message:@"Currently No Offer available"];
@@ -749,6 +773,10 @@ static NSArray *menuItems;
             imageViewer.isTextDescription = NO;
             imageViewer.images = [NSArray arrayWithObject:[service.extraParams objectForKey:@"offerImage"]];
         }
+
+        imageViewer.callbackCancel = ^(void) {
+            [popoverController dismissPopoverAnimated:YES];
+        };
 
     }else{
         [UtilityClass showAlertwithTitle:nil message:@"Currently No Tutorial available"];
@@ -853,6 +881,10 @@ static NSArray *menuItems;
         [popoverController presentPopoverAsDialogAnimated:YES completion:^{
             
         }];
+
+        imageViewer.callbackCancel = ^(void) {
+            [popoverController dismissPopoverAnimated:YES];
+        };
     }
     
 }
@@ -1070,6 +1102,10 @@ static NSArray *menuItems;
                          }
 
                          if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
+                             landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+                         }else if ([landingBriefViewController.service.gender isEqualToString:@"F"]) {
+                             landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_female"];
+                         }else if ([landingBriefViewController.service.gender isEqualToString:@"U"]) {
                              landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
                          }
 

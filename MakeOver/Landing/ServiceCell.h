@@ -38,6 +38,9 @@ typedef void(^CollectionReviewDidSelect)(UIButton* sender , ServiceCollectionTyp
 @property (strong, nonatomic) IBOutlet UILabel *name;
 @property (strong, nonatomic) IBOutlet UIButton *distance;
 @property (strong, nonatomic) IBOutlet UIImageView *genderImage;
+@property (strong, nonatomic) IBOutlet UIImageView *genderImage2;
+@property (strong, nonatomic) IBOutlet UIButton *btnInfoCompletion;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint_leading;
 @property (strong, nonatomic) IBOutlet UIButton *favourite;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionService;
