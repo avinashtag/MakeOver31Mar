@@ -453,28 +453,32 @@ static NSArray *menuItems;
     }
     else
         cell.favourite.selected = NO;
-
     
-    if ([service.gender isEqualToString:@"M"]) {
+    CGRect frame = cell.genderImage2.frame;
+    frame.size.width = 0.0;
+    
+//    if ([service.gender isEqualToString:@"M"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
-        cell.genderImage2.hidden = YES;
-        cell.constraint_leading.constant =  3;
-        [cell.btnInfoCompletion updateConstraints];
+        cell.genderImage2.frame = frame;
+//        cell.genderImage2.hidden = YES;
+//        cell.constraint_leading.constant =  3;
+//        [cell.btnInfoCompletion updateConstraints];
 
-    }else if ([service.gender isEqualToString:@"F"]) {
+/*    }else if ([service.gender isEqualToString:@"F"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
+        cell.genderImage2.frame = frame;
         cell.genderImage2.hidden = YES;
-        cell.constraint_leading.constant =  3;
+//        cell.constraint_leading.constant =  3;
         [cell.btnInfoCompletion updateConstraints];
 
     }else if ([service.gender isEqualToString:@"U"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
         cell.genderImage2.image = [UIImage imageNamed:@"ic_male"];
         cell.genderImage2.hidden = NO;
-        cell.constraint_leading.constant = cell.genderImage2.frame.size.width + 3;
+//        cell.constraint_leading.constant = cell.genderImage2.frame.size.width + 3;
         [cell.btnInfoCompletion updateConstraints];
     }
-
+*/
 
     [cell.distance setTitle:[NSString stringWithFormat:@"%@ KM",service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
     if (service.saloonServices.count) {
