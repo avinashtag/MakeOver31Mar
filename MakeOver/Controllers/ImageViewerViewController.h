@@ -18,4 +18,6 @@
 @property (assign) BOOL isTextDescription;
 @property(strong, nonatomic) NSString *text_description;
 
+@property (copy) void(^callbackCancel)(void);
+
 @end

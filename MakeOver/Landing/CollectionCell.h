@@ -15,6 +15,8 @@ typedef void(^DoFavStylist)(id sender);
 @property(weak, nonatomic) IBOutlet UIButton* favourite;
 @property(weak, nonatomic) IBOutlet UILabel* review;
 @property(strong, nonatomic) DoFavStylist doFavStylist;
+@property(weak, nonatomic) IBOutlet UIButton* btnCancel_textViewer;
+@property(weak, nonatomic) IBOutlet UIButton* btnCancel_imageSviwer;
 
 -(IBAction)favStylist:(id)sender;
 
