@@ -344,10 +344,10 @@ static NSArray *menuItems;
 
     NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
     NSString *userId = string_userId!=nil ? string_userId : @"";
-    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
+//    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
 
     [parameters setObject:userId forKey:@"userId"];
-    [parameters setObject:string_serviceId forKey:@"serviceId"];
+//    [parameters setObject:string_serviceId forKey:@"serviceId"];
 
     switch (serviceType) {
             
