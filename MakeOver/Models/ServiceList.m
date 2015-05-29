@@ -100,11 +100,17 @@ static NSString *kresponseObject = @"object";
     if ([receivedServices isKindOfClass:[NSArray class]]) {
         for (NSDictionary *item in (NSArray *)receivedServices) {
             if ([item isKindOfClass:[NSDictionary class]]) {
-                [parsedServices addObject:[Services modelObjectWithDictionary:item]];
+                Services *servicesTemp = [Services modelObjectWithDictionary:item];
+                if (servicesTemp.groups.count != 0) {
+                    [parsedServices addObject:servicesTemp];
+                }
             }
         }
     } else if ([receivedServices isKindOfClass:[NSDictionary class]]) {
-        [parsedServices addObject:[Services modelObjectWithDictionary:(NSDictionary *)receivedServices]];
+        Services *servicesTemp = [Services modelObjectWithDictionary:(NSDictionary *)receivedServices];
+        if (servicesTemp.groups.count != 0) {
+            [parsedServices addObject:servicesTemp];
+        }
     }
     self.services = [NSArray arrayWithArray:parsedServices];
 

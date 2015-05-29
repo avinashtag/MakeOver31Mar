@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textVw_description;
 @property (assign) BOOL isTextDescription;
 @property(strong, nonatomic) NSString *text_description;
+@property(weak, nonatomic) IBOutlet UIButton* btnCancel_textViewer;
 
 @property (copy) void(^callbackCancel)(void);
 
