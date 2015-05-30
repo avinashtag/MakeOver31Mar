@@ -597,10 +597,23 @@ static NSArray *menuItems;
             
             if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
                 landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+                landingBriefViewController.constraint_leading.constant =  3;
+                landingBriefViewController.genderImage2.hidden = YES;
+                [landingBriefViewController.btn_info updateConstraints];
             }else if ([landingBriefViewController.service.gender isEqualToString:@"F"]) {
                 landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_female"];
+                landingBriefViewController.genderImage2.hidden = YES;
+
+                landingBriefViewController.constraint_leading.constant =  3;
+                [landingBriefViewController.btn_info updateConstraints];
+
             }else if ([landingBriefViewController.service.gender isEqualToString:@"U"]) {
-                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+                landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_female"];
+                landingBriefViewController.genderImage2.image = [UIImage imageNamed:@"ic_male"];
+                landingBriefViewController.genderImage2.hidden = NO;
+                landingBriefViewController.constraint_leading.constant =  landingBriefViewController.genderImage2.frame.size.width + 3;
+                [landingBriefViewController.btn_info updateConstraints];
+
             }
 
 
@@ -1130,10 +1143,23 @@ static NSArray *menuItems;
 
                          if ([landingBriefViewController.service.gender isEqualToString:@"M"]) {
                              landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+                             landingBriefViewController.constraint_leading.constant =  3;
+                             landingBriefViewController.genderImage2.hidden = YES;
+                             [landingBriefViewController.btn_info updateConstraints];
                          }else if ([landingBriefViewController.service.gender isEqualToString:@"F"]) {
                              landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_female"];
+                             landingBriefViewController.genderImage2.hidden = YES;
+
+                             landingBriefViewController.constraint_leading.constant =  3;
+                             [landingBriefViewController.btn_info updateConstraints];
+
                          }else if ([landingBriefViewController.service.gender isEqualToString:@"U"]) {
-                             landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_male"];
+                             landingBriefViewController.genderImage.image = [UIImage imageNamed:@"ic_female"];
+                             landingBriefViewController.genderImage2.image = [UIImage imageNamed:@"ic_male"];
+                             landingBriefViewController.genderImage2.hidden = NO;
+                             landingBriefViewController.constraint_leading.constant =  landingBriefViewController.genderImage2.frame.size.width + 3;
+                             [landingBriefViewController.btn_info updateConstraints];
+                             
                          }
 
 

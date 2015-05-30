@@ -22,6 +22,9 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *genderImage;
+@property (weak, nonatomic) IBOutlet UIImageView *genderImage2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint_leading;
+@property (weak, nonatomic) IBOutlet UIButton *btn_info;
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (strong, nonatomic) IBOutlet ASStarRatingView *startRatingView;
 @property (weak, nonatomic) IBOutlet UIButton *btnReviews;
