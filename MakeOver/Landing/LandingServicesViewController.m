@@ -297,13 +297,15 @@ static NSArray *menuItems;
 
 -(void)webServiceSortByStylist {
     
-    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_userId = [NSString stringWithFormat:@"%@",[UtilityClass RetrieveDataFromUserDefault:@"userid"]] ;
     string_userId = string_userId!=nil ? string_userId : @"";
-    
+
+    NSLog(@"%@",string_userId);
+
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     idCity = idCity!=nil ? idCity : @"1";
 
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",_serviceId,@"serviceId",string_userId,@"userId", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%d",_serviceId],@"serviceId",string_userId,@"userId", nil];
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
@@ -469,6 +471,7 @@ static NSArray *menuItems;
 
         UIButton *button = (UIButton*)[cell viewWithTag:43];
         [button updateConstraints];
+        [cell updateConstraints];
 
     }else if ([service.gender isEqualToString:@"F"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
@@ -484,6 +487,7 @@ static NSArray *menuItems;
 
         UIButton *button = (UIButton*)[cell viewWithTag:43];
         [button updateConstraints];
+        [cell updateConstraints];
 
     }else if ([service.gender isEqualToString:@"U"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
@@ -500,6 +504,8 @@ static NSArray *menuItems;
 
         UIButton *button = (UIButton*)[cell viewWithTag:43];
         [button updateConstraints];
+        [cell updateConstraints];
+
     }
 
 
@@ -765,8 +771,8 @@ static NSArray *menuItems;
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
 
         CGRect rect = self.view.frame;
-        rect.size.width = rect.size.width- 40;
-        rect.size.height = rect.size.height -60;
+        rect.size.width = rect.size.width - 40;
+        rect.size.height = rect.size.height - 60;
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
         if ([[dictOffer objectForKey:@"offerType"] isEqualToString:@"TEXT"]) {
@@ -775,7 +781,7 @@ static NSArray *menuItems;
             imageViewer.images = [NSArray new];
         }else if ([[dictOffer objectForKey:@"offerType"] isEqualToString:@"IMAGE"]){
             imageViewer.isTextDescription = NO;
-            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"offerImage"]]; // only one image url will be in offer
+            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"images"]]; // only one image url will be in offer
         }
         [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
 
@@ -797,21 +803,23 @@ static NSArray *menuItems;
 
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
 
+        NSDictionary *dictTutorial = [service.extraParams objectForKey:@"tutorials"];
+
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
 
         CGRect rect = self.view.frame;
-        rect.size.width = rect.size.width- 40;
-        rect.size.height = rect.size.height -60;
+        rect.size.width = rect.size.width - 40;
+        rect.size.height = rect.size.height - 60;
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
 
-        if ([[service.extraParams objectForKey:@"offerType"] isEqualToString:@"TEXT"]) {
+        if ([[dictTutorial objectForKey:@"tutType"] isEqualToString:@"TEXT"]) {
             imageViewer.isTextDescription = YES;
-            imageViewer.text_description = [service.extraParams objectForKey:@"offerDesc"];
+            imageViewer.text_description = [dictTutorial objectForKey:@"tutDesc"];
             imageViewer.images = [NSArray new];
-        }else if ([[service.extraParams objectForKey:@"offerType"] isEqualToString:@"IMAGE"]){
+        }else if ([[dictTutorial objectForKey:@"tutType"] isEqualToString:@"IMAGE"]){
             imageViewer.isTextDescription = NO;
-            imageViewer.images = [NSArray arrayWithObject:[service.extraParams objectForKey:@"offerImage"]];
+            imageViewer.images = [NSArray arrayWithObject:[dictTutorial objectForKey:@"images"]];
         }
 
         imageViewer.callbackCancel = ^(void) {
@@ -913,8 +921,8 @@ static NSArray *menuItems;
         imageViewer.images = images;
         
         CGRect rect = self.view.frame;
-        rect.size.width = rect.size.width- 40;
-        rect.size.height = rect.size.height -60;
+        rect.size.width = rect.size.width - 40;
+        rect.size.height = rect.size.height - 60;
 
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
