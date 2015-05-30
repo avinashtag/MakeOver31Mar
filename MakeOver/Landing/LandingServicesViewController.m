@@ -453,25 +453,53 @@ static NSArray *menuItems;
     }
     else
         cell.favourite.selected = NO;
+
     
     if ([service.gender isEqualToString:@"M"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
         cell.genderImage2.hidden = YES;
-        cell.constraint_leading.constant =  3;
-        [cell.btnInfoCompletion updateConstraints];
+
+        if ([identifier isEqualToString:@"OfferCell"]) {
+            cell.constraint_leading_offer.constant =  3;
+        }else if ([identifier isEqualToString:@"TutorialCell"]){
+            cell.constraint_leading_tutorial.constant =  3;
+        }else{
+            cell.constraint_leading.constant =  3;
+        }
+
+        UIButton *button = (UIButton*)[cell viewWithTag:43];
+        [button updateConstraints];
 
     }else if ([service.gender isEqualToString:@"F"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
         cell.genderImage2.hidden = YES;
-        cell.constraint_leading.constant =  3;
-        [cell.btnInfoCompletion updateConstraints];
+
+        if ([identifier isEqualToString:@"OfferCell"]) {
+            cell.constraint_leading_offer.constant =  3;
+        }else if ([identifier isEqualToString:@"TutorialCell"]){
+            cell.constraint_leading_tutorial.constant =  3;
+        }else{
+            cell.constraint_leading.constant =  3;
+        }
+
+        UIButton *button = (UIButton*)[cell viewWithTag:43];
+        [button updateConstraints];
 
     }else if ([service.gender isEqualToString:@"U"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
         cell.genderImage2.image = [UIImage imageNamed:@"ic_male"];
         cell.genderImage2.hidden = NO;
-        cell.constraint_leading.constant = cell.genderImage2.frame.size.width + 3;
-        [cell.btnInfoCompletion updateConstraints];
+
+        if ([identifier isEqualToString:@"OfferCell"]) {
+            cell.constraint_leading_offer.constant =  cell.genderImage2.frame.size.width + 3;
+        }else if ([identifier isEqualToString:@"TutorialCell"]){
+            cell.constraint_leading_tutorial.constant =  cell.genderImage2.frame.size.width + 3;
+        }else{
+            cell.constraint_leading.constant =  cell.genderImage2.frame.size.width + 3;
+        }
+
+        UIButton *button = (UIButton*)[cell viewWithTag:43];
+        [button updateConstraints];
     }
 
 

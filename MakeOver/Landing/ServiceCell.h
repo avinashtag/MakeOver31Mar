@@ -41,6 +41,9 @@ typedef void(^CollectionReviewDidSelect)(UIButton* sender , ServiceCollectionTyp
 @property (strong, nonatomic) IBOutlet UIImageView *genderImage2;
 @property (strong, nonatomic) IBOutlet UIButton *btnInfoCompletion;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint_leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint_leading_offer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint_leading_tutorial;
+
 @property (strong, nonatomic) IBOutlet UIButton *favourite;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionService;
@@ -66,6 +69,8 @@ typedef void(^CollectionReviewDidSelect)(UIButton* sender , ServiceCollectionTyp
 - (IBAction)checkInCompletion:(UIButton *)sender;
 - (IBAction)LikeItCompletion:(UIButton *)sender;
 - (IBAction)infoCompletion:(UIButton *)sender;
+
+
 
 -(void)collectionCellIdentifier:(NSString*)identifierName didSelectCell:(CollectionDidSelect)block;
 - (void)reviewWithCompletion:(CollectionReviewDidSelect)block;
