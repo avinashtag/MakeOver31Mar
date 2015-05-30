@@ -382,7 +382,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     string_userId = string_userId!=nil ? string_userId : @"";
 
     
-    if (string_userId != nil) {
+    if ((string_userId != nil) && string_userId.length) {
         
         NSString *string_stylistId = [[[[[[[self.service.services objectAtIndex:button.tableSectionIndex] groups] objectAtIndex:button.collectionViewIndex] stylistresp] objectAtIndex:button.collectionViewCellIndex] objectForKey:@"stylishId"] stringValue];
         

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol DropDownListPassValueDelegate;
+#import "DropDownListPassValueDelegate.h"
+
 
 @interface DropDownList : UITableViewController {
+    
     NSString		*_searchText;
     NSString		*_selectedText;
     NSMutableArray	*_resultList;

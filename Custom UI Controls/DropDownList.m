@@ -68,17 +68,19 @@
     
     // Configure the cell...
     
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    
     if (indexPath.row == 0) {
         
         cell.textLabel.text = [_resultList objectAtIndex:0];
         
     }else{
 
-        NSString *searchKey = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchKey"];
+//        NSString *searchKey = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchKey"];
         NSString *searchValue = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchValue"];
         NSString *searchHelper = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchHelper"];
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",searchValue,searchHelper];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@%@",searchValue,((searchHelper != [NSNull null])&&(searchHelper.length) ? [NSString stringWithFormat:@" - %@",searchHelper] : @"")];
         
     }
     
