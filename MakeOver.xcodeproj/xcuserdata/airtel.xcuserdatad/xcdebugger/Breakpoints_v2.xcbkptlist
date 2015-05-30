@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "786"
             endingLineNumber = "786"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-showTutorialPopUp:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -141,7 +141,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "790"
             endingLineNumber = "790"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-showTutorialPopUp:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -427,7 +427,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "720"
             endingLineNumber = "720"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -443,7 +443,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "858"
             endingLineNumber = "858"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-showCallingPopup:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
