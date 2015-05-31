@@ -598,17 +598,17 @@ static NSArray *menuItems;
     switch (_menuListView.selectedButtonIndex) {
 
         case sTUTORIAL:
-            return  192.0f;;
+            return  212.0f;
 
             break;
 
         case sOFFERS:
-            return  192.0f;;
+            return  212.0f;
 
             break;
 
         default:
-            return 152.0f;
+            return 172.0f;
             break;
     }
 

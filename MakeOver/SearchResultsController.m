@@ -656,7 +656,7 @@ static NSArray *menuItems;
             break;
             
         default:
-            return 152.0f;
+            return 172.0f;
             break;
     }
     
