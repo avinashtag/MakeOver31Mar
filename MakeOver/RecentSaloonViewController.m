@@ -98,8 +98,63 @@
     if (service.saloonServices.count) {
         [cell.descriptionService setText:[service.saloonServices componentsJoinedByString:@","]];
     }
-    
-    [cell.address setText:service.saloonAddress];
+
+
+    if ([service.gender isEqualToString:@"M"]) {
+        cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
+        cell.genderImage2.hidden = YES;
+
+        if ([identifier isEqualToString:@"OfferCell"]) {
+            cell.constraint_leading_offer.constant =  3;
+        }else if ([identifier isEqualToString:@"TutorialCell"]){
+            cell.constraint_leading_tutorial.constant =  3;
+        }else{
+            cell.constraint_leading.constant =  3;
+        }
+
+        UIButton *button = (UIButton*)[cell viewWithTag:43];
+        [button updateConstraints];
+        [cell updateConstraints];
+
+    }else if ([service.gender isEqualToString:@"F"]) {
+        cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
+        cell.genderImage2.hidden = YES;
+
+        if ([identifier isEqualToString:@"OfferCell"]) {
+            cell.constraint_leading_offer.constant =  3;
+        }else if ([identifier isEqualToString:@"TutorialCell"]){
+            cell.constraint_leading_tutorial.constant =  3;
+        }else{
+            cell.constraint_leading.constant =  3;
+        }
+
+        UIButton *button = (UIButton*)[cell viewWithTag:43];
+        [button updateConstraints];
+        [cell updateConstraints];
+
+    }else if ([service.gender isEqualToString:@"U"]) {
+        cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
+        cell.genderImage2.image = [UIImage imageNamed:@"ic_male"];
+        cell.genderImage2.hidden = NO;
+
+        if ([identifier isEqualToString:@"OfferCell"]) {
+            cell.constraint_leading_offer.constant =  cell.genderImage2.frame.size.width + 3;
+        }else if ([identifier isEqualToString:@"TutorialCell"]){
+            cell.constraint_leading_tutorial.constant =  cell.genderImage2.frame.size.width + 3;
+        }else{
+            cell.constraint_leading.constant =  cell.genderImage2.frame.size.width + 3;
+        }
+
+        UIButton *button = (UIButton*)[cell viewWithTag:43];
+        [button updateConstraints];
+        [cell updateConstraints];
+        
+    }
+
+
+    //[cell.address setText:service.saloonAddress];
+    [cell.address setText:service.saloonMainArea];
+
     [cell.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
     __weak RecentSaloonViewController *selfWeak = self;
     [cell reviewWithCompletion:^(UIButton *sender, ServiceCollectionType serviceType){
@@ -141,9 +196,9 @@
         landingBriefViewController.service = _services[indexPath.row];
         [landingBriefViewController.servicesTable reloadData];
         [UtilityClass removeHudFromView:nil afterDelay:0];
-        
+
     });
-    
+
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
