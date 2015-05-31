@@ -19,6 +19,9 @@
 @property(strong, nonatomic) NSString *text_description;
 @property(weak, nonatomic) IBOutlet UIButton* btnCancel_textViewer;
 
+@property (assign) BOOL isShowingGallery;
+
+
 @property (copy) void(^callbackCancel)(void);
 
 @end

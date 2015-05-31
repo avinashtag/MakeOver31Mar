@@ -31,8 +31,6 @@
         [_imageCollection reloadData];
     }
 
-
-//    [_imageCollection scrollToItemAtIndexPath:_startImageIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
 
@@ -40,8 +38,9 @@
 {
     [super viewDidLayoutSubviews];
 
-    [_imageCollection scrollToItemAtIndexPath:_startImageIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-
+    if (self.isShowingGallery) {
+        [_imageCollection scrollToItemAtIndexPath:_startImageIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

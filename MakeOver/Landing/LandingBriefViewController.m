@@ -433,6 +433,7 @@
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
        
         imageViewer.startImageIndexPath = index;
+        imageViewer.isShowingGallery = YES;
         
         imageViewer.images = images;
         
