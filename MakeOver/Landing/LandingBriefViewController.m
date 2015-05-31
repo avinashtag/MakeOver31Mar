@@ -776,11 +776,15 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     if (_service.contacts.count) {
         
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
         
         for (NSString *number in _service.contacts) {
                 [actionSheet addButtonWithTitle:number];
         }
+        
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        
+        [actionSheet setCancelButtonIndex:_service.contacts.count];
         
         [actionSheet showFromTabBar:self.tabBarController.tabBar];
     }
@@ -797,11 +801,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (!buttonIndex == 0) {
-    NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
-    NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
-    NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
-    [[UIApplication sharedApplication] openURL:phoneURL];
+   
+    if (!buttonIndex == _service.contacts.count) {
+        NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
+        NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
+        NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
+        [[UIApplication sharedApplication] openURL:phoneURL];
     }
 }
 

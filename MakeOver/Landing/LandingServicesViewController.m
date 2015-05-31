@@ -720,37 +720,27 @@ static NSArray *menuItems;
 
     if (contacts.count) {
         
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
         
         for (NSString *number in contacts) {
                 [actionSheet addButtonWithTitle:number];
         }
+        
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        
+        [actionSheet setCancelButtonIndex:contacts.count];
         
         [actionSheet showFromTabBar:self.tabBarController.tabBar];
     }
     else {
         [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
     }
-
-    
-    
-    
-//    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
-//    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    CGRect rect = self.view.frame;
-//    rect.size.width = rect.size.width -20;
-//    rect.size.height = rect.size.height -20;
-//    [popoverController setPopoverContentSize:rect.size];
-//    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
-//    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
-//        
-//    }];
-
     
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (!buttonIndex == 0) {
+   
+    if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
         NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
         NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
         NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
