@@ -308,7 +308,7 @@ static NSArray *menuItems;
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     idCity = idCity!=nil ? idCity : @"1";
 
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%d",_serviceId],@"serviceId",string_userId,@"userId", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%ld",(long)_serviceId],@"serviceId",string_userId,@"userId", nil];
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {

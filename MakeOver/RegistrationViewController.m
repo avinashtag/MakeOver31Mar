@@ -94,8 +94,8 @@
     else {
         [[ServiceInvoker sharedInstance]serviceInvokeWithParameters:paramsRegister requestAPI:API_RegisterUser spinningMessage:@"Registering user.." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
 
-        NSError *error = nil;
-        __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+//        NSError *error = nil;
+//        __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
         if (self.isInsideProfileTab) {
             
@@ -135,8 +135,8 @@
     else {
         [[ServiceInvoker sharedInstance]serviceInvokeWithParameters:@{@"otp":otp, @"userId":[UtilityClass RetrieveDataFromUserDefault:@"userid"]} requestAPI:API_RegisterUser spinningMessage:@"Registering user.." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
 
-            NSError *error = nil;
-            __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+//            NSError *error = nil;
+//            __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
             view_otpcontainer.hidden = YES;
             view_registrationFields.hidden = !view_otpcontainer.isHidden;

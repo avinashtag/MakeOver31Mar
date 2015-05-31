@@ -620,40 +620,44 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 -(IBAction)ratingOpen:(id)sender{
     
-    __block RatingViewController *rating = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([RatingViewController class])];
-    popoverController = [[WYPopoverController alloc] initWithContentViewController:rating];
- 
-    [rating ratingCompletion:^(NSString* review , double rating ,BOOL isCancelled) {
+    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    
+    if ((string_userId != nil) && string_userId.length) {
         
+        __block RatingViewController *rating = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([RatingViewController class])];
+        popoverController = [[WYPopoverController alloc] initWithContentViewController:rating];
         
-        
-        if (!isCancelled) {
+        [rating ratingCompletion:^(NSString* review , double rating ,BOOL isCancelled) {
             
-            NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
-            NSString *strUser = string_userId!=nil ? string_userId : @"";
+            if (!isCancelled) {
+                
+                NSDictionary *prams = @{
+                                        @"saloonId" : _service.saloonId,
+                                        @"rating" : @(rating),
+                                        @"review" : review,
+                                        @"userId" :string_userId
+                                        };
+                [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:prams requestAPI:API_RATE_SALOON spinningMessage:nil completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+                    
+                    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:nil];
+                    UIAlertView *alert =  [[UIAlertView alloc]initWithTitle:nil message:(response[@"error"])[@"errorMessage"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    
+                }];
+            }
             
-            NSDictionary *prams = @{
-                                    @"saloonId" : _service.saloonId,
-                                    @"rating" : @(rating),
-                                    @"review" : review,
-                                    @"userId" :strUser
-                                    };
-            [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:prams requestAPI:API_RATE_SALOON spinningMessage:nil completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
-                
-                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:nil];
-                UIAlertView *alert =  [[UIAlertView alloc]initWithTitle:nil message:(response[@"error"])[@"errorMessage"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
-                
-            }];
-        }
-        
-        [popoverController dismissPopoverAnimated:YES];
-    }];
-    [popoverController setPopoverContentSize:CGSizeMake(300, 300)];
-    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
-        [rating.reviewDescription becomeFirstResponder];
+            [popoverController dismissPopoverAnimated:YES];
+        }];
+        [popoverController setPopoverContentSize:CGSizeMake(300, 300)];
+        [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+            [rating.reviewDescription becomeFirstResponder];
+            
+        }];
 
-    }];
+    }
+    else {
+        [UtilityClass showAlertwithTitle:@"Login required!" message:@"You need to be logged in to perform this action."];
+    }
     
 }
 
