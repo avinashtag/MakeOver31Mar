@@ -41,9 +41,11 @@
 
 #pragma mark - custom view setup method
 
-- (void)setupView
+- (void)setupBriefView
 {
     self.saloonName.text = self.service.saloonName;
+
+    [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
 
     [self.distance setTitle:[NSString stringWithFormat:@"%@ KM",self.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
     
@@ -53,14 +55,13 @@
 
     if ([self.service.gender isEqualToString:@"M"]) {
         self.genderImage.image = [UIImage imageNamed:@"ic_male"];
-        self.constraint_leading.constant =  3;
         self.genderImage2.hidden = YES;
+        self.constraint_leading.constant =  3;
         [self.btn_info updateConstraints];
     }
     else if ([self.service.gender isEqualToString:@"F"]) {
         self.genderImage.image = [UIImage imageNamed:@"ic_female"];
         self.genderImage2.hidden = YES;
-
         self.constraint_leading.constant =  3;
         [self.btn_info updateConstraints];
 
@@ -74,8 +75,7 @@
 
     }
 
-
-
+    
     if ([self.service.creditDebitCardSupport isEqualToString:@"Y"]) {
         self.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : YES";
     }else{
@@ -91,8 +91,13 @@
     [self.startRatingView setRating:[self.service.saloonRating doubleValue]];
 
 
-    /*
+    [self setupFavoriteAndRecentDetails];
 
+    [_servicesTable reloadData];
+}
+
+- (void)setupFavoriteAndRecentDetails
+{
     // Get fav saloons from saved records.
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
@@ -100,9 +105,7 @@
     NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    if (![fileManager fileExistsAtPath:favsPath])
-    {
+    if (![fileManager fileExistsAtPath:favsPath]) {
         self.favourite.selected = NO;
     }
     else {
@@ -110,13 +113,11 @@
         // Read records
         NSArray *arrayFavSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
 
-        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[Services saloonId] integerValue]];
-
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [self.service.saloonId integerValue]];
         NSArray *arrayResult = [arrayFavSaloons filteredArrayUsingPredicate:resultPredicate];
 
-        if ((arrayResult != nil) && (arrayResult.count)) {
+        if ((arrayResult != nil) && (arrayResult.count))
             self.favourite.selected = YES;
-        }
         else
             self.favourite.selected = NO;
     }
@@ -138,7 +139,7 @@
             NSLog(@"recentlyViewed.plist created at Documents directory.");
 
             //NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:_services[indexPath.row], nil];
-            NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:ServiceList, nil];
+            NSMutableArray *saloons = [[NSMutableArray alloc] initWithObjects:self.service, nil];
             if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
                 // Handle error
                 NSLog(@"error in archieving");
@@ -153,7 +154,7 @@
         // Read & Update records
         NSMutableArray *saloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
 
-        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[ServiceList saloonId] integerValue]];
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [self.service.saloonId integerValue]];
 
         NSArray *arrayResult = [saloons filteredArrayUsingPredicate:resultPredicate];
 
@@ -162,16 +163,15 @@
         }
         else
         {
-
             if (saloons.count <10) {
 
                 // write Record:
                 //[saloons addObject:_services[indexPath.row]];
-                [saloons addObject:objServiceList];
+                [saloons addObject:self.service];
             }
             else {
                 //[saloons replaceObjectAtIndex:saloons.count-1 withObject:_services[indexPath.row]];
-                [saloons replaceObjectAtIndex:saloons.count-1 withObject:objServiceList];
+                [saloons replaceObjectAtIndex:saloons.count-1 withObject:self.service];
             }
 
             if (![NSKeyedArchiver archiveRootObject:saloons toFile:savedRecordsPath]) {
@@ -183,24 +183,19 @@
         }
 
     }
-     
-     */
-
-    [_servicesTable reloadData];
-
-
 }
 
 #pragma mark- UIViewController Methods
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
 
-    [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
+    [self setupBriefView];
 
-    NSLog(@"%@",_service.description);
-    [self setupView];
+    [UtilityClass showSpinnerWithMessage:@"" onView:nil];
+    [UtilityClass removeHudFromView:nil afterDelay:0.3];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -185,16 +185,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [UtilityClass showSpinnerWithMessage:@"" onView:nil];
-
-        dispatch_after(0.3, dispatch_get_main_queue(), ^{
-            [UtilityClass removeHudFromView:nil afterDelay:0];
-        });
-
-    });
-
-
+    // Navigate to Landing Brief VC to display details
     LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
     landingBriefViewController.service = _services[indexPath.row];
     [self.navigationController pushViewController:landingBriefViewController animated:YES];
