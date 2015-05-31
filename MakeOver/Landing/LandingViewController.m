@@ -15,6 +15,7 @@
 #import "City.h"
 #import "ServiceList.h"
 #import "LandingBriefViewController.h"
+#import "SearchResultsController.h"
 
 @interface LandingViewController () <ServiceInvokerDelegate>{
     
@@ -211,54 +212,19 @@
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
         
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchKey,@"searchKey",searchValue,@"searchValue",searchHelper,@"searchHelper",userId,@"userId", nil];
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchKey,@"searchKey",searchValue,@"searchValue",searchHelper,@"searchHelper",userId,@"userId", nil];
         
-        isSearchReqQueued = YES;
+        // Navigate to Landing Brief VC to display details
+        SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+        controller.requestParams = parameters;
+        controller.serviceId = 1;
+        [self.navigationController pushViewController:controller animated:YES];
 
-
-        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
-         {
-             isSearchReqQueued = NO;
-             
-             if (result == sirSuccess) {
-                 
-                 NSError *error = nil;
-                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-                 
-                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
-                     
-                     if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]]
-                         || ![[responseDict objectForKey:@"object"] count]) {
-                         
-                         [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
-                         return ;
-                     }
-                     
-                     ServiceList *objServiceList = [[ServiceList alloc]initWithDictionary:[[responseDict objectForKey:@"object"] objectAtIndex:0]];
-                     
-                     [self performSelector:@selector(showSearchedSaloonDetail:) withObject:objServiceList afterDelay:0.1];
-                     
-                 }
-                 
-             }else if (sirFailed){
-                 
-             }
-         }];
     }
     else {
         [UtilityClass showAlertwithTitle:nil message:@"some error occured, please try after some time."];
     }
 
-}
-
-
-- (void)showSearchedSaloonDetail:(ServiceList*)objServiceList {
-    
-    // Navigate to Landing Brief VC to display details
-    LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
-    landingBriefViewController.service = objServiceList;
-    [self.navigationController pushViewController:landingBriefViewController animated:YES];
-    
 }
 
 

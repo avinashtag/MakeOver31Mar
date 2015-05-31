@@ -129,6 +129,7 @@
 		CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2823401AF2C65500ADA969 /* MessageUI.framework */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
 		CE95AE051B0A8169003C51EA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95AE041B0A8169003C51EA /* AboutViewController.m */; };
+		CE9DA4D81B1B33D60003CD76 /* SearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA4D71B1B33D60003CD76 /* SearchResultsController.m */; };
 		CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */; };
 		CEB233B31AD145F00046A785 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB233B21AD145F00046A785 /* Info.plist */; };
 		CED424481AC805440045CE06 /* favSaloons.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED424471AC805440045CE06 /* favSaloons.plist */; };
@@ -345,6 +346,8 @@
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
 		CE95AE031B0A8169003C51EA /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		CE95AE041B0A8169003C51EA /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		CE9DA4D61B1B33D60003CD76 /* SearchResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsController.h; sourceTree = "<group>"; };
+		CE9DA4D71B1B33D60003CD76 /* SearchResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsController.m; sourceTree = "<group>"; };
 		CEA49A7B1ADB1202002BB32F /* MenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionViewCell.h; sourceTree = "<group>"; };
 		CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCollectionViewCell.m; sourceTree = "<group>"; };
 		CEB233B21AD145F00046A785 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -483,6 +486,8 @@
 				BB6B41951A925C0000CBCC7B /* LandingViewController.m */,
 				BB6B41CA1A9268F200CBCC7B /* LandingServicesViewController.h */,
 				BB6B41CB1A9268F200CBCC7B /* LandingServicesViewController.m */,
+				CE9DA4D61B1B33D60003CD76 /* SearchResultsController.h */,
+				CE9DA4D71B1B33D60003CD76 /* SearchResultsController.m */,
 				BB6B41D01A926B7800CBCC7B /* LandingBriefViewController.h */,
 				BB6B41D11A926B7800CBCC7B /* LandingBriefViewController.m */,
 				7D7C1AFD1AC74C77008D66DE /* RecentSaloonViewController.h */,
@@ -980,6 +985,7 @@
 				BBA298E71AB5D7C4004C5595 /* ReviewCell.m in Sources */,
 				BB74FADC1A98BBC700EEF89C /* HTHorizontalSelectionList.m in Sources */,
 				094E39C11AAAE43F00F6D9EE /* MenuViewController.m in Sources */,
+				CE9DA4D81B1B33D60003CD76 /* SearchResultsController.m in Sources */,
 				BBC895551AB8BC5500F1A56E /* ImageViewerViewController.m in Sources */,
 				9A4298AC1AD2E4500089A702 /* NMRangeSlider.m in Sources */,
 				BB74FADD1A98BBC700EEF89C /* HTHorizontalSelectionListScrollView.m in Sources */,

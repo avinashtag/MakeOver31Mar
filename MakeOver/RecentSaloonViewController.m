@@ -29,6 +29,7 @@
 
 @interface RecentSaloonViewController (){
     WYPopoverController *popoverController;
+    NSArray *array_favSaloons;
 }
 
 @end
@@ -63,6 +64,23 @@
 //        }
         
     }
+    
+    // Get fav saloons from saved records.
+    
+    NSString *favsPath = [documentsDirectory stringByAppendingPathComponent:@"favSaloons.plist"]; //3
+    
+    if (![fileManager fileExistsAtPath:favsPath]) //if file doesn't exist at path then create
+    {
+        // Do nothing
+        array_favSaloons = [NSMutableArray new];
+    }
+    else {
+        
+        // Read records
+        array_favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+    }
+    
+    [_serviceTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,6 +119,15 @@
     }
 
 
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[service saloonId] integerValue]];
+    
+    NSArray *arrayResult = [array_favSaloons filteredArrayUsingPredicate:resultPredicate];
+    if ((arrayResult != nil) && (arrayResult.count)) {
+        cell.favourite.selected = YES;
+    }
+    else
+        cell.favourite.selected = NO;
+    
     if ([service.gender isEqualToString:@"M"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
         cell.genderImage2.hidden = YES;

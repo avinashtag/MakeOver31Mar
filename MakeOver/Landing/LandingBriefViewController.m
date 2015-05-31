@@ -218,7 +218,7 @@
 
 
 /*
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 
     switch (_segmentControl.selectedSegmentIndex) {
         case 0:
@@ -245,7 +245,6 @@
         }
             break;
     }
-    
 }
 */
 

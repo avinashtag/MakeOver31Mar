@@ -1,14 +1,13 @@
 //
-//  LandingServicesViewController.m
+//  SearchResultsController.m
 //  MakeOver
 //
-//  Created by Avinash Tag on 16/02/2015.
+//  Created by Pankaj Yadav on 31/05/15.
 //  Copyright (c) 2015 Avinash Tag. All rights reserved.
 //
 
-#import "LandingServicesViewController.h"
-
 #import "SearchResultsController.h"
+#import "LandingServicesViewController.h"
 #import "ServiceCell.h"
 #import "LandingBriefViewController.h"
 #import "ServiceInvoker.h"
@@ -27,7 +26,8 @@
 #import "FilterViewController.h"
 #import "StyleList.h"
 
-@interface LandingServicesViewController (){
+
+@interface SearchResultsController () {
     WYPopoverController *popoverController;
     FilterViewController *filterViewController;
     
@@ -37,19 +37,20 @@
 
 @end
 
-@implementation LandingServicesViewController
+
+@implementation SearchResultsController
 
 
 static NSArray *menuItems;
 
 - (void)viewDidLoad {
-
+    
     [super viewDidLoad];
     
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-
-    menuItems = @[@"HAIR",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS",@"TUTORIALS",@"OFFERS"];
-
+    
+    menuItems = @[@"HAIR",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS"];
+    
     self.menuListView.delegate = self;
     self.menuListView.dataSource = self;
     [self.menuListView setBackgroundColor:[UIColor clearColor]];
@@ -58,27 +59,41 @@ static NSArray *menuItems;
     [self.menuListView reloadData];
     
     
-    if (_isComingFromSearch) {
+    if (/* DISABLES CODE */ (1))//_isComingFromSearch)
+    {
         // hide search bar
         // hide scroller
         // set segment based on selected segment at search
         // then load results
-        
+        CGRect frame = _searchBar.frame;
+        frame.size.height = 0;
+        _searchBar.frame = frame;
         self.searchBar.hidden = YES;
-        self.HTHorizontalView.hidden = YES;
         
-        constraintTopMargin_tableView.active = NO;
         
-        NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:_servicesTable attribute:NSLayoutAttributeTopMargin relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:53];
-        
-        [self.view addConstraint:topConstraint];
-        
-        [self.servicesTable updateConstraints];
+        constraintTopMargin_tableView.constant = 0;
+        [self.view layoutIfNeeded];
 
-        _menuListView.selectedButtonIndex = self.selectedSegmentFromSearch -1;
+//        NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:_servicesTable attribute:NSLayoutAttributeTopMargin relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:88];
+//        
+//        [self.view addConstraint:topConstraint];
+//        
+//        [self.servicesTable updateConstraints];
         
-        arrayFilteredResults = [NSArray arrayWithArray:_services];
-        [self.servicesTable reloadData];
+        if (!_serviceId)
+            _serviceId = 1;
+        
+        if (_serviceId == 1) {
+            [self serviceLoad];
+            self.menuListView.selectedButtonIndex = _serviceId -1;
+        }
+        else
+            [self.menuListView buttonWasTapped:[self.menuListView.buttons objectAtIndex:_serviceId -1]];
+        
+//        _menuListView.selectedButtonIndex = self.selectedSegmentFromSearch -1;
+//        
+//        arrayFilteredResults = [NSArray arrayWithArray:_services];
+//        [self.servicesTable reloadData];
     }
     else {
         
@@ -148,7 +163,7 @@ static NSArray *menuItems;
     
     __weak NSArray *weakArray = _services;
     
-    __weak LandingServicesViewController *weakSelf = self;
+    __weak SearchResultsController *weakSelf = self;
     
     filterViewController.callback = ^(NSDictionary *params) {
         NSLog(@"%@",params);
@@ -160,10 +175,10 @@ static NSArray *menuItems;
         NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
         NSString *filterByTimeRange = [params objectForKey:@"filterByRange"];
         NSString *filterByCreditCardHolders = [params objectForKey:@"filterByCardPresent"];
-
+        
         NSString *str_isSorting = [params objectForKey:@"isSorting"];
         NSString *str_isFiltering = [params objectForKey:@"isFiltering"];
-
+        
         if ([str_isSorting isEqualToString:@"YES"]) {
             
             isSortingByStylist = NO;
@@ -201,21 +216,21 @@ static NSArray *menuItems;
             
             if (sortingByFavouriteStylist != nil && sortingByFavouriteStylist.length != 0 && [sortingByFavouriteStylist isEqualToString:@"YES"]) {
                 
-//                FavouriteStylistController *favouriteStylistController = [self.storyboard instantiateViewControllerWithIdentifier:@"SIDFavouriteStylist"];
-//                [self.navigationController pushViewController:favouriteStylistController animated:YES];
+                //                FavouriteStylistController *favouriteStylistController = [self.storyboard instantiateViewControllerWithIdentifier:@"SIDFavouriteStylist"];
+                //                [self.navigationController pushViewController:favouriteStylistController animated:YES];
                 isSortingByStylist = YES;
                 [weakSelf webServiceSortByStylist];
-                }
+            }
         }
         
         if ([str_isFiltering isEqualToString:@"YES"]){
-        
+            
             NSPredicate *resultPredicate_gender;
             NSPredicate *resultPredicate_time;
             NSPredicate *resultPredicate_card;
-
+            
             if (filterBySex != nil && filterBySex.length != 0) {
-               resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
+                resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
             }
             
             if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
@@ -256,21 +271,19 @@ static NSArray *menuItems;
             [weakSelf.servicesTable reloadData];
         }
         
-        
     };
 }
 
 -(void)serviceLoad{
     
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    parameters[@"serviceId"] = @(_serviceId);
-    CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
+    _requestParams[@"serviceId"] = @(_serviceId);
+/*    CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
     
     if (self.tabBarController.selectedIndex == 1) {
         parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
         parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
     }
-
+    
     
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
@@ -295,6 +308,41 @@ static NSArray *menuItems;
             [self.servicesTable reloadData];
         }
     }];
+ 
+ */
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:_requestParams requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+     {
+         
+         if (result == sirSuccess)
+         {
+             NSError *error = nil;
+             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+             
+             if ([responseDict objectForKey:@"object"] != [NSNull null])
+             {
+                 
+                 if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]]
+                     || ![[responseDict objectForKey:@"object"] count]) {
+                     
+                     [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+                     //return ;
+                 }
+                 
+                //array_Saloons = [responseDict objectForKey:@"object"];
+                 
+                 _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                 
+                 arrayFilteredResults = [NSArray arrayWithArray:_services];
+                 
+                 [self.servicesTable reloadData];
+                 
+             }
+             
+         }else if (sirFailed){
+             
+         }
+     }];
 }
 
 
@@ -302,13 +350,13 @@ static NSArray *menuItems;
     
     NSString *string_userId = [NSString stringWithFormat:@"%@",[UtilityClass RetrieveDataFromUserDefault:@"userid"]] ;
     string_userId = string_userId!=nil ? string_userId : @"";
-
+    
     NSLog(@"%@",string_userId);
-
+    
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     idCity = idCity!=nil ? idCity : @"1";
-
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%d",_serviceId],@"serviceId",string_userId,@"userId", nil];
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%ld",(long)_serviceId],@"serviceId",string_userId,@"userId", nil];
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
@@ -321,7 +369,7 @@ static NSArray *menuItems;
              if ([responseDict objectForKey:@"object"] != [NSNull null]) {
                  
                  array_Saloons = [responseDict objectForKey:@"object"];
-
+                 
                  _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
                  
                  arrayFilteredResults = [NSArray arrayWithArray:_services];
@@ -346,14 +394,14 @@ static NSArray *menuItems;
     
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
-
+    
     NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
     NSString *userId = string_userId!=nil ? string_userId : @"";
-//    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
-
+    //    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
+    
     [parameters setObject:userId forKey:@"userId"];
-//    [parameters setObject:string_serviceId forKey:@"serviceId"];
-
+    //    [parameters setObject:string_serviceId forKey:@"serviceId"];
+    
     switch (serviceType) {
             
         case sTUTORIAL:
@@ -424,14 +472,14 @@ static NSArray *menuItems;
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 #pragma mark - TableViewDatasource
 
@@ -443,9 +491,9 @@ static NSArray *menuItems;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *identifier =[self reuseIdentifier];
-
+    
     ServiceCell *cell = (ServiceCell*)[tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-
+    
     //ServiceList *service = _services[indexPath.row];
     ServiceList *service = arrayFilteredResults[indexPath.row];
     cell.name.text = service.saloonName;
@@ -458,12 +506,12 @@ static NSArray *menuItems;
     }
     else
         cell.favourite.selected = NO;
-
+    
     
     if ([service.gender isEqualToString:@"M"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_male"];
         cell.genderImage2.hidden = YES;
-
+        
         if ([identifier isEqualToString:@"OfferCell"]) {
             cell.constraint_leading_offer.constant =  3;
         }else if ([identifier isEqualToString:@"TutorialCell"]){
@@ -471,15 +519,15 @@ static NSArray *menuItems;
         }else{
             cell.constraint_leading.constant =  3;
         }
-
+        
         UIButton *button = (UIButton*)[cell viewWithTag:43];
         [button updateConstraints];
         [cell updateConstraints];
-
+        
     }else if ([service.gender isEqualToString:@"F"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
         cell.genderImage2.hidden = YES;
-
+        
         if ([identifier isEqualToString:@"OfferCell"]) {
             cell.constraint_leading_offer.constant =  3;
         }else if ([identifier isEqualToString:@"TutorialCell"]){
@@ -487,16 +535,16 @@ static NSArray *menuItems;
         }else{
             cell.constraint_leading.constant =  3;
         }
-
+        
         UIButton *button = (UIButton*)[cell viewWithTag:43];
         [button updateConstraints];
         [cell updateConstraints];
-
+        
     }else if ([service.gender isEqualToString:@"U"]) {
         cell.genderImage.image = [UIImage imageNamed:@"ic_female"];
         cell.genderImage2.image = [UIImage imageNamed:@"ic_male"];
         cell.genderImage2.hidden = NO;
-
+        
         if ([identifier isEqualToString:@"OfferCell"]) {
             cell.constraint_leading_offer.constant =  cell.genderImage2.frame.size.width + 3;
         }else if ([identifier isEqualToString:@"TutorialCell"]){
@@ -504,14 +552,14 @@ static NSArray *menuItems;
         }else{
             cell.constraint_leading.constant =  cell.genderImage2.frame.size.width + 3;
         }
-
+        
         UIButton *button = (UIButton*)[cell viewWithTag:43];
         [button updateConstraints];
         [cell updateConstraints];
-
+        
     }
-
-
+    
+    
     [cell.distance setTitle:[NSString stringWithFormat:@"%@ KM",service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
     if (service.saloonServices.count) {
         [cell.descriptionService setText:[service.saloonServices componentsJoinedByString:@","]];
@@ -519,14 +567,14 @@ static NSArray *menuItems;
     
     //[cell.address setText:service.saloonAddress];
     [cell.address setText:service.saloonMainArea];
-
+    
     [cell.reviewCounts setTitle:[NSString stringWithFormat:@"%@ reviews",service.sallonReviewCount] forState:UIControlStateNormal];
     
-    __weak LandingServicesViewController *selfWeak = self;
+    __weak SearchResultsController *selfWeak = self;
     
     [cell reviewWithCompletion:^(UIButton *sender, ServiceCollectionType serviceType){
         switch (serviceType) {
-            
+                
             case tReview:
                 [selfWeak reviewPresent:indexPath];
                 break;
@@ -556,10 +604,10 @@ static NSArray *menuItems;
                 
         }
     }];
-        
+    
     [cell.startRatingView setRating:[service.saloonRating doubleValue]];
-
-
+    
+    
     if ([identifier isEqualToString:@"OfferCell"]) {
         [cell.btn_showOffers addTarget:self action:@selector(showOffersPopUp:) forControlEvents:UIControlEventTouchUpInside];
         [cell.btn_showOffers setTag:indexPath.row];
@@ -567,7 +615,7 @@ static NSArray *menuItems;
         [cell.btn_showTutorials addTarget:self action:@selector(showTutorialPopUp:) forControlEvents:UIControlEventTouchUpInside];
         [cell.btn_showTutorials setTag:indexPath.row];
     }
-
+    
     return cell;
 }
 
@@ -588,45 +636,45 @@ static NSArray *menuItems;
         LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
         landingBriefViewController.service = arrayFilteredResults[indexPath.row];
         [self.navigationController pushViewController:landingBriefViewController animated:YES];
-
+        
     }
-
+    
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     switch (_menuListView.selectedButtonIndex) {
-
+            
         case sTUTORIAL:
             return  192.0f;;
-
+            
             break;
-
+            
         case sOFFERS:
             return  192.0f;;
-
+            
             break;
-
+            
         default:
             return 152.0f;
             break;
     }
-
+    
 }
 
 
 -(void)showOffersPopUp:(id)sender {
-
+    
     NSLog(@"Offer index %d",[sender tag]);
-
+    
     ServiceList *service = arrayFilteredResults[[sender tag]];
-
+    
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
-
+        
         NSDictionary *dictOffer = [service.extraParams objectForKey:@"offer"];
-
+        
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
-
+        
         CGRect rect = self.view.frame;
         rect.size.width = rect.size.width - 40;
         rect.size.height = rect.size.height - 60;
@@ -641,35 +689,35 @@ static NSArray *menuItems;
             imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"images"]]; // only one image url will be in offer
         }
         [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
-
+        
         imageViewer.callbackCancel = ^(void) {
             [popoverController dismissPopoverAnimated:YES];
         };
-
+        
     }else{
         [UtilityClass showAlertwithTitle:nil message:@"Currently No Offer available"];
     }
-
+    
 }
 
 -(void)showTutorialPopUp:(id)sender {
-
+    
     NSLog(@"Tutorial index %d",[sender tag]);
-
+    
     ServiceList *service = arrayFilteredResults[[sender tag]];
-
+    
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
-
+        
         NSDictionary *dictTutorial = [service.extraParams objectForKey:@"tutorials"];
-
+        
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
-
+        
         CGRect rect = self.view.frame;
         rect.size.width = rect.size.width - 40;
         rect.size.height = rect.size.height - 60;
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
-
+        
         if ([[dictTutorial objectForKey:@"tutType"] isEqualToString:@"TEXT"]) {
             imageViewer.isTextDescription = YES;
             imageViewer.text_description = [dictTutorial objectForKey:@"tutDesc"];
@@ -678,23 +726,23 @@ static NSArray *menuItems;
             imageViewer.isTextDescription = NO;
             imageViewer.images = [NSArray arrayWithObject:[dictTutorial objectForKey:@"images"]];
         }
-
+        
         imageViewer.callbackCancel = ^(void) {
             [popoverController dismissPopoverAnimated:YES];
         };
-
+        
     }else{
         [UtilityClass showAlertwithTitle:nil message:@"Currently No Tutorial available"];
     }
-
+    
 }
 
 -(void)reviewPresent:(NSIndexPath*)index{
     
-   __block ReviewViewController *review = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReviewViewController class])];
+    __block ReviewViewController *review = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReviewViewController class])];
     //review.service = _services[index.row];
     review.service = arrayFilteredResults[index.row];
-
+    
     [review setModalPresentationStyle:UIModalPresentationFormSheet];
     [review setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     CGRect rect = self.view.frame;
@@ -705,7 +753,7 @@ static NSArray *menuItems;
     [popoverController presentPopoverAsDialogAnimated:YES completion:^{
         
     }];
-
+    
 }
 
 -(void)showSaloonInfo {
@@ -717,13 +765,13 @@ static NSArray *menuItems;
 -(void)showCallingPopup:(NSArray*)contacts {
     
     NSLog(@"Calling PopUp");
-
+    
     if (contacts.count) {
         
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
         
         for (NSString *number in contacts) {
-                [actionSheet addButtonWithTitle:number];
+            [actionSheet addButtonWithTitle:number];
         }
         
         [actionSheet showFromTabBar:self.tabBarController.tabBar];
@@ -731,21 +779,21 @@ static NSArray *menuItems;
     else {
         [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
     }
-
     
     
     
-//    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
-//    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    CGRect rect = self.view.frame;
-//    rect.size.width = rect.size.width -20;
-//    rect.size.height = rect.size.height -20;
-//    [popoverController setPopoverContentSize:rect.size];
-//    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
-//    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
-//        
-//    }];
-
+    
+    //    [contactsObj setModalPresentationStyle:UIModalPresentationFormSheet];
+    //    [contactsObj setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    //    CGRect rect = self.view.frame;
+    //    rect.size.width = rect.size.width -20;
+    //    rect.size.height = rect.size.height -20;
+    //    [popoverController setPopoverContentSize:rect.size];
+    //    popoverController = [[WYPopoverController alloc] initWithContentViewController:contactsObj];
+    //    [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+    //
+    //    }];
+    
     
 }
 
@@ -761,7 +809,7 @@ static NSArray *menuItems;
 -(void)showMenuPopUp {
     
     NSLog(@"Menu PopUp");
-
+    
 }
 
 
@@ -780,13 +828,13 @@ static NSArray *menuItems;
         CGRect rect = self.view.frame;
         rect.size.width = rect.size.width - 40;
         rect.size.height = rect.size.height - 60;
-
+        
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];
         [popoverController presentPopoverAsDialogAnimated:YES completion:^{
             
         }];
-
+        
         imageViewer.callbackCancel = ^(void) {
             [popoverController dismissPopoverAnimated:YES];
         };
@@ -805,7 +853,7 @@ static NSArray *menuItems;
 
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
-  
+    
     switch (index) {
         case 0:
         {
@@ -859,10 +907,10 @@ static NSArray *menuItems;
         {
             _serviceId = sOFFERS;
             [self webServiceWithType:sOFFERS];
-
+            
         }
             break;
-  
+            
         default:
             break;
     }
@@ -875,12 +923,12 @@ static NSArray *menuItems;
     switch (_menuListView.selectedButtonIndex +1) {
         case sOFFERS:
             return  @"OfferCell";
-
+            
             break;
             
         case sTUTORIAL:
             return  @"TutorialCell";
-
+            
             break;
             
         default:
@@ -888,7 +936,7 @@ static NSArray *menuItems;
             break;
     }
     return nil;
-
+    
 }
 
 
@@ -930,18 +978,18 @@ static NSArray *menuItems;
 -(void)firstRowSelectedWithValue:(id)value {
     if (value) {
         /*
-        [self searchBarSearchButtonClicked:_searchBar];
-        [self setDDListHidden:YES];
-        
-        NSMutableArray *array = (NSMutableArray*)value;
-        [array removeObjectAtIndex:0];
-        
-        LandingServicesViewController *landingservice = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingServicesViewController"];
-        //landingservice.serviceId = listObj.services;
-        landingservice.services = [NSMutableArray arrayWithArray:array];
-        landingservice.isComingFromSearch = YES;
-        landingservice.selectedSegmentFromSearch = 0;
-        [self.navigationController pushViewController:landingservice animated:YES];
+         [self searchBarSearchButtonClicked:_searchBar];
+         [self setDDListHidden:YES];
+         
+         NSMutableArray *array = (NSMutableArray*)value;
+         [array removeObjectAtIndex:0];
+         
+         LandingServicesViewController *landingservice = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingServicesViewController"];
+         //landingservice.serviceId = listObj.services;
+         landingservice.services = [NSMutableArray arrayWithArray:array];
+         landingservice.isComingFromSearch = YES;
+         landingservice.selectedSegmentFromSearch = 0;
+         [self.navigationController pushViewController:landingservice animated:YES];
          */
     }
     else {
@@ -957,46 +1005,55 @@ static NSArray *menuItems;
     
     if (object)
     {
-
+        
         NSDictionary *dict = (NSDictionary*)object;
         
         NSString *searchKey = [dict objectForKey:@"searchKey"];
-        NSString *searchValue,*searchHelper = nil;
-        
-        if ([searchKey isEqualToString:@"saloon_name"]) {
-            
-            searchValue = [dict objectForKey:@"searchValue"];
-            searchHelper = [dict objectForKey:@"searchHelper"];
-        }
-        else if ([searchKey isEqualToString:@"saloon_address"])
-        {
-            searchValue = [dict objectForKey:@"searchHelper"];
-            searchHelper = [dict objectForKey:@"searchValue"];
-        }
-        else {
-            searchValue = [dict objectForKey:@"searchValue"];
-            searchHelper = @"";
-        }
-        
+        NSString *searchValue = [dict objectForKey:@"searchValue"];
         NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
-        
         NSString *userId = string_userId!=nil ? string_userId : @"";
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
         
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchKey,@"searchKey",searchValue,@"searchValue",searchHelper,@"searchHelper",userId,@"userId", nil];
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchKey,@"searchKey",searchValue,@"searchValue",userId,@"userId", nil];
         
-        // Navigate to Landing Brief VC to display details
-        SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
-        controller.requestParams = parameters;
-        controller.serviceId = 1;
-        [self.navigationController pushViewController:controller animated:YES];
-
+        isSearchReqQueued = YES;
+        
+        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+         {
+             
+             isSearchReqQueued = NO;
+             
+             if (result == sirSuccess) {
+                 
+                 NSError *error = nil;
+                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+                 
+                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     
+                     if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]])
+                         return ;
+                     
+                     ServiceList *objServiceList = [[ServiceList alloc]initWithDictionary:[[responseDict objectForKey:@"object"] objectAtIndex:0]];
+                     
+                     // Navigate to Landing Brief VC to display details
+                     LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
+                     landingBriefViewController.service = objServiceList;
+                     [self.navigationController pushViewController:landingBriefViewController animated:YES];
+                     
+                 }
+                 
+             }else if (sirFailed){
+                 
+             }
+             
+             
+         }];
     }
     else {
         [UtilityClass showAlertwithTitle:nil message:@"some error occured, please try after some time."];
     }
-
+    
 }
 
 
@@ -1046,39 +1103,38 @@ static NSArray *menuItems;
         string_userId = string_userId!=nil ? string_userId : @"";
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
-
+        
         NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
-
+        
         isSearchReqQueued = YES;
         
         [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
-        {
-            isSearchReqQueued = NO;
-
-            if (result == sirSuccess) {
-
-                NSError *error = nil;
-                NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-
-                if ([responseDict objectForKey:@"object"] != [NSNull null]) {
-
-                    [array_SearchResults removeAllObjects];
-                    [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                }
-
-                [_ddList updateDataWithArray:array_SearchResults];
-
-            }else if (sirFailed){
-
-            }
-
-
-        }];
+         {
+             isSearchReqQueued = NO;
+             
+             if (result == sirSuccess) {
+                 
+                 NSError *error = nil;
+                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+                 
+                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     
+                     [array_SearchResults removeAllObjects];
+                     [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                 }
+                 
+                 [_ddList updateDataWithArray:array_SearchResults];
+                 
+             }else if (sirFailed){
+                 
+             }
+             
+             
+         }];
     }
     
     return YES;
 }
-
 
 
 
