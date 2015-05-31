@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454074378.002494"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
             landmarkName = "-segmentSelection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454074378.002494"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "@implementation LandingBriefViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454682191.901881"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "806"
-            endingLineNumber = "806"
+            startingLineNumber = "813"
+            endingLineNumber = "813"
             landmarkName = "-showTutorialPopUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454074378.002494"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,44 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454074378.002494"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Controllers/ProfileViewController.m"
-            timestampString = "454070053.76179"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "-tableView:numberOfRowsInSection:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Controllers/ProfileViewController.m"
-            timestampString = "454070170.578662"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -202,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454074378.002494"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "685"
+            endingLineNumber = "685"
             landmarkName = "-segmentSelection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454143286.228481"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "@implementation LandingBriefViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -314,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454682191.901881"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
+            startingLineNumber = "886"
+            endingLineNumber = "886"
             landmarkName = "-showCallingPopup:"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454682191.901881"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
+            startingLineNumber = "776"
+            endingLineNumber = "776"
             landmarkName = "-showOffersPopUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -362,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454747990.01805"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1095"
-            endingLineNumber = "1095"
+            startingLineNumber = "1102"
+            endingLineNumber = "1102"
             landmarkName = "-didSelectRowWithObject:"
             landmarkType = "5">
          </BreakpointContent>
@@ -378,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454748028.360012"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1104"
-            endingLineNumber = "1104"
+            startingLineNumber = "1111"
+            endingLineNumber = "1111"
             landmarkName = "-didSelectRowWithObject:"
             landmarkType = "5">
          </BreakpointContent>
@@ -473,7 +441,7 @@
                   symbolName = "-[LandingViewController showSearchedSaloonDetail:]"
                   moduleName = "MakeOver"
                   urlString = "file:///Users/airtel/Desktop/MacBook_Himz_Bkup/Himanshu%20Data/FLP/makeoversvn/MakeOver31Mar/MakeOver/Landing/LandingViewController.m"
-                  timestampString = "454751149.210838"
+                  timestampString = "454753711.630181"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "265"
@@ -487,7 +455,7 @@
                   symbolName = "__50-[LandingViewController showSearchedSaloonDetail:]_block_invoke_2"
                   moduleName = "MakeOver"
                   urlString = "file:///Users/airtel/Desktop/MacBook_Himz_Bkup/Himanshu%20Data/FLP/makeoversvn/MakeOver31Mar/MakeOver/Landing/LandingViewController.m"
-                  timestampString = "454751149.210952"
+                  timestampString = "454753711.630375"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "265"
@@ -504,55 +472,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454748218.706334"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1135"
-            endingLineNumber = "1135"
-            landmarkName = "-didSelectRowWithObject:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454748263.247917"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1120"
-            endingLineNumber = "1120"
-            landmarkName = "-didSelectRowWithObject:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "454748331.974707"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454748348.76203"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1142"
@@ -568,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "454748350.220878"
+            timestampString = "454754228.477063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1143"
-            endingLineNumber = "1143"
+            startingLineNumber = "1127"
+            endingLineNumber = "1127"
             landmarkName = "-didSelectRowWithObject:"
             landmarkType = "5">
          </BreakpointContent>
@@ -584,43 +504,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/RecentSaloonViewController.m"
-            timestampString = "454751081.348811"
+            timestampString = "454752349.54989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[RecentSaloonViewController tableView:didSelectRowAtIndexPath:]"
-                  moduleName = "MakeOver"
-                  urlString = "file:///Users/airtel/Desktop/MacBook_Himz_Bkup/Himanshu%20Data/FLP/makeoversvn/MakeOver31Mar/MakeOver/RecentSaloonViewController.m"
-                  timestampString = "454751149.21511"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
-                  offsetFromSymbolStart = "354">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[RecentSaloonViewController tableView:didSelectRowAtIndexPath:]_block_invoke_2"
-                  moduleName = "MakeOver"
-                  urlString = "file:///Users/airtel/Desktop/MacBook_Himz_Bkup/Himanshu%20Data/FLP/makeoversvn/MakeOver31Mar/MakeOver/RecentSaloonViewController.m"
-                  timestampString = "454751149.215429"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
-                  offsetFromSymbolStart = "21">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MakeOver/RecentSaloonViewController.m"
+            timestampString = "454752824.827933"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MakeOver/RecentSaloonViewController.m"
+            timestampString = "454752825.412319"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

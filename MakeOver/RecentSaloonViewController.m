@@ -36,6 +36,7 @@
 @implementation RecentSaloonViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -183,22 +184,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
+
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [UtilityClass showSpinnerWithMessage:@"" onView:nil];
+
+        dispatch_after(0.3, dispatch_get_main_queue(), ^{
+            [UtilityClass removeHudFromView:nil afterDelay:0];
+        });
+
     });
-    
+
+
     LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
+    landingBriefViewController.service = _services[indexPath.row];
     [self.navigationController pushViewController:landingBriefViewController animated:YES];
-    
-    dispatch_after(0.3, dispatch_get_main_queue(), ^{
-        landingBriefViewController.service = _services[indexPath.row];
-        [landingBriefViewController.servicesTable reloadData];
-        [UtilityClass removeHudFromView:nil afterDelay:0];
-
-    });
-
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

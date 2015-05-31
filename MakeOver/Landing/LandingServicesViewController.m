@@ -586,15 +586,19 @@ static NSArray *menuItems;
         });
         
         LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
+        landingBriefViewController.service = arrayFilteredResults[indexPath.row];
         [self.navigationController pushViewController:landingBriefViewController animated:YES];
         
         dispatch_after(0.3, dispatch_get_main_queue(), ^{
-            //landingBriefViewController.service = _services[indexPath.row];
-            landingBriefViewController.service = arrayFilteredResults[indexPath.row];
 
-            [landingBriefViewController.servicesTable reloadData];
             [UtilityClass removeHudFromView:nil afterDelay:0];
-            
+
+
+            /*
+            landingBriefViewController.service = _services[indexPath.row];
+            landingBriefViewController.service = arrayFilteredResults[indexPath.row];
+            [landingBriefViewController.servicesTable reloadData];
+
             landingBriefViewController.saloonName.text = landingBriefViewController.service.saloonName;
             [landingBriefViewController.distance setTitle:[NSString stringWithFormat:@"%@ KM",landingBriefViewController.service.saloonDstfrmCurrLocation] forState:UIControlStateNormal];
             if (landingBriefViewController.service.saloonServices.count) {
@@ -638,7 +642,10 @@ static NSArray *menuItems;
             [landingBriefViewController.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",landingBriefViewController.service.sallonReviewCount] forState:UIControlStateNormal];
             
             [landingBriefViewController.startRatingView setRating:[landingBriefViewController.service.saloonRating doubleValue]];
-            
+
+             */
+
+
             // Get fav saloons from saved records.
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
