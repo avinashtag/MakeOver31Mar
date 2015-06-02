@@ -68,10 +68,12 @@
     if (imgUrlString) {
         [_circularButton setImageWithURL:[NSURL URLWithString:imgUrlString] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
     }
-    else
-    [_circularButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [_circularButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    else {
+        [_circularButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [_circularButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    }
     
+
     CGFloat heightDifference = buttonImage.size.height - self.tabBar.frame.size.height;
     if (heightDifference < 0)
         _circularButton.center = self.tabBar.center;

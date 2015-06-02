@@ -44,4 +44,7 @@ typedef enum {
 @property (strong, nonatomic) NSMutableArray *favSaloons;
 @property (strong, nonatomic) NSMutableArray *favStylists;
 
+
+- (IBAction)userDidLogout:(id)sender;
+
 @end

@@ -39,6 +39,8 @@
 - (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image
 {
     [self setBackgroundImage:image forState:UIControlStateNormal];
+    [self setBackgroundImage:image forState:UIControlStateHighlighted];
+
 }
 
 @end

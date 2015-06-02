@@ -410,4 +410,13 @@
 
 
 
+- (IBAction)userDidLogout:(id)sender {
+    
+    [UtilityClass SaveDatatoUserDefault:nil :@"userid"];
+    
+    [UtilityClass SaveDatatoUserDefault:nil :@"usrImgUrl"];
+    
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:YES];
+}
+
 @end
