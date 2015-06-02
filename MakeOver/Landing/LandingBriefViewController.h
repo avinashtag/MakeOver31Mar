@@ -43,11 +43,12 @@
 @property (weak, nonatomic) IBOutlet UIView *headerGallery;
 @property (weak, nonatomic) IBOutlet UIView *headerStylist;
 @property (weak, nonatomic) IBOutlet UITableView *tbl_stylist;
+@property (weak, nonatomic) IBOutlet UIScrollView *scroll_otherInfo;
+@property (weak, nonatomic) IBOutlet UIView *view_otherInfo;
 
 
 - (IBAction)segmentSelection:(UISegmentedControl *)sender;
 - (IBAction)favButtonDidTap:(id)sender;
-
 - (IBAction)callButtonDidTap:(id)sender;
 - (IBAction)showInfo:(id)sender;
 
