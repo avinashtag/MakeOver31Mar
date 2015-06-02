@@ -41,9 +41,7 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self configureLabelSlider];
-    
+
     cellReload = @[@(0),@(0)];
     _menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.horizontalUI.frame.size.width, self.horizontalUI.frame.size.height)];
     
@@ -63,6 +61,8 @@ NSString *const kisFiltering = @"isFiltering";
     
     dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ksortByFavouriteStylist,@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"NO",kfilterByCardSupport,@"YES",kisSorting,@"NO",kisFiltering, nil];
 
+    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_lower"];
+    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_upper"];
     // Do any additional setup after loading the view.
     
     self.label_doubleSlider.text = @"FROM 0 TO 24";
@@ -306,16 +306,15 @@ NSString *const kisFiltering = @"isFiltering";
 }
 
 -(void)refreshFilterByUI{
-    self.txt_time.text = @"9:00";
-    self.txt_ampm.text = @"AM";
     [self.btn_female setSelected:NO];
     [self.btn_male setSelected:NO];
-    [self configureLabelSlider];
-    [self updateSliderLabels];
-    
+
     isNeedToRefreshCardButton = YES;
     [self.filterTable reloadData];
-    
+
+    [self.btn_fromTime setTitle:@"Select Time" forState:UIControlStateNormal];
+    [self.btn_toTime setTitle:@"Select Time" forState:UIControlStateNormal];
+
     [dict_filterSortingParams setObject:@"" forKey:kfilterByCardSupport];
     [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
     [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
@@ -386,8 +385,12 @@ NSString *const kisFiltering = @"isFiltering";
         }else if (indexPath.row == 1){
             UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
             [btn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
+            [btn setTitle:@"Clear All Filter" forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(clearFilter:) forControlEvents:UIControlEventTouchUpInside];
+            [cellCard.contentView addSubview:btn];
         }
+
+        cellCard.selectionStyle = UITableViewCellSelectionStyleNone;
     
         return cellCard;
     
@@ -437,49 +440,51 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (IBAction)action_datePicker:(id)sender {
 
-    UIDatePicker *datePicker = (UIDatePicker*)sender;
-    
+    self.timePicker.date = [NSDate date];
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
     [dateFormatter setDateFormat:@"hh:mm a"];
-    
-    NSString *string_time = [dateFormatter stringFromDate:datePicker.date];
-    
-    NSArray *arrTime = [string_time componentsSeparatedByString:@" "];
-    
-    self.txt_time.text = [arrTime objectAtIndex:0];
-    self.txt_ampm.text = [arrTime objectAtIndex:1];
-    
-    [dict_filterSortingParams setObject:self.txt_time.text forKey:kfilterByTime];
+    NSString *formatedDate = [dateFormatter stringFromDate:self.timePicker.date];
 
+    if ([sender tag] == 1) {
+        self.timePicker.tag = 1;
+        [self.btn_fromTime setTitle:formatedDate forState:UIControlStateNormal];
+    }else{
+        self.timePicker.tag = 2;
+        [self.btn_toTime setTitle:formatedDate forState:UIControlStateNormal];
+    }
+
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.view_datePicker.frame;
+        frame.origin.y = self.view.frame.size.height - self.view_datePicker.frame.size.height;
+        self.view_datePicker.frame = frame;
+    }];
 }
 
-#pragma mark - Double Slider Methods & Delegates
-
-- (void) configureLabelSlider
-{
-    self.doubleSlider.minimumValue = 0;
-    self.doubleSlider.maximumValue = 24;
-    
-    self.doubleSlider.lowerValue = 0;
-    self.doubleSlider.upperValue = 24;
-    
-    self.doubleSlider.minimumRange = 1;
+- (IBAction)action_cancelPicker:(id)sender {
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.view_datePicker.frame;
+        frame.origin.y = self.view.frame.size.height + self.view_datePicker.frame.size.height;
+        self.view_datePicker.frame = frame;
+    }];
 }
 
-- (IBAction)doubleSliderChanged:(id)sender {
-    [self updateSliderLabels];
-}
+- (IBAction)timePickerHelper:(id)sender {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm a"];
 
-- (void) updateSliderLabels
-{
-    // You get get the center point of the slider handles and use this to arrange other subviews
-    self.label_doubleSlider.text = [NSString stringWithFormat:@"FROM %d TO %d",(int)self.doubleSlider.lowerValue,(int)self.doubleSlider.upperValue];
-    
+    NSString *formatedDate = [dateFormatter stringFromDate:self.timePicker.date];
+
+    if (self.timePicker.tag == 1) {
+        [self.btn_fromTime setTitle:formatedDate forState:UIControlStateNormal];
+        [dict_filterSortingParams setObject:[formatedDate substringToIndex:2] forKey:@"filterByRange_lower"];
+    }else{
+        [self.btn_toTime setTitle:formatedDate forState:UIControlStateNormal];
+        [dict_filterSortingParams setObject:[formatedDate substringToIndex:2] forKey:@"filterByRange_upper"];
+    }
+
     [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];
     [dict_filterSortingParams setObject:@"YES" forKey:kfilterByRange];
-    [dict_filterSortingParams setObject:[NSString stringWithFormat:@"%d",(int)self.doubleSlider.lowerValue] forKey:@"filterByRange_lower"];
-    [dict_filterSortingParams setObject:[NSString stringWithFormat:@"%d",(int)self.doubleSlider.upperValue] forKey:@"filterByRange_upper"];
 }
 
 

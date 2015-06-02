@@ -49,11 +49,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *txt_time;
 @property (weak, nonatomic) IBOutlet UITextField *txt_ampm;
 @property (weak, nonatomic) IBOutlet NMRangeSlider *doubleSlider;
-@property (weak, nonatomic) IBOutlet UILabel *label_doubleSlider;
+@property (weak, nonatomic) UILabel *label_doubleSlider;
+@property (weak, nonatomic) IBOutlet UIButton *btn_fromTime;
+@property (weak, nonatomic) IBOutlet UIButton *btn_toTime;
+@property (weak, nonatomic) IBOutlet UIView *view_datePicker;
 
 @property (copy) void(^callback)(NSDictionary *params);
 
 - (IBAction)doubleSliderChanged:(id)sender;
 
 - (IBAction)action_datePicker:(id)sender;
+@property (weak, nonatomic) IBOutlet UIDatePicker *timePicker;
+- (IBAction)action_cancelPicker:(id)sender;
+- (IBAction)timePickerHelper:(id)sender;
 @end

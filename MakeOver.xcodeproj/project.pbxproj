@@ -41,6 +41,8 @@
 		7DADF0841A99322D00EE0C4C /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DADF0831A99322D00EE0C4C /* libz.1.2.5.dylib */; };
 		7DADF0861A99326D00EE0C4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DADF0851A99326D00EE0C4C /* Foundation.framework */; };
 		7DC396B31AB374D5009FDEE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC396B21AB374D5009FDEE1 /* UIKit.framework */; };
+		9A0E97D61B1E359700917002 /* IQActionSheetPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E97D31B1E359700917002 /* IQActionSheetPickerView.m */; };
+		9A0E97D71B1E359700917002 /* IQActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E97D51B1E359700917002 /* IQActionSheetViewController.m */; };
 		9A4298AC1AD2E4500089A702 /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4298AB1AD2E4500089A702 /* NMRangeSlider.m */; };
 		9A4298CB1AD2EA6D0089A702 /* slider-default-handle-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298AF1AD2EA6D0089A702 /* slider-default-handle-highlighted.png */; };
 		9A4298CC1AD2EA6D0089A702 /* slider-default-handle-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298B01AD2EA6D0089A702 /* slider-default-handle-highlighted@2x.png */; };
@@ -201,6 +203,10 @@
 		7DADF0831A99322D00EE0C4C /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		7DADF0851A99326D00EE0C4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7DC396B21AB374D5009FDEE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9A0E97D21B1E359700917002 /* IQActionSheetPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQActionSheetPickerView.h; sourceTree = "<group>"; };
+		9A0E97D31B1E359700917002 /* IQActionSheetPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQActionSheetPickerView.m; sourceTree = "<group>"; };
+		9A0E97D41B1E359700917002 /* IQActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQActionSheetViewController.h; sourceTree = "<group>"; };
+		9A0E97D51B1E359700917002 /* IQActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQActionSheetViewController.m; sourceTree = "<group>"; };
 		9A4298AA1AD2E4500089A702 /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
 		9A4298AB1AD2E4500089A702 /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
 		9A4298AF1AD2EA6D0089A702 /* slider-default-handle-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-handle-highlighted.png"; sourceTree = "<group>"; };
@@ -502,6 +508,7 @@
 		7DADF0301A991F3E00EE0C4C /* Custom UI Controls */ = {
 			isa = PBXGroup;
 			children = (
+				9A0E97D11B1E359700917002 /* IQActionSheetPickerView */,
 				9A4298A91AD2E4500089A702 /* NMRangeSlider */,
 				BB952A641ABF5D73006A8328 /* ASStarRatingView.h */,
 				BB952A651ABF5D73006A8328 /* ASStarRatingView.m */,
@@ -638,6 +645,17 @@
 				7DADF0851A99326D00EE0C4C /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A0E97D11B1E359700917002 /* IQActionSheetPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				9A0E97D21B1E359700917002 /* IQActionSheetPickerView.h */,
+				9A0E97D31B1E359700917002 /* IQActionSheetPickerView.m */,
+				9A0E97D41B1E359700917002 /* IQActionSheetViewController.h */,
+				9A0E97D51B1E359700917002 /* IQActionSheetViewController.m */,
+			);
+			path = IQActionSheetPickerView;
 			sourceTree = "<group>";
 		};
 		9A4298A91AD2E4500089A702 /* NMRangeSlider */ = {
@@ -999,6 +1017,7 @@
 				BB952A601ABF3DBE006A8328 /* SallonResponse.m in Sources */,
 				7DADF0631A991F3E00EE0C4C /* AbstractActionSheetPicker.m in Sources */,
 				7DADF0781A991F4900EE0C4C /* UtilityClass.m in Sources */,
+				9A0E97D61B1E359700917002 /* IQActionSheetPickerView.m in Sources */,
 				7DADF0641A991F3E00EE0C4C /* ActionSheetStringPicker.m in Sources */,
 				BBA299591AB6901E004C5595 /* ServiceList.m in Sources */,
 				BB952A5E1ABF3DBE006A8328 /* Groups.m in Sources */,
@@ -1050,6 +1069,7 @@
 				BB610B291AC87BE300DF54E0 /* SDWebImageDownloader.m in Sources */,
 				BB0F21B81AC3485900F7C9F7 /* NSString+MakeString.m in Sources */,
 				7DADF0681A991F3E00EE0C4C /* ASIAuthenticationDialog.m in Sources */,
+				9A0E97D71B1E359700917002 /* IQActionSheetViewController.m in Sources */,
 				BB952A5F1ABF3DBE006A8328 /* Profile.m in Sources */,
 				BBA298E41AB5D00B004C5595 /* ReviewViewController.m in Sources */,
 				9ACD3BAB1ADD82CF005746AF /* DropDownList.m in Sources */,

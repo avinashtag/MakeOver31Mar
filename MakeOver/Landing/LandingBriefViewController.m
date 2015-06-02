@@ -84,7 +84,14 @@
 
 
     [self.address setText:self.service.saloonAddress];
-    self.Time.text = [NSString stringWithFormat:@"%@ to %@",self.service.startTime,self.service.endTime];
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSDate *startTime = [dateFormatter dateFromString:self.service.startTime];
+    NSDate *endTime = [dateFormatter dateFromString:self.service.endTime];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+
+    self.Time.text = [NSString stringWithFormat:@"%@ to %@",[dateFormatter stringFromDate:startTime],[dateFormatter stringFromDate:endTime]];
 
     [self.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",self.service.sallonReviewCount] forState:UIControlStateNormal];
 
@@ -671,6 +678,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             self.view_tableContainer.hidden = YES;
             _servicesTable.hidden = NO;
             [_servicesTable reloadData];
+            self.view_otherInfo.hidden = YES;
         }
             break;
         case 1:
@@ -678,16 +686,22 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
             self.view_tableContainer.hidden = YES;
             _servicesTable.hidden = NO;
             [_servicesTable reloadData];
+            self.view_otherInfo.hidden = YES;
         }
             break;
         case 2:
         {
-           // NSLog(@"%@",[[[[self.service.services objectAtIndex:0] groups] objectAtIndex:0] positionName]);
-            
-            
             self.view_tableContainer.hidden = NO;
             _servicesTable.hidden = YES;
             [_tbl_stylist reloadData];
+            self.view_otherInfo.hidden = YES;
+        }
+            break;
+        case 3:
+        {
+            self.view_tableContainer.hidden = YES;
+            _servicesTable.hidden = YES;
+            self.view_otherInfo.hidden = NO;
         }
             break;
         default:
