@@ -331,7 +331,7 @@
     
     NSDictionary *parameter = @{@"userId" : [NSNumber numberWithInt:[[UtilityClass RetrieveDataFromUserDefault:@"userid"] intValue]]};
     
-    [[[ServiceInvoker alloc]init]serviceInvokeWithParameters:parameter requestAPI:API_GET_Profile spinningMessage:@"Loading profile" completion:
+    [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:parameter requestAPI:API_GET_Profile spinningMessage:@"Loading profile" completion:
                                             ^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
                                                 {
                                                     isRequestInProgress = NO;

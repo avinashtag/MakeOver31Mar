@@ -12,6 +12,10 @@
 #import "LoginViewController.h"
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
+#import "UIButton+WebCache.h"
+
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface MOTabBar ()
 
@@ -55,25 +59,41 @@
 // Create a custom UIButton and add it to the center of our tab bar
 -(void) addCenterButtonWithImage:(UIImage*)buttonImage highlightImage:(UIImage*)highlightImage
 {
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-    button.frame = CGRectMake(0.0, 0.0, buttonImage.size.width, buttonImage.size.height);
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    _circularButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _circularButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+    _circularButton.frame = CGRectMake(0.0, 0.0, buttonImage.size.width, buttonImage.size.height);
+    
+    NSString *imgUrlString = [UtilityClass RetrieveDataFromUserDefault:@"usrImgUrl"];
+    
+    if (imgUrlString) {
+        [_circularButton setImageWithURL:[NSURL URLWithString:imgUrlString] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
+    }
+    else
+    [_circularButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [_circularButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
     
     CGFloat heightDifference = buttonImage.size.height - self.tabBar.frame.size.height;
     if (heightDifference < 0)
-        button.center = self.tabBar.center;
+        _circularButton.center = self.tabBar.center;
     else
     {
         CGPoint center = self.tabBar.center;
         center.y = center.y - heightDifference/2.0;
-        button.center = center;
+        _circularButton.center = center;
     }
 
-    [button addTarget:self action:@selector(profiletab:) forControlEvents:UIControlEventTouchUpInside];
+    //TODO:: Pankaj
     
-    [self.view addSubview:button];
+    _circularButton.clipsToBounds = YES;
+
+    //half of the width
+    _circularButton.layer.cornerRadius = _circularButton.frame.size.width/2.0f;
+    
+    ///////
+    
+    [_circularButton addTarget:self action:@selector(profiletab:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_circularButton];
 }
 
 -(void)profiletab:(UIButton*)sender{
@@ -81,9 +101,7 @@
     
     if (!isSelectedIndex2)
     {
-        
         isSelectedIndex2 = YES;
-        
         
         [self setSelectedIndex:2];
         [self tabBarController:self didSelectViewController:[self.viewControllers objectAtIndex:2]];

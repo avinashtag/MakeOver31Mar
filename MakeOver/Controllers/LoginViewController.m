@@ -14,7 +14,7 @@
 #import "UIAlertView+MOAlertView.h"
 #import "RegistrationViewController.h"
 #import "ProfileViewController.h"
-
+#import "UIButton+WebCache.h"
 
 #define kFBappId        @"239886072798506"  //Facebook App ID 239886072798506
 
@@ -224,9 +224,8 @@
              [UtilityClass showAlertwithTitle:nil message:[[response objectForKey:@"error"] objectForKey:@"errorMessage"]];
              // [self skipClicked:nil];
          }
-         else if ([[response objectForKey:@"object"] count]) {
-
-             [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
+         else if ([[response objectForKey:@"object"] count])
+         {
 
              if ([[[response objectForKey:@"object"] objectForKey:@"fullName"] isEqualToString:@""])
              {
@@ -241,11 +240,28 @@
              }
              else // facebook flow
              {
+                 [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
+                 
+                 NSString *imgUrlString = [[response objectForKey:@"object"] objectForKey:@"usrImgUrl"];
+                 
+                 if (imgUrlString != [NSNull null]) {
+                     
+                     [UtilityClass SaveDatatoUserDefault:imgUrlString :@"usrImgUrl"];
+                 }
                  
                  if (self.isInsideProfileTab) {
                      
                      ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
                      [self.navigationController pushViewController:controller animated:YES];
+                     
+                     if([controller.tabBarController isKindOfClass:[MOTabBar class]]) {
+                         
+                         MOTabBar *tabBarController = (MOTabBar*)controller.tabBarController;
+                         if (imgUrlString != [NSNull null]) {
+                             [tabBarController.circularButton setImageWithURL:[NSURL URLWithString:imgUrlString] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
+                         }
+
+                     }
                  }
                  else
                      [self skipClicked:nil];

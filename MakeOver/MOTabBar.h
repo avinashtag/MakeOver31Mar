@@ -13,6 +13,8 @@
     BOOL isSelectedIndex2;
 }
 
+@property (nonatomic,strong) UIButton *circularButton;
+
 
 -(UIViewController*) viewControllerWithTabTitle:(NSString*)title image:(UIImage*)image;
 
