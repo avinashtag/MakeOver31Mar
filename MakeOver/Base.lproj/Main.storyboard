@@ -2548,6 +2548,13 @@ IAo
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bun-aR-dNp">
+                                                <rect key="frame" x="9" y="95" width="291" height="187"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <connections>
                                             <outlet property="delegate" destination="6ib-as-hCs" id="tgk-UK-63q"/>
@@ -2694,6 +2701,7 @@ IAo
                         <outlet property="servicesTable" destination="91n-SN-XSe" id="o19-pG-T1T"/>
                         <outlet property="startRatingView" destination="7a2-7e-l4V" id="d86-W3-SZo"/>
                         <outlet property="tbl_stylist" destination="Q12-Wo-j1C" id="U6e-FR-cx5"/>
+                        <outlet property="textVw_saloonProductInfo" destination="bun-aR-dNp" id="83x-Ou-4he"/>
                         <outlet property="view" destination="mvQ-oe-wwa" id="h3Q-vR-w2c"/>
                         <outlet property="view_otherInfo" destination="Hyh-Z2-KHh" id="dpg-6c-2vj"/>
                         <outlet property="view_tableContainer" destination="QMR-q3-AlF" id="w3U-bI-4g5"/>

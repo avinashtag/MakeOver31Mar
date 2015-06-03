@@ -75,7 +75,8 @@
 
     }
 
-    
+    self.textVw_saloonProductInfo.text = self.service.saloonProducts;
+
     if ([self.service.creditDebitCardSupport isEqualToString:@"Y"]) {
         self.lbl_creditDebitStatus.text = @"Credit/Debit Card Facility : YES";
     }else{

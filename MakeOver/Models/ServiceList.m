@@ -20,6 +20,7 @@ NSString *const kObjectServices = @"services";
 static NSString *ksaloonAddress = @"saloonAddress";
 static NSString *ksaloonMainArea = @"mainArea";
 static NSString *ksalooninfo = @"saloonInfo";
+static NSString *ksaloonProducts = @"saloonProducts";
 
 static NSString *ksaloonContact = @"";
 static NSString *ksaloonDstfrmCurrLocation = @"saloonDstfrmCurrLocation";
@@ -63,10 +64,10 @@ static NSString *kresponseObject = @"object";
     self.saloonRating                = @([nullRemover(dictioanry[ksaloonRating]) doubleValue]);
     self.sallonReviewCount                = @([nullRemover(dictioanry[ksallonReviewCount]) doubleValue]);
     self.faborateFlag                = @([nullRemover(dictioanry[kfaborateFlag]) doubleValue]);
-    self.gender               = nullRemover(dictioanry[kgender]);
-    self.startTime               = nullRemover(dictioanry[kstartTime]);
-    self.endTime               = nullRemover(dictioanry[kendTime]);
-
+    self.gender                 = nullRemover(dictioanry[kgender]);
+    self.startTime              = nullRemover(dictioanry[kstartTime]);
+    self.endTime                = nullRemover(dictioanry[kendTime]);
+    self.saloonProducts         = nullRemover(dictioanry[ksaloonProducts]);
     
     NSArray *array_startTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kstartTime]) componentsSeparatedByString:@":"]];
     if (array_startTime.count == 2) {
@@ -218,7 +219,8 @@ static NSString *kresponseObject = @"object";
 
     [encoder encodeObject:self.startTimeDecimal forKey:kstartTimeDecimal];
     [encoder encodeObject:self.endTimeDecimal forKey:kendTimeDecimal];
-    
+    [encoder encodeObject:self.saloonProducts forKey:ksaloonProducts];
+
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -249,7 +251,8 @@ static NSString *kresponseObject = @"object";
 
     self.startTimeDecimal = [decoder decodeObjectForKey:kstartTimeDecimal];
     self.endTimeDecimal = [decoder decodeObjectForKey:kendTimeDecimal];
-    
+    self.saloonProducts = [decoder decodeObjectForKey:ksaloonProducts];
+
     return self;
 }
 

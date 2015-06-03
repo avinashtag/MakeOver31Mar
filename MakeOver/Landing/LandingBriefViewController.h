@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tbl_stylist;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroll_otherInfo;
 @property (weak, nonatomic) IBOutlet UIView *view_otherInfo;
+@property (weak, nonatomic) IBOutlet UITextView *textVw_saloonProductInfo;
 
 
 - (IBAction)segmentSelection:(UISegmentedControl *)sender;

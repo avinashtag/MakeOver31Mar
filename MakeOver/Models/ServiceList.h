@@ -35,6 +35,8 @@
 @property(nonatomic, strong)NSString *creditDebitCardSupport;
 @property(nonatomic, strong)NSString *startTimeDecimal;
 @property(nonatomic, strong)NSString *endTimeDecimal;
+@property(nonatomic, strong)NSString *saloonProducts;
+
 @property(nonatomic, strong)id extraParams;
 
 
