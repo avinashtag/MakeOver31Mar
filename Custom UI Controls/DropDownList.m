@@ -79,7 +79,7 @@
 //        NSString *searchKey = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchKey"];
         NSString *searchValue = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchValue"];
         NSString *searchHelper = [[_resultList objectAtIndex:indexPath.row] objectForKey:@"searchHelper"];
-        
+        cell.textLabel.numberOfLines = 0;
         cell.textLabel.text = [NSString stringWithFormat:@"%@%@",searchValue,((searchHelper != [NSNull null])&&(searchHelper.length) ? [NSString stringWithFormat:@" - %@",searchHelper] : @"")];
         
     }
@@ -92,7 +92,7 @@
 #pragma mark Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 30;
+    return 80;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
