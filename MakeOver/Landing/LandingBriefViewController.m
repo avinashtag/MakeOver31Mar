@@ -955,4 +955,50 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 
+
+#pragma mark- Maps
+
+//ye apple ka tha.........
+//*************************************
+-(IBAction)navigationButtonPressed:(id)sender
+{
+    if ([[UIApplication sharedApplication] canOpenURL:
+         [NSURL URLWithString:@"comgooglemaps://"]])
+    {
+        NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?center=%f,%f&zoom=14&views=traffic",28.51,77.03];
+        [[UIApplication sharedApplication] openURL:
+         [NSURL URLWithString:urlString]];
+    }
+    else
+    {
+        NSString *string = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%f,%f",28.51,77.03];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+        
+        // Check for iOS 6
+        /*Class mapItemClass = [MKMapItem class];
+         if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+         {
+         // Create an MKMapItem to pass to the Maps app
+         CLLocationCoordinate2D coordinate =
+         CLLocationCoordinate2DMake(16.775, -3.009);
+         MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+         addressDictionary:nil];
+         MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+         [mapItem setName:@"My Place"];
+         
+         // Set the directions mode to "Walking"
+         // Can use MKLaunchOptionsDirectionsModeDriving instead
+         NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking};
+         // Get the "Current User Location" MKMapItem
+         MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+         // Pass the current location and destination map items to the Maps app
+         // Set the direction mode in the launchOptions dictionary
+         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+         launchOptions:launchOptions];
+         }
+         */
+    }
+}
+
+
 @end
