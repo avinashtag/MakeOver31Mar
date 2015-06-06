@@ -962,18 +962,26 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 //*************************************
 -(IBAction)navigationButtonPressed:(id)sender
 {
-    if ([[UIApplication sharedApplication] canOpenURL:
-         [NSURL URLWithString:@"comgooglemaps://"]])
-    {
-        NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?center=%f,%f&zoom=14&views=traffic",28.51,77.03];
-        [[UIApplication sharedApplication] openURL:
-         [NSURL URLWithString:urlString]];
-    }
-    else
-    {
-        NSString *string = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%f,%f",28.51,77.03];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+    
+    if (_service.saloonLat.length && _service.saloonLong.length) {
         
+        if ([[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:@"comgooglemaps://"]])
+        {
+            NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?daddr=%@,%@&zoom=14&directionsmode=driving",_service.saloonLat,_service.saloonLong];
+            [[UIApplication sharedApplication] openURL:
+             [NSURL URLWithString:urlString]];
+        }
+        else
+        {
+            NSString *string = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%@,%@",_service.saloonLat,_service.saloonLong];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+        }
+    }
+    else {
+        [UtilityClass showAlertwithTitle:nil message:@"Directions unavailable for this location."];
+    }
+    
         // Check for iOS 6
         /*Class mapItemClass = [MKMapItem class];
          if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
@@ -997,7 +1005,6 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
          launchOptions:launchOptions];
          }
          */
-    }
 }
 
 

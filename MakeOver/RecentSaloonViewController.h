@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RecentSaloonViewController : UIViewController
+@interface RecentSaloonViewController : UIViewController <UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *serviceTable;
 @property (strong, nonatomic) __block NSMutableArray *services;

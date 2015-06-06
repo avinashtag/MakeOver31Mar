@@ -548,7 +548,7 @@ static NSArray *menuItems;
                 break;
                 
             case tDistance:
-                [selfWeak showDistancePopUp];
+                [selfWeak navigationButtonPressed:indexPath];
                 break;
                 
             default:
@@ -755,11 +755,6 @@ static NSArray *menuItems;
 }
 
 
--(void)showDistancePopUp {
-    
-    NSLog(@"Distance PopUp");
-    
-}
 
 -(void)imageViewerPresent:(NSArray*)images{
     if (images.count) {
@@ -1070,7 +1065,35 @@ static NSArray *menuItems;
 }
 
 
+#pragma mark- Maps
 
+//ye apple ka tha.........
+//*************************************
+-(IBAction)navigationButtonPressed:(NSIndexPath*)index{
+    
+    ServiceList *service = arrayFilteredResults[index.row];
+
+    if (service.saloonLat.length && service.saloonLong.length) {
+        
+        if ([[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:@"comgooglemaps://"]])
+        {
+            NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?daddr=%@,%@&zoom=14&directionsmode=driving",service.saloonLat,service.saloonLong];
+            [[UIApplication sharedApplication] openURL:
+             [NSURL URLWithString:urlString]];
+        }
+        else
+        {
+            NSString *string = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%@,%@",service.saloonLat,service.saloonLong];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+        }
+    }
+    else {
+        [UtilityClass showAlertwithTitle:nil message:@"Directions unavailable for this location."];
+    }
+    
+    
+}
 
 
 @end

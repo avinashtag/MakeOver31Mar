@@ -21,6 +21,8 @@
 @property(nonatomic, strong)NSString *saloonId;
 @property(nonatomic, strong)NSString *saloonName;
 @property(nonatomic, strong)NSNumber *sallonReviewCount;
+@property(nonatomic, strong)NSString *saloonLat;
+@property(nonatomic, strong)NSString *saloonLong;
 @property(nonatomic, strong)NSNumber *saloonRating;
 @property(nonatomic, strong)NSArray  *saloonServices;
 @property(nonatomic, strong)NSArray  *styleList;

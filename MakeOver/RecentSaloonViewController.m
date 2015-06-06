@@ -198,6 +198,15 @@
                 break;
             case tInfo:
                 [selfWeak showSaloonInfo];
+                
+            case tCall:
+                [selfWeak showCallingPopup:service.contacts];
+                break;
+                
+            case tDistance:
+                [selfWeak navigationButtonPressed:indexPath];
+                break;
+                
             default:
                 break;
         }
@@ -282,6 +291,70 @@
 }
 -(IBAction)back:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark- Maps
+
+//ye apple ka tha.........
+//*************************************
+-(IBAction)navigationButtonPressed:(NSIndexPath*)index{
+    
+    ServiceList *service = array_favSaloons[index.row];
+    
+    if (service.saloonLat.length && service.saloonLong.length) {
+        
+        if ([[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:@"comgooglemaps://"]])
+        {
+            NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?daddr=%@,%@&zoom=14&directionsmode=driving",service.saloonLat,service.saloonLong];
+            [[UIApplication sharedApplication] openURL:
+             [NSURL URLWithString:urlString]];
+        }
+        else
+        {
+            NSString *string = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%@,%@",service.saloonLat,service.saloonLong];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+        }
+    }
+    else {
+        [UtilityClass showAlertwithTitle:nil message:@"Directions unavailable for this location."];
+    }
+    
+    
+}
+
+-(void)showCallingPopup:(NSArray*)contacts {
+    
+    NSLog(@"Calling PopUp");
+    
+    if (contacts.count) {
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select number to call" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        
+        for (NSString *number in contacts) {
+            [actionSheet addButtonWithTitle:number];
+        }
+        
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        
+        [actionSheet setCancelButtonIndex:contacts.count];
+        
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    }
+    else {
+        [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
+    }
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+        NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
+        NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", phoneNumber];
+        NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
+        [[UIApplication sharedApplication] openURL:phoneURL];
+    }
 }
 
 

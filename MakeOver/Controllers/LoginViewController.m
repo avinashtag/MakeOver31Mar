@@ -188,8 +188,10 @@
              paramsRegister[@"deviceType"] = @"iPhone";
              paramsRegister[@"fullName"] = dictionary[@"name"];
              paramsRegister[@"createdBy"] = @"Facebook";//email
+             
+             
              if ([dictionary[@"picture"] isKindOfClass:[NSDictionary class]]) {
-                 paramsRegister[@"usrImgUrl"] = ((dictionary[@"picture"])[@"data"])[@"url"];
+                 paramsRegister[@"usrImgUrl"] = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",dictionary[@"id"]];//((dictionary[@"picture"])[@"data"])[@"url"];
              }
 
              [self registerUser:paramsRegister];
