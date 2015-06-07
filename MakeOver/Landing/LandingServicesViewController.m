@@ -275,7 +275,7 @@ static NSArray *menuItems;
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
     
-    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     parameters[@"userId"] = string_userId!=nil ? string_userId : @"";
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
@@ -347,7 +347,7 @@ static NSArray *menuItems;
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
 
-    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     NSString *userId = string_userId!=nil ? string_userId : @"";
 //    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
 
@@ -963,7 +963,7 @@ static NSArray *menuItems;
             searchHelper = @"";
         }
         
-        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         
         NSString *userId = string_userId!=nil ? string_userId : @"";
         
@@ -1027,7 +1027,7 @@ static NSArray *menuItems;
         NSLog(@"Hit Web Service");
         //also check if already hit or not
         
-        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         string_userId = string_userId!=nil ? string_userId : @"";
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;

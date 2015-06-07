@@ -136,9 +136,9 @@
         UINavigationController *navController = [newArray objectAtIndex:2];//[self.storyboard instantiateViewControllerWithIdentifier:@"NavControllerCenterTabSID"];
         
         
-        NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         
-        if (loggedUserID != nil && ([loggedUserID integerValue] > -1))
+        if ((string_userId != nil) && string_userId.length)
         {
             if (![[navController topViewController] isKindOfClass:[ProfileViewController class]]) {
                 

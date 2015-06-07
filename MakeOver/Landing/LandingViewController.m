@@ -206,7 +206,7 @@
             searchHelper = @"";
         }
         
-        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         
         NSString *userId = string_userId!=nil ? string_userId : @"";
         

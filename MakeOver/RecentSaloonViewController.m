@@ -42,6 +42,22 @@
     // Do any additional setup after loading the view.
     
     _services = [[NSMutableArray alloc]init];
+    [self loadRecentSaloonList];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    
+    if (_services.count) {
+        [_services removeAllObjects];
+        [self loadRecentSaloonList];
+    }
+}
+
+- (void)loadRecentSaloonList {
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *savedRecordsPath = [documentsDirectory stringByAppendingPathComponent:@"recentlyViewed.plist"]; //3
@@ -57,12 +73,6 @@
         // Read & Update records
         _services = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
         [_serviceTable reloadData];
-//        if (saloons.count) {
-//            
-//            // Load _services Records in tableview:
-//            _services =
-//        }
-        
     }
     
     // Get fav saloons from saved records.

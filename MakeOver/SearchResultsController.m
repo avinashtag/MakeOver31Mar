@@ -395,7 +395,7 @@ static NSArray *menuItems;
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
     
-    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     NSString *userId = string_userId!=nil ? string_userId : @"";
     //    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
     
@@ -596,7 +596,7 @@ static NSArray *menuItems;
                 break;
                 
             case tDistance:
-                [selfWeak showDistancePopUp];
+                [selfWeak navigationButtonPressed:indexPath];
                 break;
                 
             default:
@@ -1016,7 +1016,7 @@ static NSArray *menuItems;
         
         NSString *searchKey = [dict objectForKey:@"searchKey"];
         NSString *searchValue = [dict objectForKey:@"searchValue"];
-        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         NSString *userId = string_userId!=nil ? string_userId : @"";
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
@@ -1105,7 +1105,7 @@ static NSArray *menuItems;
         NSLog(@"Hit Web Service");
         //also check if already hit or not
         
-        NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         string_userId = string_userId!=nil ? string_userId : @"";
         
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
@@ -1143,6 +1143,35 @@ static NSArray *menuItems;
 }
 
 
+#pragma mark- Maps
+
+//ye apple ka tha.........
+//*************************************
+-(IBAction)navigationButtonPressed:(NSIndexPath*)index{
+    
+    ServiceList *service = array_favSaloons[index.row];
+    
+    if (service.saloonLat.length && service.saloonLong.length) {
+        
+        if ([[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:@"comgooglemaps://"]])
+        {
+            NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?daddr=%@,%@&zoom=14&directionsmode=driving",service.saloonLat,service.saloonLong];
+            [[UIApplication sharedApplication] openURL:
+             [NSURL URLWithString:urlString]];
+        }
+        else
+        {
+            NSString *string = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%@,%@",service.saloonLat,service.saloonLong];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+        }
+    }
+    else {
+        [UtilityClass showAlertwithTitle:nil message:@"Directions unavailable for this location."];
+    }
+    
+    
+}
 
 
 @end

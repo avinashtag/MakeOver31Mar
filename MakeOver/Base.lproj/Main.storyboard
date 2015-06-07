@@ -176,7 +176,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="JGG-BN-kSE">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bg_signin" translatesAutoresizingMaskIntoConstraints="NO" id="JGG-BN-kSE">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgf-qk-E5q">
@@ -210,7 +210,7 @@
                                     <action selector="submitUserEmail:" destination="19v-st-U14" eventType="touchUpInside" id="k5c-Zo-oeB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaN-bC-t5G">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaN-bC-t5G">
                                 <rect key="frame" x="26" y="54" width="268" height="86"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="86" id="IuB-jB-Xa9"/>
@@ -5235,6 +5235,7 @@ Cg
         <image name="03_spa" width="319" height="115"/>
         <image name="bg" width="320" height="480"/>
         <image name="bg_big" width="320" height="568"/>
+        <image name="bg_signin" width="320" height="568"/>
         <image name="btn-FB" width="268" height="43"/>
         <image name="btn_callbig" width="107" height="39"/>
         <image name="btn_cancel" width="107" height="39"/>

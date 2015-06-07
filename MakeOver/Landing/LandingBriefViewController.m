@@ -629,7 +629,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 -(IBAction)ratingOpen:(id)sender{
     
-    NSString *string_userId = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     
     if ((string_userId != nil) && string_userId.length) {
         

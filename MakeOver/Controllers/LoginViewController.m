@@ -33,8 +33,8 @@
     
     [ServiceInvoker sharedInstance];
 
-    NSString *loggedUserID = [UtilityClass RetrieveDataFromUserDefault:@"userid"];
-    if (loggedUserID != nil && ([loggedUserID integerValue] > -1)) {
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
+    if ((string_userId != nil) && string_userId.length) {
         
         [self skipClicked:nil];
     }
