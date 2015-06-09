@@ -53,4 +53,6 @@
 - (IBAction)callButtonDidTap:(id)sender;
 - (IBAction)showInfo:(id)sender;
 
+- (IBAction)checkinButtonDidTap:(id)sender;
+
 @end

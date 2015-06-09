@@ -2436,6 +2436,9 @@ Cg
                                             <color key="titleColor" red="0.17254901959999999" green="0.039215686270000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="checkinButtonDidTap:" destination="6ib-as-hCs" eventType="touchUpInside" id="xTJ-PQ-ZDi"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lh4-H1-kPb">
                                         <rect key="frame" x="154" y="156" width="56" height="28"/>

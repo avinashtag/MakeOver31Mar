@@ -23,6 +23,7 @@
 #import "MenuCollectionViewCell.h"
 
 #import "ImageViewerViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 
 #import "Groups.h"
@@ -813,6 +814,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
     [UtilityClass showAlertwithTitle:nil message:self.service.saloonInfo];
 
+}
+
+- (IBAction)checkinButtonDidTap:(id)sender {
+    
+    [FBSDKShareDialog showFromViewController:self
+                                 withContent:content
+                                    delegate:nil];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
