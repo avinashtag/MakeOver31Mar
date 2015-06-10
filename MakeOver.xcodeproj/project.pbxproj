@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0903E3901AA7646A00B0884D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0903E38F1AA7646A00B0884D /* FacebookSDK.framework */; };
 		0903E3941AA7817700B0884D /* UIAlertView+MOAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0903E3931AA7817700B0884D /* UIAlertView+MOAlertView.m */; };
 		094E39C11AAAE43F00F6D9EE /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 094E39C01AAAE43F00F6D9EE /* MenuViewController.m */; };
 		094E39C41AAAF62B00F6D9EE /* CollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 094E39C31AAAF62B00F6D9EE /* CollectionCell.m */; };
@@ -71,6 +70,7 @@
 		9A4298E31AD2EA6D0089A702 /* slider-metal-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298C91AD2EA6D0089A702 /* slider-metal-trackBackground.png */; };
 		9A4298E41AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4298CA1AD2EA6D0089A702 /* slider-metal-trackBackground@2x.png */; };
 		9ACD3BAB1ADD82CF005746AF /* DropDownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACD3BAA1ADD82CF005746AF /* DropDownList.m */; };
+		9ADDE6AD1B28BB4C00D3F62F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADDE6AC1B28BB4C00D3F62F /* FacebookSDK.framework */; };
 		9AE156B61AD84BB000FE7BD3 /* FavouriteStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */; };
 		9AEA54B41ACB2100007606EA /* LandingBriefCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA54B31ACB2100007606EA /* LandingBriefCell.m */; };
 		B936DAD41A9861B70016E9C9 /* CustomSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B936DAD31A9861B70016E9C9 /* CustomSelection.m */; };
@@ -138,7 +138,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0903E38F1AA7646A00B0884D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0903E3921AA7817700B0884D /* UIAlertView+MOAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+MOAlertView.h"; path = "Custom UI Controls/MOAlert/UIAlertView+MOAlertView.h"; sourceTree = SOURCE_ROOT; };
 		0903E3931AA7817700B0884D /* UIAlertView+MOAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+MOAlertView.m"; path = "Custom UI Controls/MOAlert/UIAlertView+MOAlertView.m"; sourceTree = SOURCE_ROOT; };
 		094E39BF1AAAE43E00F6D9EE /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = Landing/MenuViewController.h; sourceTree = "<group>"; };
@@ -238,6 +237,7 @@
 		9ACD3BA91ADD82CF005746AF /* DropDownList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropDownList.h; path = "Custom UI Controls/DropDownList.h"; sourceTree = SOURCE_ROOT; };
 		9ACD3BAA1ADD82CF005746AF /* DropDownList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DropDownList.m; path = "Custom UI Controls/DropDownList.m"; sourceTree = SOURCE_ROOT; };
 		9ACD3BAE1ADD8396005746AF /* DropDownListPassValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DropDownListPassValueDelegate.h; path = "Custom UI Controls/DropDownListPassValueDelegate.h"; sourceTree = SOURCE_ROOT; };
+		9ADDE6AC1B28BB4C00D3F62F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		9AE156B41AD84BB000FE7BD3 /* FavouriteStylistButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteStylistButton.h; sourceTree = "<group>"; };
 		9AE156B51AD84BB000FE7BD3 /* FavouriteStylistButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteStylistButton.m; sourceTree = "<group>"; };
 		9AEA54B21ACB2100007606EA /* LandingBriefCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingBriefCell.h; path = Landing/LandingBriefCell.h; sourceTree = "<group>"; };
@@ -365,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ADDE6AD1B28BB4C00D3F62F /* FacebookSDK.framework in Frameworks */,
 				CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */,
 				BBA299111AB5E90C004C5595 /* QuartzCore.framework in Frameworks */,
 				7DC396B31AB374D5009FDEE1 /* UIKit.framework in Frameworks */,
@@ -373,7 +374,6 @@
 				7DADF0801A99320100EE0C4C /* MobileCoreServices.framework in Frameworks */,
 				7DADF07E1A99318B00EE0C4C /* CFNetwork.framework in Frameworks */,
 				7DADF0861A99326D00EE0C4C /* Foundation.framework in Frameworks */,
-				0903E3901AA7646A00B0884D /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,10 +634,10 @@
 		7DADF0791A992C6F00EE0C4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9ADDE6AC1B28BB4C00D3F62F /* FacebookSDK.framework */,
 				CE2823401AF2C65500ADA969 /* MessageUI.framework */,
 				BBA299101AB5E90C004C5595 /* QuartzCore.framework */,
 				7DC396B21AB374D5009FDEE1 /* UIKit.framework */,
-				0903E38F1AA7646A00B0884D /* FacebookSDK.framework */,
 				7DADF0831A99322D00EE0C4C /* libz.1.2.5.dylib */,
 				7DADF0811A99320D00EE0C4C /* SystemConfiguration.framework */,
 				7DADF07F1A99320100EE0C4C /* MobileCoreServices.framework */,

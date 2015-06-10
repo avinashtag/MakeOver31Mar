@@ -25,7 +25,6 @@
 #import "ImageViewerViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-
 #import "Groups.h"
 
 @interface LandingBriefViewController (){
@@ -817,10 +816,15 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (IBAction)checkinButtonDidTap:(id)sender {
-    
-    [FBSDKShareDialog showFromViewController:self
-                                 withContent:content
-                                    delegate:nil];
+    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/feed",@""]
+                                 parameters:@{}
+                                 HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection, id     result,NSError *error)
+    {
+
+        NSLog(@"error %@ \n\n\nresult = %@",error,result);
+        
+    }];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
