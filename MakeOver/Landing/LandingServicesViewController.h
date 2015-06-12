@@ -36,7 +36,11 @@ MenuServiceType;
     NSMutableArray *array_SearchResults;
     
     DropDownList    *_ddList;
-    
+
+    BOOL isFilterON;
+    NSMutableArray *array_searchResultsONFilteredItems;
+    //NSMutableArray *array_
+
     __weak IBOutlet NSLayoutConstraint *constraintTopMargin_tableView;
     __weak IBOutlet UIButton *backButton;
 }

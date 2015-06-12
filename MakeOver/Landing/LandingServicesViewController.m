@@ -45,7 +45,9 @@ static NSArray *menuItems;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-    
+
+    array_searchResultsONFilteredItems = [[NSMutableArray alloc]init];
+
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
 
     menuItems = @[@"HAIR",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS",@"TUTORIALS",@"OFFERS"];
@@ -54,10 +56,12 @@ static NSArray *menuItems;
     self.menuListView.dataSource = self;
     [self.menuListView setBackgroundColor:[UIColor clearColor]];
     [self.HTHorizontalView addSubview:self.menuListView];
-    
+
+    isFilterON = NO;
+    [self.servicesTable reloadData];
+
     [self.menuListView reloadData];
-    
-    
+
     if (_isComingFromSearch) {
         // hide search bar
         // hide scroller
@@ -152,7 +156,9 @@ static NSArray *menuItems;
     
     filterViewController.callback = ^(NSDictionary *params) {
         NSLog(@"%@",params);
-        
+
+        isFilterON = YES;
+
         NSString *sortingByFavouriteStylist   = [params objectForKey:@"sortByFavouriteStylist"];
         NSString *sortingByRating   = [params objectForKey:@"sortByRating"];
         NSString *sortingByDistance = [params objectForKey:@"sortByDistance"];
@@ -256,7 +262,9 @@ static NSArray *menuItems;
             [weakSelf.servicesTable reloadData];
         }
         
-        
+        array_searchResultsONFilteredItems = [[NSMutableArray alloc]initWithArray:arrayFilteredResults];
+        [weakSelf.servicesTable reloadData];
+
     };
 }
 
@@ -293,8 +301,13 @@ static NSArray *menuItems;
             arrayFilteredResults = [NSArray arrayWithArray:_services];
             
             [self.servicesTable reloadData];
+
+            isFilterON = NO;
         }
     }];
+
+    [self.servicesTable reloadData];
+
 }
 
 
@@ -332,10 +345,15 @@ static NSArray *menuItems;
                  [UtilityClass showAlertwithTitle:@"" message:@"Object is Null"];
              }
              
-             
+             isFilterON = NO;
+
+
          }else if (sirFailed){
              
          }
+
+         [self.servicesTable reloadData];
+
      }];
 }
 
@@ -377,10 +395,15 @@ static NSArray *menuItems;
                      arrayFilteredResults = [NSArray arrayWithArray:_services];
                      
                      [self.servicesTable reloadData];
-                     
+
+                     isFilterON = NO;
+
                  }else if (sirFailed){
                      
                  }
+
+                 [self.servicesTable reloadData];
+
              }];
         }
             break;
@@ -404,10 +427,15 @@ static NSArray *menuItems;
                      arrayFilteredResults = [NSArray arrayWithArray:_services];
                      
                      [self.servicesTable reloadData];
-                     
+
+                     isFilterON = NO;
+
                  }else if (sirFailed){
                      
                  }
+
+                 [self.servicesTable reloadData];
+
              }];
         }
             break;
@@ -437,7 +465,16 @@ static NSArray *menuItems;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //return _services.count;
-    return arrayFilteredResults.count;
+
+    if (isFilterON) {
+
+        return array_searchResultsONFilteredItems.count;
+
+    }else{
+
+        return arrayFilteredResults.count;
+
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -446,8 +483,18 @@ static NSArray *menuItems;
 
     ServiceCell *cell = (ServiceCell*)[tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
 
-    //ServiceList *service = _services[indexPath.row];
-    ServiceList *service = arrayFilteredResults[indexPath.row];
+    ServiceList *service;
+
+    if (isFilterON) {
+
+        service = array_searchResultsONFilteredItems[indexPath.row];
+
+    }else{
+
+        service = arrayFilteredResults[indexPath.row];
+
+    }
+
     cell.name.text = service.saloonName;
     
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonId == %i", [[service saloonId] integerValue]];
@@ -586,7 +633,17 @@ static NSArray *menuItems;
     {
         // Navigate to Landing Brief VC to display details
         LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
-        landingBriefViewController.service = arrayFilteredResults[indexPath.row];
+
+        if (isFilterON) {
+
+            landingBriefViewController.service = array_searchResultsONFilteredItems[indexPath.row];
+
+        }else{
+
+            landingBriefViewController.service = arrayFilteredResults[indexPath.row];
+
+        }
+
         [self.navigationController pushViewController:landingBriefViewController animated:YES];
 
     }
@@ -619,7 +676,13 @@ static NSArray *menuItems;
 
     NSLog(@"Offer index %d",[sender tag]);
 
-    ServiceList *service = arrayFilteredResults[[sender tag]];
+    ServiceList *service;
+
+    if (isFilterON) {
+        service = array_searchResultsONFilteredItems[[sender tag]];
+    }else{
+        service = arrayFilteredResults[[sender tag]];
+    }
 
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
 
@@ -656,7 +719,13 @@ static NSArray *menuItems;
 
     NSLog(@"Tutorial index %d",[sender tag]);
 
-    ServiceList *service = arrayFilteredResults[[sender tag]];
+    ServiceList *service;
+
+    if (isFilterON) {
+        service = array_searchResultsONFilteredItems[[sender tag]];
+    }else{
+        service = arrayFilteredResults[[sender tag]];
+    }
 
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
 
@@ -692,8 +761,12 @@ static NSArray *menuItems;
 -(void)reviewPresent:(NSIndexPath*)index{
     
    __block ReviewViewController *review = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReviewViewController class])];
-    //review.service = _services[index.row];
-    review.service = arrayFilteredResults[index.row];
+
+    if (isFilterON) {
+        review.service = array_searchResultsONFilteredItems[index.row];
+    }else{
+        review.service = arrayFilteredResults[index.row];
+    }
 
     [review setModalPresentationStyle:UIModalPresentationFormSheet];
     [review setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
@@ -988,15 +1061,25 @@ static NSArray *menuItems;
 #pragma mark - SearchBar Delegates
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if ([searchText length] != 0) {
-        _ddList._searchText = searchText;
-        //[_ddList updateData];
-        [self setDDListHidden:NO];
+
+    if (isFilterON) {
+
+        
+        
+    }else{
+
+
+        if ([searchText length] != 0) {
+            _ddList._searchText = searchText;
+            //[_ddList updateData];
+            [self setDDListHidden:NO];
+        }
+        else {
+            [self setDDListHidden:YES];
+        }
+
+
     }
-    else {
-        [self setDDListHidden:YES];
-    }
-    
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
@@ -1006,6 +1089,13 @@ static NSArray *menuItems;
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+    if (isFilterON) {
+            array_searchResultsONFilteredItems=nil;
+            array_searchResultsONFilteredItems = [NSMutableArray arrayWithArray:arrayFilteredResults];
+            [_servicesTable reloadData];
+        searchBar.text = @"";
+    }
+
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
 }
@@ -1021,49 +1111,77 @@ static NSArray *menuItems;
     NSString* searchText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     
     NSLog(@"%@",searchText);
-    
-    if (!isSearchReqQueued && searchText.length && !(searchText.length/3 == 0))
-    {
-        NSLog(@"Hit Web Service");
-        //also check if already hit or not
-        
-        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
-        string_userId = string_userId!=nil ? string_userId : @"";
-        
-        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
 
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
+    if (isFilterON) {
 
-        isSearchReqQueued = YES;
-        
-        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+        [self filterContentForSearchText:searchText];
+
+    }else{
+        if (!isSearchReqQueued && searchText.length && !(searchText.length/3 == 0))
         {
-            isSearchReqQueued = NO;
+            NSLog(@"Hit Web Service");
+            //also check if already hit or not
 
-            if (result == sirSuccess) {
+            NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
+            string_userId = string_userId!=nil ? string_userId : @"";
 
-                NSError *error = nil;
-                NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+            NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
 
-                if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+            NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
 
-                    [array_SearchResults removeAllObjects];
-                    [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                }
+            isSearchReqQueued = YES;
 
-                [_ddList updateDataWithArray:array_SearchResults];
+            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+             {
+                 isSearchReqQueued = NO;
 
-            }else if (sirFailed){
+                 if (result == sirSuccess) {
 
-            }
+                     NSError *error = nil;
+                     NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
+                     if ([responseDict objectForKey:@"object"] != [NSNull null]) {
 
-        }];
+                         [array_SearchResults removeAllObjects];
+                         [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                     }
+                     
+                     [_ddList updateDataWithArray:array_SearchResults];
+                     
+                 }else if (sirFailed){
+                     
+                 }
+                 
+                 
+             }];
+        }
     }
+
+
     
     return YES;
 }
 
+
+- (void)filterContentForSearchText:(NSString*)searchText
+{
+    if (searchText.length == 0 && [searchText isEqualToString:@""])
+    {
+        array_searchResultsONFilteredItems=nil;
+        array_searchResultsONFilteredItems = [NSMutableArray arrayWithArray:arrayFilteredResults];
+        [_servicesTable reloadData];
+    }
+    else
+    {
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF.saloonName CONTAINS [c] %@", searchText];//
+
+        array_searchResultsONFilteredItems=nil;
+
+        array_searchResultsONFilteredItems = [NSMutableArray arrayWithArray:[arrayFilteredResults filteredArrayUsingPredicate:resultPredicate]];
+
+        [_servicesTable reloadData];
+    }
+}
 
 #pragma mark- Maps
 
@@ -1071,7 +1189,13 @@ static NSArray *menuItems;
 //*************************************
 -(IBAction)navigationButtonPressed:(NSIndexPath*)index{
     
-    ServiceList *service = arrayFilteredResults[index.row];
+    ServiceList *service;
+
+    if (isFilterON) {
+        service = array_searchResultsONFilteredItems[index.row];
+    }else{
+        service = arrayFilteredResults[index.row];
+    }
 
     if (service.saloonLat.length && service.saloonLong.length) {
         
