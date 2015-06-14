@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 #import "UIButton+WebCache.h"
 
-#define kFBappId        @"239886072798506"  //Facebook App ID 239886072798506
+#define kFBappId        @"408218362688859"  //Facebook App ID 239886072798506
 
 #define kClientsecret   @"JPfP9NS-C-x6digjIMB9uJeo"
 #define kClientID       @"661032643238-6ve9me4qvgnl7i4sc4aakbk381dajijt.apps.googleusercontent.com"
@@ -34,12 +34,11 @@
     [ServiceInvoker sharedInstance];
 
     NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
+
     if ((string_userId != nil) && string_userId.length) {
-        
         [self skipClicked:nil];
     }
     else {
-      
         [_submit.layer setCornerRadius:CornerRadius];
         [_skip.layer setCornerRadius:CornerRadius];
         [_facebookLogin.layer setCornerRadius:CornerRadius];
@@ -231,10 +230,21 @@
 
              if ([[[response objectForKey:@"object"] objectForKey:@"fullName"] isEqualToString:@""])
              {
-                 
-                 // Submit email flow
+
                  RegistrationViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RegistrationViewController"];
-                 
+                 nextViewController.string_emailId = txtField_email.text;
+                 if ([[[response objectForKey:@"object"] objectForKey:@"isVerified"] isEqualToString:@"Y"]) {
+                     //already verified... will enter name only
+                     nextViewController.isVerified = YES;
+                 }else{
+                     //not verified.. otp verification needed.. then enter name
+                     nextViewController.isVerified = NO;
+                 }
+//                 [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
+                 self.string_userid = [[response objectForKey:@"object"] objectForKey:@"userId"];
+                 // Submit email flow
+
+                 nextViewController.string_userid = self.string_userid;
                  if (self.isInsideProfileTab)
                      nextViewController.isInsideProfileTab = self.isInsideProfileTab;
                  
@@ -243,7 +253,7 @@
              else // facebook flow
              {
                  [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
-                 
+
                  NSString *imgUrlString = [[response objectForKey:@"object"] objectForKey:@"usrImgUrl"];
                  
                  if (imgUrlString != [NSNull null]) {

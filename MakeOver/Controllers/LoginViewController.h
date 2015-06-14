@@ -20,4 +20,6 @@
 @property(nonatomic, weak)IBOutlet UIButton *submit;
 @property(nonatomic, weak)IBOutlet UIButton *skip;
 @property(nonatomic, weak)IBOutlet UIButton *facebookLogin;
+@property(nonatomic,strong)NSString *string_userid;
+
 @end

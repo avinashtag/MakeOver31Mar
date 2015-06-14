@@ -20,6 +20,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    if (self.isVerified) {
+        view_otpcontainer.hidden = YES;
+        view_registrationFields.hidden = !view_otpcontainer.isHidden;
+    }else{
+        view_otpcontainer.hidden = NO;
+        view_registrationFields.hidden = !view_otpcontainer.isHidden;
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,7 +63,7 @@
     else {
 
         NSMutableDictionary *paramsRegister = [[NSMutableDictionary alloc]init];
-        paramsRegister[@"email"] = @"";
+        paramsRegister[@"email"] = self.string_emailId;
         if (btn_female.isSelected) {
             paramsRegister[@"gender"] = @"Female";
         }
@@ -90,22 +99,35 @@
     if (txtField_name.text.length == 0) {
 
         [UtilityClass showAlertwithTitle:@"You must provide your name." message:nil];
+        return;
     }
     else {
         [[ServiceInvoker sharedInstance]serviceInvokeWithParameters:paramsRegister requestAPI:API_RegisterUser spinningMessage:@"Registering user.." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
 
-//        NSError *error = nil;
-//        __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+            NSError *error = nil;
+            __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
-        if (self.isInsideProfileTab) {
-            
-            ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-        else {
-            MOTabBar *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MOTabBar class])];
-            [self.navigationController pushViewController:tabBarController animated:YES];
-        }
+            NSDictionary *dictError = [response objectForKey:@"error"];
+
+            if ([[dictError objectForKey:@"errorCode"] isEqualToString:@"0"]) {
+
+                [UtilityClass SaveDatatoUserDefault:self.string_userid :@"userid"];
+
+                if (self.isInsideProfileTab) {
+
+                    ProfileViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
+                else {
+                    MOTabBar *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MOTabBar class])];
+                    [self.navigationController pushViewController:tabBarController animated:YES];
+                }
+
+            }else{
+
+            }
+
+
 /*        [[UIAlertView alloc] initWithTitle:@"OTP" message:@"Please enter the OTP recived on your email to verify." alertStyle:UIAlertViewStyleSecureTextInput completionHandler:^(NSInteger index) {
 
             if (index == 0) {
@@ -133,13 +155,10 @@
         [UtilityClass showAlertwithTitle:@"Invalid OTP" message:nil];
     }
     else {
-        [[ServiceInvoker sharedInstance]serviceInvokeWithParameters:@{@"otp":otp, @"userId":[UtilityClass RetrieveDataFromUserDefault:@"userid"]} requestAPI:API_RegisterUser spinningMessage:@"Registering user.." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
+        [[ServiceInvoker sharedInstance]serviceInvokeWithParameters:@{@"otp":otp, @"userId":self.string_userid} requestAPI:API_RegisterVerifyUser spinningMessage:@"Verify user.." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
 
-//            NSError *error = nil;
-//            __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-
-            view_otpcontainer.hidden = YES;
-            view_registrationFields.hidden = !view_otpcontainer.isHidden;
+            NSError *error = nil;
+            __block NSDictionary *response = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
 
             /*        [[UIAlertView alloc] initWithTitle:@"OTP" message:@"Please enter the OTP recived on your email to verify." alertStyle:UIAlertViewStyleSecureTextInput completionHandler:^(NSInteger index) {
 
@@ -153,7 +172,19 @@
              }
 
              } cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok"];
-             */        
+             */
+
+            NSDictionary *dictError = [response objectForKey:@"error"];
+
+            if ([[dictError objectForKey:@"errorCode"] isEqualToString:@"0"]) {
+
+                view_otpcontainer.hidden = YES;
+                view_registrationFields.hidden = !view_otpcontainer.isHidden;
+
+            }else{
+
+                
+            }
             
         }];
 

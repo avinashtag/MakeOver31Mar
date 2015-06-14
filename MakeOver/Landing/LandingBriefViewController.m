@@ -24,8 +24,9 @@
 
 #import "ImageViewerViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-
 #import "Groups.h"
+#import "AppDelegate.h"
+
 
 @interface LandingBriefViewController (){
     MenuViewController *menuController;
@@ -816,16 +817,125 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (IBAction)checkinButtonDidTap:(id)sender {
-    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/feed",@""]
-                                 parameters:@{}
-                                 HTTPMethod:@"POST"
-                          completionHandler:^(FBRequestConnection *connection, id     result,NSError *error)
+
+    NSDictionary *dictCheckinParams = [NSDictionary dictionaryWithObjectsAndKeys:@"28.47141",@"lat",@"77.07261",@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",@"MG Road",@"SearchedText", nil];
+
+
+    if (FBSession.activeSession.isOpen) {
+        // Default to Seattle, this method calls loadData
+
+      [self requestForPlacesToCheckinWithParameters:dictCheckinParams];
+
+    } else {
+        // if the session isn't open, we open it here, which may cause UX to log in the user
+        [FBSession openActiveSessionWithPermissions:nil
+                                       allowLoginUI:YES
+                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                      if (!error) {
+
+                                          [self requestForPlacesToCheckinWithParameters:dictCheckinParams];
+
+                                      } else {
+                                          [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                                      message:error.localizedDescription
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil]
+                                           show];
+                                      }
+                                  }];
+    }
+
+
+}
+
+
+-(void)requestForPlacesToCheckinWithParameters:(NSDictionary*)params{
+
+   __block NSArray *arrayPlaces = [NSArray new];
+
+    CLLocationCoordinate2D coordinate;
+    coordinate.longitude = [[params objectForKey:@"long"] floatValue];
+    coordinate.latitude  = [[params objectForKey:@"lat"] floatValue];
+
+    NSInteger radius = [[params objectForKey:@"radiusInMeters"] integerValue];
+
+    NSInteger resultLimit = [[params objectForKey:@"resultLimit"] integerValue];
+
+    NSString *searchedText = [params objectForKey:@"SearchedText"];
+
+    FBRequest *fbRequest = [FBRequest requestForPlacesSearchAtCoordinate:coordinate radiusInMeters:radius resultsLimit:resultLimit searchText:searchedText];
+    fbRequest.session = FBSession.activeSession;
+
+    [fbRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+
+        NSDictionary *dataDict = [NSDictionary dictionaryWithDictionary:result];
+        arrayPlaces = [NSArray arrayWithArray:[dataDict objectForKey:@"data"]];
+
+        if (arrayPlaces.count != 0) {
+            NSDictionary *dict = [arrayPlaces objectAtIndex:0];
+            NSString *placeId  = [dict objectForKey:@"id"];
+
+            [self publishToFacebook:@"Check-In" andPlace:placeId];
+        }
+
+    }];
+
+
+}
+
+-(void)publishToFacebook:(NSString *)message andPlace:(NSString*)placeId
+{
+    NSMutableDictionary * params = [NSMutableDictionary new];
+
+    params = [NSMutableDictionary dictionaryWithObjectsAndKeys: message, @"message",placeId, @"place", nil];
+
+    NSLog(@"params %@", params);
+    FBRequest *postRequest = [FBRequest requestWithGraphPath:@"me/feed" parameters:params HTTPMethod:@"POST"];
+    postRequest.session = FBSession.activeSession;
+    if(![postRequest.session.permissions containsObject:@"publish_stream"])
     {
 
-        NSLog(@"error %@ \n\n\nresult = %@",error,result);
-        
-    }];
+        [postRequest.session requestNewPublishPermissions:@[@"publish_stream", @"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+            [postRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                NSLog(@"error %@", error.description);
+
+                if(error)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                    });
+                }else{
+                    // checkin successfull
+                }
+
+                NSLog(@"%@", result);
+            }];
+        }];
+    }
+    else
+    {
+        [postRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            NSLog(@"error %@", error.description);
+            if(error)
+            {
+
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                });
+            }else{
+                // checkin successfull
+            }
+
+            NSLog(@"%@", result);
+            return ;
+        }];
+    }
+    
 }
+
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
    

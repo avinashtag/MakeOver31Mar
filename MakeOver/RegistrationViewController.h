@@ -17,6 +17,9 @@
     __weak IBOutlet UIButton *btn_male;
     __weak IBOutlet UIButton *btn_female;
 }
+@property(nonatomic,strong)NSString *string_userid;
+@property(nonatomic,assign)BOOL isVerified;
+@property(nonatomic,strong)NSString *string_emailId;
 
 @property (nonatomic,assign) BOOL isInsideProfileTab;
 

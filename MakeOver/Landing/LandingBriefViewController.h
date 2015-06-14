@@ -11,8 +11,14 @@
 #import "ReviewViewController.h"
 #import "WYPopoverController.h"
 #import "ASStarRatingView.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FBPlacePickerViewController.h>
+#import <FacebookSDK/FBSession.h>
+#import <FacebookSDK/FBGraphObjectPickerViewController.h>
 
-@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UIActionSheetDelegate>{
+#import "ServiceInvoker.h"
+
+@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UIActionSheetDelegate,FBPlacePickerDelegate>{
     WYPopoverController *popoverController;
 }
 @property (weak, nonatomic) IBOutlet UILabel *lbl_creditDebitStatus;
@@ -46,7 +52,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scroll_otherInfo;
 @property (weak, nonatomic) IBOutlet UIView *view_otherInfo;
 @property (weak, nonatomic) IBOutlet UITextView *textVw_saloonProductInfo;
-
 
 - (IBAction)segmentSelection:(UISegmentedControl *)sender;
 - (IBAction)favButtonDidTap:(id)sender;
