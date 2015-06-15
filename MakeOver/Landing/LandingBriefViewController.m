@@ -817,7 +817,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (IBAction)checkinButtonDidTap:(id)sender {
-
+/*
     NSDictionary *dictCheckinParams = [NSDictionary dictionaryWithObjectsAndKeys:_service.saloonLat,@"lat",_service.saloonLong,@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",_service.saloonName,@"SearchedText", nil];//[NSDictionary dictionaryWithObjectsAndKeys:@"28.47141",@"lat",@"77.07261",@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",@"MG Road",@"SearchedText", nil];
 
 
@@ -845,7 +845,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
                                       }
                                   }];
     }
-
+*/
 
 }
 

@@ -2425,7 +2425,7 @@ Cg
                                             <action selector="callButtonDidTap:" destination="6ib-as-hCs" eventType="touchUpInside" id="fdd-Da-8l7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOm-mr-MUS">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOm-mr-MUS">
                                         <rect key="frame" x="66" y="156" width="78" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="1n8-jU-ce6"/>
@@ -2441,7 +2441,7 @@ Cg
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lh4-H1-kPb">
-                                        <rect key="frame" x="154" y="156" width="56" height="28"/>
+                                        <rect key="frame" x="67" y="156" width="56" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="KDP-q9-HZ2"/>
                                             <constraint firstAttribute="width" constant="56" id="rgO-Si-nyJ"/>
@@ -2511,7 +2511,7 @@ Cg
                                     <constraint firstItem="WMf-dT-h76" firstAttribute="top" secondItem="7F7-Gd-yVe" secondAttribute="top" constant="3" id="Oji-fN-BU9"/>
                                     <constraint firstItem="7a2-7e-l4V" firstAttribute="leading" secondItem="7F7-Gd-yVe" secondAttribute="leading" constant="3" id="Oxv-BV-tn8"/>
                                     <constraint firstItem="DOm-mr-MUS" firstAttribute="top" secondItem="8po-Iq-O7l" secondAttribute="bottom" constant="2" id="PVc-ur-Hlb"/>
-                                    <constraint firstItem="lh4-H1-kPb" firstAttribute="leading" secondItem="DOm-mr-MUS" secondAttribute="trailing" constant="10" id="QKc-G3-bOu"/>
+                                    <constraint firstItem="lh4-H1-kPb" firstAttribute="leading" secondItem="DOm-mr-MUS" secondAttribute="trailing" constant="-77" id="QKc-G3-bOu"/>
                                     <constraint firstItem="N0b-Ah-BA3" firstAttribute="leading" secondItem="nQ0-h4-Nzz" secondAttribute="trailing" constant="8" id="Rag-86-Zen"/>
                                     <constraint firstItem="g45-3L-e0W" firstAttribute="top" secondItem="nQ0-h4-Nzz" secondAttribute="bottom" constant="11.5" id="VMj-PB-mbH"/>
                                     <constraint firstItem="N0b-Ah-BA3" firstAttribute="top" secondItem="NVu-G7-wRH" secondAttribute="top" id="VgF-dp-h3B"/>
