@@ -207,6 +207,12 @@
     [UtilityClass removeHudFromView:nil afterDelay:0.3];
 }
 
+- (void)viewDidLayoutSubviews {
+    
+    _cityName.imageEdgeInsets = UIEdgeInsetsMake(2, _cityName.frame.size.width-6, 0, 0);
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

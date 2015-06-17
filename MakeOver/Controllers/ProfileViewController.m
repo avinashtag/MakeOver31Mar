@@ -46,8 +46,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if (!isRequestInProgress) {
-        
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
+    
+    if ((string_userId != nil) && string_userId.length && (!isRequestInProgress)) {
+       
         isRequestInProgress = YES;
         [self serviceRequest];
     }

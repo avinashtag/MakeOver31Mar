@@ -71,7 +71,7 @@
     else {
         
         // Read & Update records
-        _services = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath];
+        _services = [[[(NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:savedRecordsPath] reverseObjectEnumerator] allObjects] mutableCopy];
         [_serviceTable reloadData];
     }
     
@@ -207,8 +207,8 @@
                 [selfWeak imageViewerPresent:[service.styleList valueForKeyPath:@"imageUrl"]];
                 break;
             case tInfo:
-                [selfWeak showSaloonInfo];
-                
+                [UtilityClass showAlertwithTitle:nil message:service.saloonInfo];
+                break;
             case tCall:
                 [selfWeak showCallingPopup:service.contacts];
                 break;
@@ -259,11 +259,6 @@
     
 }
 
--(void)showSaloonInfo {
-    
-    NSLog(@"show info");
-    
-}
 
 
 -(void)imageViewerPresent:(NSArray*)images{

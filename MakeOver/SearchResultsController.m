@@ -122,6 +122,11 @@ static NSArray *menuItems;
     
 }
 
+- (void)viewDidLayoutSubviews {
+    
+    _cityName.imageEdgeInsets = UIEdgeInsetsMake(2, _cityName.frame.size.width-6, 0, 0);
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     
     if (self.tabBarController.selectedIndex == 1) {

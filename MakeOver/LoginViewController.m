@@ -93,7 +93,7 @@
 }
 
 -(IBAction)skipClicked:(id)sender{
-    
+    [txtField_email setText:@""];
     MOTabBar *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MOTabBar class])];
     [self.navigationController pushViewController:tabBarController animated:YES];
 }

@@ -266,7 +266,7 @@ NSString *const kisFiltering = @"isFiltering";
     
     [UIView animateWithDuration:0.30 animations:^{
         CGRect leftFrame = self.animatedView.frame;
-        leftFrame.origin.x = leftFrame.size.width;
+        leftFrame.origin.x = leftFrame.origin.x + leftFrame.size.width;
         [self.animatedView setFrame:leftFrame];
         
     } completion:^(BOOL finished) {
