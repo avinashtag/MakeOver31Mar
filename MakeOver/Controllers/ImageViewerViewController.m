@@ -84,6 +84,16 @@
 }
 
 
+- (CGSize)collectionView:(UICollectionView *)collectionView
+
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return collectionView.frame.size;
+    
+}
+
 
 -(void)action_cancelImageViewer{
     self.callbackCancel();
