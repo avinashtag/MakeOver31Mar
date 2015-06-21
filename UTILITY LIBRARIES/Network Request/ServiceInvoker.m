@@ -95,27 +95,33 @@
                             
                             NSString *errorMessage = [[responseDict objectForKey:@"error"] objectForKey:@"errorMessage"];
                             if (errorMessage == [NSNull null])
-                                [UtilityClass showAlertwithTitle:@"Error" message:@"We've no data for the current locations"];
+                                [UtilityClass showAlertwithTitle:@"Error" message:@"No saloon found for the current location"];
                             else
                                 [UtilityClass showAlertwithTitle:@"Error" message:errorMessage];
                         }
                     }
                     else if (error != nil) {
                         NSLog(@"Error in JSON: %@",error.description);
+                        [UtilityClass showAlertwithTitle:@"Error" message:@"No saloon found for the current location"];
                     }
                     else {
                         NSLog(@"Response is Nil");
+                        [UtilityClass showAlertwithTitle:@"Error" message:@"No saloon found for the current location"];
                     }
                     
                     break;
                 }
                     
-                default: {
+                default:
+                {
                     NSLog(@"failed: server error code: %i",strongRequest.responseStatusCode);
                     
                     if([_delegate respondsToSelector:@selector(serviceInvokerRequestFailed:)]) {
                         [_delegate serviceInvokerRequestFailed:strongRequest];
                     }
+                    
+                    [UtilityClass showAlertwithTitle:@"Error" message:@"Something went wrong, please try again later."];
+
                     break;
                 }
             }
@@ -135,7 +141,7 @@
             NSError *error = [strongRequest error];
             NSLog(@"error description: %@",error.description);
             
-            [UtilityClass showAlertwithTitle:@"Error" message:error.description];
+            [UtilityClass showAlertwithTitle:@"Error" message:@"Something went wrong, please try again later."];
         }];
         
         request.timeOutSeconds = TimeOut60;
@@ -256,6 +262,7 @@
     _coordinate = [[manager location] coordinate];
     
 }
+
 -(void)currentLocation{
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;

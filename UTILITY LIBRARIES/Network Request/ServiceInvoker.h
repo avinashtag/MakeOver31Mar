@@ -33,7 +33,7 @@ typedef enum {
 
 typedef void(^ServiceInvokerCompletion)(ASIHTTPRequest *request, ServiceInvokerRequestResult result);
 
-@interface ServiceInvoker : NSObject {
+@interface ServiceInvoker : NSObject <CLLocationManagerDelegate> {
     
 }
 
