@@ -95,18 +95,18 @@
                             
                             NSString *errorMessage = [[responseDict objectForKey:@"error"] objectForKey:@"errorMessage"];
                             if (errorMessage == [NSNull null])
-                                [UtilityClass showAlertwithTitle:@"Error" message:@"No saloon found for the current location"];
+                                [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                             else
-                                [UtilityClass showAlertwithTitle:@"Error" message:errorMessage];
+                                [UtilityClass showAlertwithTitle:nil message:errorMessage];
                         }
                     }
                     else if (error != nil) {
                         NSLog(@"Error in JSON: %@",error.description);
-                        [UtilityClass showAlertwithTitle:@"Error" message:@"No saloon found for the current location"];
+                        [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                     }
                     else {
                         NSLog(@"Response is Nil");
-                        [UtilityClass showAlertwithTitle:@"Error" message:@"No saloon found for the current location"];
+                        [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                     }
                     
                     break;
@@ -120,7 +120,7 @@
                         [_delegate serviceInvokerRequestFailed:strongRequest];
                     }
                     
-                    [UtilityClass showAlertwithTitle:@"Error" message:@"Something went wrong, please try again later."];
+                    [UtilityClass showAlertwithTitle:nil message:@"Something went wrong, please try again later."];
 
                     break;
                 }
@@ -201,7 +201,7 @@
         }
         NSError *error = [strongRequest error];
         NSLog(@"error description: %@",error.description);
-        [UtilityClass showAlertwithTitle:@"Error" message:error.description];
+        [UtilityClass showAlertwithTitle:@"Error" message:@"Something went wrong, please try again later."];
     }];
 
     
@@ -230,9 +230,13 @@
                             serviceInvokerCompletion(strongRequest, sirFailed);
                         }
                         NSString *errorMessage = [[responseDict objectForKey:@"error"] objectForKey:@"errorMessage"];
-                        ((NSNull*)errorMessage == [NSNull null]) ? [UtilityClass showAlertwithTitle:@"Error" message:@"We've no data for the current locations"] : [UtilityClass showAlertwithTitle:@"Error" message:errorMessage];
+                        ((NSNull*)errorMessage == [NSNull null]) ? [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"] : [UtilityClass showAlertwithTitle:@"Error" message:errorMessage];
                     }
                 }
+                else
+                    [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                
+                
                 (error != nil) ? NSLog(@"Error in JSON: %@",error.description): NSLog(@"Response is Nil");
                 break;
             }
@@ -242,11 +246,14 @@
                 if (serviceInvokerCompletion!=nil) {
                     serviceInvokerCompletion(strongRequest, sirFailed);
                 }
+                
+                [UtilityClass showAlertwithTitle:nil message:@"Something went wrong, please try again later."];
+
                 break;
             }
         }
         
-        NSLog(@"API service Response: %@",strongRequest.responseString);
+        NSLog(@"API service JSon Response: %@",strongRequest.responseString);
     }];
     
     
