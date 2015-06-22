@@ -79,7 +79,7 @@
     }
     else if (indexPath.row == 2) {
         // Rate app.
-        NSString * appId = @"";
+        NSString * appId = @"1010170694";
 //        NSString * theUrl = [NSString  stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software",appId];
 //        if ([[UIDevice currentDevice].systemVersion integerValue] > 6)
         NSString *theUrl = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",appId];
@@ -97,7 +97,7 @@
         
         [mailer setSubject:@"My feedback"];
         
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"mabiquel@gmail.com", nil];
+        NSArray *toRecipients = [NSArray arrayWithObjects:@"office@geto.co.in", nil];
         [mailer setToRecipients:toRecipients];
         
 //        UIImage *myImage = [UIImage imageNamed:@"mobiletuts-logo.png"];

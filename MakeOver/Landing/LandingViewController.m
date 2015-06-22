@@ -206,11 +206,17 @@
             searchValue = [dict objectForKey:@"searchHelper"];
             searchHelper = [dict objectForKey:@"searchValue"];
         }
-        else {
+        else { // main_area
             searchValue = [dict objectForKey:@"searchValue"];
             searchHelper = @"";
         }
         
+        NSArray *arrayServices = nil;
+        id services = [dict objectForKey:@"services"];
+        if ([services isKindOfClass:[NSString class]]) {
+            arrayServices = [services componentsSeparatedByString:@","];
+        }
+
         NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
         
         NSString *userId = string_userId!=nil ? string_userId : @"";
@@ -222,7 +228,7 @@
         // Navigate to Landing Brief VC to display details
         SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
         controller.requestParams = parameters;
-        controller.serviceId = 1;
+        controller.searcheSaloonServices = arrayServices;
         [self.navigationController pushViewController:controller animated:YES];
 
     }

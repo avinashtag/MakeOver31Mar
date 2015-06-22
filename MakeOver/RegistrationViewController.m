@@ -10,6 +10,7 @@
 #import "MOTabBar.h"
 #import "ServiceInvoker.h"
 #import "ProfileViewController.h"
+#import "ActionSheetStringPicker.h"
 
 @interface RegistrationViewController ()
 
@@ -52,9 +53,31 @@
 
 - (IBAction)actionSelectGender:(id)sender {
 
+    [txtField_name resignFirstResponder];
+    [txtField_otp resignFirstResponder];
+    
     UIButton *btn = sender;
+    
+    NSArray *options = @[@"Male",@"Female"];
+    [ActionSheetStringPicker showPickerWithTitle:nil rows:options initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        
+        [btn setTitle:[options objectAtIndex:selectedIndex] forState:UIControlStateNormal];
+    } cancelBlock:^(ActionSheetStringPicker *picker) {
+        // cancelled
+    } origin:btn_male];
 
-    btn.selected = !btn.isSelected;
+//    btn.selected = !btn.isSelected;
+//    
+//    if ([btn isEqual:btn_male]) {
+//        btn_female.selected = NO;
+//        [btn_male setBackgroundColor:[UIColor blueColor]];
+//        [btn_female setBackgroundColor:[UIColor lightGrayColor]];
+//    }
+//    else {
+//        btn_male.selected = NO;
+//        [btn_male setBackgroundColor:[UIColor lightGrayColor]];
+//        [btn_female setBackgroundColor:[UIColor blueColor]];
+//    }
 }
 
 - (IBAction)actionNextButtonClicked:(id)sender {
@@ -68,12 +91,12 @@
 
         NSMutableDictionary *paramsRegister = [[NSMutableDictionary alloc]init];
         paramsRegister[@"email"] = self.string_emailId;
-        if (btn_female.isSelected) {
-            paramsRegister[@"gender"] = @"Female";
-        }
-        else {
-            paramsRegister[@"gender"] = @"Male";
-        }
+//        if (btn_female.isSelected) {
+            paramsRegister[@"gender"] = btn_male.titleLabel.text;
+//        }
+//        else {
+//            paramsRegister[@"gender"] = @"Male";
+//        }
 
         paramsRegister[@"dob"] = @"";//dictionary[@"birthday"];
         paramsRegister[@"mobileNo"] = @"email";
@@ -94,6 +117,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
+    [txtField_name resignFirstResponder];
+    [txtField_otp resignFirstResponder];
+    
     return YES;
 }
 

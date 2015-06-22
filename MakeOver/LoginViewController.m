@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 #import "UIButton+WebCache.h"
 
-#define kFBappId        @"408218362688859"  //Facebook App ID 239886072798506
+#define kFBappId        @"1602592673358708" //Facebook App ID 239886072798506
 
 #define kClientsecret   @"JPfP9NS-C-x6digjIMB9uJeo"
 #define kClientID       @"661032643238-6ve9me4qvgnl7i4sc4aakbk381dajijt.apps.googleusercontent.com"

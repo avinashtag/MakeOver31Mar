@@ -49,7 +49,27 @@ static NSArray *menuItems;
     
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     
-    menuItems = @[@"HAIR",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS"];
+    menuItems = @[@"HAIR SERVICE",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS"];
+    
+    for (int i =0; i < menuItems.count; i++)
+    {
+        NSString *menuItem = [menuItems objectAtIndex:i];
+        for (NSString *service in _searcheSaloonServices)
+        {
+            NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
+
+            if ([[service stringByTrimmingCharactersInSet:charSet] caseInsensitiveCompare:menuItem] == NSOrderedSame) {
+                
+                _serviceId = i + 1;
+                
+                break;
+            }
+        }
+        
+        if(_serviceId)
+            break;
+    }
+
     
     self.menuListView.delegate = self;
     self.menuListView.dataSource = self;
@@ -129,9 +149,6 @@ static NSArray *menuItems;
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    if (self.tabBarController.selectedIndex == 1) {
-        backButton.hidden = YES;
-    }
     // Get fav saloons from saved records.
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1

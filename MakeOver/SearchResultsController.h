@@ -32,6 +32,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
 @property (assign,nonatomic) NSInteger serviceId;
+@property (nonatomic, strong) NSArray *searcheSaloonServices;
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
 @property (strong, nonatomic) __block NSMutableArray *services;
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;

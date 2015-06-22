@@ -17,7 +17,8 @@ enum TimeConstants {
 
 #import "NSDate+MakeDate.h"
 #import "NSString+MakeString.h"
-#define API_BASE_STRING @"http://104.236.55.19:8181/MakeOver/rest/service/"
+#define API_BASE_STRING @"http://hooter.co.in:8181/MakeOver/rest/service/"
+// hooter.co.in
 
 
 #define API_RegisterUser @"registerUser"

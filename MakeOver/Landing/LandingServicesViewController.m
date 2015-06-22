@@ -50,7 +50,7 @@ static NSArray *menuItems;
 
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
 
-    menuItems = @[@"HAIR",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS",@"TUTORIALS",@"OFFERS"];
+    menuItems = @[@"HAIR SERVICE",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS",@"TUTORIALS",@"OFFERS"];
 
     self.menuListView.delegate = self;
     self.menuListView.dataSource = self;
@@ -1030,9 +1030,15 @@ static NSArray *menuItems;
             searchValue = [dict objectForKey:@"searchHelper"];
             searchHelper = [dict objectForKey:@"searchValue"];
         }
-        else {
+        else { // main_area
             searchValue = [dict objectForKey:@"searchValue"];
             searchHelper = @"";
+        }
+        
+        NSArray *arrayServices = nil;
+        id services = [dict objectForKey:@"services"];
+        if ([services isKindOfClass:[NSString class]]) {
+            arrayServices = [services componentsSeparatedByString:@","];
         }
         
         NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
@@ -1046,7 +1052,7 @@ static NSArray *menuItems;
         // Navigate to Landing Brief VC to display details
         SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
         controller.requestParams = parameters;
-        controller.serviceId = 1;
+        controller.searcheSaloonServices = arrayServices;
         [self.navigationController pushViewController:controller animated:YES];
 
     }
