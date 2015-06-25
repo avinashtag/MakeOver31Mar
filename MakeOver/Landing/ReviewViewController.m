@@ -30,7 +30,12 @@
     [_activityIndicator startAnimating];
     [self getreviews];
     // Do any additional setup after loading the view.
+    
+    _reviewsTable.estimatedRowHeight = 98;
+    _reviewsTable.rowHeight = UITableViewAutomaticDimension;
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -100,9 +105,32 @@
 //    if (dynamicHeight>84)
 //        return dynamicHeight;
 //    else
-        return 90;
+//        return 98;
+
+    return [self heightForBasicCellAtIndexPath:indexPath];
 }
 
+- (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"ReviewIdentifier";
+    static ReviewCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.reviewsTable dequeueReusableCellWithIdentifier:identifier];
+    });
+    
+    SaloonReview *review = _reviews[indexPath.row];
+    sizingCell.detail.text = review.review;
+    
+    return [self calculateHeightForConfiguredSizingCell:sizingCell];
+}
+
+- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1.0f; // Add 1.0f for the cell separator height
+}
 
 
 -(void)getreviews{
