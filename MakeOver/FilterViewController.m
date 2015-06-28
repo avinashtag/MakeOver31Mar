@@ -8,22 +8,7 @@
 
 #import "FilterViewController.h"
 #import "NMRangeSlider.h"
-
-@implementation FilterCell
-
-
-
-
-
-@end
-@interface FilterViewController (){
-    NSArray *menuItems;
-    NSArray *cellReload;
-    
-    BOOL isNeedToRefreshCardButton;
-}
-
-@end
+#import "UtilityClass.h"
 
 NSString *const ksortByFavouriteStylist = @"sortByFavouriteStylist";
 NSString *const ksortByDistance = @"sortByDistance";
@@ -37,10 +22,34 @@ NSString *const kisSorting = @"isSorting";
 NSString *const kisFiltering = @"isFiltering";
 
 
+@implementation FilterCell
+
+
+@end
+@interface FilterViewController (){
+    NSArray *menuItems;
+    NSArray *cellReload;
+    
+    BOOL isNeedToRefreshCardButton;
+}
+
+@end
+
+
+
+
 @implementation FilterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    dict_filterSortingParams = [UtilityClass RetrieveDataFromUserDefault:@"sortNfilter"];
+    
+    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_lower"];
+    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_upper"];
+    // Do any additional setup after loading the view.
+    
+    self.label_doubleSlider.text = @"FROM 0 TO 12";
 
     cellReload = @[@(0),@(0)];
     _menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.horizontalUI.frame.size.width, self.horizontalUI.frame.size.height)];
@@ -52,20 +61,13 @@ NSString *const kisFiltering = @"isFiltering";
     [self.horizontalUI addSubview:_menuListView];
     [_menuListView setSelectedButtonIndex:0];
     [_filterSegment setHidden:YES];
+    _btn_clearFilters.hidden = YES;
     [_sortSegment setHidden:NO];
 
     
     [self animateViewIn];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
-    
-    dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ksortByFavouriteStylist,@"",ksortByDistance,@"",ksortByRating,@"",kfilterBySex,@"",kfilterByTime,@"",kfilterByRange,@"NO",kfilterByCardSupport,@"YES",kisSorting,@"NO",kisFiltering, nil];
-
-    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_lower"];
-    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_upper"];
-    // Do any additional setup after loading the view.
-    
-    self.label_doubleSlider.text = @"FROM 0 TO 24";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,8 +86,29 @@ NSString *const kisFiltering = @"isFiltering";
 */
 
 - (IBAction)doneClicked:(UIButton *)sender {
+    
+    if (_menuListView.selectedButtonIndex == 0) {
         
-    if (self.callback !=nil) {
+        [dict_filterSortingParams setObject:@"" forKey:kfilterByTime];
+        [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
+        [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
+        [dict_filterSortingParams setObject:@"" forKey:kfilterByCardSupport];
+
+        [dict_filterSortingParams setObject:@"NO" forKey:kisFiltering];
+        [dict_filterSortingParams setObject:@"YES" forKey:kisSorting];
+    }
+    else {
+        [dict_filterSortingParams setObject:@"" forKey:ksortByDistance];
+        [dict_filterSortingParams setObject:@"" forKey:ksortByRating];
+        [dict_filterSortingParams setObject:@"" forKey:ksortByFavouriteStylist];
+        
+        [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];
+        [dict_filterSortingParams setObject:@"NO" forKey:kisSorting];
+    }
+    
+    [UtilityClass SaveDatatoUserDefault:dict_filterSortingParams :@"sortNfilter"];
+    
+    if (self.callback != nil) {
         self.callback(dict_filterSortingParams);
     }
 
@@ -122,6 +145,7 @@ NSString *const kisFiltering = @"isFiltering";
     [btn setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
     
 }
+
 - (IBAction)SallonRatingClicked:(UIButton *)sender {
     
     [[view_distanceBtnContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -235,10 +259,27 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (IBAction)clearFilter:(UIButton *)sender {
     
-    UIButton *btn = (UIButton*)sender;
+//    UIButton *btn = (UIButton*)sender;
     
     [self refreshFilterByUI];
     
+}
+
+-(void)refreshFilterByUI{
+    [self.btn_female setSelected:NO];
+    [self.btn_male setSelected:NO];
+    
+    isNeedToRefreshCardButton = YES;
+    [self.filterTable reloadData];
+    
+    [self.btn_fromTime setTitle:@"Select Time" forState:UIControlStateNormal];
+    [self.btn_toTime setTitle:@"Select Time" forState:UIControlStateNormal];
+    
+    [dict_filterSortingParams setObject:@"" forKey:kfilterByCardSupport];
+    [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
+    [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
+    [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_lower"];
+    [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_upper"];
 }
 
 
@@ -276,52 +317,60 @@ NSString *const kisFiltering = @"isFiltering";
 
 -(void)refreshSortByUI{
 
+    
     [view_salonRatingBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         UIButton *btnInView = (UIButton*)obj;
         
-        btnInView.backgroundColor = [UIColor clearColor];
-        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        if (![[dict_filterSortingParams objectForKey:ksortByRating] boolValue]) {
+            btnInView.backgroundColor = [UIColor clearColor];
+            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+        else {
+            [btnInView setBackgroundColor:[UIColor whiteColor]];
+            [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+        }
         
     }];
+
+    
     
     [view_distanceBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         UIButton *btnInView = (UIButton*)obj;
-        
-        btnInView.backgroundColor = [UIColor clearColor];
-        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-    }];
-    
-    [view_stylistBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        UIButton *btnInView = (UIButton*)obj;
-        
-        btnInView.backgroundColor = [UIColor clearColor];
-        [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+        if (![[dict_filterSortingParams objectForKey:ksortByDistance] boolValue]) {
+            btnInView.backgroundColor = [UIColor clearColor];
+            [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+        else {
+            [btnInView setBackgroundColor:[UIColor whiteColor]];
+            [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+        }
         
     }];
     
+    
+        [view_stylistBtnContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            
+            UIButton *btnInView = (UIButton*)obj;
+            
+            if (![[dict_filterSortingParams objectForKey:ksortByFavouriteStylist] boolValue]) {
+                btnInView.backgroundColor = [UIColor clearColor];
+                [btnInView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
+            else {
+                [btnInView setBackgroundColor:[UIColor whiteColor]];
+                [btnInView setTitleColor:[UIColor colorWithRed:79.0/255.0 green:0.0 blue:0.0 alpha:1.0] forState:UIControlStateNormal];
+            }
+
+            
+        }];
+    
 }
 
--(void)refreshFilterByUI{
-    [self.btn_female setSelected:NO];
-    [self.btn_male setSelected:NO];
 
-    isNeedToRefreshCardButton = YES;
-    [self.filterTable reloadData];
-
-    [self.btn_fromTime setTitle:@"Select Time" forState:UIControlStateNormal];
-    [self.btn_toTime setTitle:@"Select Time" forState:UIControlStateNormal];
-
-    [dict_filterSortingParams setObject:@"" forKey:kfilterByCardSupport];
-    [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
-    [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
-    [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_lower"];
-    [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_upper"];
-}
-
+#pragma mark- selectionMenu Delegates
 - (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList{
     return menuItems.count;
 }
@@ -332,28 +381,20 @@ NSString *const kisFiltering = @"isFiltering";
 
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index {
+ 
     if (index == 0) {
-        
-        [dict_filterSortingParams setObject:@"" forKey:kfilterByTime];
-        [dict_filterSortingParams setObject:@"" forKey:kfilterBySex];
-        [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
-        [dict_filterSortingParams setObject:@"NO" forKey:kisFiltering];
-        [dict_filterSortingParams setObject:@"YES" forKey:kisSorting];
-
-        [self refreshFilterByUI];
-        
-        [_filterSegment setHidden:YES];
-        [_sortSegment setHidden:NO];
-    }
-    else{
-        
-        [dict_filterSortingParams setObject:@"" forKey:ksortByDistance];
-        [dict_filterSortingParams setObject:@"" forKey:ksortByRating];
-        [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];
-        [dict_filterSortingParams setObject:@"NO" forKey:kisSorting];
         
         [self refreshSortByUI];
         
+        [_filterSegment setHidden:YES];
+        [_sortSegment setHidden:NO];
+        _btn_clearFilters.hidden = YES;
+    }
+    else {
+        
+        [self refreshFilterByUI];
+
+        _btn_clearFilters.hidden = NO;
         [_filterSegment setHidden:NO];
         [_sortSegment setHidden:YES];
     }
@@ -365,7 +406,7 @@ NSString *const kisFiltering = @"isFiltering";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -375,20 +416,21 @@ NSString *const kisFiltering = @"isFiltering";
     
         if (indexPath.row == 0) {
             UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
-            [btn setImage:[UIImage imageNamed:@"ic_nocards"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"ic_cards"] forState:UIControlStateSelected];
+//            [btn setImage:[UIImage imageNamed:@"ic_nocards"] forState:UIControlStateNormal];
+//            [btn setImage:[UIImage imageNamed:@"ic_cards"] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(cardSupportFilter:) forControlEvents:UIControlEventTouchUpInside];
             
             if (isNeedToRefreshCardButton == YES)
                 btn.selected = NO;
-            
-        }else if (indexPath.row == 1){
-            UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
-            [btn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
-            [btn setTitle:@"Clear All Filter" forState:UIControlStateNormal];
-            [btn addTarget:self action:@selector(clearFilter:) forControlEvents:UIControlEventTouchUpInside];
-            [cellCard.contentView addSubview:btn];
         }
+//        }else if (indexPath.row == 1){
+//            UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
+//            btn.frame = cellCard.frame;
+//            //[btn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
+//            [btn setTitle:@"Clear All Filter" forState:UIControlStateNormal];
+//            [btn addTarget:self action:@selector(clearFilter:) forControlEvents:UIControlEventTouchUpInside];
+//            [cellCard.contentView addSubview:btn];
+//        }
 
         cellCard.selectionStyle = UITableViewCellSelectionStyleNone;
     

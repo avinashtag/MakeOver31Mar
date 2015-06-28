@@ -85,32 +85,23 @@
     
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-//    SaloonReview *review = _reviews[indexPath.row];
-//    
-//    CGFloat dynamicHeight;
-//    
-//    lbl_getResizableHeight.text = review.review;
-//    [lbl_getResizableHeight sizeToFit];
-//    [lbl_getResizableHeight layoutIfNeeded];
-//    CGRect frame = lbl_getResizableHeight.frame;
-////    frame.size.height = lbl_getResizableHeight.contentSize.height;
-//    lbl_getResizableHeight.frame = frame;
-//    
-//    dynamicHeight = lbl_getResizableHeight.frame.size.height + 50;
-//    
-//    NSLog(@"%f",dynamicHeight);
-//    
-//    if (dynamicHeight>84)
-//        return dynamicHeight;
-//    else
-//        return 98;
+    return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return [self heightForBasicCellAtIndexPath:indexPath];
 }
 
 - (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
+   
     static NSString *identifier = @"ReviewIdentifier";
     static ReviewCell *sizingCell = nil;
     static dispatch_once_t onceToken;

@@ -36,7 +36,7 @@
     
     menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     
-    menuItems = @[@"My Reviews",@"Fav Saloons",@"Fav Stylists"];
+    menuItems = @[@"My Reviews",@"Fav Salons",@"Fav Stylists"];
     menuListView.delegate = self;
     menuListView.dataSource = self;
     [menuListView setBackgroundColor:[UIColor clearColor]];
@@ -70,7 +70,7 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    if (![fileManager fileExistsAtPath:favsPath]) //if file doesn't exist at path then create
+    if (![fileManager fileExistsAtPath:favsPath]) // file doesn't exist at path
     {
         
         self.favSaloons = [NSMutableArray new];
@@ -81,7 +81,7 @@
             [self.favSaloons removeAllObjects];
         }
         // Read & Update records
-        self.favSaloons = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath];
+        self.favSaloons = [[[(NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithFile:favsPath] reverseObjectEnumerator] allObjects] mutableCopy];;
     }
     
     [_tableView reloadData];
@@ -283,30 +283,7 @@
     
     if (menuListView.selectedButtonIndex == 0) {
 
-        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell"];
-        
-        UILabel *lbl_saloonName = (UILabel*)[cell viewWithTag:21];
-        UILabel *lbl_saloonAddress = (UILabel*)[cell viewWithTag:22];
-        UILabel *lbl_review = (UILabel*)[cell viewWithTag:23];
-        
-        NSString *saloonName = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"saloonName"];
-        NSString *address = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"mainArea"];
-        
-        NSString *reviewDate = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"reviewDate"];
-        NSString *review = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"myReview"];
-        
-        lbl_saloonName.text = [NSString stringWithFormat:@"%@ (%@)",saloonName,reviewDate];
-        lbl_review.text = review;
-        if (address != [NSNull null] && address) {
-            lbl_saloonAddress.text = address;
-        }
-        
-        
-        [cell setNeedsLayout];
-        [cell layoutIfNeeded];
-        height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-        
-        //height = 100.0f;
+        height = [self heightForBasicCellAtIndexPath:indexPath];
     }
     else if (menuListView.selectedButtonIndex == 1) {
         //TODO:: Favourite Saloon Parse show
@@ -322,6 +299,41 @@
 }
 
 
+- (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *identifier = @"reviewCell";
+    static UITableViewCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+    });
+    
+    UILabel *lbl_saloonName = (UILabel*)[sizingCell viewWithTag:21];
+    UILabel *lbl_saloonAddress = (UILabel*)[sizingCell viewWithTag:22];
+    UILabel *lbl_review = (UILabel*)[sizingCell viewWithTag:23];
+    
+    NSString *saloonName = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"saloonName"];
+    NSString *address = [[[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"saloonresponse"] objectForKey:@"mainArea"];
+    
+    NSString *reviewDate = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"reviewDate"];
+    NSString *review = [[profile.myRatedSaloons objectAtIndex:indexPath.row] objectForKey:@"myReview"];
+    
+    lbl_saloonName.text = [NSString stringWithFormat:@"%@ (%@)",saloonName,reviewDate];
+    lbl_review.text = review;
+    if (address != [NSNull null] && address) {
+        lbl_saloonAddress.text = address;
+    }
+    
+    return [self calculateHeightForConfiguredSizingCell:sizingCell];
+}
+
+- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1.0f; // Add 1.0f for the cell separator height
+}
 
 - (IBAction)back:(UIButton *)sender {
     [(MOTabBar*)self.tabBarController addCenterButtonWithImage:[UIImage imageNamed:@"ic_profilepage_pic"] highlightImage:[UIImage imageNamed:@"ic_profilepage_pic"]];
@@ -379,7 +391,7 @@
         [actionSheet showFromTabBar:self.tabBarController.tabBar];
     }
     else {
-        [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this saloon."];
+        [UtilityClass showAlertwithTitle:@"" message:@"Contact number not available for this salon."];
     }
     
     

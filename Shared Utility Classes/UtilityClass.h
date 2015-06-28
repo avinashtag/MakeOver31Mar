@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MBProgressHUD.h"
+
+
 @class Encription;
 @interface UtilityClass : NSObject
 {

@@ -53,6 +53,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_fromTime;
 @property (weak, nonatomic) IBOutlet UIButton *btn_toTime;
 @property (weak, nonatomic) IBOutlet UIView *view_datePicker;
+@property (weak, nonatomic) IBOutlet UIButton *btn_clearFilters;
+
 
 @property (copy) void(^callback)(NSDictionary *params);
 

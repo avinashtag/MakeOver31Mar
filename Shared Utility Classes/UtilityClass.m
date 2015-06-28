@@ -12,7 +12,9 @@
 #import "Reachability.h"
 #import "AppDelegate.h"
 
+
 @implementation UtilityClass
+
 
 
 static BOOL _isInternetConnected;

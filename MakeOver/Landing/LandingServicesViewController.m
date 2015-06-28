@@ -312,6 +312,8 @@ static NSArray *menuItems;
     }];
 
     [self.servicesTable reloadData];
+    
+    [AppDelegate resetSortNfilter];
 
 }
 
@@ -448,6 +450,8 @@ static NSArray *menuItems;
         default:
             break;
     }
+    
+    [AppDelegate resetSortNfilter];
 }
 
 

@@ -26,6 +26,7 @@ extern NSString *const FBSessionStateChangedNotification;
 AppDelegate* appdelegate();
 - (IBAction)selectCityActionWithController:(id)controller popverFroomRect:(CGRect)frame CompletionHandler:(SelectCityCompletion)block ;
 
++ (void)resetSortNfilter;
 
 @end
 

@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view.
     _starRating.canEdit = YES;
     _starRating.maxRating = 5;
-    _starRating.rating = 4;
+    _starRating.rating = 0;
 
 }
 
