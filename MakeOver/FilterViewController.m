@@ -45,8 +45,6 @@ NSString *const kisFiltering = @"isFiltering";
 
     dict_filterSortingParams = [UtilityClass RetrieveDataFromUserDefault:@"sortNfilter"];
     
-    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_lower"];
-    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_upper"];
     // Do any additional setup after loading the view.
     
     self.label_doubleSlider.text = @"FROM 0 TO 12";
@@ -64,6 +62,7 @@ NSString *const kisFiltering = @"isFiltering";
     _btn_clearFilters.hidden = YES;
     [_sortSegment setHidden:NO];
 
+    [self refreshSortByUI];
     
     [self animateViewIn];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -261,11 +260,6 @@ NSString *const kisFiltering = @"isFiltering";
     
 //    UIButton *btn = (UIButton*)sender;
     
-    [self refreshFilterByUI];
-    
-}
-
--(void)refreshFilterByUI{
     [self.btn_female setSelected:NO];
     [self.btn_male setSelected:NO];
     
@@ -280,6 +274,70 @@ NSString *const kisFiltering = @"isFiltering";
     [dict_filterSortingParams setObject:@"" forKey:kfilterByRange];
     [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_lower"];
     [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_upper"];
+    
+}
+
+-(void)refreshFilterByUI{
+    
+    if ([[dict_filterSortingParams objectForKey:kfilterBySex] length]) {
+        
+        NSString *string_sex = [dict_filterSortingParams objectForKey:kfilterBySex];
+
+        if ([string_sex isEqualToString:@"U"]) {
+            self.btn_female.selected = YES;
+            self.btn_male.selected = YES;
+        }
+        else if ([string_sex isEqualToString:@"F"]) {
+            self.btn_female.selected = YES;
+            self.btn_male.selected = NO;
+        }
+        else if ([string_sex isEqualToString:@"M"]) {
+            self.btn_female.selected = NO;
+            self.btn_male.selected = YES;
+        }
+        else {
+            self.btn_female.selected = NO;
+            self.btn_male.selected = NO;
+        }
+    }
+    
+    if ([[dict_filterSortingParams objectForKey:kfilterByRange] boolValue])
+    {
+        
+        if (![[dict_filterSortingParams objectForKey:@"filterByRange_lower"] isEqualToString:@"0"])
+        {
+            NSMutableString *formatedDate = [dict_filterSortingParams objectForKey:@"filterByRange_lower"];
+            NSInteger hrs = [[formatedDate substringWithRange:NSMakeRange(0, 2)] integerValue];
+            
+            if (hrs/12) {
+                NSString *realHrs = [NSString stringWithFormat:@"%i",hrs%12];
+                [self.btn_fromTime setTitle:[formatedDate stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:realHrs] forState:UIControlStateNormal];
+            }
+            else
+                [self.btn_fromTime setTitle:formatedDate forState:UIControlStateNormal];
+        }
+        
+        if (![[dict_filterSortingParams objectForKey:@"filterByRange_upper"] isEqualToString:@"0"]) {
+            
+            NSMutableString *formatedDate = [dict_filterSortingParams objectForKey:@"filterByRange_upper"];
+            NSInteger hrs = [[formatedDate substringWithRange:NSMakeRange(0, 2)] integerValue];
+            
+            if (hrs/12) {
+                NSString *realHrs = [NSString stringWithFormat:@"%i",hrs%12];
+                [self.btn_toTime setTitle:[formatedDate stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:realHrs] forState:UIControlStateNormal];
+            }
+            else
+                [self.btn_toTime setTitle:formatedDate forState:UIControlStateNormal];
+        }
+    }
+    
+    
+    if ([[dict_filterSortingParams objectForKey:kfilterByCardSupport] isEqualToString:@"Y"])
+        isNeedToRefreshCardButton = NO;
+    else
+        isNeedToRefreshCardButton = YES;
+    
+    [_filterTable reloadData];
 }
 
 
@@ -416,12 +474,15 @@ NSString *const kisFiltering = @"isFiltering";
     
         if (indexPath.row == 0) {
             UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
-//            [btn setImage:[UIImage imageNamed:@"ic_nocards"] forState:UIControlStateNormal];
-//            [btn setImage:[UIImage imageNamed:@"ic_cards"] forState:UIControlStateSelected];
+
+            
+            
             [btn addTarget:self action:@selector(cardSupportFilter:) forControlEvents:UIControlEventTouchUpInside];
             
             if (isNeedToRefreshCardButton == YES)
                 btn.selected = NO;
+            else
+                btn.selected = YES;
         }
 //        }else if (indexPath.row == 1){
 //            UIButton *btn = (UIButton*)[cellCard viewWithTag:21];
@@ -512,17 +573,35 @@ NSString *const kisFiltering = @"isFiltering";
 }
 
 - (IBAction)timePickerHelper:(id)sender {
+ 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm a"];
 
-    NSString *formatedDate = [dateFormatter stringFromDate:self.timePicker.date];
+    NSMutableString *formatedDate = [[dateFormatter stringFromDate:self.timePicker.date] mutableCopy];
+    
+    NSInteger hrs = [[formatedDate substringWithRange:NSMakeRange(0, 2)] integerValue];
+    
+    if (self.timePicker.tag == 1)
+    {
+        if (hrs/12) {
+            NSString *realHrs = [NSString stringWithFormat:@"%i",hrs%12];
+            [self.btn_fromTime setTitle:[formatedDate stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:realHrs] forState:UIControlStateNormal];
+        }
+        else
+            [self.btn_fromTime setTitle:formatedDate forState:UIControlStateNormal];
+        
+        [dict_filterSortingParams setObject:formatedDate forKey:@"filterByRange_lower"];
+    }
+    else {
+        
+        if (hrs/12) {
+            NSString *realHrs = [NSString stringWithFormat:@"%i",hrs%12];
+            [self.btn_toTime setTitle:[formatedDate stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:realHrs] forState:UIControlStateNormal];
+        }
+        else
+            [self.btn_toTime setTitle:formatedDate forState:UIControlStateNormal];
 
-    if (self.timePicker.tag == 1) {
-        [self.btn_fromTime setTitle:formatedDate forState:UIControlStateNormal];
-        [dict_filterSortingParams setObject:[formatedDate substringToIndex:2] forKey:@"filterByRange_lower"];
-    }else{
-        [self.btn_toTime setTitle:formatedDate forState:UIControlStateNormal];
-        [dict_filterSortingParams setObject:[formatedDate substringToIndex:2] forKey:@"filterByRange_upper"];
+        [dict_filterSortingParams setObject:formatedDate forKey:@"filterByRange_upper"];
     }
 
     [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];

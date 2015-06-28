@@ -54,6 +54,9 @@ AppDelegate* appdelegate(){
     
     NSMutableDictionary *dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",k_sortByFavouriteStylist,@"",k_sortByDistance,@"",k_sortByRating,@"",k_filterBySex,@"",k_filterByTime,@"",k_filterByRange,@"NO",k_filterByCardSupport,@"YES",k_isSorting,@"NO",k_isFiltering, nil];
     
+    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_lower"];
+    [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_upper"];
+    
     [UtilityClass SaveDatatoUserDefault:dict_filterSortingParams :@"sortNfilter"];
 
 }

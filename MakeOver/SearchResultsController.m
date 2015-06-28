@@ -51,25 +51,44 @@ static NSArray *menuItems;
     
     menuItems = @[@"HAIR SERVICE",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS"];
     
-    for (int i =0; i < menuItems.count; i++)
+    if (self.defaultServiceName != nil && self.defaultServiceName.length)
     {
-        NSString *menuItem = [menuItems objectAtIndex:i];
         for (NSString *service in _searcheSaloonServices)
         {
             NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
-
-            if ([[service stringByTrimmingCharactersInSet:charSet] caseInsensitiveCompare:menuItem] == NSOrderedSame) {
+            
+            if ([[service stringByTrimmingCharactersInSet:charSet] caseInsensitiveCompare:_defaultServiceName] == NSOrderedSame)
+            {
                 
-                _serviceId = i + 1;
+                _serviceId = self.defaultServiceId;
                 
                 break;
             }
         }
-        
-        if(_serviceId)
-            break;
     }
-
+    else {
+       
+        for (int i =0; i < menuItems.count; i++)
+        {
+            NSString *menuItem = [menuItems objectAtIndex:i];
+            for (NSString *service in _searcheSaloonServices)
+            {
+                NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
+                
+                if ([[service stringByTrimmingCharactersInSet:charSet] caseInsensitiveCompare:menuItem] == NSOrderedSame) {
+                    
+                    _serviceId = i + 1;
+                    
+                    break;
+                }
+            }
+            
+            if(_serviceId)
+                break;
+        }
+    }
+    
+    
     
     self.menuListView.delegate = self;
     self.menuListView.dataSource = self;

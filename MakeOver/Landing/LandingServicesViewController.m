@@ -1057,6 +1057,8 @@ static NSArray *menuItems;
         SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
         controller.requestParams = parameters;
         controller.searcheSaloonServices = arrayServices;
+        controller.defaultServiceName = [menuItems objectAtIndex:_menuListView.selectedButtonIndex];
+        controller.defaultServiceId = self.serviceId;
         [self.navigationController pushViewController:controller animated:YES];
 
     }
