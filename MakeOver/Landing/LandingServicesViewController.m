@@ -31,7 +31,7 @@
     WYPopoverController *popoverController;
     FilterViewController *filterViewController;
     
-    NSArray *arrayFilteredResults;
+    NSMutableArray *arrayFilteredResults;
     BOOL isSortingByStylist;
 }
 
@@ -46,7 +46,12 @@ static NSArray *menuItems;
 
     [super viewDidLoad];
 
-    array_searchResultsONFilteredItems = [[NSMutableArray alloc]init];
+    _nextPageNumber = 1;
+    
+    array_Saloons = [NSMutableArray new];
+    self.services = [NSMutableArray new];
+    arrayFilteredResults = [NSMutableArray new];
+    array_searchResultsONFilteredItems = [NSMutableArray new];
 
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
 
@@ -168,13 +173,20 @@ static NSArray *menuItems;
         NSString *sortingByRating   = [params objectForKey:@"sortByRating"];
         NSString *sortingByDistance = [params objectForKey:@"sortByDistance"];
         NSString *filterBySex       = [params objectForKey:@"filterBySex"];
-        NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
+//        NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
         NSString *filterByTimeRange = [params objectForKey:@"filterByRange"];
         NSString *filterByCreditCardHolders = [params objectForKey:@"filterByCardPresent"];
 
         NSString *str_isSorting = [params objectForKey:@"isSorting"];
         NSString *str_isFiltering = [params objectForKey:@"isFiltering"];
 
+        if ([str_isSorting isEqualToString:@"YES"] || [str_isFiltering isEqualToString:@"YES"])
+            _isFilterSortApplied = YES;
+        else if (![str_isSorting isEqualToString:@"YES"] || ![str_isFiltering isEqualToString:@"YES"])
+            _isFilterSortApplied = NO;
+
+        
+            
         if ([str_isSorting isEqualToString:@"YES"]) {
             
             isSortingByStylist = NO;
@@ -291,23 +303,31 @@ static NSArray *menuItems;
     NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     parameters[@"userId"] = string_userId!=nil ? string_userId : @"";
     
-    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result) {
-        if (result == sirSuccess) {
-            NSError *error = nil;
-            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-            
-            if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+    NSString *pageNumberString = [NSString stringWithFormat:@"%ld",(long)_nextPageNumber];
+    [parameters setObject:pageNumberString forKey:@"pageNo"];
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..."
+        completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+        {
+            if (result == sirSuccess)
+            {
+                NSError *error = nil;
+                NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
                 
-                array_Saloons = [responseDict objectForKey:@"object"];
-            }
-            
-            _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
-            
-            arrayFilteredResults = [NSArray arrayWithArray:_services];
-            
-            [self.servicesTable reloadData];
+                if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                    
+                    [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                    
+                    _nextPageNumber++;
+                }
+                
+                [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                
+                [arrayFilteredResults addObjectsFromArray:[NSArray arrayWithArray:_services]];
+                
+                [self.servicesTable reloadData];
 
-            isFilterON = NO;
+                isFilterON = NO;
         }
     }];
 
@@ -374,10 +394,11 @@ static NSArray *menuItems;
 
     NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     NSString *userId = string_userId!=nil ? string_userId : @"";
-//    NSString *string_serviceId = [NSString stringWithFormat:@"%ld",(long)_serviceId];
 
     [parameters setObject:userId forKey:@"userId"];
-//    [parameters setObject:string_serviceId forKey:@"serviceId"];
+    
+    NSString *pageNumberString = [NSString stringWithFormat:@"%ld",(long)_nextPageNumber];
+    [parameters setObject:pageNumberString forKey:@"pageNo"];
 
     switch (serviceType) {
             
@@ -393,13 +414,14 @@ static NSArray *menuItems;
                      
                      if ([responseDict objectForKey:@"object"] != [NSNull null]) {
                          
-                         array_Saloons = [responseDict objectForKey:@"object"];
+                         [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                          
+                         _nextPageNumber++;
                      }
                      
-                     _services = [[ServiceList initializeWithTutorialResponse:responseDict] mutableCopy];
+                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
                      
-                     arrayFilteredResults = [NSArray arrayWithArray:_services];
+                     [arrayFilteredResults addObjectsFromArray:[NSArray arrayWithArray:_services]];
                      
                      [self.servicesTable reloadData];
 
@@ -426,13 +448,14 @@ static NSArray *menuItems;
                      
                      if ([responseDict objectForKey:@"object"] != [NSNull null]) {
                          
-                         array_Saloons = [responseDict objectForKey:@"object"];
+                         [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                          
+                         _nextPageNumber++;
                      }
-                     _services = [[ServiceList initializeWithOffersResponse:responseDict] mutableCopy];
                      
-                     arrayFilteredResults = [NSArray arrayWithArray:_services];
+                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
                      
+                     [arrayFilteredResults addObjectsFromArray:[NSArray arrayWithArray:_services]];
                      [self.servicesTable reloadData];
 
                      isFilterON = NO;
@@ -622,8 +645,47 @@ static NSArray *menuItems;
         [cell.btn_showTutorials addTarget:self action:@selector(showTutorialPopUp:) forControlEvents:UIControlEventTouchUpInside];
         [cell.btn_showTutorials setTag:indexPath.row];
     }
-
+    
+    
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    loadMoreFooter *footerView = [_servicesTable dequeueReusableHeaderFooterViewWithIdentifier:@"loadMoreFooter"];
+    
+    if (_nextPageNumber == 1)
+        footerView.hidden = YES;
+//    else if(_page < _totalPages)
+//        footerView.hidden = NO;
+    else
+        footerView.hidden = YES;
+    
+
+    if (!_isFilterSortApplied) // make pagination request else don't make request
+    {
+//        NSInteger rows;
+        
+//        if (isFilterON) {
+//            rows = array_searchResultsONFilteredItems.count;
+//        }
+//        else{
+//            rows = arrayFilteredResults.count;
+//        }
+//        
+//        if (rows-1 == indexPath.row) {
+//            
+//            if (_page < _totalPages) {
+//                _page++;
+//                [self loadDataWithPage:_page url:_catalogUrl];
+//            }
+//        }
+        [self selectionList:_menuListView didSelectButtonWithIndex:_menuListView.selectedButtonIndex];
+    }
+
+    
+    return footerView;
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -867,6 +929,8 @@ static NSArray *menuItems;
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
   
+    _nextPageNumber = 1;
+    
     switch (index) {
         case 0:
         {

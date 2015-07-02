@@ -13,6 +13,7 @@
 #import "WYPopoverController.h"
 #import "DropDownList.h"
 #import "DropDownListPassValueDelegate.h"
+#import "loadMoreFooter.h"
 
 typedef enum {
     sHAIR= 1,
@@ -27,9 +28,9 @@ typedef enum {
 }
 MenuServiceType;
 
-@interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate,DropDownListPassValueDelegate> {
+@interface LandingServicesViewController : UIViewController<HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate,DropDownListPassValueDelegate, UITableViewDataSource, UITableViewDelegate> {
     
-    NSArray *array_Saloons;
+    NSMutableArray *array_Saloons;
     
     NSMutableArray *array_favSaloons;
     BOOL isSearchReqQueued;
@@ -45,8 +46,14 @@ MenuServiceType;
     __weak IBOutlet UIButton *backButton;
 }
 
+@property (weak, nonatomic) IBOutlet loadMoreFooter *loadMoretableFooter;
+
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
 @property (assign,nonatomic) NSInteger serviceId;
+@property (assign,nonatomic) NSInteger nextPageNumber;
+@property (nonatomic,assign) BOOL isFilterSortApplied;;
+
+
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
 @property (strong, nonatomic) __block NSMutableArray *services;
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;
