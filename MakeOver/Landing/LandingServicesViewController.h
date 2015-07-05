@@ -43,6 +43,8 @@ MenuServiceType;
 
     __weak IBOutlet NSLayoutConstraint *constraintTopMargin_tableView;
     __weak IBOutlet UIButton *backButton;
+    
+    BOOL isPageLimitReached;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;

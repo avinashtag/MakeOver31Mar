@@ -47,6 +47,7 @@ static NSArray *menuItems;
     [super viewDidLoad];
 
     _nextPageNumber = 1;
+    isPageLimitReached = NO;
 
     array_Saloons = [NSMutableArray new];
     self.services = [NSMutableArray new];
@@ -224,6 +225,7 @@ static NSArray *menuItems;
                 if (sortingByFavouriteStylist != nil && sortingByFavouriteStylist.length != 0 && [sortingByFavouriteStylist isEqualToString:@"YES"]) {
                     
                     _nextPageNumber = 1;
+                    isPageLimitReached = NO;
                     
                     isSortingByStylist = YES;
                     [weakSelf webServiceSortByStylist];
@@ -355,6 +357,9 @@ static NSArray *menuItems;
                     }
                     else if (_nextPageNumber == 1)
                         [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                    else {
+                        isPageLimitReached = YES;
+                    }
                 }
                 else
                     [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
@@ -428,6 +433,9 @@ static NSArray *menuItems;
                  }
                  else if (_nextPageNumber == 1)
                      [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                 else {
+                     isPageLimitReached = YES;
+                 }
              }
              else
                  [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
@@ -504,6 +512,9 @@ static NSArray *menuItems;
                          }
                          else if (_nextPageNumber == 1)
                              [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                         else {
+                             isPageLimitReached = YES;
+                         }
                      }
                      else
                          [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
@@ -547,6 +558,9 @@ static NSArray *menuItems;
                          }
                          else if (_nextPageNumber == 1)
                              [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                         else {
+                             isPageLimitReached = YES;
+                         }
                      }
                      else
                          [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
@@ -739,7 +753,7 @@ static NSArray *menuItems;
     }
     
     
-    if (!_isFilterSortApplied) // make pagination request else don't make request
+    if (!_isFilterSortApplied && !isPageLimitReached) // make pagination request else don't make request
     {
         NSInteger rows;
 
@@ -775,7 +789,7 @@ static NSArray *menuItems;
             }
         }
     }
-    else if (isSortingByStylist) {
+    else if (isSortingByStylist && !isPageLimitReached) {
         
         NSInteger rows;
         
@@ -1034,6 +1048,7 @@ static NSArray *menuItems;
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
   
     _nextPageNumber = 1;
+    isPageLimitReached = NO;
     
     switch (index) {
         case 0:
@@ -1245,10 +1260,10 @@ static NSArray *menuItems;
 
         
         
-    }else{
+    } else {
 
 
-        if ([searchText length] != 0) {
+        if ([[searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] != 0) {
             _ddList._searchText = searchText;
             //[_ddList updateData];
             [self setDDListHidden:NO];
@@ -1287,7 +1302,7 @@ static NSArray *menuItems;
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    NSString* searchText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
+    NSString* searchText = [[searchBar.text stringByReplacingCharactersInRange:range withString:text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     NSLog(@"%@",searchText);
 
@@ -1295,51 +1310,55 @@ static NSArray *menuItems;
 
         [self filterContentForSearchText:searchText];
 
-    }else{
-        if (!isSearchReqQueued && searchText.length && !(searchText.length/3 == 0))
-        {
-            NSLog(@"Hit Web Service");
-            //also check if already hit or not
-
-            NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
-            string_userId = string_userId!=nil ? string_userId : @"";
-
-            NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
-
-            NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
-
-            isSearchReqQueued = YES;
-
-            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
-             {
-                 isSearchReqQueued = NO;
-
-                 if (result == sirSuccess) {
-
-                     NSError *error = nil;
-                     NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-
-                     if ([responseDict objectForKey:@"object"] != [NSNull null]) {
-
-                         [array_SearchResults removeAllObjects];
-                         [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                     }
-                     
-                     [_ddList updateDataWithArray:array_SearchResults];
-                     
-                 }else if (sirFailed){
-                     
-                 }
-                 
-                 
-             }];
+    }
+    else if (searchText.length && !(searchText.length/2 == 0))
+    {
+        if (isSearchReqQueued) {
+            [[ServiceInvoker sharedInstance] cancelOperationFromQueue];
         }
+        
+        NSLog(@"d");
+        //also check if already hit or not
+        NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
+        
+        isSearchReqQueued = YES;
+        
+        [self performSelector:@selector(makeSearchRequestWithParams:) withObject:parameters afterDelay:0.1];
     }
 
 
-    
     return YES;
 }
+
+- (void)makeSearchRequestWithParams:(NSDictionary*)params {
+    
+    [[ServiceInvoker sharedInstance] setRequestTypeSearch];
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:params requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+     {
+         isSearchReqQueued = NO;
+         
+         if (result == sirSuccess) {
+             
+             NSError *error = nil;
+             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+             
+             if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                 
+                 [array_SearchResults removeAllObjects];
+                 [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
+             }
+             
+             [_ddList updateDataWithArray:array_SearchResults];
+             
+         }else if (sirFailed){
+             
+         }
+     }];
+}
+
 
 
 - (void)filterContentForSearchText:(NSString*)searchText

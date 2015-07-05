@@ -1113,7 +1113,7 @@ static NSArray *menuItems;
 #pragma mark - SearchBar Delegates
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if ([searchText length] != 0) {
+    if ([[searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] != 0) {
         _ddList._searchText = searchText;
         //[_ddList updateData];
         [self setDDListHidden:NO];
@@ -1143,51 +1143,58 @@ static NSArray *menuItems;
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    NSString* searchText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
+    NSString* searchText = [[searchBar.text stringByReplacingCharactersInRange:range withString:text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     NSLog(@"%@",searchText);
     
-    if (!isSearchReqQueued && searchText.length && !(searchText.length/3 == 0))
+    if (searchText.length && !(searchText.length/2 == 0))
     {
-        NSLog(@"Hit Web Service");
+        if (isSearchReqQueued) {
+            [[ServiceInvoker sharedInstance] cancelOperationFromQueue];
+        }
+        
+        NSLog(@"d");
         //also check if already hit or not
-        
-        NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
-        string_userId = string_userId!=nil ? string_userId : @"";
-        
         NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
         
         NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:(idCity!=nil ? idCity : @"1"),@"cityId",searchText,@"searchString", nil];
         
         isSearchReqQueued = YES;
         
-        [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
-         {
-             isSearchReqQueued = NO;
-             
-             if (result == sirSuccess) {
-                 
-                 NSError *error = nil;
-                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
-                 
-                 if ([responseDict objectForKey:@"object"] != [NSNull null]) {
-                     
-                     [array_SearchResults removeAllObjects];
-                     [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                 }
-                 
-                 [_ddList updateDataWithArray:array_SearchResults];
-                 
-             }else if (sirFailed){
-                 
-             }
-             
-             
-         }];
+        [self performSelector:@selector(makeSearchRequestWithParams:) withObject:parameters afterDelay:0.1];
     }
     
     return YES;
 }
+
+
+- (void)makeSearchRequestWithParams:(NSDictionary*)params {
+    
+    [[ServiceInvoker sharedInstance] setRequestTypeSearch];
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:params requestAPI:API_KEY_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+     {
+         isSearchReqQueued = NO;
+         
+         if (result == sirSuccess) {
+             
+             NSError *error = nil;
+             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+             
+             if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                 
+                 [array_SearchResults removeAllObjects];
+                 [array_SearchResults addObjectsFromArray:[responseDict objectForKey:@"object"]];
+             }
+             
+             [_ddList updateDataWithArray:array_SearchResults];
+             
+         }else if (sirFailed){
+             
+         }
+     }];
+}
+
 
 
 #pragma mark- Maps

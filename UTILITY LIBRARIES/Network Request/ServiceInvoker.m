@@ -44,6 +44,21 @@
 	return(instance);
 }
 
+- (void)cancelOperationFromQueue {
+    
+    if (opQueue) {
+        isOperationCancelled = YES;
+        [UtilityClass removeHudFromView:nil afterDelay:0];
+
+        [opQueue cancelAllOperations];
+    }
+}
+
+- (void)setRequestTypeSearch {
+    
+    self.isSearchRequest = YES;
+}
+
 
 #pragma mark - API Request Methods
 
@@ -65,7 +80,7 @@
                 [request addPostValue:[postParams objectForKey:key] forKey:key];
             }
         }
-                
+        
         __weak typeof(request) weakRequest = request;
         
         [request setCompletionBlock:^{
@@ -147,6 +162,7 @@
         request.timeOutSeconds = TimeOut60;
         [request setShouldAttemptPersistentConnection:NO];
         [request startAsynchronous];
+
     }
     else { // Show alert for Data connectivity failure.
         [UtilityClass showAlertwithTitle:@"Network Connectivity Required!" message:@"Please check your network connection and try again."];
@@ -167,10 +183,11 @@
 
 
 -(void)serviceInvokeWithParameters:(NSDictionary*)postParams requestAPI:(NSString*)stringURL spinningMessage:(NSString*)messageSpin completion:(ServiceInvokerCompletion)serviceInvokerCompletion{
-    
-    if (messageSpin!=nil) {
+        
+    if ((messageSpin!=nil) && !self.isSearchRequest) {
         [UtilityClass showSpinnerWithMessage:messageSpin onView:nil];
     }
+    
     if (![UtilityClass isNetworkAvailable]){
         [UtilityClass removeHudFromView:nil afterDelay:0.1];
         [UtilityClass showAlertwithTitle:@"Network Connectivity Required!" message:@"Please check your network connection and try again."];
@@ -189,10 +206,17 @@
             [request addPostValue:value forKey:key];
         }];
     }
+    
+    isOperationCancelled = NO;
+
     __weak typeof(request) weakRequest = request;
 
     [request setFailedBlock:^{
-        [UtilityClass removeHudFromView:nil afterDelay:0.1];
+        
+        if (self.isSearchRequest) {
+            self.isSearchRequest = NO;
+        }
+        [UtilityClass removeHudFromView:nil afterDelay:0];
 
         __strong typeof(request) strongRequest = weakRequest;
        
@@ -201,11 +225,18 @@
         }
         NSError *error = [strongRequest error];
         NSLog(@"error description: %@",error.description);
-        [UtilityClass showAlertwithTitle:@"Error" message:@"Something went wrong, please try again later."];
+        
+        if (!isOperationCancelled) {
+            [UtilityClass showAlertwithTitle:@"Error" message:@"Something went wrong, please try again later."];
+        }
     }];
 
     
     [request setCompletionBlock:^{
+        
+        if (self.isSearchRequest) {
+            self.isSearchRequest = NO;
+        }
         [UtilityClass removeHudFromView:nil afterDelay:0.1];
 
         __strong typeof(request) strongRequest = weakRequest;
@@ -260,7 +291,11 @@
     
     request.timeOutSeconds = TimeOut60;
     [request setShouldAttemptPersistentConnection:NO];
-    [request startAsynchronous];
+//    [request startAsynchronous];
+    if (!opQueue) {
+        opQueue = [[NSOperationQueue alloc] init];
+    }
+    [opQueue addOperation:request]; //queue is an NSOperationQueue
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -281,4 +316,5 @@
     _coordinate = [[_locationManager location] coordinate];
     
 }
+
 @end

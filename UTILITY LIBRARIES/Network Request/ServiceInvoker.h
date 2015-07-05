@@ -35,8 +35,12 @@ typedef void(^ServiceInvokerCompletion)(ASIHTTPRequest *request, ServiceInvokerR
 
 @interface ServiceInvoker : NSObject <CLLocationManagerDelegate> {
     
+    NSOperationQueue *opQueue;
+    BOOL isOperationCancelled;
 }
 
+
+@property (nonatomic, assign) BOOL isSearchRequest;
 @property(unsafe_unretained,nonatomic) id<ServiceInvokerDelegate> __unsafe_unretained delegate;
 @property(strong,nonatomic) __block NSMutableArray *cities;
 @property(strong,nonatomic) __block City *city;
@@ -52,8 +56,8 @@ typedef void(^ServiceInvokerCompletion)(ASIHTTPRequest *request, ServiceInvokerR
 
 - (void)makeApiRequestWithParams:(NSDictionary*)postParams requestAPI:(NSString*)stringURL reqTag:(NSInteger)tag delegate:(id<ServiceInvokerDelegate>)delegate;
 
-
-
+- (void)cancelOperationFromQueue;
+- (void)setRequestTypeSearch;
 
 
 @end
