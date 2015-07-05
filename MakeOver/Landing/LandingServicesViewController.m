@@ -47,10 +47,9 @@ static NSArray *menuItems;
     [super viewDidLoad];
 
     _nextPageNumber = 1;
-    
+
     array_Saloons = [NSMutableArray new];
     self.services = [NSMutableArray new];
-    arrayFilteredResults = [NSMutableArray new];
     array_searchResultsONFilteredItems = [NSMutableArray new];
 
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -86,7 +85,7 @@ static NSArray *menuItems;
 
         _menuListView.selectedButtonIndex = self.selectedSegmentFromSearch -1;
         
-        arrayFilteredResults = [NSArray arrayWithArray:_services];
+        arrayFilteredResults = [NSMutableArray arrayWithArray:_services];
         [self.servicesTable reloadData];
     }
     else {
@@ -94,7 +93,7 @@ static NSArray *menuItems;
         [[UIApplication sharedApplication]setStatusBarHidden:YES];
         [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
         
-        arrayFilteredResults = [NSArray new];
+        arrayFilteredResults = [NSMutableArray new];
         array_SearchResults = [NSMutableArray new];
         
         _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
@@ -165,7 +164,6 @@ static NSArray *menuItems;
     __weak LandingServicesViewController *weakSelf = self;
     
     filterViewController.callback = ^(NSDictionary *params) {
-        NSLog(@"%@",params);
 
         isFilterON = YES;
 
@@ -185,107 +183,118 @@ static NSArray *menuItems;
         else if (![str_isSorting isEqualToString:@"YES"] || ![str_isFiltering isEqualToString:@"YES"])
             _isFilterSortApplied = NO;
 
-        
+        if (_isFilterSortApplied)
+        {
             
-        if ([str_isSorting isEqualToString:@"YES"]) {
-            
-            isSortingByStylist = NO;
-            
-            if (sortingByRating != nil && sortingByRating.length != 0 && [sortingByRating isEqualToString:@"YES"]) {
+            if ([str_isSorting isEqualToString:@"YES"]) {
                 
+                isSortingByStylist = NO;
                 
-                NSArray *sortedArray;
-                sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                    NSNumber *first = [(ServiceList*)a saloonRating];
-                    NSNumber *second = [(ServiceList*)b saloonRating];
-                    return [second compare:first];
-                }];
-                
-                arrayFilteredResults = sortedArray;
-                
-                [weakSelf.servicesTable reloadData];
-            }
-            
-            
-            if (sortingByDistance != nil && sortingByDistance.length != 0 && [sortingByDistance isEqualToString:@"YES"]) {
-                
-                NSArray *sortedArray;
-                sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                    NSNumber *first = [NSNumber numberWithFloat:[[(ServiceList*)a saloonDstfrmCurrLocation] floatValue]] ;
-                    NSNumber *second = [NSNumber numberWithFloat:[[(ServiceList*)b saloonDstfrmCurrLocation] floatValue]];
-                    return [first compare:second];
-                }];
-                
-                arrayFilteredResults = sortedArray;
-                
-                [weakSelf.servicesTable reloadData];
-            }
-            
-            
-            if (sortingByFavouriteStylist != nil && sortingByFavouriteStylist.length != 0 && [sortingByFavouriteStylist isEqualToString:@"YES"]) {
-                
-//                FavouriteStylistController *favouriteStylistController = [self.storyboard instantiateViewControllerWithIdentifier:@"SIDFavouriteStylist"];
-//                [self.navigationController pushViewController:favouriteStylistController animated:YES];
-                isSortingByStylist = YES;
-                [weakSelf webServiceSortByStylist];
+                if (sortingByRating != nil && sortingByRating.length != 0 && [sortingByRating isEqualToString:@"YES"]) {
+                    
+                    
+                    NSArray *sortedArray;
+                    sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                        NSNumber *first = [(ServiceList*)a saloonRating];
+                        NSNumber *second = [(ServiceList*)b saloonRating];
+                        return [second compare:first];
+                    }];
+                    
+                    arrayFilteredResults = [sortedArray mutableCopy];
+                    
+                    [weakSelf.servicesTable reloadData];
                 }
-        }
-        
-        if ([str_isFiltering isEqualToString:@"YES"]){
-        
-            NSPredicate *resultPredicate_gender;
-            NSPredicate *resultPredicate_time;
-            NSPredicate *resultPredicate_card;
-
-            if (filterBySex != nil && filterBySex.length != 0) {
-               resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
-            }
-            
-            if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
-                NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
-                NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
                 
-                resultPredicate_time = [NSCompoundPredicate andPredicateWithSubpredicates:@[[NSPredicate predicateWithFormat:@"%@ >= SELF.startTimeDecimal",str_startTime],[NSPredicate predicateWithFormat:@"SELF.endTimeDecimal >= %@",str_endTime]]];;
+                
+                if (sortingByDistance != nil && sortingByDistance.length != 0 && [sortingByDistance isEqualToString:@"YES"]) {
+                    
+                    NSArray *sortedArray;
+                    sortedArray = [arrayFilteredResults sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                        NSNumber *first = [NSNumber numberWithFloat:[[(ServiceList*)a saloonDstfrmCurrLocation] floatValue]] ;
+                        NSNumber *second = [NSNumber numberWithFloat:[[(ServiceList*)b saloonDstfrmCurrLocation] floatValue]];
+                        return [first compare:second];
+                    }];
+                    
+                    arrayFilteredResults = [sortedArray mutableCopy];
+                    
+                    [weakSelf.servicesTable reloadData];
+                }
+                
+                
+                if (sortingByFavouriteStylist != nil && sortingByFavouriteStylist.length != 0 && [sortingByFavouriteStylist isEqualToString:@"YES"]) {
+                    
+                    _nextPageNumber = 1;
+                    
+                    isSortingByStylist = YES;
+                    [weakSelf webServiceSortByStylist];
+                }
             }
             
-            if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && ([filterByCreditCardHolders isEqualToString:@"Y"])) {
-                resultPredicate_card = [NSPredicate predicateWithFormat:@"SELF.creditDebitCardSupport LIKE[c] %@",filterByCreditCardHolders];
+            if ([str_isFiltering isEqualToString:@"YES"]){
+                
+                NSPredicate *resultPredicate_gender;
+                NSPredicate *resultPredicate_time;
+                NSPredicate *resultPredicate_card;
+                
+                if (filterBySex != nil && filterBySex.length != 0) {
+                    resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
+                }
+                
+                if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
+                    NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
+                    NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
+                    
+                    resultPredicate_time = [NSCompoundPredicate andPredicateWithSubpredicates:@[[NSPredicate predicateWithFormat:@"%@ >= SELF.startTimeDecimal",str_startTime],[NSPredicate predicateWithFormat:@"SELF.endTimeDecimal >= %@",str_endTime]]];;
+                }
+                
+                if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && ([filterByCreditCardHolders isEqualToString:@"Y"])) {
+                    resultPredicate_card = [NSPredicate predicateWithFormat:@"SELF.creditDebitCardSupport LIKE[c] %@",filterByCreditCardHolders];
+                }
+                
+                NSMutableArray *array = [NSMutableArray new];
+                
+                if (resultPredicate_gender != nil) {
+                    [array addObject:resultPredicate_gender];
+                }
+                if (resultPredicate_time != nil) {
+                    [array addObject:resultPredicate_time];
+                }
+                if (resultPredicate_card != nil) {
+                    [array addObject:resultPredicate_card];
+                }
+                
+                NSPredicate *multiplePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
+                
+                for (id service in weakArray) {
+                    ServiceList *serviceListObj = (ServiceList*)service;
+                    NSLog(@"gender = %@",serviceListObj.gender);
+                    NSLog(@"startTime = %@ endTime = %@",serviceListObj.startTimeDecimal,serviceListObj.endTimeDecimal);
+                    NSLog(@"card = %@",serviceListObj.creditDebitCardSupport);
+                    NSLog(@"***********************************************");
+                }
+                
+                arrayFilteredResults = [NSMutableArray arrayWithArray:[weakArray filteredArrayUsingPredicate:multiplePredicate]];
+                
+                [weakSelf.servicesTable reloadData];
             }
             
-            NSMutableArray *array = [NSMutableArray new];
-            
-            if (resultPredicate_gender != nil) {
-                [array addObject:resultPredicate_gender];
-            }
-            if (resultPredicate_time != nil) {
-                [array addObject:resultPredicate_time];
-            }
-            if (resultPredicate_card != nil) {
-                [array addObject:resultPredicate_card];
-            }
-            
-            NSPredicate *multiplePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
-            
-            for (id service in weakArray) {
-                ServiceList *serviceListObj = (ServiceList*)service;
-                NSLog(@"gender = %@",serviceListObj.gender);
-                NSLog(@"startTime = %@ endTime = %@",serviceListObj.startTimeDecimal,serviceListObj.endTimeDecimal);
-                NSLog(@"card = %@",serviceListObj.creditDebitCardSupport);
-                NSLog(@"***********************************************");
-            }
-            
-            arrayFilteredResults = [weakArray filteredArrayUsingPredicate:multiplePredicate];
-            
+            array_searchResultsONFilteredItems = [[NSMutableArray alloc]initWithArray:arrayFilteredResults];
             [weakSelf.servicesTable reloadData];
+
+        }
+        else { // load data for selected category
+            
+            [array_searchResultsONFilteredItems removeAllObjects];
+            [self.servicesTable reloadData];
+            
+            [self selectionList:_menuListView didSelectButtonWithIndex:_menuListView.selectedButtonIndex];
+
         }
         
-        array_searchResultsONFilteredItems = [[NSMutableArray alloc]initWithArray:arrayFilteredResults];
-        [weakSelf.servicesTable reloadData];
-
     };
 }
 
--(void)serviceLoad{
+-(void)serviceLoad {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     parameters[@"serviceId"] = @(_serviceId);
@@ -306,7 +315,20 @@ static NSArray *menuItems;
     NSString *pageNumberString = [NSString stringWithFormat:@"%ld",(long)_nextPageNumber];
     [parameters setObject:pageNumberString forKey:@"pageNo"];
     
-    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:@"Fetching List..."
+    NSString *loadingMessage;
+    if (_nextPageNumber == 1) {
+        loadingMessage = @"Fetching List...";
+        
+        [array_Saloons removeAllObjects];
+        [_services removeAllObjects];
+        [arrayFilteredResults removeAllObjects];
+        
+        [self.servicesTable reloadData];
+    }
+    else
+        loadingMessage = @"Fetching more results...";
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:loadingMessage
         completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
         {
             if (result == sirSuccess)
@@ -314,24 +336,38 @@ static NSArray *menuItems;
                 NSError *error = nil;
                 NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
                 
-                if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                if ([responseDict objectForKey:@"object"] != [NSNull null])
+                {
                     
-                    [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                    
-                    _nextPageNumber++;
+                    if ([[responseDict objectForKey:@"object"] count]) {
+                        
+                        [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                        
+                        [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                        
+                        arrayFilteredResults = [_services mutableCopy];
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.servicesTable reloadData];
+                        });
+                        
+                        _nextPageNumber++;
+                    }
+                    else if (_nextPageNumber == 1)
+                        [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                 }
+                else
+                    [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                 
-                [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
-                
-                [arrayFilteredResults addObjectsFromArray:[NSArray arrayWithArray:_services]];
-                
-                [self.servicesTable reloadData];
-
                 isFilterON = NO;
-        }
+            }
+            else {
+//                [self.servicesTable reloadData];
+            }
+
     }];
 
-    [self.servicesTable reloadData];
+//    [self.servicesTable reloadData];
     
     [AppDelegate resetSortNfilter];
 
@@ -340,46 +376,70 @@ static NSArray *menuItems;
 
 -(void)webServiceSortByStylist {
     
-    NSString *string_userId = [NSString stringWithFormat:@"%@",[UtilityClass RetrieveDataFromUserDefault:@"userid"]] ;
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     string_userId = string_userId!=nil ? string_userId : @"";
-
-    NSLog(@"%@",string_userId);
 
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     idCity = idCity!=nil ? idCity : @"1";
 
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%ld",(long)_serviceId],@"serviceId",string_userId,@"userId", nil];
+    NSString *pageNumberString = [NSString stringWithFormat:@"%ld",(long)_nextPageNumber];
+
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:idCity,@"cityId",[NSString stringWithFormat:@"%ld",(long)_serviceId],@"serviceId",string_userId,@"userId",pageNumberString,@"pageNo", nil];
     
-    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+    NSString *loadingMessage;
+    if (_nextPageNumber == 1) {
+        loadingMessage = @"Fetching List...";
+        
+        [array_Saloons removeAllObjects];
+        [_services removeAllObjects];
+        [arrayFilteredResults removeAllObjects];
+        
+        [self.servicesTable reloadData];
+    }
+    else
+        loadingMessage = @"Fetching more results...";
+
+
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:loadingMessage completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
          
-         if (result == sirSuccess) {
+         if (result == sirSuccess)
+         {
              
              NSError *error = nil;
              NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
              
-             if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+             if ([responseDict objectForKey:@"object"] != [NSNull null])
+             {
                  
-                 array_Saloons = [responseDict objectForKey:@"object"];
+                 if ([[responseDict objectForKey:@"object"] count]) {
+                     
+                     [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                     
+                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                     
+                     arrayFilteredResults = [_services mutableCopy];
+                     
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [self.servicesTable reloadData];
+                     });
 
-                 _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
-                 
-                 arrayFilteredResults = [NSArray arrayWithArray:_services];
-                 
-                 [self.servicesTable reloadData];
-                 
-             }else{
-                 [UtilityClass showAlertwithTitle:@"" message:@"Object is Null"];
+                     _nextPageNumber++;
+                 }
+                 else if (_nextPageNumber == 1)
+                     [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
              }
+             else
+                 [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+
              
              isFilterON = NO;
-
-
-         }else if (sirFailed){
-             
+         }
+         else {
+             // [self.servicesTable reloadData];
          }
 
-         [self.servicesTable reloadData];
+//         [self.servicesTable reloadData];
 
      }];
 }
@@ -399,12 +459,25 @@ static NSArray *menuItems;
     
     NSString *pageNumberString = [NSString stringWithFormat:@"%ld",(long)_nextPageNumber];
     [parameters setObject:pageNumberString forKey:@"pageNo"];
+    
+    NSString *loadingMessage;
+    if (_nextPageNumber == 1) {
+        loadingMessage = @"Fetching List...";
+        
+        [array_Saloons removeAllObjects];
+        [_services removeAllObjects];
+        [arrayFilteredResults removeAllObjects];
+        
+        [self.servicesTable reloadData];
+    }
+    else
+        loadingMessage = @"Fetching more results...";
 
     switch (serviceType) {
             
         case sTUTORIAL:
         {
-            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_TUTORIAL spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_TUTORIAL spinningMessage:loadingMessage completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
                  
                  if (result == sirSuccess) {
@@ -412,33 +485,42 @@ static NSArray *menuItems;
                      NSError *error = nil;
                      NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
                      
-                     if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     if ([responseDict objectForKey:@"object"] != [NSNull null])
+                     {
                          
-                         [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                         
-                         _nextPageNumber++;
+                         if ([[responseDict objectForKey:@"object"] count]) {
+                             
+                             [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                             
+                             [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                             
+                             arrayFilteredResults = [_services mutableCopy];
+                             
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self.servicesTable reloadData];
+                             });
+                             
+                             _nextPageNumber++;
+                         }
+                         else if (_nextPageNumber == 1)
+                             [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                      }
-                     
-                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
-                     
-                     [arrayFilteredResults addObjectsFromArray:[NSArray arrayWithArray:_services]];
-                     
-                     [self.servicesTable reloadData];
+                     else
+                         [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
 
+                     
                      isFilterON = NO;
-
-                 }else if (sirFailed){
-                     
                  }
-
-                 [self.servicesTable reloadData];
+                 else {
+//                     [self.servicesTable reloadData];
+                 }
 
              }];
         }
             break;
         case sOFFERS:
         {
-            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_OFFER spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_OFFER spinningMessage:loadingMessage completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
                  
                  if (result == sirSuccess) {
@@ -446,25 +528,35 @@ static NSArray *menuItems;
                      NSError *error = nil;
                      NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
                      
-                     if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     if ([responseDict objectForKey:@"object"] != [NSNull null])
+                     {
                          
-                         [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
-                         
-                         _nextPageNumber++;
+                         if ([[responseDict objectForKey:@"object"] count]) {
+                             
+                             [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                             
+                             [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                             
+                             arrayFilteredResults = [_services mutableCopy];
+                             
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self.servicesTable reloadData];
+                             });
+                             
+                             _nextPageNumber++;
+                         }
+                         else if (_nextPageNumber == 1)
+                             [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
                      }
-                     
-                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
-                     
-                     [arrayFilteredResults addObjectsFromArray:[NSArray arrayWithArray:_services]];
-                     [self.servicesTable reloadData];
+                     else
+                         [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
 
+                     
                      isFilterON = NO;
-
-                 }else if (sirFailed){
-                     
                  }
-
-                 [self.servicesTable reloadData];
+                 else {
+//                     [self.servicesTable reloadData];
+                 }
 
              }];
         }
@@ -647,46 +739,58 @@ static NSArray *menuItems;
     }
     
     
+    if (!_isFilterSortApplied) // make pagination request else don't make request
+    {
+        NSInteger rows;
+
+        if (isFilterON)
+            rows = array_searchResultsONFilteredItems.count;
+        else
+            rows = arrayFilteredResults.count;
+
+        if (rows-1 == indexPath.row)
+        {
+            switch (_menuListView.selectedButtonIndex)
+            {
+                  
+                case 7:
+                {
+                    _serviceId = sTUTORIAL;
+                    [self webServiceWithType:sTUTORIAL];
+                }
+                    break;
+                    
+                case 8:
+                {
+                    _serviceId = sOFFERS;
+                    [self webServiceWithType:sOFFERS];
+                }
+                    break;
+
+                default: {
+                    [self serviceLoad];
+                }
+                
+                    break;
+            }
+        }
+    }
+    else if (isSortingByStylist) {
+        
+        NSInteger rows;
+        
+        if (isFilterON)
+            rows = array_searchResultsONFilteredItems.count;
+        else
+            rows = arrayFilteredResults.count;
+        
+        if (rows-1 == indexPath.row)
+            [self webServiceSortByStylist];
+    }
+    
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    loadMoreFooter *footerView = [_servicesTable dequeueReusableHeaderFooterViewWithIdentifier:@"loadMoreFooter"];
-    
-    if (_nextPageNumber == 1)
-        footerView.hidden = YES;
-//    else if(_page < _totalPages)
-//        footerView.hidden = NO;
-    else
-        footerView.hidden = YES;
-    
-
-    if (!_isFilterSortApplied) // make pagination request else don't make request
-    {
-//        NSInteger rows;
-        
-//        if (isFilterON) {
-//            rows = array_searchResultsONFilteredItems.count;
-//        }
-//        else{
-//            rows = arrayFilteredResults.count;
-//        }
-//        
-//        if (rows-1 == indexPath.row) {
-//            
-//            if (_page < _totalPages) {
-//                _page++;
-//                [self loadDataWithPage:_page url:_catalogUrl];
-//            }
-//        }
-        [self selectionList:_menuListView didSelectButtonWithIndex:_menuListView.selectedButtonIndex];
-    }
-
-    
-    return footerView;
-
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     

@@ -31,7 +31,7 @@
     WYPopoverController *popoverController;
     FilterViewController *filterViewController;
     
-    NSArray *arrayFilteredResults;
+    NSMutableArray *arrayFilteredResults;
     BOOL isSortingByStylist;
 }
 
@@ -47,6 +47,12 @@ static NSArray *menuItems;
     
     [super viewDidLoad];
     
+    _nextPageNumber = 1;
+    
+    array_Saloons = [NSMutableArray new];
+    self.services = [NSMutableArray new];
+
+
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     
     menuItems = @[@"HAIR SERVICE",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS"];
@@ -389,7 +395,7 @@ static NSArray *menuItems;
 
 -(void)webServiceSortByStylist {
     
-    NSString *string_userId = [NSString stringWithFormat:@"%@",[UtilityClass RetrieveDataFromUserDefault:@"userid"]] ;
+    NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
     string_userId = string_userId!=nil ? string_userId : @"";
     
     NSLog(@"%@",string_userId);

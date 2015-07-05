@@ -16,9 +16,9 @@
 #import "DropDownListPassValueDelegate.h"
 
 
-@interface SearchResultsController : UIViewController <HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate,DropDownListPassValueDelegate> {
+@interface SearchResultsController : UIViewController <HTHorizontalSelectionListDataSource,HTHorizontalSelectionListDelegate,ServiceInvokerDelegate,WYPopoverControllerDelegate,UISearchBarDelegate, UIActionSheetDelegate,DropDownListPassValueDelegate, UITableViewDataSource, UITableViewDelegate> {
     
-    NSArray *array_Saloons;
+    NSMutableArray *array_Saloons;
     
     NSMutableArray *array_favSaloons;
     BOOL isSearchReqQueued;
@@ -32,10 +32,12 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
 @property (assign,nonatomic) NSInteger serviceId;
+@property (assign,nonatomic) NSInteger nextPageNumber;
+
 @property (nonatomic, strong) NSString *defaultServiceName;
 @property (assign,nonatomic) NSInteger defaultServiceId;
 
-@property (nonatomic, strong) NSArray *searcheSaloonServices;
+@property (nonatomic, strong) NSMutableArray *searcheSaloonServices;
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
 @property (strong, nonatomic) __block NSMutableArray *services;
 @property (weak, nonatomic) IBOutlet UIView *HTHorizontalView;

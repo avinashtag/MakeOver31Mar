@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>BFA99077-0324-4B9F-85FD-A1C431BAFDF4</string>
 	<key>IDESourceControlProjectName</key>
-	<string>MakeOver</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>067CFFA9D83D19CCD1D4B09C575A3D05335A3013</key>
 		<string>https://github.com/avinashtag/MakeOver31Mar.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>MakeOver.xcodeproj</string>
+	<string>MakeOver.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>067CFFA9D83D19CCD1D4B09C575A3D05335A3013</key>

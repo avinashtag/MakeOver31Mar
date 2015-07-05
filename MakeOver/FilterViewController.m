@@ -262,8 +262,8 @@ NSString *const kisFiltering = @"isFiltering";
     
     if (_menuListView.selectedButtonIndex == 0) // clear sorting
     {
-        [dict_filterSortingParams setObject:@"NO" forKey:ksortByRating];
         [dict_filterSortingParams setObject:@"NO" forKey:ksortByDistance];
+        [dict_filterSortingParams setObject:@"NO" forKey:ksortByRating];
         [dict_filterSortingParams setObject:@"NO" forKey:ksortByFavouriteStylist];
         
         [dict_filterSortingParams setObject:@"NO" forKey:kisSorting];
@@ -287,6 +287,12 @@ NSString *const kisFiltering = @"isFiltering";
         [dict_filterSortingParams setObject:@"NO" forKey:kisFiltering];
     }
     
+    if (self.callback != nil) {
+        self.callback(dict_filterSortingParams);
+    }
+    
+    [self animateViewOut];
+
 }
 
 -(void)refreshFilterByUI{

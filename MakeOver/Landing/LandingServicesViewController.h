@@ -13,7 +13,7 @@
 #import "WYPopoverController.h"
 #import "DropDownList.h"
 #import "DropDownListPassValueDelegate.h"
-#import "loadMoreFooter.h"
+
 
 typedef enum {
     sHAIR= 1,
@@ -40,18 +40,15 @@ MenuServiceType;
 
     BOOL isFilterON;
     NSMutableArray *array_searchResultsONFilteredItems;
-    //NSMutableArray *array_
 
     __weak IBOutlet NSLayoutConstraint *constraintTopMargin_tableView;
     __weak IBOutlet UIButton *backButton;
 }
 
-@property (weak, nonatomic) IBOutlet loadMoreFooter *loadMoretableFooter;
-
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;
 @property (assign,nonatomic) NSInteger serviceId;
 @property (assign,nonatomic) NSInteger nextPageNumber;
-@property (nonatomic,assign) BOOL isFilterSortApplied;;
+@property (nonatomic,assign) __block BOOL isFilterSortApplied;
 
 
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
