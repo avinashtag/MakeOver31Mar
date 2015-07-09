@@ -51,11 +51,12 @@ static NSArray *menuItems;
     
     array_Saloons = [NSMutableArray new];
     self.services = [NSMutableArray new];
+    arrayFilteredResults = [NSMutableArray new];
 
 
     self.menuListView = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     
-    menuItems = @[@"HAIR SERVICE",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS"];
+    menuItems = @[@"HAIR SERVICE",@"FACE & BODY",@"SPA",@"MAKEUP & BRIDAL",@"MEDISPA",@"TATOO & PIERCING",@"NAILS",@"TUTORIALS",@"OFFERS"];
     
     if (self.defaultServiceName != nil && self.defaultServiceName.length)
     {
@@ -145,7 +146,7 @@ static NSArray *menuItems;
         [[UIApplication sharedApplication]setStatusBarHidden:YES];
         [ServiceInvoker sharedInstance].city!=nil? [_cityName setTitle:[ServiceInvoker sharedInstance].city.cityName forState:UIControlStateNormal]:NSLog(@"");
         
-        arrayFilteredResults = [NSArray new];
+        arrayFilteredResults = [NSMutableArray new];
         array_SearchResults = [NSMutableArray new];
         
         _ddList = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
@@ -323,7 +324,7 @@ static NSArray *menuItems;
 
 -(void)serviceLoad{
     
-    _requestParams[@"serviceId"] = @(_serviceId);
+
 /*    CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
     
     if (self.tabBarController.selectedIndex == 1) {
@@ -358,6 +359,13 @@ static NSArray *menuItems;
  
  */
     
+    [_services removeAllObjects];
+    [arrayFilteredResults removeAllObjects];
+    
+    [self.servicesTable reloadData];
+    
+    _requestParams[@"serviceId"] = @(_serviceId);
+    
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:_requestParams requestAPI:API_SEARCH spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
          
@@ -375,19 +383,25 @@ static NSArray *menuItems;
                      [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                      //return ;
                  }
-                 
-                //array_Saloons = [responseDict objectForKey:@"object"];
-                 
-                 _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
-                 
-                 arrayFilteredResults = [NSArray arrayWithArray:_services];
-                 
-                 [self.servicesTable reloadData];
+                 else
+                 {
+                    //array_Saloons = [responseDict objectForKey:@"object"];
+                     
+                     _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                     
+                     arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
+                     
+                     [self.servicesTable reloadData];
+                 }
                  
              }
+             else
+                 [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+
              
          }else if (sirFailed){
              
+             [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
          }
      }];
 }
@@ -419,7 +433,7 @@ static NSArray *menuItems;
                  
                  _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
                  
-                 arrayFilteredResults = [NSArray arrayWithArray:_services];
+                 arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
                  
                  [self.servicesTable reloadData];
                  
@@ -437,7 +451,7 @@ static NSArray *menuItems;
 
 -(void)webServiceWithType:(MenuServiceType)serviceType{
     
-    NSMutableDictionary *parameters = [NSMutableDictionary new];
+/*    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
@@ -449,61 +463,98 @@ static NSArray *menuItems;
     [parameters setObject:userId forKey:@"userId"];
     //    [parameters setObject:string_serviceId forKey:@"serviceId"];
     
+*/
+    [_services removeAllObjects];
+    [arrayFilteredResults removeAllObjects];
+    
+    [self.servicesTable reloadData];
+    
     switch (serviceType) {
             
         case sTUTORIAL:
         {
-            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_TUTORIAL spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:_requestParams requestAPI:API_SEARCH_TUTORIAL spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
                  
-                 if (result == sirSuccess) {
-                     
+                 if (result == sirSuccess)
+                 {
                      NSError *error = nil;
                      NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
                      
-                     if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     if ([responseDict objectForKey:@"object"] != [NSNull null])
+                     {
                          
-                         array_Saloons = [responseDict objectForKey:@"object"];
+                         if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]]
+                             || ![[responseDict objectForKey:@"object"] count]) {
+                             
+                             [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+                             //return ;
+                         }
+                         else
+                         {
+                             //array_Saloons = [responseDict objectForKey:@"object"];
+                             
+                             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                             
+                             arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
+                             
+                             [self.servicesTable reloadData];
+                         }
                          
                      }
+                     else
+                         [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                      
-                     _services = [[ServiceList initializeWithTutorialResponse:responseDict] mutableCopy];
-                     
-                     arrayFilteredResults = [NSArray arrayWithArray:_services];
-                     
-                     [self.servicesTable reloadData];
                      
                  }else if (sirFailed){
                      
+                     [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                  }
              }];
+
         }
             break;
         case sOFFERS:
         {
-            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_OFFER spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+            [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:_requestParams requestAPI:API_SEARCH_OFFER spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
                  
-                 if (result == sirSuccess) {
-                     
+                 if (result == sirSuccess)
+                 {
                      NSError *error = nil;
                      NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
                      
-                     if ([responseDict objectForKey:@"object"] != [NSNull null]) {
+                     if ([responseDict objectForKey:@"object"] != [NSNull null])
+                     {
                          
-                         array_Saloons = [responseDict objectForKey:@"object"];
+                         if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]]
+                             || ![[responseDict objectForKey:@"object"] count]) {
+                             
+                             [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+                             //return ;
+                         }
+                         else
+                         {
+                             //array_Saloons = [responseDict objectForKey:@"object"];
+                             
+                             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                             
+                             arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
+                             
+                             [self.servicesTable reloadData];
+                         }
                          
                      }
-                     _services = [[ServiceList initializeWithOffersResponse:responseDict] mutableCopy];
+                     else
+                         [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                      
-                     arrayFilteredResults = [NSArray arrayWithArray:_services];
-                     
-                     [self.servicesTable reloadData];
                      
                  }else if (sirFailed){
                      
+                     [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                  }
              }];
+
         }
             break;
             

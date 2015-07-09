@@ -29,7 +29,15 @@ enum TimeConstants {
 
 #define API_GET_SALOONS @"getSaloon"
 
+#define API_GET_TUTORIAL @"getTutorial"
+
+#define API_GET_OFFER @"getOffer"
+
 #define API_SEARCH @"saloonSearch"
+
+#define API_SEARCH_TUTORIAL @"searchTutorial"
+
+#define API_SEARCH_OFFER @"searchOffer"
 
 #define API_KEY_SEARCH @"keySearch"
 
@@ -46,10 +54,6 @@ enum TimeConstants {
 #define API_GET_Profile @"myProfile"
 
 #define API_ADD_FAVOURITE @"addFaborateStylist"
-
-#define API_GET_TUTORIAL @"getTutorial"
-
-#define API_GET_OFFER @"getOffer"
 
 #define API_GET_FAV_STYLIST @"getFabStylist"
 

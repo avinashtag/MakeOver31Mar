@@ -445,6 +445,7 @@ static NSArray *menuItems;
          }
          else {
              // [self.servicesTable reloadData];
+             [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
          }
 
 //         [self.servicesTable reloadData];
@@ -524,6 +525,7 @@ static NSArray *menuItems;
                  }
                  else {
 //                     [self.servicesTable reloadData];
+                     [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                  }
 
              }];
@@ -570,6 +572,7 @@ static NSArray *menuItems;
                  }
                  else {
 //                     [self.servicesTable reloadData];
+                     [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
                  }
 
              }];
