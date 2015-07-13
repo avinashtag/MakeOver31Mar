@@ -93,7 +93,12 @@
     NSDate *endTime = [dateFormatter dateFromString:self.service.endTime];
     [dateFormatter setDateFormat:@"hh:mm a"];
 
-    self.Time.text = [NSString stringWithFormat:@"%@ to %@",[dateFormatter stringFromDate:startTime],[dateFormatter stringFromDate:endTime]];
+    self.Time.text = @"";
+    
+    if (([dateFormatter stringFromDate:startTime] != nil) && ([dateFormatter stringFromDate:endTime] != nil)) {
+        self.Time.text = [NSString stringWithFormat:@"%@ to %@",[dateFormatter stringFromDate:startTime],[dateFormatter stringFromDate:endTime]];
+    }
+
 
     [self.btnReviews setTitle:[NSString stringWithFormat:@"%@ reviews",self.service.sallonReviewCount] forState:UIControlStateNormal];
 
@@ -172,7 +177,7 @@
         }
         else
         {
-            if (saloons.count <10) {
+            if (saloons.count < 10) {
 
                 // write Record:
                 //[saloons addObject:_services[indexPath.row]];

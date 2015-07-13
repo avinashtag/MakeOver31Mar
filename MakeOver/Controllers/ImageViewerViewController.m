@@ -67,7 +67,10 @@
     static NSString *idt = @"collectionCellImage";
     CollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:idt forIndexPath:indexPath];
     //[cell.imageView setImageWithURL:[NSURL URLWithString:@"https://graph.facebook.com/794134670660627/picture?type=normal"] placeholderImage:nil];
-    [cell.imageView setImageWithURL:[NSURL URLWithString:_images[indexPath.row]] placeholderImage:nil];
+
+    NSString *strImageUrl = [_images objectAtIndex:indexPath.row];
+    NSURL *url = [NSURL URLWithString:strImageUrl];
+    [cell.imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
 
     if (self.isTextDescription == YES) {
         self.btnCancel_textViewer.hidden = NO;

@@ -473,6 +473,8 @@ static NSArray *menuItems;
             
         case sTUTORIAL:
         {
+            //_requestParams[@"serviceId"] = @(_serviceId);
+
             [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:_requestParams requestAPI:API_SEARCH_TUTORIAL spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
                  
@@ -494,13 +496,13 @@ static NSArray *menuItems;
                          {
                              //array_Saloons = [responseDict objectForKey:@"object"];
                              
-                             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                             _services = [[ServiceList initializeWithTutorialResponse:responseDict] mutableCopy];
                              
                              arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
-                             
+
                              [self.servicesTable reloadData];
                          }
-                         
+
                      }
                      else
                          [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
@@ -516,6 +518,8 @@ static NSArray *menuItems;
             break;
         case sOFFERS:
         {
+            //_requestParams[@"serviceId"] = @(_serviceId);
+
             [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:_requestParams requestAPI:API_SEARCH_OFFER spinningMessage:@"Fetching List..." completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
                  
@@ -537,10 +541,10 @@ static NSArray *menuItems;
                          {
                              //array_Saloons = [responseDict objectForKey:@"object"];
                              
-                             _services = [[ServiceList initializeWithResponse:responseDict] mutableCopy];
+                             _services = [[ServiceList initializeWithOffersResponse:responseDict] mutableCopy];
                              
                              arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
-                             
+
                              [self.servicesTable reloadData];
                          }
                          
@@ -733,6 +737,10 @@ static NSArray *menuItems;
         // Navigate to Landing Brief VC to display details
         LandingBriefViewController *landingBriefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LandingBriefViewController"];
         landingBriefViewController.service = arrayFilteredResults[indexPath.row];
+
+        if (landingBriefViewController.service == nil)
+            return;
+
         [self.navigationController pushViewController:landingBriefViewController animated:YES];
         
     }
@@ -741,7 +749,7 @@ static NSArray *menuItems;
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    switch (_menuListView.selectedButtonIndex) {
+    switch (_serviceId) {
             
         case sTUTORIAL:
             return  192.0f;;
@@ -784,7 +792,7 @@ static NSArray *menuItems;
             imageViewer.images = [NSArray new];
         }else if ([[dictOffer objectForKey:@"offerType"] isEqualToString:@"IMAGE"]){
             imageViewer.isTextDescription = NO;
-            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"images"]]; // only one image url will be in offer
+            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"offerDesc"]]; // only one image url will be in offer
         }
         [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
         
@@ -806,7 +814,7 @@ static NSArray *menuItems;
     
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
         
-        NSDictionary *dictTutorial = [service.extraParams objectForKey:@"tutorials"];
+        NSDictionary *dictTutorial = service.extraParams;
         
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
         
@@ -822,9 +830,13 @@ static NSArray *menuItems;
             imageViewer.images = [NSArray new];
         }else if ([[dictTutorial objectForKey:@"tutType"] isEqualToString:@"IMAGE"]){
             imageViewer.isTextDescription = NO;
-            imageViewer.images = [NSArray arrayWithObject:[dictTutorial objectForKey:@"images"]];
+            imageViewer.images = [dictTutorial objectForKey:@"images"];
         }
-        
+
+        [popoverController presentPopoverAsDialogAnimated:YES completion:^{
+
+        }];
+
         imageViewer.callbackCancel = ^(void) {
             [popoverController dismissPopoverAnimated:YES];
         };

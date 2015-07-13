@@ -501,7 +501,7 @@ static NSArray *menuItems;
                              
                              [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                              
-                             [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                             [_services addObjectsFromArray:[ServiceList initializeWithTutorialResponse:responseDict]];
                              
                              arrayFilteredResults = [_services mutableCopy];
                              
@@ -548,7 +548,7 @@ static NSArray *menuItems;
                              
                              [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                              
-                             [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                             [_services addObjectsFromArray:[ServiceList initializeWithOffersResponse:responseDict]];
                              
                              arrayFilteredResults = [_services mutableCopy];
                              
@@ -843,7 +843,7 @@ static NSArray *menuItems;
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    switch (_menuListView.selectedButtonIndex) {
+    switch (_serviceId) {
 
         case sTUTORIAL:
             return  212.0f;
@@ -892,7 +892,7 @@ static NSArray *menuItems;
             imageViewer.images = [NSArray new];
         }else if ([[dictOffer objectForKey:@"offerType"] isEqualToString:@"IMAGE"]){
             imageViewer.isTextDescription = NO;
-            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"images"]]; // only one image url will be in offer
+            imageViewer.images = [NSArray arrayWithObject:[dictOffer objectForKey:@"offerDesc"]]; // only one image url will be in offer
         }
         [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
 
@@ -920,7 +920,8 @@ static NSArray *menuItems;
 
     if ([service.extraParams isKindOfClass:[NSDictionary class]]) {
 
-        NSDictionary *dictTutorial = [service.extraParams objectForKey:@"tutorials"];
+        NSDictionary *dictTutorial = service.extraParams;
+
 
         __block ImageViewerViewController *imageViewer = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ImageViewerViewController class])];
 
@@ -936,8 +937,10 @@ static NSArray *menuItems;
             imageViewer.images = [NSArray new];
         }else if ([[dictTutorial objectForKey:@"tutType"] isEqualToString:@"IMAGE"]){
             imageViewer.isTextDescription = NO;
-            imageViewer.images = [NSArray arrayWithObject:[dictTutorial objectForKey:@"images"]];
+            imageViewer.images = [dictTutorial objectForKey:@"images"];
         }
+
+        [popoverController presentPopoverAsDialogAnimated:YES completion:nil];
 
         imageViewer.callbackCancel = ^(void) {
             [popoverController dismissPopoverAnimated:YES];

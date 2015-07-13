@@ -125,9 +125,13 @@
 
 
 -(void)getreviews{
-    
+
+    if (self.service == nil || self.service.saloonId == nil)
+        return;
+
     NSDictionary *prameter = @{ @"saloonId" : self.service.saloonId
                             };
+
     [[[ServiceInvoker alloc]init] serviceInvokeWithParameters:prameter requestAPI:API_GET_REVIEW_BY_SALOON spinningMessage:nil completion:
      ^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {

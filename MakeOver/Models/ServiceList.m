@@ -50,87 +50,89 @@ static NSString *kresponseObject = @"object";
 -(instancetype)initWithDictionary:(NSDictionary*)dictioanry{
     
     self = [super init];
-    self.saloonAddress               = nullRemover(dictioanry[ksaloonAddress]);
-    self.saloonMainArea               = nullRemover(dictioanry[ksaloonMainArea]);
 
-    self.saloonContact               = nullRemover(dictioanry[ksaloonContact]);
-    self.saloonInfo = nullRemover(dictioanry[ksalooninfo]);
-    
-    if ([nullRemover(dictioanry[ksaloonDstfrmCurrLocation]) length] == 0) {
-        self.saloonDstfrmCurrLocation    = @"0.0"; // by default 0
-    }else{
-        self.saloonDstfrmCurrLocation    = [NSString stringWithFormat:@"%@",nullRemover(dictioanry[ksaloonDstfrmCurrLocation])];
-    }
-    
-    self.saloonId                    = nullRemover(dictioanry[ksaloonId]);
-    self.saloonName                  = nullRemover(dictioanry[ksaloonName]);
-    self.saloonRating                = @([nullRemover(dictioanry[ksaloonRating]) doubleValue]);
-    self.sallonReviewCount           = @([nullRemover(dictioanry[ksallonReviewCount]) doubleValue]);
-    self.saloonLat                   = nullRemover(dictioanry[ksaloonLat]);
-    self.saloonLong                  = nullRemover(dictioanry[ksaloonLong]);
-    self.faborateFlag                = @([nullRemover(dictioanry[kfaborateFlag]) doubleValue]);
-    self.gender                 = nullRemover(dictioanry[kgender]);
-    self.startTime              = nullRemover(dictioanry[kstartTime]);
-    self.endTime                = nullRemover(dictioanry[kendTime]);
-    self.saloonProducts         = nullRemover(dictioanry[ksaloonProducts]);
-    
-    NSArray *array_startTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kstartTime]) componentsSeparatedByString:@":"]];
-    if (array_startTime.count == 2) {
-        self.startTimeDecimal              = [NSString stringWithFormat:@"%f",[[array_startTime objectAtIndex:0] floatValue]+[[array_startTime objectAtIndex:1] floatValue]/60];
-    }else{
-        self.startTimeDecimal               = nullRemover(dictioanry[kstartTime]);
-    }
-    
-    NSArray *array_endTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kendTime]) componentsSeparatedByString:@":"]];
-    if (array_endTime.count == 2) {
-        self.endTimeDecimal              = [NSString stringWithFormat:@"%f",[[array_endTime objectAtIndex:0] floatValue]+[[array_endTime objectAtIndex:1] floatValue]/60];
-    }else{
-        self.endTimeDecimal               = nullRemover(dictioanry[kendTime]);
-    }
-    
-    self.creditDebitCardSupport = nullRemover(dictioanry[kcreditDebitCardSupport]);
+    if (self) {
+        self.saloonAddress               = nullRemover(dictioanry[ksaloonAddress]);
+        self.saloonMainArea               = nullRemover(dictioanry[ksaloonMainArea]);
+
+        self.saloonContact               = nullRemover(dictioanry[ksaloonContact]);
+        self.saloonInfo = nullRemover(dictioanry[ksalooninfo]);
+
+        if ([nullRemover(dictioanry[ksaloonDstfrmCurrLocation]) length] == 0) {
+            self.saloonDstfrmCurrLocation    = @"0.0"; // by default 0
+        }else{
+            self.saloonDstfrmCurrLocation    = [NSString stringWithFormat:@"%@",nullRemover(dictioanry[ksaloonDstfrmCurrLocation])];
+        }
+
+        self.saloonId                    = nullRemover(dictioanry[ksaloonId]);
+        self.saloonName                  = nullRemover(dictioanry[ksaloonName]);
+        self.saloonRating                = @([nullRemover(dictioanry[ksaloonRating]) doubleValue]);
+        self.sallonReviewCount           = @([nullRemover(dictioanry[ksallonReviewCount]) doubleValue]);
+        self.saloonLat                   = nullRemover(dictioanry[ksaloonLat]);
+        self.saloonLong                  = nullRemover(dictioanry[ksaloonLong]);
+        self.faborateFlag                = @([nullRemover(dictioanry[kfaborateFlag]) doubleValue]);
+        self.gender                 = nullRemover(dictioanry[kgender]);
+        self.startTime              = nullRemover(dictioanry[kstartTime]);
+        self.endTime                = nullRemover(dictioanry[kendTime]);
+        self.saloonProducts         = nullRemover(dictioanry[ksaloonProducts]);
+
+        NSArray *array_startTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kstartTime]) componentsSeparatedByString:@":"]];
+        if (array_startTime.count == 2) {
+            self.startTimeDecimal              = [NSString stringWithFormat:@"%f",[[array_startTime objectAtIndex:0] floatValue]+[[array_startTime objectAtIndex:1] floatValue]/60];
+        }else{
+            self.startTimeDecimal               = nullRemover(dictioanry[kstartTime]);
+        }
+
+        NSArray *array_endTime = [NSArray arrayWithArray:[nullRemover(dictioanry[kendTime]) componentsSeparatedByString:@":"]];
+        if (array_endTime.count == 2) {
+            self.endTimeDecimal              = [NSString stringWithFormat:@"%f",[[array_endTime objectAtIndex:0] floatValue]+[[array_endTime objectAtIndex:1] floatValue]/60];
+        }else{
+            self.endTimeDecimal               = nullRemover(dictioanry[kendTime]);
+        }
+
+        self.creditDebitCardSupport = nullRemover(dictioanry[kcreditDebitCardSupport]);
 
 
-    if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSArray class]]) {
-        self.saloonServices              = nullRemover(dictioanry[ksaloonServices]);
-    }
-    else if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSString class]]){
-        self.saloonServices              = [nullRemover(dictioanry[ksaloonServices]) componentsSeparatedByString:@","];
-    }
-    self.styleList                   = [StyleList initializeWithResponse:dictioanry];
-    
+        if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSArray class]]) {
+            self.saloonServices              = nullRemover(dictioanry[ksaloonServices]);
+        }
+        else if ([nullRemover(dictioanry[ksaloonServices]) isKindOfClass:[NSString class]]){
+            self.saloonServices              = [nullRemover(dictioanry[ksaloonServices]) componentsSeparatedByString:@","];
+        }
+        self.styleList                   = [StyleList initializeWithResponse:dictioanry];
 
-    
-    NSObject *receivedServices = [dictioanry objectForKey:kObjectServices];
-    NSMutableArray *parsedServices = [NSMutableArray array];
-    if ([receivedServices isKindOfClass:[NSArray class]]) {
-        for (NSDictionary *item in (NSArray *)receivedServices) {
-            if ([item isKindOfClass:[NSDictionary class]]) {
-                Services *servicesTemp = [Services modelObjectWithDictionary:item];
-                if (servicesTemp.groups.count != 0) {
-                    [parsedServices addObject:servicesTemp];
+
+
+        NSObject *receivedServices = [dictioanry objectForKey:kObjectServices];
+        NSMutableArray *parsedServices = [NSMutableArray array];
+        if ([receivedServices isKindOfClass:[NSArray class]]) {
+            for (NSDictionary *item in (NSArray *)receivedServices) {
+                if ([item isKindOfClass:[NSDictionary class]]) {
+                    Services *servicesTemp = [Services modelObjectWithDictionary:item];
+                    if (servicesTemp.groups.count != 0) {
+                        [parsedServices addObject:servicesTemp];
+                    }
                 }
             }
+        } else if ([receivedServices isKindOfClass:[NSDictionary class]]) {
+            Services *servicesTemp = [Services modelObjectWithDictionary:(NSDictionary *)receivedServices];
+            if (servicesTemp.groups.count != 0) {
+                [parsedServices addObject:servicesTemp];
+            }
         }
-    } else if ([receivedServices isKindOfClass:[NSDictionary class]]) {
-        Services *servicesTemp = [Services modelObjectWithDictionary:(NSDictionary *)receivedServices];
-        if (servicesTemp.groups.count != 0) {
-            [parsedServices addObject:servicesTemp];
-        }
-    }
-    self.services = [NSArray arrayWithArray:parsedServices];
-
-    self.contacts = [NSArray arrayWithArray:[dictioanry objectForKey:kcontacts]];
-    self.clubImages = [NSArray arrayWithArray:[dictioanry objectForKey:kclubImages]];
-    self.menuImages = [NSArray arrayWithArray:[dictioanry objectForKey:kmenuImages]];
-    
+        self.services = [NSArray arrayWithArray:parsedServices];
+        
+        self.contacts = [NSArray arrayWithArray:[dictioanry objectForKey:kcontacts]];
+        self.clubImages = [NSArray arrayWithArray:[dictioanry objectForKey:kclubImages]];
+        self.menuImages = [NSArray arrayWithArray:[dictioanry objectForKey:kmenuImages]];
+    }    
     return self;
 }
 
 
 
 +(NSArray*)initializeWithResponse:(NSDictionary*)dictionary{
-    
+
     __block NSMutableArray *services = [[NSMutableArray alloc]init];
     NSArray* response = dictionary[kresponseObject];
     [response enumerateObjectsUsingBlock:^(NSDictionary *ServiceRaw, NSUInteger idx, BOOL *stop) {
@@ -150,8 +152,10 @@ static NSString *kresponseObject = @"object";
         
         ServiceList *service = [[ServiceList alloc]initWithDictionary:[ServiceRaw objectForKey:@"saloonResponse"]];
         
-        service.extraParams = [NSArray arrayWithArray:[ServiceRaw objectForKey:@"tutorials"]];
-        
+        //service.extraParams = [NSArray arrayWithArray:[ServiceRaw objectForKey:@"tutorials"]];
+        NSDictionary *dictTutorials = nullRemover(ServiceRaw[@"tutorials"]);
+        service.extraParams = dictTutorials;
+
         [services addObject:service];
         
     }];
