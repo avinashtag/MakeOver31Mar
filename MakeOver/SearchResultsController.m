@@ -60,20 +60,20 @@ static NSArray *menuItems;
     
     if (self.defaultServiceName != nil && self.defaultServiceName.length)
     {
-        for (NSString *service in _searcheSaloonServices)
-        {
-            NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
-            
-            if ([[service stringByTrimmingCharactersInSet:charSet] caseInsensitiveCompare:_defaultServiceName] == NSOrderedSame)
-            {
-                
+//        for (NSString *service in _searcheSaloonServices)
+//        {
+//            NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
+//            
+//            if ([[service stringByTrimmingCharactersInSet:charSet] caseInsensitiveCompare:_defaultServiceName] == NSOrderedSame)
+//            {
+        
                 _serviceId = self.defaultServiceId;
                 
-                break;
-            }
-        }
+//                break;
+//            }
+//        }
     }
-    else {
+/*    else {
        
         for (int i =0; i < menuItems.count; i++)
         {
@@ -94,7 +94,7 @@ static NSArray *menuItems;
                 break;
         }
     }
-    
+*/
     
     
     self.menuListView.delegate = self;

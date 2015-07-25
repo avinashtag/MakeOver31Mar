@@ -1245,7 +1245,7 @@ static NSArray *menuItems;
         // Navigate to Landing Brief VC to display details
         SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
         controller.requestParams = parameters;
-        controller.searcheSaloonServices = arrayServices;
+        controller.searcheSaloonServices = [arrayServices mutableCopy];
         controller.defaultServiceName = [menuItems objectAtIndex:_menuListView.selectedButtonIndex];
         controller.defaultServiceId = self.serviceId;
         [self.navigationController pushViewController:controller animated:YES];
