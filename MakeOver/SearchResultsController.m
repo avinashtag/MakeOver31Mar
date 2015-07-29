@@ -380,7 +380,7 @@ static NSArray *menuItems;
                  if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]]
                      || ![[responseDict objectForKey:@"object"] count]) {
                      
-                     [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+                     [UtilityClass showAlertwithTitle:@"Selected service is not available at this outlet." message:nil];
                      //return ;
                  }
                  else
@@ -396,12 +396,12 @@ static NSArray *menuItems;
                  
              }
              else
-                 [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+                 [UtilityClass showAlertwithTitle:@"Selected service is not available at this outlet." message:nil];
 
              
          }else if (sirFailed){
              
-             [UtilityClass showAlertwithTitle:@"No result found!" message:nil];
+             [UtilityClass showAlertwithTitle:@"Selected service is not available at this outlet." message:nil];
          }
      }];
 }
@@ -427,23 +427,33 @@ static NSArray *menuItems;
              NSError *error = nil;
              NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
              
-             if ([responseDict objectForKey:@"object"] != [NSNull null]) {
-                 
-                 array_Saloons = [responseDict objectForKey:@"object"];
-                 
-                 _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
-                 
-                 arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
-                 
-                 [self.servicesTable reloadData];
+             if ([responseDict objectForKey:@"object"] != [NSNull null])
+             {
+                 if (![[responseDict objectForKey:@"object"] isKindOfClass:[NSArray class]]
+                     || ![[responseDict objectForKey:@"object"] count]) {
+                     
+                     [UtilityClass showAlertwithTitle:@"Selected service is not available at this outlet." message:nil];
+                     //return ;
+                 }
+                 else
+                 {
+
+                     array_Saloons = [responseDict objectForKey:@"object"];
+                     
+                     _services = [[ServiceList initializeWithFavStylistsResponse:responseDict] mutableCopy];
+                     
+                     arrayFilteredResults = [[NSArray arrayWithArray:_services] mutableCopy];
+                     
+                     [self.servicesTable reloadData];
+                 }
                  
              }else{
-                 [UtilityClass showAlertwithTitle:@"" message:@"Object is Null"];
+                 [UtilityClass showAlertwithTitle:@"Selected service is not available at this outlet." message:@"Object is Null"];
              }
              
              
          }else if (sirFailed){
-             
+             [UtilityClass showAlertwithTitle:@"Selected service is not available at this outlet." message:nil];
          }
      }];
 }

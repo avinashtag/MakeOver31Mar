@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "827"
             endingLineNumber = "827"
-            landmarkName = "-checkinButtonDidTap:"
+            landmarkName = "-showInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/SearchResultsController.m"
-            timestampString = "458166140.47167"
+            timestampString = "459902377.207882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
             landmarkName = "-webServiceWithType:"
             landmarkType = "5">
          </BreakpointContent>

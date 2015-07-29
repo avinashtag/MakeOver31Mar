@@ -2478,7 +2478,7 @@ IAo
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="84" minY="2" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Select City" image="ic_down">
+                                        <state key="normal" title="Select City">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
