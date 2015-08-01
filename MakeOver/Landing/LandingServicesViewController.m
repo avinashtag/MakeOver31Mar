@@ -404,7 +404,6 @@ static NSArray *menuItems;
 
     
     
-    
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:loadingMessage
         completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
         {
@@ -416,7 +415,12 @@ static NSArray *menuItems;
                 if ([responseDict objectForKey:@"object"] != [NSNull null])
                 {
                     
-                    if ([[responseDict objectForKey:@"object"] count]) {
+                    NSInteger recordsCount = [[responseDict objectForKey:@"object"] count];
+                    
+                    if (recordsCount < 10)
+                        isPageLimitReached = YES;
+                    
+                    if (recordsCount) {
                         
                         [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                         
@@ -466,7 +470,12 @@ static NSArray *menuItems;
              if ([responseDict objectForKey:@"object"] != [NSNull null])
              {
                  
-                 if ([[responseDict objectForKey:@"object"] count]) {
+                 NSInteger recordsCount = [[responseDict objectForKey:@"object"] count];
+                 
+                 if (recordsCount < 10)
+                     isPageLimitReached = YES;
+                 
+                 if (recordsCount) {
                      
                      [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                      
@@ -542,7 +551,12 @@ static NSArray *menuItems;
              if ([responseDict objectForKey:@"object"] != [NSNull null])
              {
                  
-                 if ([[responseDict objectForKey:@"object"] count]) {
+                 NSInteger recordsCount = [[responseDict objectForKey:@"object"] count];
+                 
+                 if (recordsCount < 10)
+                     isPageLimitReached = YES;
+                 
+                 if (recordsCount) {
                      
                      [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                      
@@ -621,8 +635,12 @@ static NSArray *menuItems;
                      
                      if ([responseDict objectForKey:@"object"] != [NSNull null])
                      {
+                         NSInteger recordsCount = [[responseDict objectForKey:@"object"] count];
                          
-                         if ([[responseDict objectForKey:@"object"] count]) {
+                         if (recordsCount < 10)
+                             isPageLimitReached = YES;
+                         
+                         if (recordsCount) {
                              
                              [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                              
@@ -669,7 +687,12 @@ static NSArray *menuItems;
                      if ([responseDict objectForKey:@"object"] != [NSNull null])
                      {
                          
-                         if ([[responseDict objectForKey:@"object"] count]) {
+                         NSInteger recordsCount = [[responseDict objectForKey:@"object"] count];
+                         
+                         if (recordsCount < 10)
+                             isPageLimitReached = YES;
+                         
+                         if (recordsCount) {
                              
                              [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
                              
@@ -881,7 +904,51 @@ static NSArray *menuItems;
     }
     
     
-    if (!_isFilterSortApplied && !isPageLimitReached) // make pagination request else don't make request
+    // ******* | PAGINATION LOGIC| ******** //
+    NSInteger rows;
+
+    if (isFilterON)
+        rows = array_searchResultsONFilteredItems.count;
+    else
+        rows = arrayFilteredResults.count;
+    
+    // If last row and more records available
+    if ((rows-1 == indexPath.row) && !isPageLimitReached)
+    {
+        if (!_isFilterSortApplied) {
+            
+            switch (_menuListView.selectedButtonIndex)
+            {
+                case 7:
+                {
+                    _serviceId = sTUTORIAL;
+                    [self webServiceWithType:sTUTORIAL];
+                }
+                    break;
+                    
+                case 8:
+                {
+                    _serviceId = sOFFERS;
+                    [self webServiceWithType:sOFFERS];
+                }
+                    break;
+                    
+                default: {
+                    [self serviceLoad];
+                }
+                    
+                    break;
+            }
+        }
+        else if (isSortingByStylist) {
+            
+            [self webServiceSortByStylist];
+        }
+    }
+    
+    // ******* | PAGINATION LOGIC| ******** //
+
+/*    if (!_isFilterSortApplied && !isPageLimitReached) // make pagination request else don't make request
     {
         NSInteger rows;
 
@@ -929,7 +996,7 @@ static NSArray *menuItems;
         if (rows-1 == indexPath.row)
             [self webServiceSortByStylist];
     }
-    
+*/
     return cell;
 }
 
