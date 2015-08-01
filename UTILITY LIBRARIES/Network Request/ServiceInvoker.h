@@ -33,7 +33,7 @@ typedef enum {
 
 typedef void(^ServiceInvokerCompletion)(ASIHTTPRequest *request, ServiceInvokerRequestResult result);
 
-@interface ServiceInvoker : NSObject <CLLocationManagerDelegate> {
+@interface ServiceInvoker : NSObject {
     
     NSOperationQueue *opQueue;
     BOOL isOperationCancelled;
@@ -47,7 +47,7 @@ typedef void(^ServiceInvokerCompletion)(ASIHTTPRequest *request, ServiceInvokerR
 @property(assign,nonatomic) CLLocationCoordinate2D coordinate;
 @property(strong,nonatomic)CLLocationManager *locationManager;
 + (ServiceInvoker*)sharedInstance; // To get instance of service invoker Singleton class
--(void)currentLocation;
+//-(void)currentLocation;
 
 #pragma mark- API service calling Methods
 

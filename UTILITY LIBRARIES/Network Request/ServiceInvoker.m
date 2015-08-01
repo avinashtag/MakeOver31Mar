@@ -10,6 +10,9 @@
 #import "City.h"
 #import "DataModels.h"
 
+#import "INTULocationManager.h"
+
+
 @implementation ServiceInvoker
 
 @synthesize delegate = _delegate;
@@ -25,7 +28,7 @@
 		if(instance == nil) {
 			instance = [[self alloc] init];
             instance.cities = [[NSMutableArray alloc] init];
-            [instance currentLocation];
+            [instance startSingleLocationRequest];
 		}
 	}
     if (!instance.cities.count) {
@@ -298,11 +301,38 @@
     [opQueue addOperation:request]; //queue is an NSOperationQueue
 }
 
+
+/*
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations{
     
     _coordinate = [[manager location] coordinate];
     
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    
+    NSLog(@"error in fetching location %@",error.description);
+    
+    if ([error domain] == kCLErrorDomain) {
+        
+        // We handle CoreLocation-related errors here
+        switch ([error code]) {
+                // "Don't Allow" on two successive app launches is the same as saying "never allow". The user
+                // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
+            case kCLErrorDenied:
+                NSLog(@"fetching location denied by user");
+
+                
+            case kCLErrorLocationUnknown:
+                
+            default:
+                break;
+        }
+    } else {
+        // We handle all non-CoreLocation errors here
+    }
 }
 
 -(void)currentLocation{
@@ -316,5 +346,40 @@
     _coordinate = [[_locationManager location] coordinate];
     
 }
+ */
+
+/**
+ Starts a new one-time request for the current location.
+ */
+- (void)startSingleLocationRequest
+{
+//    __weak __typeof(self) weakSelf = self;
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyRoom
+                                                                timeout:5
+                                                   delayUntilAuthorized:YES
+                                                                  block:
+                              ^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+//                                  __typeof(weakSelf) strongSelf = weakSelf;
+                                  
+                                  if (status == INTULocationStatusSuccess) {
+                                      
+                                      _coordinate = currentLocation.coordinate;
+                                      // achievedAccuracy is at least the desired accuracy (potentially better)
+                                    
+                                  }
+                                  else if (status == INTULocationStatusTimedOut) {
+                                      // You may wish to inspect achievedAccuracy here to see if it is acceptable, if you plan to use currentLocation
+                                      _coordinate = currentLocation.coordinate;
+
+                                  }
+                                  else {
+                                      // An error occurred
+                                      
+                                  }
+                                  
+                              }];
+}
+
 
 @end

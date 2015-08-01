@@ -127,6 +127,8 @@
 		BBE32D081A950BD100A0D59E /* MOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE32D071A950BD100A0D59E /* MOTabBar.m */; };
 		CE28233F1AF2C1C600ADA969 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28233E1AF2C1C600ADA969 /* MoreViewController.m */; };
 		CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2823401AF2C65500ADA969 /* MessageUI.framework */; };
+		CE2BD2481B6C0D47009AE6EC /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BD2441B6C0D47009AE6EC /* INTULocationManager.m */; };
+		CE2BD2491B6C0D47009AE6EC /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BD2461B6C0D47009AE6EC /* INTULocationRequest.m */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
 		CE95AE051B0A8169003C51EA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95AE041B0A8169003C51EA /* AboutViewController.m */; };
 		CE9DA4D81B1B33D60003CD76 /* SearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA4D71B1B33D60003CD76 /* SearchResultsController.m */; };
@@ -346,6 +348,12 @@
 		CE28233D1AF2C1C600ADA969 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		CE28233E1AF2C1C600ADA969 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		CE2823401AF2C65500ADA969 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		CE2BD2421B6C0D47009AE6EC /* INTULocationManager+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INTULocationManager+Internal.h"; sourceTree = "<group>"; };
+		CE2BD2431B6C0D47009AE6EC /* INTULocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationManager.h; sourceTree = "<group>"; };
+		CE2BD2441B6C0D47009AE6EC /* INTULocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationManager.m; sourceTree = "<group>"; };
+		CE2BD2451B6C0D47009AE6EC /* INTULocationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequest.h; sourceTree = "<group>"; };
+		CE2BD2461B6C0D47009AE6EC /* INTULocationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationRequest.m; sourceTree = "<group>"; };
+		CE2BD2471B6C0D47009AE6EC /* INTULocationRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequestDefines.h; sourceTree = "<group>"; };
 		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
 		CE95AE031B0A8169003C51EA /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -551,6 +559,7 @@
 		7DADF03B1A991F3E00EE0C4C /* UTILITY LIBRARIES */ = {
 			isa = PBXGroup;
 			children = (
+				CE2BD2411B6C0D47009AE6EC /* INTULocationManager */,
 				BBC8954F1AB8B4A000F1A56E /* Categories */,
 				0962296C1A9F87A20045CA63 /* MOSuperViewController.h */,
 				0962296D1A9F87A20045CA63 /* MOSuperViewController.m */,
@@ -870,6 +879,19 @@
 			path = ../MakeOver/Categories;
 			sourceTree = "<group>";
 		};
+		CE2BD2411B6C0D47009AE6EC /* INTULocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				CE2BD2421B6C0D47009AE6EC /* INTULocationManager+Internal.h */,
+				CE2BD2431B6C0D47009AE6EC /* INTULocationManager.h */,
+				CE2BD2441B6C0D47009AE6EC /* INTULocationManager.m */,
+				CE2BD2451B6C0D47009AE6EC /* INTULocationRequest.h */,
+				CE2BD2461B6C0D47009AE6EC /* INTULocationRequest.m */,
+				CE2BD2471B6C0D47009AE6EC /* INTULocationRequestDefines.h */,
+			);
+			path = INTULocationManager;
+			sourceTree = "<group>";
+		};
 		CE95AE021B0A8146003C51EA /* More Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,6 +1052,7 @@
 				BB6B41C91A9261DA00CBCC7B /* LandingCell.m in Sources */,
 				BB6B41CC1A9268F200CBCC7B /* LandingServicesViewController.m in Sources */,
 				CEBC31021B31F55C002E625A /* LoginViewController.m in Sources */,
+				CE2BD2481B6C0D47009AE6EC /* INTULocationManager.m in Sources */,
 				BB952A621ABF3DBE006A8328 /* Stylistresp.m in Sources */,
 				BBA2994A1AB60920004C5595 /* RatingViewController.m in Sources */,
 				B936DAD41A9861B70016E9C9 /* CustomSelection.m in Sources */,
@@ -1068,6 +1091,7 @@
 				7DADF0691A991F3E00EE0C4C /* ASIDataCompressor.m in Sources */,
 				BB610B291AC87BE300DF54E0 /* SDWebImageDownloader.m in Sources */,
 				BB0F21B81AC3485900F7C9F7 /* NSString+MakeString.m in Sources */,
+				CE2BD2491B6C0D47009AE6EC /* INTULocationRequest.m in Sources */,
 				7DADF0681A991F3E00EE0C4C /* ASIAuthenticationDialog.m in Sources */,
 				9A0E97D71B1E359700917002 /* IQActionSheetViewController.m in Sources */,
 				BB952A5F1ABF3DBE006A8328 /* Profile.m in Sources */,
@@ -1193,7 +1217,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "44bcd0ad-911b-4d67-984d-58e8214c0e02";
+				PROVISIONING_PROFILE = "747a7ebe-0bff-4f90-9ee5-5ca7241a7e56";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1215,7 +1239,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "44bcd0ad-911b-4d67-984d-58e8214c0e02";
+				PROVISIONING_PROFILE = "747a7ebe-0bff-4f90-9ee5-5ca7241a7e56";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

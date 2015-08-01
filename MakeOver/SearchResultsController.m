@@ -264,6 +264,8 @@ static NSArray *menuItems;
             
             if (sortingByFavouriteStylist != nil && sortingByFavouriteStylist.length != 0 && [sortingByFavouriteStylist isEqualToString:@"YES"]) {
                 
+//                _nextPageNumber = 1;
+
                 //                FavouriteStylistController *favouriteStylistController = [self.storyboard instantiateViewControllerWithIdentifier:@"SIDFavouriteStylist"];
                 //                [self.navigationController pushViewController:favouriteStylistController animated:YES];
                 isSortingByStylist = YES;
@@ -980,6 +982,8 @@ static NSArray *menuItems;
 
 - (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index{
     
+//    _nextPageNumber = 1;
+    
     switch (index) {
         case 0:
         {
@@ -1082,7 +1086,7 @@ static NSArray *menuItems;
     AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appdelegate selectCityActionWithController:self popverFroomRect:_cityName.frame CompletionHandler:^(NSString *cityName, NSIndexPath *indexPath) {
         [_cityName setTitle:cityName forState:UIControlStateNormal];
-        
+//        _nextPageNumber = 1;
         [self serviceLoad];
     }];
 }

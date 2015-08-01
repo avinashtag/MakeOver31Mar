@@ -27,6 +27,8 @@
 #import "FilterViewController.h"
 #import "StyleList.h"
 
+#import "INTULocationManager.h"
+
 @interface LandingServicesViewController (){
     WYPopoverController *popoverController;
     FilterViewController *filterViewController;
@@ -299,15 +301,8 @@ static NSArray *menuItems;
 -(void)serviceLoad {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
     parameters[@"serviceId"] = @(_serviceId);
-    CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
-    
-    if (self.tabBarController.selectedIndex == 1) {
-        parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
-        parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
-    }
-
-    
     NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
     parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
     
@@ -329,6 +324,86 @@ static NSArray *menuItems;
     }
     else
         loadingMessage = @"Fetching more results...";
+    
+    
+    __block CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
+    
+    if (self.tabBarController.selectedIndex == 1)
+    {
+        INTULocationServicesState authorizationState = [INTULocationManager locationServicesState];
+        
+        if (authorizationState == INTULocationServicesStateDenied
+            || authorizationState == INTULocationServicesStateDisabled
+            || authorizationState == INTULocationServicesStateRestricted)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location services are off"
+                                                                message:@"To see nearby saloons you must turn on the Location Services from Settings."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                      otherButtonTitles: nil];
+            [alertView show];
+            
+            return;
+        }
+        else if (authorizationState == INTULocationServicesStateAvailable
+                 && (location.latitude != 0 || location.longitude != 0))
+        {
+            parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
+            parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
+            
+            [self fetchNearbySaloonsWithParams:parameters spinningMessage:loadingMessage];
+            
+            return;
+        }
+        else
+        {
+            [UtilityClass showSpinnerWithMessage:@"getting your location..." onView:nil];
+
+            INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+            [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyRoom
+                                               timeout:3
+                                  delayUntilAuthorized:YES
+                                                 block:
+             ^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status)
+            {
+
+                [UtilityClass removeHudFromView:nil afterDelay:0];
+                
+                 if (status == INTULocationStatusSuccess) {
+                     
+                     location = [ServiceInvoker sharedInstance].coordinate = currentLocation.coordinate;
+                     // achievedAccuracy is at least the desired accuracy (potentially better)
+                     
+                     parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
+                     parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
+                     
+                     [self fetchNearbySaloonsWithParams:parameters spinningMessage:loadingMessage];
+                     
+                 }
+                 else if (status == INTULocationStatusTimedOut) {
+                     // You may wish to inspect achievedAccuracy here to see if it is acceptable, if you plan to use currentLocation
+                     location = [ServiceInvoker sharedInstance].coordinate = currentLocation.coordinate;
+                     
+                     parameters[@"curr_lat"] =[NSString stringWithFormat:@"%f",location.latitude];//:@"28.089";
+                     parameters[@"curr_Long"] =[NSString stringWithFormat:@"%f",location.longitude];// @"77.986";
+
+                     [self fetchNearbySaloonsWithParams:parameters spinningMessage:loadingMessage];
+
+                 }
+                 else {
+                     // An error occurred
+                     
+                 }
+                 
+             }];
+            
+            return;
+
+        }
+    }
+
+    
+    
     
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:loadingMessage
         completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
@@ -377,6 +452,56 @@ static NSArray *menuItems;
     [AppDelegate resetSortNfilter];
 
 }
+
+- (void)fetchNearbySaloonsWithParams:(NSDictionary*)parameters spinningMessage:(NSString*)loadingMessage {
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:loadingMessage
+                                                      completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+     {
+         if (result == sirSuccess)
+         {
+             NSError *error = nil;
+             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+             
+             if ([responseDict objectForKey:@"object"] != [NSNull null])
+             {
+                 
+                 if ([[responseDict objectForKey:@"object"] count]) {
+                     
+                     [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                     
+                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                     
+                     arrayFilteredResults = [_services mutableCopy];
+                     
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [self.servicesTable reloadData];
+                     });
+                     
+                     _nextPageNumber++;
+                 }
+                 else if (_nextPageNumber == 1)
+                     [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                 else {
+                     isPageLimitReached = YES;
+                 }
+             }
+             else
+                 [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+             
+             isFilterON = NO;
+         }
+         else {
+             //                [self.servicesTable reloadData];
+         }
+         
+     }];
+    
+    //    [self.servicesTable reloadData];
+    
+    [AppDelegate resetSortNfilter];
+}
+
 
 
 -(void)webServiceSortByStylist {
@@ -1158,7 +1283,8 @@ static NSArray *menuItems;
     AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appdelegate selectCityActionWithController:self popverFroomRect:_cityName.frame CompletionHandler:^(NSString *cityName, NSIndexPath *indexPath) {
         [_cityName setTitle:cityName forState:UIControlStateNormal];
-        
+        _nextPageNumber = 1;
+        isPageLimitReached = NO;
         [self serviceLoad];
     }];
 }

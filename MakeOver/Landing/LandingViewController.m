@@ -228,7 +228,7 @@
         // Navigate to Landing Brief VC to display details
         SearchResultsController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
         controller.requestParams = parameters;
-        controller.searcheSaloonServices = arrayServices;
+        controller.searcheSaloonServices = [arrayServices mutableCopy];
         [self.navigationController pushViewController:controller animated:YES];
 
     }
