@@ -45,6 +45,8 @@ MenuServiceType;
     __weak IBOutlet UIButton *backButton;
     
     BOOL isPageLimitReached;
+    
+    UIView *loadMoreView;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *servicesTable;

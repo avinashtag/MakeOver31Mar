@@ -323,7 +323,7 @@ static NSArray *menuItems;
         [self.servicesTable reloadData];
     }
     else
-        loadingMessage = @"Fetching more results...";
+        loadingMessage = nil;//@"Fetching more results...";
     
     
     __block CLLocationCoordinate2D location = [ServiceInvoker sharedInstance].coordinate;
@@ -407,6 +407,9 @@ static NSArray *menuItems;
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:loadingMessage
         completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
         {
+            [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] stopAnimating];
+            loadMoreView.hidden = YES;
+
             if (result == sirSuccess)
             {
                 NSError *error = nil;
@@ -462,6 +465,9 @@ static NSArray *menuItems;
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_SALOONS spinningMessage:loadingMessage
                                                       completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
+         [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] stopAnimating];
+         loadMoreView.hidden = YES;
+
          if (result == sirSuccess)
          {
              NSError *error = nil;
@@ -536,12 +542,14 @@ static NSArray *menuItems;
         [self.servicesTable reloadData];
     }
     else
-        loadingMessage = @"Fetching more results...";
+        loadingMessage = nil;//@"Fetching more results...";
 
 
     [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_FAV_STYLIST spinningMessage:loadingMessage completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
      {
-         
+         [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] stopAnimating];
+         loadMoreView.hidden = YES;
+
          if (result == sirSuccess)
          {
              
@@ -619,7 +627,7 @@ static NSArray *menuItems;
         [self.servicesTable reloadData];
     }
     else
-        loadingMessage = @"Fetching more results...";
+        loadingMessage = nil;//@"Fetching more results...";
 
     switch (serviceType) {
             
@@ -627,6 +635,8 @@ static NSArray *menuItems;
         {
             [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_TUTORIAL spinningMessage:loadingMessage completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
+                 [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] stopAnimating];
+                 loadMoreView.hidden = YES;
                  
                  if (result == sirSuccess) {
                      
@@ -674,11 +684,14 @@ static NSArray *menuItems;
              }];
         }
             break;
+            
         case sOFFERS:
         {
             [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_GET_OFFER spinningMessage:loadingMessage completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
              {
-                 
+                 [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] stopAnimating];
+                 loadMoreView.hidden = YES;
+
                  if (result == sirSuccess) {
                      
                      NSError *error = nil;
@@ -904,47 +917,6 @@ static NSArray *menuItems;
     }
     
     
-    // ******* | PAGINATION LOGIC| ******** //
-    NSInteger rows;
-
-    if (isFilterON)
-        rows = array_searchResultsONFilteredItems.count;
-    else
-        rows = arrayFilteredResults.count;
-    
-    // If last row and more records available
-    if ((rows-1 == indexPath.row) && !isPageLimitReached)
-    {
-        if (!_isFilterSortApplied) {
-            
-            switch (_menuListView.selectedButtonIndex)
-            {
-                case 7:
-                {
-                    _serviceId = sTUTORIAL;
-                    [self webServiceWithType:sTUTORIAL];
-                }
-                    break;
-                    
-                case 8:
-                {
-                    _serviceId = sOFFERS;
-                    [self webServiceWithType:sOFFERS];
-                }
-                    break;
-                    
-                default: {
-                    [self serviceLoad];
-                }
-                    
-                    break;
-            }
-        }
-        else if (isSortingByStylist) {
-            
-            [self webServiceSortByStylist];
-        }
-    }
     
     // ******* | PAGINATION LOGIC| ******** //
 
@@ -1000,6 +972,89 @@ static NSArray *menuItems;
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    return 60.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    loadMoreView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"loadMoreFooter"];
+    
+    if (!loadMoreView) {
+        
+        UIActivityIndicatorView *activityIndic = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width/2)- 96, 11, 22, 22)];
+        activityIndic.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+        activityIndic.tag = 21;
+        [activityIndic startAnimating];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(activityIndic.frame.origin.x +30, 11, self.view.bounds.size.width, 22.0)];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont boldSystemFontOfSize:16];
+        label.text = @"Fetching more saloons...";
+        
+        loadMoreView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [loadMoreView addSubview:label];
+        [loadMoreView addSubview:activityIndic];
+        loadMoreView.backgroundColor = [UIColor clearColor];
+    }
+    
+    loadMoreView.hidden = YES;
+    
+    return loadMoreView;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    NSArray *visibleRowIndexPaths = [_servicesTable indexPathsForVisibleRows];
+    NSIndexPath *iPath = [visibleRowIndexPaths lastObject];
+    
+    NSLog(@"indexpath.row = %li",(long)iPath.row);
+    
+    // ******* | PAGINATION LOGIC| ******** //
+    
+    // If last row and more records available
+    if (!isPageLimitReached && (iPath.row == [_servicesTable numberOfRowsInSection:0] -1))
+    {
+        
+        if (!_isFilterSortApplied) {
+            
+            [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] startAnimating];
+            loadMoreView.hidden = NO;
+
+            switch (_menuListView.selectedButtonIndex)
+            {
+                case 7:
+                {
+                    _serviceId = sTUTORIAL;
+                    [self webServiceWithType:sTUTORIAL];
+                }
+                    break;
+                    
+                case 8:
+                {
+                    _serviceId = sOFFERS;
+                    [self webServiceWithType:sOFFERS];
+                }
+                    break;
+                    
+                default: {
+                    [self serviceLoad];
+                }
+                    
+                    break;
+            }
+        }
+        else if (isSortingByStylist) {
+            
+            [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] startAnimating];
+            loadMoreView.hidden = NO;
+
+            [self webServiceSortByStylist];
+        }
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
