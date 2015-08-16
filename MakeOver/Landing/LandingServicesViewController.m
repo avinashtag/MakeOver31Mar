@@ -37,6 +37,8 @@
     BOOL isSortingByStylist;
 }
 
+@property (nonatomic, strong) NSMutableDictionary *filterParams;
+
 @end
 
 @implementation LandingServicesViewController
@@ -162,7 +164,7 @@ static NSArray *menuItems;
     [[[UIApplication sharedApplication] keyWindow] addSubview:filterViewController.view];
     [[[UIApplication sharedApplication] keyWindow] bringSubviewToFront:filterViewController.view];
     
-    __weak NSArray *weakArray = _services;
+//    __weak NSArray *weakArray = _services;
     
     __weak LandingServicesViewController *weakSelf = self;
     
@@ -173,25 +175,123 @@ static NSArray *menuItems;
         NSString *sortingByFavouriteStylist   = [params objectForKey:@"sortByFavouriteStylist"];
         NSString *sortingByRating   = [params objectForKey:@"sortByRating"];
         NSString *sortingByDistance = [params objectForKey:@"sortByDistance"];
-        NSString *filterBySex       = [params objectForKey:@"filterBySex"];
-//        NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
-        NSString *filterByTimeRange = [params objectForKey:@"filterByRange"];
-        NSString *filterByCreditCardHolders = [params objectForKey:@"filterByCardPresent"];
+
 
         NSString *str_isSorting = [params objectForKey:@"isSorting"];
         NSString *str_isFiltering = [params objectForKey:@"isFiltering"];
+        NSString *str_isFilterChanged = [params objectForKey:@"isFilterChanged"];
 
         if ([str_isSorting isEqualToString:@"YES"] || [str_isFiltering isEqualToString:@"YES"])
             _isFilterSortApplied = YES;
-        else if (![str_isSorting isEqualToString:@"YES"] || ![str_isFiltering isEqualToString:@"YES"])
+        else if (![str_isSorting isEqualToString:@"YES"] || ![str_isFiltering isEqualToString:@"YES"]) {
             _isFilterSortApplied = NO;
+            _isFiltersApplied = NO;
+        }
 
         if (_isFilterSortApplied)
         {
             
+            if ([str_isFiltering isEqualToString:@"YES"]
+                && [str_isFilterChanged isEqualToString:@"YES"])
+            {
+                NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+                
+                parameters[@"serviceId"] = @(_serviceId);
+                NSString *idCity = [ServiceInvoker sharedInstance].city.cityId;
+                parameters[@"cityId"] = idCity!=nil ? idCity : @"1";
+                
+                NSString *string_userId = [[UtilityClass RetrieveDataFromUserDefault:@"userid"] stringValue];
+                parameters[@"userId"] = string_userId!=nil ? string_userId : @"";
+                
+                NSString *filterBySex = [params objectForKey:@"filterBySex"];
+                //NSString *filterByParticularTime = [params objectForKey:@"filterByTime"];
+                NSString *filterByTimeRange = [params objectForKey:@"filterByRange"];
+                NSString *filterByCreditCardHolders = [params objectForKey:@"filterByCardPresent"];
+                
+                NSMutableString *paramFilterBy = [NSMutableString new];
+                if (filterBySex != nil && filterBySex.length != 0) {
+                    [parameters setObject:filterBySex forKey:@"gender"];
+                    [paramFilterBy appendString:@"gender/"];
+                }
+                
+                if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
+                    NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
+                    NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
+                    
+                    if (str_startTime)
+                        [parameters setObject:str_startTime forKey:@"startTime"];
+                    if (str_endTime)
+                        [parameters setObject:str_endTime forKey:@"endTime"];
+                    
+                    [paramFilterBy appendString:@"timeRange/"];
+                }
+                
+                if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && ([filterByCreditCardHolders isEqualToString:@"Y"])) {
+                    
+                    [parameters setObject:filterByCreditCardHolders forKey:@"creditCardAvailable"];
+                    [paramFilterBy appendString:@"creditCard"];
+                }
+                
+                NSString *filterBy = [paramFilterBy stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+                
+                [parameters setObject:filterBy forKey:@"filterBy"];
+
+                self.filterParams = parameters;
+                
+                _nextPageNumber = 1;
+                isPageLimitReached = NO;
+                
+                [self webServiceFilterResults];
+                
+                /*                NSPredicate *resultPredicate_gender;
+                 NSPredicate *resultPredicate_time;
+                 NSPredicate *resultPredicate_card;
+                 
+                 if (filterBySex != nil && filterBySex.length != 0) {
+                 resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
+                 }
+                 
+                 if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
+                 NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
+                 NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
+                 
+                 resultPredicate_time = [NSCompoundPredicate andPredicateWithSubpredicates:@[[NSPredicate predicateWithFormat:@"%@ >= SELF.startTimeDecimal",str_startTime],[NSPredicate predicateWithFormat:@"SELF.endTimeDecimal >= %@",str_endTime]]];;
+                 }
+                 
+                 if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && ([filterByCreditCardHolders isEqualToString:@"Y"])) {
+                 resultPredicate_card = [NSPredicate predicateWithFormat:@"SELF.creditDebitCardSupport LIKE[c] %@",filterByCreditCardHolders];
+                 }
+                 
+                 NSMutableArray *array = [NSMutableArray new];
+                 
+                 if (resultPredicate_gender != nil) {
+                 [array addObject:resultPredicate_gender];
+                 }
+                 if (resultPredicate_time != nil) {
+                 [array addObject:resultPredicate_time];
+                 }
+                 if (resultPredicate_card != nil) {
+                 [array addObject:resultPredicate_card];
+                 }
+                 
+                 NSPredicate *multiplePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
+                 
+                 for (id service in weakArray) {
+                 ServiceList *serviceListObj = (ServiceList*)service;
+                 NSLog(@"gender = %@",serviceListObj.gender);
+                 NSLog(@"startTime = %@ endTime = %@",serviceListObj.startTimeDecimal,serviceListObj.endTimeDecimal);
+                 NSLog(@"card = %@",serviceListObj.creditDebitCardSupport);
+                 NSLog(@"***********************************************");
+                 }
+                 
+                 arrayFilteredResults = [NSMutableArray arrayWithArray:[weakArray filteredArrayUsingPredicate:multiplePredicate]];
+                 */
+            }
+            
             if ([str_isSorting isEqualToString:@"YES"]) {
                 
                 isSortingByStylist = NO;
+                self.isFiltersApplied = NO;
                 
                 if (sortingByRating != nil && sortingByRating.length != 0 && [sortingByRating isEqualToString:@"YES"]) {
                     
@@ -232,58 +332,10 @@ static NSArray *menuItems;
                     isSortingByStylist = YES;
                     [weakSelf webServiceSortByStylist];
                 }
-            }
-            
-            if ([str_isFiltering isEqualToString:@"YES"]){
                 
-                NSPredicate *resultPredicate_gender;
-                NSPredicate *resultPredicate_time;
-                NSPredicate *resultPredicate_card;
-                
-                if (filterBySex != nil && filterBySex.length != 0) {
-                    resultPredicate_gender = [NSPredicate predicateWithFormat:@"SELF.gender LIKE[c] %@",filterBySex];
-                }
-                
-                if (filterByTimeRange != nil && filterByTimeRange.length != 0) {
-                    NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
-                    NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
-                    
-                    resultPredicate_time = [NSCompoundPredicate andPredicateWithSubpredicates:@[[NSPredicate predicateWithFormat:@"%@ >= SELF.startTimeDecimal",str_startTime],[NSPredicate predicateWithFormat:@"SELF.endTimeDecimal >= %@",str_endTime]]];;
-                }
-                
-                if (filterByCreditCardHolders != nil && filterByCreditCardHolders.length != 0 && ([filterByCreditCardHolders isEqualToString:@"Y"])) {
-                    resultPredicate_card = [NSPredicate predicateWithFormat:@"SELF.creditDebitCardSupport LIKE[c] %@",filterByCreditCardHolders];
-                }
-                
-                NSMutableArray *array = [NSMutableArray new];
-                
-                if (resultPredicate_gender != nil) {
-                    [array addObject:resultPredicate_gender];
-                }
-                if (resultPredicate_time != nil) {
-                    [array addObject:resultPredicate_time];
-                }
-                if (resultPredicate_card != nil) {
-                    [array addObject:resultPredicate_card];
-                }
-                
-                NSPredicate *multiplePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
-                
-                for (id service in weakArray) {
-                    ServiceList *serviceListObj = (ServiceList*)service;
-                    NSLog(@"gender = %@",serviceListObj.gender);
-                    NSLog(@"startTime = %@ endTime = %@",serviceListObj.startTimeDecimal,serviceListObj.endTimeDecimal);
-                    NSLog(@"card = %@",serviceListObj.creditDebitCardSupport);
-                    NSLog(@"***********************************************");
-                }
-                
-                arrayFilteredResults = [NSMutableArray arrayWithArray:[weakArray filteredArrayUsingPredicate:multiplePredicate]];
-                
+                array_searchResultsONFilteredItems = [[NSMutableArray alloc]initWithArray:arrayFilteredResults];
                 [weakSelf.servicesTable reloadData];
             }
-            
-            array_searchResultsONFilteredItems = [[NSMutableArray alloc]initWithArray:arrayFilteredResults];
-            [weakSelf.servicesTable reloadData];
 
         }
         else { // load data for selected category
@@ -517,7 +569,78 @@ static NSArray *menuItems;
     [AppDelegate resetSortNfilter];
 }
 
-
+- (void)webServiceFilterResults {
+    
+    self.isFiltersApplied = YES;
+    
+    NSMutableDictionary *parameters = [self.filterParams mutableCopy];
+    
+    NSString *pageNumberString = [NSString stringWithFormat:@"%ld",(long)_nextPageNumber];
+    [parameters setObject:pageNumberString forKey:@"pageNo"];
+    
+    NSString *loadingMessage;
+    if (_nextPageNumber == 1) {
+        loadingMessage = @"Fetching List...";
+        
+        [array_Saloons removeAllObjects];
+        [_services removeAllObjects];
+        [arrayFilteredResults removeAllObjects];
+        
+        [self.servicesTable reloadData];
+    }
+    else
+        loadingMessage = nil;//@"Fetching more results...";
+    
+    [[ServiceInvoker sharedInstance] serviceInvokeWithParameters:parameters requestAPI:API_FILTER spinningMessage:loadingMessage
+                                                      completion:^(ASIHTTPRequest *request, ServiceInvokerRequestResult result)
+     {
+         [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] stopAnimating];
+         loadMoreView.hidden = YES;
+         
+         if (result == sirSuccess)
+         {
+             NSError *error = nil;
+             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableLeaves error:&error];
+             
+             if ([responseDict objectForKey:@"object"] != [NSNull null])
+             {
+                 
+                 NSInteger recordsCount = [[responseDict objectForKey:@"object"] count];
+                 
+                 if (recordsCount < 10)
+                     isPageLimitReached = YES;
+                 
+                 if (recordsCount) {
+                     
+                     [array_Saloons addObjectsFromArray:[responseDict objectForKey:@"object"]];
+                     
+                     [_services addObjectsFromArray:[ServiceList initializeWithResponse:responseDict]];
+                     
+                     arrayFilteredResults = [_services mutableCopy];
+                     
+                     array_searchResultsONFilteredItems = [[NSMutableArray alloc] initWithArray:arrayFilteredResults];
+                     
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [self.servicesTable reloadData];
+                     });
+                     
+                     _nextPageNumber++;
+                 }
+                 else if (_nextPageNumber == 1)
+                     [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+                 else {
+                     isPageLimitReached = YES;
+                 }
+             }
+             else
+                 [UtilityClass showAlertwithTitle:nil message:@"No saloon found for the current location/category"];
+        }
+        else {
+             // [self.servicesTable reloadData];
+        }
+         
+     }];
+}
 
 -(void)webServiceSortByStylist {
     
@@ -1052,6 +1175,12 @@ static NSArray *menuItems;
             loadMoreView.hidden = NO;
 
             [self webServiceSortByStylist];
+        }
+        else if (self.isFiltersApplied) {
+            [(UIActivityIndicatorView*)[loadMoreView viewWithTag:21] startAnimating];
+            loadMoreView.hidden = NO;
+            
+            [self webServiceFilterResults];
         }
     }
 }

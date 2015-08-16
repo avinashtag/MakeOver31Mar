@@ -20,6 +20,7 @@ NSString *const kfilterByCardSupport = @"filterByCardPresent";
 
 NSString *const kisSorting = @"isSorting";
 NSString *const kisFiltering = @"isFiltering";
+NSString *const kisFilterChanged = @"isFilterChanged";
 
 
 @implementation FilterCell
@@ -235,7 +236,10 @@ NSString *const kisFiltering = @"isFiltering";
     }else if (self.btn_female.isSelected == NO && self.btn_male.isSelected == NO){
         string_sex = @"";
     }
+    
     [dict_filterSortingParams setObject:string_sex forKey:kfilterBySex];
+    [dict_filterSortingParams setObject:@"YES" forKey:kisFilterChanged];
+
 }
 
 
@@ -253,6 +257,8 @@ NSString *const kisFiltering = @"isFiltering";
         [btn setSelected:NO];
     }
     
+    [dict_filterSortingParams setObject:@"YES" forKey:kisFilterChanged];
+
 }
 
 
@@ -285,6 +291,7 @@ NSString *const kisFiltering = @"isFiltering";
         [dict_filterSortingParams setObject:@"" forKey:@"filterByRange_upper"];
         
         [dict_filterSortingParams setObject:@"NO" forKey:kisFiltering];
+        [dict_filterSortingParams setObject:@"NO" forKey:kisFilterChanged];
     }
     
     if (self.callback != nil) {
@@ -624,6 +631,8 @@ NSString *const kisFiltering = @"isFiltering";
 
     [dict_filterSortingParams setObject:@"YES" forKey:kisFiltering];
     [dict_filterSortingParams setObject:@"YES" forKey:kfilterByRange];
+    [dict_filterSortingParams setObject:@"NO" forKey:kisFilterChanged];
+
 }
 
 
