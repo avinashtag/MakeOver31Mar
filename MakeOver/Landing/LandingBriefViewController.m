@@ -828,36 +828,43 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (IBAction)checkinButtonDidTap:(id)sender {
+    if ([UtilityClass isNetworkAvailable]) {
 
-    NSDictionary *dictCheckinParams = [NSDictionary dictionaryWithObjectsAndKeys:_service.saloonLat,@"lat",_service.saloonLong,@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",_service.saloonName,@"SearchedText", nil];//[NSDictionary dictionaryWithObjectsAndKeys:@"28.47141",@"lat",@"77.07261",@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",@"MG Road",@"SearchedText", nil];
+        NSDictionary *dictCheckinParams = [NSDictionary dictionaryWithObjectsAndKeys:_service.saloonLat,@"lat",_service.saloonLong,@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",_service.saloonName,@"SearchedText", nil];
 
+        if (FBSession.activeSession.isOpen) {
 
-    if (FBSession.activeSession.isOpen) {
-        // Default to Seattle, this method calls loadData
+            [UtilityClass showSpinnerWithMessage:@"" onView:nil];
+            [self requestForPlacesToCheckinWithParameters:dictCheckinParams];
 
-      [self requestForPlacesToCheckinWithParameters:dictCheckinParams];
+        }else {
 
-    } else {
-        // if the session isn't open, we open it here, which may cause UX to log in the user
-        [FBSession openActiveSessionWithPermissions:nil
-                                       allowLoginUI:YES
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      if (!error) {
+            NSArray *permissionsArray = @[@"publish_actions"];
 
-                                          [self requestForPlacesToCheckinWithParameters:dictCheckinParams];
+            [FBSession openActiveSessionWithPublishPermissions:permissionsArray defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
 
-                                      } else {
-                                          [[[UIAlertView alloc] initWithTitle:@"Error"
-                                                                      message:error.localizedDescription
-                                                                     delegate:nil
-                                                            cancelButtonTitle:@"OK"
-                                                            otherButtonTitles:nil]
-                                           show];
-                                      }
-                                  }];
+                if (!error) {
+
+                    [UtilityClass showSpinnerWithMessage:@"" onView:nil];
+                    [self requestForPlacesToCheckinWithParameters:dictCheckinParams];
+
+                } else {
+                    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                message:error.localizedDescription
+                                               delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil]
+                     show];
+                }
+                
+            }];
+
+          //  [[[UIAlertView alloc] initWithTitle:@"" message:@"Please login to checkin." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+        }
+    }else{
+        [UtilityClass showAlertwithTitle:@"" message:@"Check your internet connection."];
     }
-
-
 }
 
 
@@ -880,14 +887,29 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
     [fbRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 
-        NSDictionary *dataDict = [NSDictionary dictionaryWithDictionary:result];
-        arrayPlaces = [NSArray arrayWithArray:[dataDict objectForKey:@"data"]];
+        if (error) {
 
-        if (arrayPlaces.count != 0) {
-            NSDictionary *dict = [arrayPlaces objectAtIndex:0];
-            NSString *placeId  = [dict objectForKey:@"id"];
+            [UtilityClass removeHudFromView:nil afterDelay:0];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
 
-            [self publishToFacebook:@"Check-In" andPlace:placeId];
+        }else{
+
+            NSDictionary *dataDict = [NSDictionary dictionaryWithDictionary:result];
+            arrayPlaces = [NSArray arrayWithArray:[dataDict objectForKey:@"data"]];
+
+            if (arrayPlaces.count != 0) {
+                NSDictionary *dict = [arrayPlaces objectAtIndex:0];
+                NSString *placeId  = [dict objectForKey:@"id"];
+
+                [self publishToFacebook:@"Check-In" andPlace:placeId];
+
+            }else{
+                [UtilityClass removeHudFromView:nil afterDelay:0];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check-In" message:@"Unable to check-in, no matching place found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+
         }
 
     }];
@@ -902,49 +924,32 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     params = [NSMutableDictionary dictionaryWithObjectsAndKeys: message, @"message",placeId, @"place", nil];
 
     NSLog(@"params %@", params);
+
     FBRequest *postRequest = [FBRequest requestWithGraphPath:@"me/feed" parameters:params HTTPMethod:@"POST"];
     postRequest.session = FBSession.activeSession;
-    if(![postRequest.session.permissions containsObject:@"publish_stream"])
-    {
 
-        [postRequest.session requestNewPublishPermissions:@[@"publish_stream", @"publish_actions"] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
-            [postRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                NSLog(@"error %@", error.description);
+    [postRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 
-                if(error)
-                {
-                    dispatch_async(dispatch_get_main_queue(), ^(void) {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        [alert show];
-                    });
-                }else{
-                    // checkin successfull
-                }
+        if(error)
+        {
+            [UtilityClass removeHudFromView:nil afterDelay:0];
 
-                NSLog(@"%@", result);
-            }];
-        }];
-    }
-    else
-    {
-        [postRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            NSLog(@"error %@", error.description);
-            if(error)
-            {
-
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                });
+            if ([[[[[[error userInfo] objectForKey:@"com.facebook.sdk:ParsedJSONResponseKey"] objectForKey:@"body"] objectForKey:@"error"] objectForKey:@"code"] integerValue] == 506) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You have already checkedIn." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
             }else{
-                // checkin successfull
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
             }
 
-            NSLog(@"%@", result);
-            return ;
-        }];
-    }
-    
+        }else{
+            [UtilityClass removeHudFromView:nil afterDelay:0];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook" message:@"Check-In successfull." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+
+    }];
+
 }
 
 
