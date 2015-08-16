@@ -132,7 +132,6 @@
 		CE3BD2F61B80B97C0013919F /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2F31B80B97C0013919F /* EAIntroPage.m */; };
 		CE3BD2F71B80B97C0013919F /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2F51B80B97C0013919F /* EAIntroView.m */; };
 		CE3BD2FE1B80BC880013919F /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2FB1B80BC880013919F /* EARestrictedScrollView.m */; };
-		CE3BD2FF1B80BC880013919F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE3BD2FC1B80BC880013919F /* LICENSE */; };
 		CE3BD3001B80BC880013919F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2FD1B80BC880013919F /* README.md */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
 		CE95AE051B0A8169003C51EA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95AE041B0A8169003C51EA /* AboutViewController.m */; };
@@ -364,7 +363,6 @@
 		CE3BD2F51B80B97C0013919F /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
 		CE3BD2FA1B80BC880013919F /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
 		CE3BD2FB1B80BC880013919F /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
-		CE3BD2FC1B80BC880013919F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CE3BD2FD1B80BC880013919F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
@@ -921,7 +919,6 @@
 			isa = PBXGroup;
 			children = (
 				CE3BD2F91B80BC880013919F /* EARestrictedScrollView */,
-				CE3BD2FC1B80BC880013919F /* LICENSE */,
 				CE3BD2FD1B80BC880013919F /* README.md */,
 			);
 			path = EARestrictedScrollView;
@@ -1029,7 +1026,6 @@
 				9A4298D91AD2EA6D0089A702 /* slider-default7-trackBackground.png in Resources */,
 				BB952A771ABF5DD7006A8328 /* selected_star@2x.png in Resources */,
 				9A4298DB1AD2EA6D0089A702 /* slider-default7-trackCrossedOver.png in Resources */,
-				CE3BD2FF1B80BC880013919F /* LICENSE in Resources */,
 				9A4298E21AD2EA6D0089A702 /* slider-metal-track@2x.png in Resources */,
 				BB952A741ABF5DD7006A8328 /* not_selected_star.png in Resources */,
 				9A4298D31AD2EA6D0089A702 /* slider-default-trackCrossedOver@2x.png in Resources */,
