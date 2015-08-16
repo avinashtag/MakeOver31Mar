@@ -129,11 +129,15 @@
 		CE2823411AF2C65500ADA969 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2823401AF2C65500ADA969 /* MessageUI.framework */; };
 		CE2BD2481B6C0D47009AE6EC /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BD2441B6C0D47009AE6EC /* INTULocationManager.m */; };
 		CE2BD2491B6C0D47009AE6EC /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BD2461B6C0D47009AE6EC /* INTULocationRequest.m */; };
+		CE3BD2F61B80B97C0013919F /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2F31B80B97C0013919F /* EAIntroPage.m */; };
+		CE3BD2F71B80B97C0013919F /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2F51B80B97C0013919F /* EAIntroView.m */; };
+		CE3BD2FE1B80BC880013919F /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2FB1B80BC880013919F /* EARestrictedScrollView.m */; };
+		CE3BD2FF1B80BC880013919F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE3BD2FC1B80BC880013919F /* LICENSE */; };
+		CE3BD3001B80BC880013919F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD2FD1B80BC880013919F /* README.md */; };
 		CE52A8281AD01BC8001025B7 /* StylistCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */; };
 		CE95AE051B0A8169003C51EA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95AE041B0A8169003C51EA /* AboutViewController.m */; };
 		CE9DA4D81B1B33D60003CD76 /* SearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA4D71B1B33D60003CD76 /* SearchResultsController.m */; };
 		CEA49A7D1ADB1202002BB32F /* MenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA49A7C1ADB1202002BB32F /* MenuCollectionViewCell.m */; };
-		CEB233B31AD145F00046A785 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB233B21AD145F00046A785 /* Info.plist */; };
 		CEBC31021B31F55C002E625A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC31011B31F55C002E625A /* LoginViewController.m */; };
 		CEBC31041B31F56D002E625A /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC31031B31F56D002E625A /* FilterViewController.m */; };
 		CED424481AC805440045CE06 /* favSaloons.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED424471AC805440045CE06 /* favSaloons.plist */; };
@@ -354,6 +358,14 @@
 		CE2BD2451B6C0D47009AE6EC /* INTULocationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequest.h; sourceTree = "<group>"; };
 		CE2BD2461B6C0D47009AE6EC /* INTULocationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationRequest.m; sourceTree = "<group>"; };
 		CE2BD2471B6C0D47009AE6EC /* INTULocationRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequestDefines.h; sourceTree = "<group>"; };
+		CE3BD2F21B80B97C0013919F /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
+		CE3BD2F31B80B97C0013919F /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
+		CE3BD2F41B80B97C0013919F /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
+		CE3BD2F51B80B97C0013919F /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
+		CE3BD2FA1B80BC880013919F /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
+		CE3BD2FB1B80BC880013919F /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
+		CE3BD2FC1B80BC880013919F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		CE3BD2FD1B80BC880013919F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE52A8261AD01BC8001025B7 /* StylistCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylistCollectionView.h; sourceTree = "<group>"; };
 		CE52A8271AD01BC8001025B7 /* StylistCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylistCollectionView.m; sourceTree = "<group>"; };
 		CE95AE031B0A8169003C51EA /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -516,6 +528,8 @@
 		7DADF0301A991F3E00EE0C4C /* Custom UI Controls */ = {
 			isa = PBXGroup;
 			children = (
+				CE3BD2F81B80BC880013919F /* EARestrictedScrollView */,
+				CE3BD2F11B80B97C0013919F /* EAIntroView */,
 				9A0E97D11B1E359700917002 /* IQActionSheetPickerView */,
 				9A4298A91AD2E4500089A702 /* NMRangeSlider */,
 				BB952A641ABF5D73006A8328 /* ASStarRatingView.h */,
@@ -892,6 +906,36 @@
 			path = INTULocationManager;
 			sourceTree = "<group>";
 		};
+		CE3BD2F11B80B97C0013919F /* EAIntroView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3BD2F21B80B97C0013919F /* EAIntroPage.h */,
+				CE3BD2F31B80B97C0013919F /* EAIntroPage.m */,
+				CE3BD2F41B80B97C0013919F /* EAIntroView.h */,
+				CE3BD2F51B80B97C0013919F /* EAIntroView.m */,
+			);
+			path = EAIntroView;
+			sourceTree = "<group>";
+		};
+		CE3BD2F81B80BC880013919F /* EARestrictedScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3BD2F91B80BC880013919F /* EARestrictedScrollView */,
+				CE3BD2FC1B80BC880013919F /* LICENSE */,
+				CE3BD2FD1B80BC880013919F /* README.md */,
+			);
+			path = EARestrictedScrollView;
+			sourceTree = "<group>";
+		};
+		CE3BD2F91B80BC880013919F /* EARestrictedScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3BD2FA1B80BC880013919F /* EARestrictedScrollView.h */,
+				CE3BD2FB1B80BC880013919F /* EARestrictedScrollView.m */,
+			);
+			path = EARestrictedScrollView;
+			sourceTree = "<group>";
+		};
 		CE95AE021B0A8146003C51EA /* More Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -985,6 +1029,7 @@
 				9A4298D91AD2EA6D0089A702 /* slider-default7-trackBackground.png in Resources */,
 				BB952A771ABF5DD7006A8328 /* selected_star@2x.png in Resources */,
 				9A4298DB1AD2EA6D0089A702 /* slider-default7-trackCrossedOver.png in Resources */,
+				CE3BD2FF1B80BC880013919F /* LICENSE in Resources */,
 				9A4298E21AD2EA6D0089A702 /* slider-metal-track@2x.png in Resources */,
 				BB952A741ABF5DD7006A8328 /* not_selected_star.png in Resources */,
 				9A4298D31AD2EA6D0089A702 /* slider-default-trackCrossedOver@2x.png in Resources */,
@@ -1008,7 +1053,6 @@
 				BB952A761ABF5DD7006A8328 /* selected_star.png in Resources */,
 				9A4298DA1AD2EA6D0089A702 /* slider-default7-trackBackground@2x.png in Resources */,
 				BB952A721ABF5DD7006A8328 /* half_selected_star.png in Resources */,
-				CEB233B31AD145F00046A785 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1067,7 @@
 				BBC895521AB8B4D000F1A56E /* NSObject+MOObject.m in Sources */,
 				BBA298E71AB5D7C4004C5595 /* ReviewCell.m in Sources */,
 				BB74FADC1A98BBC700EEF89C /* HTHorizontalSelectionList.m in Sources */,
+				CE3BD2F71B80B97C0013919F /* EAIntroView.m in Sources */,
 				094E39C11AAAE43F00F6D9EE /* MenuViewController.m in Sources */,
 				CE9DA4D81B1B33D60003CD76 /* SearchResultsController.m in Sources */,
 				BBC895551AB8BC5500F1A56E /* ImageViewerViewController.m in Sources */,
@@ -1053,11 +1098,13 @@
 				BB6B41CC1A9268F200CBCC7B /* LandingServicesViewController.m in Sources */,
 				CEBC31021B31F55C002E625A /* LoginViewController.m in Sources */,
 				CE2BD2481B6C0D47009AE6EC /* INTULocationManager.m in Sources */,
+				CE3BD2F61B80B97C0013919F /* EAIntroPage.m in Sources */,
 				BB952A621ABF3DBE006A8328 /* Stylistresp.m in Sources */,
 				BBA2994A1AB60920004C5595 /* RatingViewController.m in Sources */,
 				B936DAD41A9861B70016E9C9 /* CustomSelection.m in Sources */,
 				BB610B2D1AC87BE300DF54E0 /* UIImageView+WebCache.m in Sources */,
 				BB610B2A1AC87BE300DF54E0 /* SDWebImageManager.m in Sources */,
+				CE3BD3001B80BC880013919F /* README.md in Sources */,
 				BB952A661ABF5D73006A8328 /* ASStarRatingView.m in Sources */,
 				7DADF0651A991F3E00EE0C4C /* SWActionSheet.m in Sources */,
 				BB0F21B51AC3481C00F7C9F7 /* NSDate+MakeDate.m in Sources */,
@@ -1084,6 +1131,7 @@
 				7DADF06C1A991F3E00EE0C4C /* ASIFormDataRequest.m in Sources */,
 				0962296E1A9F87A20045CA63 /* MOSuperViewController.m in Sources */,
 				BB610B281AC87BE300DF54E0 /* SDWebImageDecoder.m in Sources */,
+				CE3BD2FE1B80BC880013919F /* EARestrictedScrollView.m in Sources */,
 				7DADF06E1A991F3E00EE0C4C /* ASIInputStream.m in Sources */,
 				BB0F21B21AC3454B00F7C9F7 /* SaloonReview.m in Sources */,
 				BBBC07B11AC5D6D60028FF8A /* PYButton.m in Sources */,
@@ -1217,7 +1265,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "747a7ebe-0bff-4f90-9ee5-5ca7241a7e56";
+				PROVISIONING_PROFILE = "3b15a691-8efc-4701-ba50-31020c352309";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1239,7 +1287,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "747a7ebe-0bff-4f90-9ee5-5ca7241a7e56";
+				PROVISIONING_PROFILE = "3b15a691-8efc-4701-ba50-31020c352309";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -250,75 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "460145249.939628"
+            timestampString = "460188451.403209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
-            landmarkName = "-webServiceSortByStylist"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__56-[LandingServicesViewController webServiceSortByStylist]_block_invoke"
-                  moduleName = "MakeOver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
-                  timestampString = "460072153.635908"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "549"
-                  endingLineNumber = "549"
-                  offsetFromSymbolStart = "780">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__56-[LandingServicesViewController webServiceSortByStylist]_block_invoke_2"
-                  moduleName = "MakeOver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
-                  timestampString = "460072153.636035"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "549"
-                  endingLineNumber = "549"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "460145249.939628"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "605"
-            endingLineNumber = "605"
-            landmarkName = "-webServiceWithType:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "460145249.939628"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "633"
-            endingLineNumber = "633"
+            startingLineNumber = "661"
+            endingLineNumber = "661"
             landmarkName = "-webServiceWithType:"
             landmarkType = "5">
             <Locations>
@@ -330,12 +266,12 @@
                   moduleName = "MakeOver"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
-                  timestampString = "460072153.63738"
+                  timestampString = "461424096.604295"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "629"
-                  endingLineNumber = "629"
-                  offsetFromSymbolStart = "780">
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "965">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -345,12 +281,12 @@
                   moduleName = "MakeOver"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
-                  timestampString = "460072153.637528"
+                  timestampString = "461424096.604549"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "629"
-                  endingLineNumber = "629"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -393,29 +329,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "460145249.939628"
+            filePath = "MakeOver/LoginViewController.m"
+            timestampString = "461422348.794358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
-            landmarkName = "-serviceLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "460145249.939628"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "466"
-            endingLineNumber = "466"
-            landmarkName = "-fetchNearbySaloonsWithParams:spinningMessage:"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-introDidFinish:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

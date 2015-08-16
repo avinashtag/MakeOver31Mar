@@ -46,7 +46,7 @@ AppDelegate* appdelegate(){
 
     [AppDelegate resetSortNfilter];
     [ServiceInvoker sharedInstance];
-    
+
     return YES;
 }
 
