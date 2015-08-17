@@ -18,7 +18,7 @@
 
 #import "ServiceInvoker.h"
 
-@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UIActionSheetDelegate,FBPlacePickerDelegate>{
+@interface LandingBriefViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UIActionSheetDelegate,FBPlacePickerDelegate,UIAlertViewDelegate,UITextFieldDelegate>{
     WYPopoverController *popoverController;
 }
 @property (weak, nonatomic) IBOutlet UILabel *lbl_creditDebitStatus;

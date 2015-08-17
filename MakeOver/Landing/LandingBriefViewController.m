@@ -31,6 +31,8 @@
 @interface LandingBriefViewController (){
     MenuViewController *menuController;
     FilterViewController *filterViewController;
+
+    NSMutableString *str_checkinText;
 }
 @property (nonatomic, strong) NSArray *colorArray;
 @property (nonatomic, strong) NSMutableDictionary *contentOffsetDictionary;
@@ -828,6 +830,74 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 }
 
 - (IBAction)checkinButtonDidTap:(id)sender {
+
+    str_checkinText = [NSMutableString stringWithFormat:@""];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"CheckIn"
+                                                    message:@"Please enter text you like to post"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:@"Cancel",nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = 10;
+    [[alert textFieldAtIndex:0] setPlaceholder:@"enter text"];
+    [[alert textFieldAtIndex:0] setTag:10];
+    [[alert textFieldAtIndex:0] setDelegate:self];
+
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    if (alertView.tag == 10) {
+        if (buttonIndex == 0) {
+           str_checkinText = [NSMutableString stringWithFormat:@"%@", [alertView textFieldAtIndex:0].text];
+           [self checkInHelper];
+        }else{
+
+        }
+    }else{
+        
+    }
+    
+}
+
+#pragma mark - UITextFieldDelegates
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+
+    if (textField.tag == 10)
+        [textField resignFirstResponder];
+
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    return YES;
+
+//    if (textField.tag == 10)
+//    {
+//        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+//
+//        if(newLength > 10){
+//            return NO;
+//        }else{
+//            return  YES;
+//        }
+//
+//    }else{
+//        return YES;
+//    }
+
+}
+
+
+
+//I just checked in at - Toni & Guy
+-(void)checkInHelper{
     if ([UtilityClass isNetworkAvailable]) {
 
         NSDictionary *dictCheckinParams = [NSDictionary dictionaryWithObjectsAndKeys:_service.saloonLat,@"lat",_service.saloonLong,@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",_service.saloonName,@"SearchedText", nil];
@@ -856,11 +926,11 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
                                       otherButtonTitles:nil]
                      show];
                 }
-                
+
             }];
 
-          //  [[[UIAlertView alloc] initWithTitle:@"" message:@"Please login to checkin." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-
+            //  [[[UIAlertView alloc] initWithTitle:@"" message:@"Please login to checkin." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            
         }
     }else{
         [UtilityClass showAlertwithTitle:@"" message:@"Check your internet connection."];
@@ -902,7 +972,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
                 NSDictionary *dict = [arrayPlaces objectAtIndex:0];
                 NSString *placeId  = [dict objectForKey:@"id"];
 
-                [self publishToFacebook:@"Check-In" andPlace:placeId];
+                [self publishToFacebook:str_checkinText andPlace:placeId];
 
             }else{
                 [UtilityClass removeHudFromView:nil afterDelay:0];
