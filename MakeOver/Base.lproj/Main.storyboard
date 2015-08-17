@@ -2471,7 +2471,7 @@ IAo
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJw-Rl-Lgi">
-                                        <rect key="frame" x="222" y="8" width="90" height="28"/>
+                                        <rect key="frame" x="144" y="8" width="168" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="3vF-St-jtH"/>
                                         </constraints>
@@ -2486,7 +2486,7 @@ IAo
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="cJw-Rl-Lgi" firstAttribute="leading" secondItem="MJJ-NZ-t6k" secondAttribute="trailing" constant="135" id="8bx-1W-6iY"/>
+                                    <constraint firstItem="cJw-Rl-Lgi" firstAttribute="leading" secondItem="MJJ-NZ-t6k" secondAttribute="trailing" constant="57" id="8bx-1W-6iY"/>
                                     <constraint firstItem="cJw-Rl-Lgi" firstAttribute="top" secondItem="17p-qS-sMl" secondAttribute="top" constant="8" id="EPw-TL-VGc"/>
                                     <constraint firstItem="MJJ-NZ-t6k" firstAttribute="leading" secondItem="17p-qS-sMl" secondAttribute="leading" constant="29" id="Sfq-5P-ymW"/>
                                     <constraint firstItem="MJJ-NZ-t6k" firstAttribute="top" secondItem="17p-qS-sMl" secondAttribute="top" constant="13" id="TRX-UJ-63a"/>

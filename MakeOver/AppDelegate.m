@@ -23,6 +23,7 @@ NSString *const k_filterByCardSupport = @"filterByCardPresent";
 
 NSString *const k_isSorting = @"isSorting";
 NSString *const k_isFiltering = @"isFiltering";
+NSString *const k_isFilterChanged = @"isFilterChanged";
 
 
 @interface AppDelegate (){
@@ -52,7 +53,7 @@ AppDelegate* appdelegate(){
 
 + (void)resetSortNfilter {
     
-    NSMutableDictionary *dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",k_sortByFavouriteStylist,@"",k_sortByDistance,@"",k_sortByRating,@"",k_filterBySex,@"",k_filterByTime,@"",k_filterByRange,@"NO",k_filterByCardSupport,@"YES",k_isSorting,@"NO",k_isFiltering, nil];
+    NSMutableDictionary *dict_filterSortingParams = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",k_sortByFavouriteStylist,@"",k_sortByDistance,@"",k_sortByRating,@"",k_filterBySex,@"",k_filterByTime,@"",k_filterByRange,@"NO",k_filterByCardSupport,@"YES",k_isSorting,@"NO",k_isFiltering,@"NO",k_isFilterChanged, nil];
     
     [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_lower"];
     [dict_filterSortingParams setObject:@"0" forKey:@"filterByRange_upper"];

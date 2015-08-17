@@ -53,6 +53,8 @@ MenuServiceType;
 @property (assign,nonatomic) NSInteger serviceId;
 @property (assign,nonatomic) NSInteger nextPageNumber;
 @property (nonatomic,assign) __block BOOL isFilterSortApplied;
+@property (nonatomic,assign) __block BOOL isFiltersApplied;
+
 
 
 @property (strong, nonatomic) HTHorizontalSelectionList *menuListView;
