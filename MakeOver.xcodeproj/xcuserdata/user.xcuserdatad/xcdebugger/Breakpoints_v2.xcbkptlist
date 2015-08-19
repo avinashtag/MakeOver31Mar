@@ -93,22 +93,6 @@
             timestampString = "456260314.758263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "827"
-            endingLineNumber = "827"
-            landmarkName = "-showInfo:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/Landing/LandingBriefViewController.m"
-            timestampString = "456260314.758263"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "841"
             endingLineNumber = "841"
             landmarkName = "-checkinButtonDidTap:"
@@ -217,44 +201,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MakeOver/FilterViewController.m"
-            timestampString = "457730686.74792"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
-            landmarkName = "-refreshFilterByUI"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/FilterViewController.m"
-            timestampString = "457226056.026492"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "-doneClicked:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MakeOver/Landing/LandingServicesViewController.m"
-            timestampString = "460188451.403209"
+            timestampString = "461454327.232912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "661"
-            endingLineNumber = "661"
+            startingLineNumber = "784"
+            endingLineNumber = "784"
             landmarkName = "-webServiceWithType:"
             landmarkType = "5">
             <Locations>
@@ -266,11 +218,11 @@
                   moduleName = "MakeOver"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
-                  timestampString = "461424096.604295"
+                  timestampString = "461656180.480961"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "661"
-                  endingLineNumber = "661"
+                  startingLineNumber = "784"
+                  endingLineNumber = "784"
                   offsetFromSymbolStart = "965">
                </Location>
                <Location
@@ -281,30 +233,14 @@
                   moduleName = "MakeOver"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/user/GitHub%20Repo/MakeOver31Mar/MakeOver/Landing/LandingServicesViewController.m"
-                  timestampString = "461424096.604549"
+                  timestampString = "461656180.481088"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "661"
-                  endingLineNumber = "661"
+                  startingLineNumber = "784"
+                  endingLineNumber = "784"
                   offsetFromSymbolStart = "12">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MakeOver/FilterViewController.m"
-            timestampString = "457735486.372121"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
-            landmarkName = "-timePickerHelper:"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -329,13 +265,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MakeOver/LoginViewController.m"
-            timestampString = "461422348.794358"
+            filePath = "MakeOver/Landing/LandingServicesViewController.m"
+            timestampString = "461656222.617891"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "-introDidFinish:"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "-filter:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
