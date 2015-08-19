@@ -218,10 +218,14 @@ static NSArray *menuItems;
                     NSString *str_startTime = [params objectForKey:@"filterByRange_lower"];
                     NSString *str_endTime = [params objectForKey:@"filterByRange_upper"];
                     
-                    if (str_startTime)
+                    if (str_startTime  && ![str_startTime isEqualToString:@"0"])
+                    {
                         [parameters setObject:str_startTime forKey:@"startTime"];
-                    if (str_endTime)
+                    }
+                    if (str_endTime && ![str_endTime isEqualToString:@"0"])
+                    {
                         [parameters setObject:str_endTime forKey:@"endTime"];
+                    }
                     
                     [paramFilterBy appendString:@"timeRange/"];
                 }

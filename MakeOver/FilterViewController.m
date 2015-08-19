@@ -75,15 +75,6 @@ NSString *const kisFilterChanged = @"isFilterChanged";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)doneClicked:(UIButton *)sender {
     
@@ -594,6 +585,9 @@ NSString *const kisFilterChanged = @"isFilterChanged";
         CGRect frame = self.view_datePicker.frame;
         frame.origin.y = self.view.frame.size.height + self.view_datePicker.frame.size.height;
         self.view_datePicker.frame = frame;
+    } completion:^(BOOL finished) {
+        [self timePickerHelper:nil];
+        [dict_filterSortingParams setObject:@"YES" forKey:kisFilterChanged];
     }];
 }
 
@@ -609,7 +603,7 @@ NSString *const kisFilterChanged = @"isFilterChanged";
     if (self.timePicker.tag == 1)
     {
         if (hrs/12) {
-            NSString *realHrs = [NSString stringWithFormat:@"%i",hrs%12];
+            NSString *realHrs = [NSString stringWithFormat:@"%li",hrs%12];
             [self.btn_fromTime setTitle:[formatedDate stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:realHrs] forState:UIControlStateNormal];
         }
         else
@@ -620,7 +614,7 @@ NSString *const kisFilterChanged = @"isFilterChanged";
     else {
         
         if (hrs/12) {
-            NSString *realHrs = [NSString stringWithFormat:@"%i",hrs%12];
+            NSString *realHrs = [NSString stringWithFormat:@"%li",hrs%12];
             [self.btn_toTime setTitle:[formatedDate stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:realHrs] forState:UIControlStateNormal];
         }
         else
