@@ -426,6 +426,8 @@
 
 - (IBAction)userDidLogout:(id)sender {
     
+    [[FBSession activeSession] closeAndClearTokenInformation];
+    
     [UtilityClass SaveDatatoUserDefault:nil :@"userid"];
     
     [UtilityClass SaveDatatoUserDefault:nil :@"usrImgUrl"];
