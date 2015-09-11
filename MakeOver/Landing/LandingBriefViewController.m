@@ -897,7 +897,8 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
 
 
 //I just checked in at - Toni & Guy
--(void)checkInHelper{
+-(void)checkInHelper {
+    
     if ([UtilityClass isNetworkAvailable]) {
 
         NSDictionary *dictCheckinParams = [NSDictionary dictionaryWithObjectsAndKeys:_service.saloonLat,@"lat",_service.saloonLong,@"long",@"1000",@"radiusInMeters",@"10",@"resultLimit",_service.saloonName,@"SearchedText", nil];
