@@ -361,7 +361,7 @@
                                                 }];
 }
 
--(void)loadProfile{
+-(void)loadProfile {
     
     [_username setText:profile.name];
     [_userEmail setText:profile.email];

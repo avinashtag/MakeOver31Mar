@@ -459,9 +459,7 @@
         
         imageViewer.images = images;
         
-        CGRect rect = self.view.frame;
-        rect.size.width = rect.size.width- 40;
-        rect.size.height = rect.size.height -60;
+        CGRect rect = [UIScreen mainScreen].bounds;
         
         [popoverController setPopoverContentSize:rect.size];
         popoverController = [[WYPopoverController alloc] initWithContentViewController:imageViewer];

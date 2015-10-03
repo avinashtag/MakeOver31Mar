@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 typedef void(^DoFavStylist)(id sender);
-@interface CollectionCell : UICollectionViewCell
+@interface CollectionCell : UICollectionViewCell <UIScrollViewDelegate>
 
-
+@property(weak, nonatomic) IBOutlet UIScrollView * scrollView_imageViewContainer;
 @property(weak, nonatomic) IBOutlet UIImageView* imageView;
 @property(weak, nonatomic) IBOutlet UIButton* favourite;
 @property(weak, nonatomic) IBOutlet UILabel* review;

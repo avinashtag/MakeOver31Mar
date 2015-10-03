@@ -135,7 +135,7 @@
         paramsRegister[@"gender"] = @"";
         paramsRegister[@"dob"] = @"";
         paramsRegister[@"mobileNo"] = @"";
-        paramsRegister[@"notificationId"] =@"";
+        paramsRegister[@"notificationId"] = @"";
         paramsRegister[@"deviceType"] = @"iPhone";
         paramsRegister[@"fullName"] = @"";
         paramsRegister[@"createdBy"] = @"email";//email
@@ -286,7 +286,6 @@
 
              if ([[[response objectForKey:@"object"] objectForKey:@"fullName"] isEqualToString:@""])
              {
-
                  RegistrationViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RegistrationViewController"];
                  nextViewController.string_emailId = txtField_email.text;
                  if ([[[response objectForKey:@"object"] objectForKey:@"isVerified"] isEqualToString:@"Y"]) {
@@ -296,26 +295,28 @@
                      //not verified.. otp verification needed.. then enter name
                      nextViewController.isVerified = NO;
                  }
-//                 [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
+                 //                 [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
                  self.string_userid = [[response objectForKey:@"object"] objectForKey:@"userId"];
                  // Submit email flow
-
+                 
                  nextViewController.string_userid = self.string_userid;
                  if (self.isInsideProfileTab)
                      nextViewController.isInsideProfileTab = self.isInsideProfileTab;
                  
                  [self.navigationController pushViewController:nextViewController animated:YES];
              }
-             else // facebook flow
+             else // Registered user/ facebook flow
              {
                  [UtilityClass SaveDatatoUserDefault:[[response objectForKey:@"object"] objectForKey:@"userId"] :@"userid"];
-
+                 
                  NSString *imgUrlString = [[response objectForKey:@"object"] objectForKey:@"usrImgUrl"];
                  
                  if (imgUrlString != [NSNull null]) {
                      
                      [UtilityClass SaveDatatoUserDefault:imgUrlString :@"usrImgUrl"];
                  }
+                 else
+                     [UtilityClass SaveDatatoUserDefault:@"" :@"usrImgUrl"];
                  
                  if (self.isInsideProfileTab) {
                      
@@ -328,16 +329,13 @@
                          if (imgUrlString != [NSNull null]) {
                              [tabBarController.circularButton setImageWithURL:[NSURL URLWithString:imgUrlString] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
                          }
-
+                         
                      }
                  }
                  else
                      [self skipClicked:nil];
-             
              }
-
          }
-
     }];
 
 }

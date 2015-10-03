@@ -78,6 +78,9 @@
         ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:url];
         request.tag = tag;
         
+        request.shouldAttemptPersistentConnection = NO;
+
+        
         if (postParams != nil) {
             for (NSString *key in postParams) {
                 [request addPostValue:[postParams objectForKey:key] forKey:key];
@@ -204,6 +207,9 @@
     NSURL *url = [NSURL URLWithString:[API_BASE_STRING stringByAppendingString:stringURL]];
     NSLog(@"<URL>:\n\n<<<<<<%@\n<<<<<ARGS:%@\n\n",url,postParams);
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:url];
+
+    request.shouldAttemptPersistentConnection = NO;
+
     if (postParams != nil) {
         [postParams enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
             [request addPostValue:value forKey:key];

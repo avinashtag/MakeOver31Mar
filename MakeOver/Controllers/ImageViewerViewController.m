@@ -20,6 +20,7 @@
     [super viewDidLoad];
 
     if (self.isTextDescription) {
+        
         _imageCollection.hidden = YES;
         self.textVw_description.hidden = NO;
         self.textVw_description.text = self.text_description;
@@ -79,6 +80,8 @@
         self.btnCancel_textViewer.hidden = YES;
         cell.btnCancel_imageSviwer.hidden = NO;
     }
+    
+    cell.scrollView_imageViewContainer.zoomScale = 1.0;
 
     [cell.btnCancel_imageSviwer addTarget:self action:@selector(action_cancelImageViewer) forControlEvents:UIControlEventTouchUpInside];
     [self.btnCancel_textViewer addTarget:self action:@selector(action_cancelTextViewer) forControlEvents:UIControlEventTouchUpInside];

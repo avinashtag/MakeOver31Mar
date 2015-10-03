@@ -19,4 +19,10 @@
 -(void)doFavStylistCompletion:(DoFavStylist)block{
     _doFavStylist = block;
 }
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
+    return self.imageView;
+}
+
 @end

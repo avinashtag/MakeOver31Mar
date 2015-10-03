@@ -2477,8 +2477,8 @@ static WYPopoverTheme *defaultTheme_ = nil;
         
         containerFrame = CGRectZero;
         containerFrame.size = containerViewSize;
-        containerFrame.size.width = MIN(maxX - minX, containerFrame.size.width);
-        containerFrame.size.height = MIN(maxY - minY, containerFrame.size.height);
+//        containerFrame.size.width = MIN(maxX - minX, containerFrame.size.width);
+//        containerFrame.size.height = MIN(maxY - minY, containerFrame.size.height);
         backgroundView.frame = CGRectIntegral(containerFrame);
         
         backgroundView.center = CGPointMake(minX + (maxX - minX) / 2, minY + (maxY - minY) / 2);
