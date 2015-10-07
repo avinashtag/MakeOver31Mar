@@ -99,7 +99,7 @@
 //        }
 
         paramsRegister[@"dob"] = @"";//dictionary[@"birthday"];
-        paramsRegister[@"mobileNo"] = @"email";
+        paramsRegister[@"mobileNo"] = @"";
         paramsRegister[@"notificationId"] = @"";
         paramsRegister[@"deviceType"] = @"iPhone";
         paramsRegister[@"fullName"] = txtField_name.text;

@@ -365,7 +365,7 @@
     
     [_username setText:profile.name];
     [_userEmail setText:profile.email];
-    [_mobile setText:profile.mobileNo];
+//    [_mobile setText:profile.mobileNo];
     [_profilePic setImageWithURL:[NSURL URLWithString:profile.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_foot_profilepic.png"]];
     [_tableView reloadData];
 }
