@@ -874,6 +874,10 @@ static NSArray *menuItems;
         
     }];
     
+    review.callbackCancel = ^(void) {
+        [popoverController dismissPopoverAnimated:YES];
+    };
+    
 }
 
 -(void)showSaloonInfo {

@@ -257,6 +257,10 @@
         
     }];
     
+    review.callbackCancel = ^(void) {
+        [popoverController dismissPopoverAnimated:YES];
+    };
+
 }
 
 

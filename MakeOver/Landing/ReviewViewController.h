@@ -16,5 +16,11 @@
 @property (strong, nonatomic) IBOutlet UITableView *reviewsTable;
 @property (strong, nonatomic)__block NSMutableArray* reviews;
 @property (strong, nonatomic) ServiceList *service;
+@property (copy) void(^callbackCancel)(void);
+
+
+- (IBAction)cancelReviewViewer:(id)sender;
+
+
 
 @end

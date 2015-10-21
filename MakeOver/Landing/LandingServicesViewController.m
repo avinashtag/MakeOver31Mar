@@ -1350,6 +1350,11 @@ static NSArray *menuItems;
     [popoverController presentPopoverAsDialogAnimated:YES completion:^{
         
     }];
+    
+    review.callbackCancel = ^(void) {
+        [popoverController dismissPopoverAnimated:YES];
+    };
+
 
 }
 

@@ -636,6 +636,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
         
     }];
     
+    review.callbackCancel = ^(void) {
+        [popoverController dismissPopoverAnimated:YES];
+    };
 }
 
 

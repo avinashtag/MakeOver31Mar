@@ -147,4 +147,10 @@
     
 }
 
+- (IBAction)cancelReviewViewer:(id)sender {
+    
+    self.callbackCancel();
+}
+
+
 @end
